@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.negotiation-course/case.schema.json",
+  "title": "Negotiation Training Case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "public_information",
+    "student_role",
+    "opponent_private_state",
+    "pedagogical_truth",
+    "dynamic_state",
+    "success_failure"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "closed",
+        "semi_open",
+        "open"
+      ]
+    },
+    "public_information": {
+      "type": "object",
+      "required": [
+        "brief"
+      ],
+      "properties": {
+        "brief": {
+          "type": "string"
+        },
+        "known_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "negotiation_topic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "context_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "student_role": {
+      "type": "object",
+      "required": [
+        "formal_role",
+        "goal",
+        "known_information",
+        "resources"
+      ],
+      "properties": {
+        "formal_role": {
+          "type": "string"
+        },
+        "possible_informal_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "goal": {
+          "type": "string"
+        },
+        "conflict_goal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "known_information": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "baseline": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "point_L": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "opponent_private_state": {
+      "type": "object",
+      "required": [
+        "formal_role",
+        "goal",
+        "interests",
+        "emotions",
+        "values",
+        "boundaries",
+        "resources",
+        "hidden_information",
+        "allowed_strategies",
+        "concession_conditions",
+        "escalation_conditions"
+      ],
+      "properties": {
+        "formal_role": {
+          "type": "string"
+        },
+        "informal_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "goal": {
+          "type": "string"
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fears": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hidden_information": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowed_strategies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "concession_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "escalation_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pedagogical_truth": {
+      "type": "object",
+      "required": [
+        "labels",
+        "expected_skill_focus"
+      ],
+      "properties": {
+        "labels": {
+          "$ref": "labels.schema.json"
+        },
+        "expected_skill_focus": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptable_techniques": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_ambiguities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dynamic_state": {
+      "type": "object",
+      "required": [
+        "turn",
+        "active_state",
+        "conflict_influence",
+        "revealed_information",
+        "opponent_emotions",
+        "trust_or_contact_notes",
+        "used_techniques"
+      ],
+      "properties": {
+        "turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_state": {
+          "type": "string"
+        },
+        "conflict_influence": {
+          "enum": [
+            "none",
+            "low",
+            "material",
+            "dominant"
+          ]
+        },
+        "revealed_information": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "opponent_emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trust_or_contact_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "used_techniques": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending_conflict_goal": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "success_failure": {
+      "type": "object",
+      "required": [
+        "skill_criteria"
+      ],
+      "properties": {
+        "skill_criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "skill",
+              "success_signals",
+              "failure_signals"
+            ],
+            "properties": {
+              "skill": {
+                "type": "string"
+              },
+              "success_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "failure_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "risk_signals": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "session_stop_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

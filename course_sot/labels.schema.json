@@ -1,0 +1,480 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.negotiation-course/labels.schema.json",
+  "title": "Negotiation Course Dataset Labels",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "conflict_present": {
+      "type": "boolean"
+    },
+    "conflict_type": {
+      "enum": [
+        "personal",
+        "public",
+        "mixed",
+        null
+      ]
+    },
+    "conflict_stage": {
+      "enum": [
+        "conflict.stage.emotion_processing",
+        "conflict.stage.boundary_statement",
+        "conflict.stage.boundary_defense",
+        "conflict.stage.separation_escalation",
+        null
+      ]
+    },
+    "negotiation_topic": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "conflict_goal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "formal_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "informal_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decoding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "emotions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manipulation_present": {
+      "type": "boolean"
+    },
+    "manipulation_strategy": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "direction.aggressor",
+          "direction.victim",
+          "accusation.aggressor",
+          "accusation.victim"
+        ]
+      }
+    },
+    "manipulation_mechanism": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_emotion": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "causal_link": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "premise",
+          "conclusion"
+        ],
+        "properties": {
+          "premise": {
+            "type": "string"
+          },
+          "operator": {
+            "enum": [
+              "and",
+              "or",
+              "therefore",
+              "implies",
+              "other"
+            ]
+          },
+          "conclusion": {
+            "type": "string"
+          },
+          "course_judgement": {
+            "enum": [
+              "supported",
+              "questionable",
+              "broken",
+              "unknown"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "technique_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "technique_quality": {
+      "enum": [
+        "correct",
+        "partially_correct",
+        "incorrect",
+        "harmful_risky",
+        null
+      ]
+    },
+    "user_error": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "negotiation_layers": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "process",
+          "legal",
+          "ethical",
+          "financial",
+          "emotional"
+        ]
+      }
+    },
+    "causal_problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "critical_problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "own_goal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "opponent_goal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "baseline": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "self": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "opponent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "point_L": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "harm_to_self": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "harm_to_opponent": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defenses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "solution": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "cost": {
+            "type": [
+              "string",
+              "number",
+              "null"
+            ]
+          },
+          "timing": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "desired_result": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "availability"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "availability": {
+            "enum": [
+              "available_now",
+              "easy_to_get",
+              "expensive_to_get",
+              "only_opponent_has"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "key_point": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "argument": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "thesis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "value_component": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "managerial_action": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "question",
+            "right_to_refuse_emotion_boundary",
+            "request",
+            "proposal",
+            "demand",
+            "consequence_threat",
+            "none"
+          ]
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decomposition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "meaning"
+        ],
+        "properties": {
+          "meaning": {
+            "type": "string"
+          },
+          "operator_to_next": {
+            "enum": [
+              "and",
+              "or",
+              "therefore",
+              "none"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "information_gap": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bridge": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "reflected_opponent_point": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "target_question_or_position": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "substitution_of_solution": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "substitution_of_result": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "annotation_confidence": {
+      "enum": [
+        "explicit",
+        "inferred",
+        "ambiguous"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "page": {
+            "type": [
+              "integer",
+              "string",
+              "null"
+            ]
+          },
+          "context": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "conflict_present",
+    "manipulation_present",
+    "formal_roles",
+    "informal_roles",
+    "emotions",
+    "values",
+    "boundaries",
+    "technique_used",
+    "user_error",
+    "negotiation_layers",
+    "causal_problems",
+    "critical_problems",
+    "resources",
+    "decomposition",
+    "information_gap",
+    "annotation_confidence",
+    "source_refs"
+  ]
+}
