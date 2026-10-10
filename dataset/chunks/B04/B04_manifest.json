@@ -1,0 +1,209 @@
+{
+  "batch": "B04",
+  "schema_version": "1.0",
+  "schema_git_blob_sha": "0d867cdc5b92a274f55983a466d1fb5c803e7f5d",
+  "revision": "r2",
+  "status": "ACCEPTED",
+  "case_count": 25,
+  "confirmed_pass_count": 25,
+  "pending_review_count": 0,
+  "pending_recheck_count": 0,
+  "target_file": "B04_ACCEPTED.jsonl",
+  "target_file_sha256": "950f7eda73c0516c64e3bbd68377d2322e1ee3b17f92f65eb1f9a7b143394f67",
+  "predecessors": [
+    {
+      "batch": "B01",
+      "status": "ACCEPTED",
+      "sha256": "74bf28222b610018f5343a91266d7b1082d9eef397a58e5e391be3604c692c9d"
+    },
+    {
+      "batch": "B02",
+      "status": "ACCEPTED",
+      "sha256": "f308306de9b67b5d20b27b2d199a6abc1cc1449bcab0ddce50ffdd606999a587"
+    },
+    {
+      "batch": "B03",
+      "status": "ACCEPTED",
+      "sha256": "af9c6b4fbbbeaa0ba040b071ecf623b7225ede428de086fb6a74176e29474170"
+    }
+  ],
+  "cases": [
+    {
+      "id": "C076",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8d31235b942a344fa0d185dada338b5f3df30b8b2d07b60917fca10716326a3f"
+    },
+    {
+      "id": "C077",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "562b879947aa59026a183912987edfb5e699b8213a08764071ac5f759218a03d"
+    },
+    {
+      "id": "C078",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "2c68a7d57878b709ff35d3c92c3e2927818951f10e02cf8d7796c07b7bb73876"
+    },
+    {
+      "id": "C079",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "9b48526ff20f6e40271d8e9d0ebe3e8069ada16b7eecce877e2694991c144fc2"
+    },
+    {
+      "id": "C080",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "e27431ff27138cd665d1f1fa5d25155f8a13806c16976abbd288fabde54d23ac"
+    },
+    {
+      "id": "C081",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "ad36e2c250f4cddce213473e1f74632b207cbf0dee88b18dfc84857acba60eb8"
+    },
+    {
+      "id": "C082",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "a6dc0271ef087778ad2da64f875b3e2a522bd387c94d2e5b247f256af78e3691"
+    },
+    {
+      "id": "C083",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "0b0c7fe673893367ed05e92d3cb378afb042394c65bbc5970e8d45b382297893"
+    },
+    {
+      "id": "C084",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "a4f52ab8cc4549524041837840ccc47b88d1bc67fa6652a690ee7a36f5010bfb"
+    },
+    {
+      "id": "C085",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8181057a1e0e8dfc2c4856eb854b3263839a2afbb242cd080595deadc47088a2"
+    },
+    {
+      "id": "C086",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "be9abd6032c719d6e1f5bbc724f3cb7753694bbe501c57884cdb8d2c7e5a5617"
+    },
+    {
+      "id": "C087",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "defcdf0d0510f338817a96ef62dcac5e9b4ebe81d2e73a2d6b648ab8d8e3856b"
+    },
+    {
+      "id": "C088",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "bcbcdb78fdd2e5a53bb0a5b0455c299b742c4da42e284c721339cceb36b83b81"
+    },
+    {
+      "id": "C089",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "0a9950d2bd49ee7ce701583be14732a77024a4877b3684d52980595f596cbd54"
+    },
+    {
+      "id": "C090",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "dda01bf840b001051bc44c2a8cf6f78f572fa648eb750e619af89b3bdf19245a"
+    },
+    {
+      "id": "C091",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "90d402da37c7424982a4fe4fff2b9c02b8721c074b552b11b0f74ff03286fe63"
+    },
+    {
+      "id": "C092",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "7bde2e733550c555c5ac3935e6c5427e20cff872116b0df2c611a593a307445b"
+    },
+    {
+      "id": "C093",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8cd91e5c3ac533abae4984e98c07e43bf55755c9e3e4db5d7dd1e2aabc7b44c6"
+    },
+    {
+      "id": "C094",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c597e4720cd95a9b83aa619c86a0d33a4e56ac729227ef336675ad9f585e6572"
+    },
+    {
+      "id": "C095",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8007c2cd3b49aa47e2a9fd05b539ebda8d1e42e39d1ed5c67e36c3c462ae1565"
+    },
+    {
+      "id": "C096",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "1b642cf60f3273f86f7185095d7dc69c9009f39ea96a3e04598f3f0de241709b"
+    },
+    {
+      "id": "C097",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c74734ddfd3acdd631d4dab6402c7d334cce87f0634745e57a4a007068fb15c6"
+    },
+    {
+      "id": "C098",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "bb746575af36e574fc82e8f83070283c7db8b342b2ee84778df872d29fef163b"
+    },
+    {
+      "id": "C099",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "d63843c0c0b1d86fd21d26ef86e2f8421478ffc68fce2c9cccf8ddaa02d6a86c"
+    },
+    {
+      "id": "C100",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "1c36ca02f396d6fedee2f1758f7d4ba3763a68542855b21a14d52ed6aa97a5b4"
+    }
+  ],
+  "revisions_file": "B04_revisions_r2.jsonl",
+  "revisions_file_sha256": "738a03f33d4f3c60d7c882a3d1bffc40cb9848454142c71308ea4bea31b4b432"
+}
