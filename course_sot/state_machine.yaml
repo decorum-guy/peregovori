@@ -1,0 +1,267 @@
+spec_version: 1.0.0
+states:
+- id: pre_conflict
+  russian_name: до конфликта/профилактика
+- id: conflict.stage.emotion_processing
+  russian_name: обработка эмоций
+- id: conflict.stage.boundary_statement
+  russian_name: показывание границ
+- id: conflict.stage.boundary_defense
+  russian_name: защита границ
+- id: conflict.stage.separation_escalation
+  russian_name: сепарация/эскалация
+- id: negotiation.topic
+  russian_name: тема на переговоры
+- id: pause
+  russian_name: пауза
+- id: conflict_goal_closed
+  russian_name: цель на конфликт закрыта
+- id: separated
+  russian_name: сепарация выполнена
+- id: escalated
+  russian_name: эскалация выполнена
+global_rules:
+- Выбирать минимально достаточный этап.
+- Не вести рациональные переговоры, пока конфликт влияет.
+- После временного перехода к теме переговоров вернуться к незакрытой цели на конфликт.
+transitions:
+- id: t_prevent_to_emotion
+  from: pre_conflict
+  to: conflict.stage.emotion_processing
+  trigger: Появилось подозрение на эмоцию.
+  conditions:
+  - Конфликт/эмоция уже проявились; профилактики недостаточно.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 22
+    context: Вход первого этапа.
+    confidence: explicit
+  confidence: explicit
+- id: t_emotion_processed_to_negotiation
+  from: conflict.stage.emotion_processing
+  to: negotiation.topic
+  trigger: Эмоции признаны/обработаны и больше не влияют на разговор.
+  conditions:
+  - Рациональная тема существует.
+  source_refs:
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: После признания эмоций — решить переговорный вопрос/взять паузу.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 93
+    context: Переход из первого этапа к переговорам допускается, если конфликт не влияет.
+    confidence: explicit
+  confidence: explicit
+- id: t_emotion_processed_to_pause
+  from: conflict.stage.emotion_processing
+  to: pause
+  trigger: Эмоции признаны, но продолжать рационально сейчас нецелесообразно.
+  conditions: []
+  source_refs:
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: Решить переговорный вопрос/взять паузу.
+    confidence: explicit
+  confidence: explicit
+- id: t_emotion_denied_to_boundary
+  from: conflict.stage.emotion_processing
+  to: conflict.stage.boundary_statement
+  trigger: Эмоции не признаются/не обработаны, либо проявляется нарушение границы.
+  conditions:
+  - Нарушение выглядит ненамеренным.
+  source_refs:
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: 'Выход первого этапа: отказ признать эмоции → показать границу.'
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 53
+    context: 'Вход второго этапа: ненамеренное нарушение границы.'
+    confidence: explicit
+  confidence: explicit
+- id: t_emotion_used_to_defense
+  from: conflict.stage.emotion_processing
+  to: conflict.stage.boundary_defense
+  trigger: Эмоция используется как скрытое давление/манипуляция.
+  conditions:
+  - Нарушение границы/манипуляция воспринимается как намеренная.
+  source_refs:
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: 'Выход первого этапа: эмоции используют → манипуляция/рациональная выгода.'
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 73
+    context: Вход третьего этапа — намеренное нарушение.
+    confidence: explicit
+  confidence: explicit
+- id: t_boundary_recognized_to_closed
+  from: conflict.stage.boundary_statement
+  to: conflict_goal_closed
+  trigger: Право на границу признано и сторона согласилась соблюдать.
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 81
+    context: Если граница признана, конфликт завершается.
+    confidence: explicit
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: Выход второго этапа.
+    confidence: explicit
+  confidence: explicit
+- id: t_boundary_intentional_to_defense
+  from: conflict.stage.boundary_statement
+  to: conflict.stage.boundary_defense
+  trigger: Право не признаётся или граница нарушается намеренно/системно.
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 81
+    context: Если нарушение становится намеренным — следующий этап.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 73
+    context: Вход третьего этапа.
+    confidence: explicit
+  confidence: explicit
+- id: t_boundary_to_negotiation_ambiguous
+  from: conflict.stage.boundary_statement
+  to: negotiation.topic
+  trigger: На сводной карте после признания права/границы указан возможный выход «Переговоры».
+  conditions:
+  - 'Спорный переход: другая лекция явно говорит, что к переговорам переходят с 1-го или 3-го этапа, не называя 2-й.'
+  source_refs:
+  - file: Конфликты(1)(1).pdf
+    page: 1
+    context: Сводная карта второго этапа содержит «Переговоры» среди выходов.
+    confidence: ambiguous
+  - file: ведение-переговоров-1409-ч2-лекция.pdf
+    page: 1
+    context: 'Саммари лекции: переход к переговорам возможен с первого или третьего, но не напрямую со второго.'
+    confidence: ambiguous
+  confidence: ambiguous
+- id: t_defense_positive_to_boundary
+  from: conflict.stage.boundary_defense
+  to: conflict.stage.boundary_statement
+  trigger: 'Есть позитивное изменение: давление ослабло, молчание, извинение, отказ от прежнего смысла.'
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 89
+    context: Позитивное изменение → этап 2.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 90
+    context: Примеры позитивного изменения.
+    confidence: explicit
+  confidence: explicit
+- id: t_defense_to_negotiation
+  from: conflict.stage.boundary_defense
+  to: negotiation.topic
+  trigger: После отработки третьего этапа рациональная переговорная проблема требует решения и конфликт перестал давить на
+    разговор.
+  conditions:
+  - Нужно затем вернуться к цели на конфликт и закрыть её.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 92
+    context: Третий этап можно связать с переходом к рациональной причине.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 93
+    context: Можно перейти к теме с третьего этапа; потом вернуться к цели конфликта.
+    confidence: explicit
+  confidence: explicit
+- id: t_defense_exhausted_to_stage4
+  from: conflict.stage.boundary_defense
+  to: conflict.stage.separation_escalation
+  trigger: Попытки исчерпаны / «надоело» / позитивного изменения нет.
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 89
+    context: «Надоело» → этап 4.
+    confidence: explicit
+  confidence: explicit
+- id: t_stage4_to_separated
+  from: conflict.stage.separation_escalation
+  to: separated
+  trigger: Принято решение прекратить/дистанцировать взаимодействие.
+  conditions:
+  - Сепарация допустима в контексте; по возможности граница/последствия были обозначены заранее.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 95
+    context: Правила сепарации.
+    confidence: explicit
+  confidence: explicit
+- id: t_stage4_to_escalated
+  from: conflict.stage.separation_escalation
+  to: escalated
+  trigger: Проблема передана человеку с полномочиями.
+  conditions:
+  - Есть рабочая/организационная вертикаль или иной полномочный адресат.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 96
+    context: Эскалация к полномочному адресату.
+    confidence: explicit
+  confidence: explicit
+- id: t_negotiation_conflict_reappears
+  from: negotiation.topic
+  to: conflict.stage.emotion_processing
+  trigger: Во время переговоров снова возникает эмоция/конфликт, который начинает влиять на тему.
+  conditions:
+  - Этап выбирается заново по минимальному подходящему входу; здесь указан типовой возврат к этапу 1 при эмоции.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 17
+    context: Конфликт нельзя игнорировать во время переговоров.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 22
+    context: При подозрении на эмоцию вход в этап 1.
+    confidence: explicit
+  confidence: explicit
+- id: t_negotiation_conflict_boundary
+  from: negotiation.topic
+  to: conflict.stage.boundary_statement
+  trigger: Во время переговоров возникает ненамеренное нарушение границы без доминирующей необработанной эмоции.
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 1-2(4).pdf
+    page: 53
+    context: Вход второго этапа.
+    confidence: explicit
+  confidence: explicit
+- id: t_negotiation_conflict_intentional
+  from: negotiation.topic
+  to: conflict.stage.boundary_defense
+  trigger: Во время переговоров возникает намеренная манипуляция/нарушение границы.
+  conditions: []
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 73
+    context: Вход третьего этапа.
+    confidence: explicit
+  confidence: explicit
+- id: t_negotiation_return_conflict_goal
+  from: negotiation.topic
+  to: conflict_goal_closed
+  trigger: Рациональная тема решена/поставлена на паузу и нужно закрыть ранее отделённую цель на конфликт.
+  conditions:
+  - Конфликтная цель ещё не была закрыта.
+  source_refs:
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 92
+    context: После темы переговоров вернуться к цели на конфликт.
+    confidence: explicit
+  - file: НИУ ВШЭ'26_Лекция 3-4.pdf
+    page: 93
+    context: То же правило.
+    confidence: explicit
+  confidence: explicit
+ambiguities:
+- t_boundary_to_negotiation_ambiguous — расхождение источников; не считать подтверждённым переходом без решения преподавателя.

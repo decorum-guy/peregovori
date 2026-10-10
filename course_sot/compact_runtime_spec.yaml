@@ -1,0 +1,320 @@
+spec_version: 1.0.0-runtime
+hard_rules:
+- Использовать только методологию этого курса.
+- 'Конфликт != просто разногласие: конфликт = сдвиг неформальной роли и/или нарушение границы.'
+- Тема на переговоры != цель на конфликт.
+- Не вести рациональные переговоры, пока конфликт materially влияет.
+- Решать конфликт на минимально достаточном этапе.
+- После временного перехода к теме переговоров вернуться к незакрытой цели на конфликт.
+- Декодирование != декомпозиция.
+- Причинная проблема != критичная.
+- Решение != результат; позиция != решение.
+- Социальная роль != социальный статус.
+conflict:
+  types:
+    personal: 2 участника
+    public: '>2, без личных отношений, 1 публичная фаза'
+    mixed: 'публичный + личные отношения, 2 фазы: публичная, затем личная'
+  goal_templates:
+    personal: Я хочу, чтобы в наших отношениях было/не было X
+    public: Я хочу, чтобы группа считала/не считала меня X
+  stages:
+    emotion_processing:
+      entry: подозрение на эмоцию
+      tools:
+      - emotion.union
+      - emotion.union_inference
+      - emotion.show_importance
+      - emotion.label
+      risk_reduction:
+      - emotion.acceptable_vocabulary
+      - emotion.i_feeling
+      - emotion.start_from_self
+      - emotion.direct_to_self
+      - emotion.fast_rational_transition
+    boundary_statement:
+      entry: граница нарушена ненарочно
+      core: факт + потребность/граница + опционально я-эмоция/я-ощущение + 1 управленческое воздействие в конце
+    boundary_defense:
+      entry: граница нарушена намеренно
+      tools:
+      - conflict.return_decoding
+      - conflict.value_divergence
+      - boundary.show_consequences
+      - conflict.expose_manipulator_goal
+      - conflict.show_manipulation
+      - conflict.lower_to_stage2
+    separation_escalation:
+      entry: первые 3 этапа исчерпаны
+      tools:
+      - conflict.separation
+      - conflict.escalation
+  transitions:
+  - id: t_prevent_to_emotion
+    from: pre_conflict
+    to: conflict.stage.emotion_processing
+    trigger: Появилось подозрение на эмоцию.
+    conditions:
+    - Конфликт/эмоция уже проявились; профилактики недостаточно.
+    confidence: explicit
+  - id: t_emotion_processed_to_negotiation
+    from: conflict.stage.emotion_processing
+    to: negotiation.topic
+    trigger: Эмоции признаны/обработаны и больше не влияют на разговор.
+    conditions:
+    - Рациональная тема существует.
+    confidence: explicit
+  - id: t_emotion_processed_to_pause
+    from: conflict.stage.emotion_processing
+    to: pause
+    trigger: Эмоции признаны, но продолжать рационально сейчас нецелесообразно.
+    conditions: []
+    confidence: explicit
+  - id: t_emotion_denied_to_boundary
+    from: conflict.stage.emotion_processing
+    to: conflict.stage.boundary_statement
+    trigger: Эмоции не признаются/не обработаны, либо проявляется нарушение границы.
+    conditions:
+    - Нарушение выглядит ненамеренным.
+    confidence: explicit
+  - id: t_emotion_used_to_defense
+    from: conflict.stage.emotion_processing
+    to: conflict.stage.boundary_defense
+    trigger: Эмоция используется как скрытое давление/манипуляция.
+    conditions:
+    - Нарушение границы/манипуляция воспринимается как намеренная.
+    confidence: explicit
+  - id: t_boundary_recognized_to_closed
+    from: conflict.stage.boundary_statement
+    to: conflict_goal_closed
+    trigger: Право на границу признано и сторона согласилась соблюдать.
+    conditions: []
+    confidence: explicit
+  - id: t_boundary_intentional_to_defense
+    from: conflict.stage.boundary_statement
+    to: conflict.stage.boundary_defense
+    trigger: Право не признаётся или граница нарушается намеренно/системно.
+    conditions: []
+    confidence: explicit
+  - id: t_boundary_to_negotiation_ambiguous
+    from: conflict.stage.boundary_statement
+    to: negotiation.topic
+    trigger: На сводной карте после признания права/границы указан возможный выход «Переговоры».
+    conditions:
+    - 'Спорный переход: другая лекция явно говорит, что к переговорам переходят с 1-го или 3-го этапа, не называя 2-й.'
+    confidence: ambiguous
+  - id: t_defense_positive_to_boundary
+    from: conflict.stage.boundary_defense
+    to: conflict.stage.boundary_statement
+    trigger: 'Есть позитивное изменение: давление ослабло, молчание, извинение, отказ от прежнего смысла.'
+    conditions: []
+    confidence: explicit
+  - id: t_defense_to_negotiation
+    from: conflict.stage.boundary_defense
+    to: negotiation.topic
+    trigger: После отработки третьего этапа рациональная переговорная проблема требует решения и конфликт перестал давить
+      на разговор.
+    conditions:
+    - Нужно затем вернуться к цели на конфликт и закрыть её.
+    confidence: explicit
+  - id: t_defense_exhausted_to_stage4
+    from: conflict.stage.boundary_defense
+    to: conflict.stage.separation_escalation
+    trigger: Попытки исчерпаны / «надоело» / позитивного изменения нет.
+    conditions: []
+    confidence: explicit
+  - id: t_stage4_to_separated
+    from: conflict.stage.separation_escalation
+    to: separated
+    trigger: Принято решение прекратить/дистанцировать взаимодействие.
+    conditions:
+    - Сепарация допустима в контексте; по возможности граница/последствия были обозначены заранее.
+    confidence: explicit
+  - id: t_stage4_to_escalated
+    from: conflict.stage.separation_escalation
+    to: escalated
+    trigger: Проблема передана человеку с полномочиями.
+    conditions:
+    - Есть рабочая/организационная вертикаль или иной полномочный адресат.
+    confidence: explicit
+  - id: t_negotiation_conflict_reappears
+    from: negotiation.topic
+    to: conflict.stage.emotion_processing
+    trigger: Во время переговоров снова возникает эмоция/конфликт, который начинает влиять на тему.
+    conditions:
+    - Этап выбирается заново по минимальному подходящему входу; здесь указан типовой возврат к этапу 1 при эмоции.
+    confidence: explicit
+  - id: t_negotiation_conflict_boundary
+    from: negotiation.topic
+    to: conflict.stage.boundary_statement
+    trigger: Во время переговоров возникает ненамеренное нарушение границы без доминирующей необработанной эмоции.
+    conditions: []
+    confidence: explicit
+  - id: t_negotiation_conflict_intentional
+    from: negotiation.topic
+    to: conflict.stage.boundary_defense
+    trigger: Во время переговоров возникает намеренная манипуляция/нарушение границы.
+    conditions: []
+    confidence: explicit
+  - id: t_negotiation_return_conflict_goal
+    from: negotiation.topic
+    to: conflict_goal_closed
+    trigger: Рациональная тема решена/поставлена на паузу и нужно закрыть ранее отделённую цель на конфликт.
+    conditions:
+    - Конфликтная цель ещё не была закрыта.
+    confidence: explicit
+decoding:
+  steps:
+  - формальные роли
+  - какая я формальная роль в этой фразе?
+  - неформальная роль
+  - проверка эквивалентности исходной фразе
+  variants:
+  - эмоция+декодирование
+  - я-ощущение+декодирование
+  - вернуть декодирование
+manipulation:
+  definition: скрытое воздействие на эмоции для выгоды/изменения роли/нарушения границы
+  strategies:
+  - direction.aggressor
+  - direction.victim
+  - accusation.aggressor
+  - accusation.victim
+  mechanisms:
+  - ценности/соцроли
+  - переопределение ценностей/ролей
+  - создание новых ролей/ценностей
+  - эталон/антипример
+  - сдвиг эталона
+  - смена критерия/группы сравнения
+  - атака по смыслу/форме
+  counter_ids:
+  - manipulation.fix_imposed_role
+  - manipulation.fix_imposed_role_reverse
+  - manipulation.future_action_link
+  - manipulation.future_action_link_reverse
+  - manipulation.imposed_obligation
+  - manipulation.accept_role
+  - manipulation.role_goal_link
+  - manipulation.sole_objection
+  - manipulation.hyperbolization
+  - manipulation.offense_ban
+  - conflict.return_decoding
+  - conflict.expose_manipulator_goal
+  - conflict.show_manipulation
+preparation:
+  steps:
+  - situation_analysis
+  - relationship_analysis
+  - solution_analysis
+  - strategy_creation
+  layers:
+  - process
+  - legal
+  - ethical
+  - financial
+  - emotional
+  problem_tests:
+    causal: Что должно было работать по-другому, чтобы проблемы не было?
+    critical: Без решения чего сторона не уйдёт с переговоров?
+  problem_impact:
+  - damage
+  - benefit
+  - risk
+  - opportunity
+  goals:
+  - Что я хочу?
+  - Почему?
+  - Что может хотеть оппонент?
+  - Как узнать?
+  baseline: что будет обеим сторонам без соглашения; можно менять до переговоров
+  point_L: взаимное нанесение вреда; угрозы и защита
+  solution:
+  - group problems
+  - content/cost/timing
+  - expected result
+  - risks
+  - resources
+  - compare baseline/L
+  resources:
+  - available_now
+  - easy_to_get
+  - expensive_to_get
+  - only_opponent_has
+  strategy:
+  - key points
+  - what to convey
+  - arguments + managerial action
+  - exact phrase
+  - expected reactions/new key points
+relationship:
+  analysis:
+  - interests
+  - goals
+  - social groups/friends
+  - values
+  - topics to use/avoid
+  tools:
+  - relationship.show_similarity
+  - relationship.mirroring
+  - relationship.echo
+  - conflict.audit_negativity
+  - relationship.ask_advice
+  - relationship.small_help
+  - relationship.benjamin_franklin
+  - relationship.repeated_contact
+  - relationship.attention_signals
+  - relationship.rosenthal
+  - communication.three_rights
+other_position:
+  decomposition:
+  - all meanings
+  - and/or/therefore links
+  - meaning types (secondary)
+  - check every causal link
+  verification:
+  - truth
+  - completeness
+  - logic
+  analysis_tools:
+  - analysis.details
+  - analysis.system
+  - analysis.consequences
+  - analysis.prerequisites
+  - analysis.substitute_solution
+  - analysis.substitute_result
+information:
+- one open question
+- echo
+- paraphrase
+- logical continuation
+- attention signals
+bridge:
+- reflect key opponent point
+- agree/partly agree/disagree as needed
+- logically lead to target question/position
+argumentation:
+  forms:
+    general: thesis -> reasons/evidence -> managerial action
+    SEXI: statement -> explanation -> example -> importance
+    PREP: point -> reason -> example -> point
+  components:
+  - rational
+  - ethical
+  - emotional
+  rule: prefer one argument/one managerial action; stop after action
+managerial_action:
+  types:
+  - question
+  - right_to_refuse/emotion/boundary
+  - request
+  - proposal
+  - demand
+  - consequence/threat
+  - none(not recommended)
+  rule: one, at end
+ambiguities:
+- 4 victim-defense errors not explicitly enumerated in materials
+- 2 basic anti-manipulation techniques not uniquely identified
+- direct stage2->negotiation transition conflicts across sources
+- SMART listed in syllabus but operational method absent
