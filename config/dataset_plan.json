@@ -1,0 +1,19 @@
+{
+  "contract_version": "1.0",
+  "target_total": 200,
+  "batch_size": 25,
+  "batches": 8,
+  "per_batch": {
+    "MODEL_MANIPULATOR": 10,
+    "MODEL_DEFENDER": 10,
+    "MODEL_NEGOTIATOR": 5
+  },
+  "totals": {
+    "MODEL_MANIPULATOR": 80,
+    "MODEL_DEFENDER": 80,
+    "MODEL_NEGOTIATOR": 40
+  },
+  "revision_policy": "regenerate_from_scratch; only validator PASS counts",
+  "first_batch": "B01-new",
+  "target_training_model": "Qwen3-8B roleplayer"
+}
