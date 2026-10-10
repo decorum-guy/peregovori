@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Peregovori MVP case v1.0",
+  "description": "Product contract (not university course terminology)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "category",
+    "difficulty",
+    "scenario",
+    "public",
+    "world",
+    "opponent",
+    "teaching",
+    "dialogue"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^C[0-9]{3}$"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "MODEL_MANIPULATOR",
+        "MODEL_DEFENDER",
+        "MODEL_NEGOTIATOR"
+      ]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard",
+        "extra_hard",
+        "impossible"
+      ]
+    },
+    "scenario": {
+      "type": "string",
+      "enum": [
+        "conflict_only",
+        "conflict_then_negotiation",
+        "unintentional_boundary",
+        "stage4",
+        "negotiation_only"
+      ]
+    },
+    "public": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "context",
+        "student_role",
+        "student_goal",
+        "known_facts"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
+        },
+        "student_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "student_goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "known_facts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facts",
+        "unknowns"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "opponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "role",
+        "opening",
+        "private_facts",
+        "goals",
+        "hard_limits",
+        "concede_if",
+        "escalate_if",
+        "initial_emotion"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "opening": {
+          "type": "string",
+          "minLength": 1
+        },
+        "private_facts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "hard_limits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "concede_if": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "escalate_if": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "initial_emotion": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "teaching": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "perspective",
+        "conflict_type",
+        "negotiation_topic",
+        "conflict_goal",
+        "decoding",
+        "initial_stage",
+        "focus_techniques",
+        "acceptable_outcomes"
+      ],
+      "properties": {
+        "perspective": {
+          "type": "string",
+          "enum": [
+            "student",
+            "model_character",
+            "not_applicable"
+          ]
+        },
+        "conflict_type": {
+          "type": "string",
+          "enum": [
+            "personal",
+            "public",
+            "mixed",
+            "none"
+          ]
+        },
+        "negotiation_topic": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conflict_goal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decoding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "initial_stage": {
+          "type": "string",
+          "enum": [
+            "emotion",
+            "show_boundary",
+            "defend_boundary",
+            "stage4",
+            "negotiation"
+          ]
+        },
+        "focus_techniques": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "acceptable_outcomes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "dialogue": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "speaker",
+          "text"
+        ],
+        "properties": {
+          "speaker": {
+            "type": "string",
+            "enum": [
+              "assistant",
+              "user"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
