@@ -1,0 +1,211 @@
+{
+  "batch": "B03",
+  "schema_version": "1.0",
+  "revision": "r2",
+  "status": "ACCEPTED",
+  "case_count": 25,
+  "confirmed_pass_count": 25,
+  "pending_review_count": 0,
+  "target_file": "B03_ACCEPTED.jsonl",
+  "target_file_sha256": "af9c6b4fbbbeaa0ba040b071ecf623b7225ede428de086fb6a74176e29474170",
+  "predecessors": [
+    {
+      "batch": "B01",
+      "status": "ACCEPTED",
+      "sha256": "74bf28222b610018f5343a91266d7b1082d9eef397a58e5e391be3604c692c9d"
+    },
+    {
+      "batch": "B02",
+      "status": "ACCEPTED",
+      "sha256": "f308306de9b67b5d20b27b2d199a6abc1cc1449bcab0ddce50ffdd606999a587"
+    }
+  ],
+  "cases": [
+    {
+      "id": "C051",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "6582f5a4bd2fdf390a061d32e41bcd4d6dcf2c87f4b5de35153c99c011b87bec"
+    },
+    {
+      "id": "C052",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8ed2a35ccf31b119193c4d1afa5efe12740e1164dfb56031c0f71d0a8f66d4b5"
+    },
+    {
+      "id": "C053",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c1016748c566da5f844ba971fbbb94c4d774670eab86b18e620d40bb96b05f21"
+    },
+    {
+      "id": "C054",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "18e70286471903baa8b52f2c36edbe17ed1c75cd42a8072c3f71123fc2b98880"
+    },
+    {
+      "id": "C055",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "4d02ca9d92424cb03dca2b87a5f2fb690f71542ec44c8347be1e3b7c580440c9"
+    },
+    {
+      "id": "C056",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "34bfe43264ff651867f5f5c6b21e589b64ca4b5afb8c70c6f245b919420d6fc5"
+    },
+    {
+      "id": "C057",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "06db6306bb03be5c6ffb8cdf010ae0409f37bd8e74bcbe8442b1a1fefe5ccca0"
+    },
+    {
+      "id": "C058",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "f849a617f34fd22cda5b28b5aa6912d6add09f3461753c0b6baeb816ae607154"
+    },
+    {
+      "id": "C059",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "285352be2817ea81d78e0135817f3465e6656ee7dadb77f34c6511fbcd081891"
+    },
+    {
+      "id": "C060",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "9441ffee40350054977faba77288173c4b4c9bb78c93d694b9a99a52c848a093"
+    },
+    {
+      "id": "C061",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "74318c45859e7a0cb6fce3aacc706244d74a44b1d399340d2c86befc8c5d53b8"
+    },
+    {
+      "id": "C062",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "2f3b043b2c587d4239d8be8318404bb7849985cbee75bd126046a9e8e324e6b8"
+    },
+    {
+      "id": "C063",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c370076355d1d21ff2fa6fb5f1ef90e54551975bc96eaf9b32897aa7864e171f"
+    },
+    {
+      "id": "C064",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "9e76f376fd098f6aa2bd2b065d83c0f0642c39ae4c6e946bb282dc5a756b5b2b"
+    },
+    {
+      "id": "C065",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "0ce410d008b6904505e7c738fd74e1e0f23b4977a54eac44487f49d1bc29eee2"
+    },
+    {
+      "id": "C066",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "6453e9e177e88eb8c4e9b4a98330d6468a98d48be2f79c1a6572da8cf12e794a"
+    },
+    {
+      "id": "C067",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "480b747aae5d50fc2a5c67bf768315191b65b39e801ae6f4b7a27ecf238af0f7"
+    },
+    {
+      "id": "C068",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "cdc8aeaedbd1dad8fc4a5aaa9f111a61219a440b0c07a2050abbcff8ab9d9e0f"
+    },
+    {
+      "id": "C069",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "fcb09324c652c4280dc900f37c41306386ec73659bcdf11fa52b54544cdae2aa"
+    },
+    {
+      "id": "C070",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "92d7927d68801d0ec273d2d7a1823556ddd6de61b5619bcbdca50f90b0aba927"
+    },
+    {
+      "id": "C071",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8e5ca1e9e616368e09fe4dc1645c1551261a0ed07abaf00e8f1897991b2ec504"
+    },
+    {
+      "id": "C072",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "f7693575d0a178d5a401fe343b96538458e5b1b5ea939effe742a15d6c6e5fdb"
+    },
+    {
+      "id": "C073",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "a9891f5241c1360aa0583daadfd40c8f41bad7e4f4a8fc6119e54afe3d1d3723"
+    },
+    {
+      "id": "C074",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "687052fa4c137a4c6bb15584fa19de03f70acd4281d1e42f47a0053ce49800e7"
+    },
+    {
+      "id": "C075",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "46f9a5eda8c6017e39b6f658db50754874eb14d508492ed92efb87c577d66d02"
+    }
+  ],
+  "pending_recheck_count": 0,
+  "revisions_file": "B03_revisions_r2.jsonl",
+  "revisions_file_sha256": "86db760819f61f5eea20b4be09f68bfec223eb81d9c4b11803aa2c45e992df6c",
+  "review_basis": "REVIEW_FEEDBACK B03 r1: 19 PASS frozen, 6 REVISE awaiting independent RECHECK",
+  "review": {
+    "source": "user_supplied_independent_REVIEW_FEEDBACK",
+    "revision": "r2",
+    "mode": "RECHECK_AND_FINAL",
+    "accepted_in_final_recheck": 6,
+    "confirmed_pass_total": 25
+  }
+}
