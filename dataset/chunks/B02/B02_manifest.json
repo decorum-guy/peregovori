@@ -1,0 +1,201 @@
+{
+  "batch": "B02",
+  "schema_version": "1.0",
+  "revision": "r2",
+  "status": "ACCEPTED",
+  "case_count": 25,
+  "confirmed_pass_count": 25,
+  "pending_review_count": 0,
+  "target_file": "B02_ACCEPTED.jsonl",
+  "target_file_sha256": "f308306de9b67b5d20b27b2d199a6abc1cc1449bcab0ddce50ffdd606999a587",
+  "depends_on": {
+    "batch": "B01",
+    "status": "ACCEPTED",
+    "confirmed_pass_count": 25,
+    "file": "B01_ACCEPTED.jsonl",
+    "sha256": "74bf28222b610018f5343a91266d7b1082d9eef397a58e5e391be3604c692c9d"
+  },
+  "independent_review": "R1_14_PASS__R2_11_PASS__TOTAL_25_PASS",
+  "cases": [
+    {
+      "id": "C026",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "3ae13e5b7b7de73bcf06b80fb503c62375bb0e30b52293ddf172f573a540e8cd"
+    },
+    {
+      "id": "C027",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "d07dd1ae1ba72adcc147c8428d946652a6c9cecd2a33ebff31438d6985196df6"
+    },
+    {
+      "id": "C028",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "c8e0bdf3b873f6e89dc684346fe68b576a5814b1331750c9bbd3482390414f8c"
+    },
+    {
+      "id": "C029",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "25fdffefe6b900b57c2089a49a1e57bf63afea631bb23e95cbda69094e2ef99c"
+    },
+    {
+      "id": "C030",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "db49824ca2e73e0a4a010b3b5acbb3c1bbf7e73dda7ac621d3b9a44be9553fb7"
+    },
+    {
+      "id": "C031",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "e200b80a24bd6b46bbddee98ca2cd81ba4cefd64a9b368f39603a29cc51666f4"
+    },
+    {
+      "id": "C032",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "d5e75f0653c8a1524ae941f8f3db790c61b632dfeb49be53cc8d5ab807950785"
+    },
+    {
+      "id": "C033",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "00314ccf07d9e6cc375004fdb0fbee8162b160e029f61e07dadace7d309f3357"
+    },
+    {
+      "id": "C034",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "22467d51151c67075eafc68f356d2bd8cc4c809f4daad8303c7f4c013a940b4c"
+    },
+    {
+      "id": "C035",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "a4177f0995293550859208a1036f05ccdc2578b46f289ed95e512dcb73506e16"
+    },
+    {
+      "id": "C036",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "bc517d718596e29a07d3f75af12aaf8bacae9e8f42b6c7ce6388236c4c3b75ac"
+    },
+    {
+      "id": "C037",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "7eb1d30606fe639b1e1cbb79a39f791bbd62544d264129c74e1c2cf25a1a1607"
+    },
+    {
+      "id": "C038",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "cecc311edf8e646b5bafdf4da51a6647423edda0fc8236d4f950ee4dd88a1d85"
+    },
+    {
+      "id": "C039",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "7fa0d3ab76148b4b44b44576275a577e3065964c159e443ba271a48ff87d4869"
+    },
+    {
+      "id": "C040",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "60ca10c2c60178ec147cae2cea0a8a962bb071549db23e6e6de86358a4ae89e0"
+    },
+    {
+      "id": "C041",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "0a90800100f6f64c113058be9fd1482886e613f849c985f206ce23f8407371d3"
+    },
+    {
+      "id": "C042",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "dbcd962b225451ce374be7a0dc0d01cc680f3df4beaed871a2932ed2203f1c06"
+    },
+    {
+      "id": "C043",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "5ee1846c1fa0249e061af216cae7ccc009bf17e6d4daf8aa3db5f22f979cc2b3"
+    },
+    {
+      "id": "C044",
+      "category": "MODEL_DEFENDER",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "5361cbdadbc691c1411bc9842e1b5dad4f06ed6bcd13af0d5320f861abb33da2"
+    },
+    {
+      "id": "C045",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "51370c80e0e885749f937e1178a20544d1a7748b4048500d33e69182140d6d7d"
+    },
+    {
+      "id": "C046",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c6a867c55ef3f562f0c66465ab21129e4a9d15b87c6e19845854940b54d19885"
+    },
+    {
+      "id": "C047",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "8ae3f9b14c2a8b98dbfa1972c6dc610e6b8ce217cb4035d8b572efbff76a278a"
+    },
+    {
+      "id": "C048",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "d59e074dac74bab7fc1b51eeb4a3a5cac73cf52ba1043dd29d44cc99174a9895"
+    },
+    {
+      "id": "C049",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "bb5311b28b75e5dc4440ff0c1e8decb9c72b47333ca0776244acaed458e55a7d"
+    },
+    {
+      "id": "C050",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "a2bc5c2844bb27c1277d3d7be4fdde7cd77f900827eb5f3f7fcdc6594f4a3707"
+    }
+  ],
+  "pending_recheck_count": 0,
+  "revision_file": "B02_revisions_r2.jsonl",
+  "revision_file_sha256": "36aa4e8c8fa59100f374452026c0ebec1c0bf76d258e4a5d593cefc135fc378b",
+  "source_r1_file": "B02_cases.jsonl",
+  "source_r1_sha256": "acd0f36db5b11b9be2b2b512f1d6bcdcd0661f954f3c6af8f5d5192a13c828e2"
+}
