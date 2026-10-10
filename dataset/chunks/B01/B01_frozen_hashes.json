@@ -1,0 +1,138 @@
+{
+  "batch": "B01",
+  "status": "ACCEPTED",
+  "total_confirmed_pass": 25,
+  "source_of_verdict": "User-supplied independent REVIEW_FEEDBACK r1 + r2",
+  "active_file": "B01_ACCEPTED.jsonl",
+  "active_file_sha256": "74bf28222b610018f5343a91266d7b1082d9eef397a58e5e391be3604c692c9d",
+  "file_hash_algorithm": "SHA-256",
+  "per_case_hash_basis": "Exact JSONL record UTF-8 bytes excluding newline",
+  "cases": [
+    {
+      "id": "C001",
+      "revision": "r1",
+      "sha256": "8972813e3f08104d94a2db6482804c2a94ba43153beea8957f1895246b33a260"
+    },
+    {
+      "id": "C002",
+      "revision": "r1",
+      "sha256": "cc4b587dcb51cc740cd23377e4b73d3444022626914653935097f61fc98c6fad"
+    },
+    {
+      "id": "C003",
+      "revision": "r2",
+      "sha256": "348444e2bab3bba130bf1f48a3cf3c1a7968396009c1e0f94e7b0f28d1f8b3dd"
+    },
+    {
+      "id": "C004",
+      "revision": "r2",
+      "sha256": "668973ed7481480702d5328269a1910b32c81fe2d277afd6e5f89e9db505ab05"
+    },
+    {
+      "id": "C005",
+      "revision": "r1",
+      "sha256": "a1af36b065cc620f59116d155dff31f1babda9c006e27aed6ba9e9cd7bb4b7c3"
+    },
+    {
+      "id": "C006",
+      "revision": "r2",
+      "sha256": "e059ebd443053e4762913bf81233302aa431662b994602475965be9b69cf3502"
+    },
+    {
+      "id": "C007",
+      "revision": "r1",
+      "sha256": "20dcf05f89867a5211f3c76be38228ab71499d57c2b994702d7272949853fd5f"
+    },
+    {
+      "id": "C008",
+      "revision": "r1",
+      "sha256": "99896a32fee4e65982efe7889aaa0258dbaf5b8061f08593237ef0f526935aad"
+    },
+    {
+      "id": "C009",
+      "revision": "r1",
+      "sha256": "acd9d7ae28794daf5fa2d8713290089365cfdaa66b754ce2f7a62740bcfdf43f"
+    },
+    {
+      "id": "C010",
+      "revision": "r2",
+      "sha256": "465ea53019b2b2424cb9ba43caff1363bd4ad1972567d2f01dbbeaab2984cd98"
+    },
+    {
+      "id": "C011",
+      "revision": "r1",
+      "sha256": "d2c29546eac7893451e89879ab76eb0a34c2475313a67d6e74f48366c405800b"
+    },
+    {
+      "id": "C012",
+      "revision": "r2",
+      "sha256": "7de9dbbd6c0aa065c9de3b3617358827e6c031e8a21dc887b95ca854d0609d8f"
+    },
+    {
+      "id": "C013",
+      "revision": "r1",
+      "sha256": "c07babe8b9e5359139fe122391e9ba15e557e5c04e9f641092de800515707678"
+    },
+    {
+      "id": "C014",
+      "revision": "r2",
+      "sha256": "4bc5e0568b84f6bf8cc79a54dec2a63376f61275ca3cbcb5dab28ab4c086c833"
+    },
+    {
+      "id": "C015",
+      "revision": "r1",
+      "sha256": "2016c07eb47e5bbba41e290f431470f9864e9d280d4d18362f07382fd26924b4"
+    },
+    {
+      "id": "C016",
+      "revision": "r1",
+      "sha256": "f5ad0694a1f61bb4616d3c982f1c661ae9cb157828a51568ff5e229a1beb19dc"
+    },
+    {
+      "id": "C017",
+      "revision": "r1",
+      "sha256": "9ae99ed1b44ba5e9c44ecc34a1037501093fd6973c052273e0609f34aad023cc"
+    },
+    {
+      "id": "C018",
+      "revision": "r2",
+      "sha256": "70ed77b8cdc8f89d05b39a55a5d0cf3dcd1bf0c4e97fc278c3310d47f1a515f3"
+    },
+    {
+      "id": "C019",
+      "revision": "r1",
+      "sha256": "5f25ba24b303469330e74722a907afd865f4db6b43b80eb50fc159dc5f10922a"
+    },
+    {
+      "id": "C020",
+      "revision": "r2",
+      "sha256": "e443188d4a45eeca52567f5e52f8f72a29330cbb5f41364992ee933210e716c9"
+    },
+    {
+      "id": "C021",
+      "revision": "r1",
+      "sha256": "e73a44e35e898a2af487f0775496134536b92dad638d4b71f065b910dd91326a"
+    },
+    {
+      "id": "C022",
+      "revision": "r1",
+      "sha256": "a48bee1b72faa31b197ed0696093b6af34894031c52827cfe401cbcfb288f088"
+    },
+    {
+      "id": "C023",
+      "revision": "r1",
+      "sha256": "9e9ad14d0a15121c25a72b8f270689bfdf8ac1991557e6c140257027004f3530"
+    },
+    {
+      "id": "C024",
+      "revision": "r1",
+      "sha256": "8ddaf10baa1664721d352e325b6a10059812f5bbe92ce20a1a4db8db9a668152"
+    },
+    {
+      "id": "C025",
+      "revision": "r1",
+      "sha256": "8d8ff010707662dd77febfde9905e624687ab22e5da8385acfab9e85032c3041"
+    }
+  ],
+  "not_edited": "All case objects copied byte-for-byte from B01_candidate_r2_full.jsonl"
+}

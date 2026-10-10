@@ -1,0 +1,46 @@
+{
+  "batch": "B01",
+  "status": "ACCEPTED",
+  "independent_pass_count": 25,
+  "review_origin": "User-supplied independent r1 + r2 verdicts",
+  "records": 25,
+  "role_balance": {
+    "MODEL_MANIPULATOR": 10,
+    "MODEL_DEFENDER": 10,
+    "MODEL_NEGOTIATOR": 5
+  },
+  "difficulty_counts": {
+    "easy": 4,
+    "medium": 5,
+    "hard": 6,
+    "extra_hard": 6,
+    "impossible": 4
+  },
+  "scenario_counts": {
+    "conflict_only": 7,
+    "conflict_then_negotiation": 7,
+    "stage4": 4,
+    "unintentional_boundary": 2,
+    "negotiation_only": 5
+  },
+  "conflict_type_counts": {
+    "personal": 13,
+    "public": 7,
+    "none": 5
+  },
+  "dialogue_turns_total": 245,
+  "assistant_targets": 135,
+  "dialogue_length_unique": [
+    5,
+    7,
+    9,
+    11,
+    13,
+    15
+  ],
+  "exact_duplicate_openings": false,
+  "exact_duplicate_titles": false,
+  "exact_duplicate_titles_vs_B02": false,
+  "B01_unchanged_after_acceptance": true,
+  "audit_scope": "Objective structural/diversity inventory and title collision checks; not a new independent semantic review"
+}
