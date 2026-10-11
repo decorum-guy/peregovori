@@ -1,0 +1,230 @@
+{
+  "batch": "B08",
+  "schema_version": "1.0",
+  "schema_git_blob_sha": "0d867cdc5b92a274f55983a466d1fb5c803e7f5d",
+  "revision": "r2",
+  "status": "ACCEPTED",
+  "case_count": 25,
+  "confirmed_pass_count": 25,
+  "pending_review_count": 0,
+  "pending_recheck_count": 0,
+  "target_file": "B08_ACCEPTED.jsonl",
+  "target_file_sha256": "9af88f65b67aa25ed7386c6ccabd482ac4e823a7c2a30ee68270bbea9303848b",
+  "record_sha256_convention": "SHA-256 exact UTF-8 JSON record excluding trailing LF",
+  "predecessors": [
+    {
+      "batch": "B01",
+      "status": "ACCEPTED",
+      "sha256": "74bf28222b610018f5343a91266d7b1082d9eef397a58e5e391be3604c692c9d"
+    },
+    {
+      "batch": "B02",
+      "status": "ACCEPTED",
+      "sha256": "f308306de9b67b5d20b27b2d199a6abc1cc1449bcab0ddce50ffdd606999a587"
+    },
+    {
+      "batch": "B03",
+      "status": "ACCEPTED",
+      "sha256": "af9c6b4fbbbeaa0ba040b071ecf623b7225ede428de086fb6a74176e29474170"
+    },
+    {
+      "batch": "B04",
+      "status": "ACCEPTED",
+      "sha256": "950f7eda73c0516c64e3bbd68377d2322e1ee3b17f92f65eb1f9a7b143394f67"
+    },
+    {
+      "batch": "B05",
+      "status": "ACCEPTED",
+      "sha256": "3e7b641b650659c160b3e80da7966e33888b84c3a55528b29faacb8f3f931841"
+    },
+    {
+      "batch": "B06",
+      "status": "ACCEPTED",
+      "sha256": "021624c65359a0602b67c675a573a69f6bc8c99ec5f2e4b3121a91462d92e5ba"
+    },
+    {
+      "batch": "B07",
+      "status": "ACCEPTED",
+      "sha256": "b63d8b47581266fb0573f3eb616c9c0de92cfba4fca6854e2d03ab907cfd8dc8"
+    }
+  ],
+  "cases": [
+    {
+      "id": "C176",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "395d77f53fe180d0e593b741b80d5fec73dd07a6f8d8153fe622b6d36129625a"
+    },
+    {
+      "id": "C177",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "3ab327bfd74b3b8c1d1cfe9e6079f3e81d98055cfd7110184db311e5e265f2d7"
+    },
+    {
+      "id": "C178",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "6ba3897d54bf6032e5c7b6218d21886f1ba5808e9b6129fe930b0e8855e940a3"
+    },
+    {
+      "id": "C179",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "e2dc9debac1deeec2a11c6ad8dbac67767c5c4cdf58f542ee47eba23ebbacd4a"
+    },
+    {
+      "id": "C180",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "1e216cabde66abfc17fde2113811e7574c6566db91f40a2b2484a7f98055dae1"
+    },
+    {
+      "id": "C181",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "0de57ce10facc61a53c643eaf4da19f7b9d4e38d5771d18f109a47224ed7ab0f"
+    },
+    {
+      "id": "C182",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "e486d02f230e798bd3672dfc8bade90b372530a94ba9eed9d25738661e54b440"
+    },
+    {
+      "id": "C183",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "74d291e68be3563a6a11ba07abf4ce4b2a0d4be6212879d3a0459549670e6c5b"
+    },
+    {
+      "id": "C184",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "f5a1730be972a623094e881250077bba8f17b5b9b0209782703edb4d9e6cda5e"
+    },
+    {
+      "id": "C185",
+      "category": "MODEL_MANIPULATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "77c1155d8b6412091f0b88827b01a90b60095f83d4013598cda940f146a34a86"
+    },
+    {
+      "id": "C186",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "eaff81d4c0ea18ac594517a01418aa2e56e2da1f35d5fe21ebf25baae1db3ae4"
+    },
+    {
+      "id": "C187",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "966df80e92516201d64156841b039895435694a6b63d7ec98f465982de93f754"
+    },
+    {
+      "id": "C188",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "84267d94e221227237c0278e78224ec53e9e01bb2c9fcd4f3ad8b112ee6c4db1"
+    },
+    {
+      "id": "C189",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "c06edb295d337c10b0fe7c0e8b23e0f8ed291a0fc33167f5a2f8d0a0989966ba"
+    },
+    {
+      "id": "C190",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "440dce08895b9614d8cc938cec44208d7f6ffde260a2720bf2f324262320b478"
+    },
+    {
+      "id": "C191",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "7c045f482188e637b07a7988b358049b9c09c0f10ccd033317536e35a5a1478e"
+    },
+    {
+      "id": "C192",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "480e132c19a3182b686bbd61899f36b1983bb1b792416dcf3b729fb089df2666"
+    },
+    {
+      "id": "C193",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "6404a9728bf0d0b4d58ef95d0b5679ed31cdb1f1c3a6f4f1cba70efddd503f69"
+    },
+    {
+      "id": "C194",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "76eb7b3c5f70d17c2225523a4d8b733cee2e69aec853ccddc010e379d2e62093"
+    },
+    {
+      "id": "C195",
+      "category": "MODEL_DEFENDER",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "a8a048dd2c7ff9033cbfe4e504822c2ab9ebe95853f40dc3c927b713f9a9a024"
+    },
+    {
+      "id": "C196",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "23c80e7195ff781b031c2af88cdad2871b5933ef1913f1fadc524fdafccffe50"
+    },
+    {
+      "id": "C197",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "fbdd34fe05106cbda338955fe71e722ff90f1dba69a89fc3328d9bd359d385ce"
+    },
+    {
+      "id": "C198",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r2",
+      "status": "PASS",
+      "sha256": "7d9e2b02df5e7d2883f505c0a0020d273a4697622b7b143109f9dd984174c269"
+    },
+    {
+      "id": "C199",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "f74f5e63be4fb52069fd66f06d35c3a98c64d6c0eb1123d1d3e1feeee37731de"
+    },
+    {
+      "id": "C200",
+      "category": "MODEL_NEGOTIATOR",
+      "revision": "r1",
+      "status": "PASS",
+      "sha256": "0cab8c7aeb7f38ce48b0f8c434ea6f613004b3ef3273fe3a2633e22cf23e57c9"
+    }
+  ],
+  "revisions_file": "B08_revisions_r2.jsonl",
+  "revisions_file_sha256": "8cead94f104a20ea9d824acb3c6d0929485479e48f79116ad3c219efdea3410c"
+}
