@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "purpose": "independent evaluation of Qwen3-8B roleplayer, base vs QLoRA",
+  "train": {
+    "cases": 200,
+    "source_commit": "33eb34417e50360ce5d7b2ef65e85bdb640fc760",
+    "sha256": "31ae40797e324e9aec40cc25f9f0c09ebe2737de9552153c45dccbe2d5030e64",
+    "policy": "immutable; all 200 used for SFT only"
+  },
+  "suites": [
+    {
+      "name": "DEV",
+      "case_ids": "C201-C225",
+      "cases": 25,
+      "categories": {
+        "MODEL_MANIPULATOR": 10,
+        "MODEL_DEFENDER": 10,
+        "MODEL_NEGOTIATOR": 5
+      },
+      "probes_per_case": 3,
+      "use": "debug prompts, hyperparameters, early stopping; never SFT"
+    },
+    {
+      "name": "TEST_A",
+      "case_ids": "C226-C250",
+      "cases": 25,
+      "categories": {
+        "MODEL_MANIPULATOR": 10,
+        "MODEL_DEFENDER": 10,
+        "MODEL_NEGOTIATOR": 5
+      },
+      "probes_per_case": 3,
+      "use": "sealed final comparison only"
+    },
+    {
+      "name": "TEST_B",
+      "case_ids": "C251-C275",
+      "cases": 25,
+      "categories": {
+        "MODEL_MANIPULATOR": 10,
+        "MODEL_DEFENDER": 10,
+        "MODEL_NEGOTIATOR": 5
+      },
+      "probes_per_case": 3,
+      "use": "sealed final comparison only"
+    }
+  ],
+  "total_cases": 75,
+  "dev_cases": 25,
+  "blind_test_cases": 50,
+  "total_probes": 225,
+  "rollout_cases_from_blind_test": 12,
+  "data_visibility": "private evaluation case/probe/oracle files are not committed to public GitHub",
+  "canonical_case_schema": "schemas/case.schema.json",
+  "probe_schema": "evaluation/probe.schema.json"
+}
