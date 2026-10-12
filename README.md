@@ -51,3 +51,7 @@
 ## Автозапуск обучения на Intelion
 
 [Пошаговая инструкция: публичный GitHub → проверки → QLoRA RTX 3090 → сохранение и API-остановка GPU](training/INTELION_RUNBOOK.md). Используется внешний таймер и отдельная автоматическая команда остановки через официальный Intelion SDK.
+
+## Проверка QLoRA после обучения
+
+Для проверки сохранения адаптера на Intelion и сравнения **исходной Qwen3-8B с QLoRA на приватных DEV-75** используйте [GPU RUNBOOK](evaluation/GPU_RUNBOOK.md). Код: [аудит результата](training/check_result.py), [DEV-инференс на одной GPU](evaluation/run_gpu.py), [сравнительный отчёт](evaluation/compare_dev.py), [автоматический запуск и остановка Intelion](evaluation/run_and_stop.py). Приватные DEV/TEST не загружаем в публичный репозиторий. Сами GPU-проверки здесь ещё не запускались.
