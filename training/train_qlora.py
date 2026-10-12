@@ -6,7 +6,7 @@ to the NEXT assistant reply. A dry run downloads only the tokenizer.
 """
 import argparse
 import json
-from collections import Counter
+import time
 from pathlib import Path
 
 
@@ -20,6 +20,8 @@ def args_parser():
     p.add_argument("--max-steps", type=int, default=-1, help="10 for smoke test, -1 for full epoch")
     p.add_argument("--lr", type=float, default=0.0001)
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--deadline-file", default="", help="JSON file with absolute stop deadline")
+    p.add_argument("--save-margin-seconds", type=int, default=600)
     return p.parse_args()
 
 
@@ -102,7 +104,7 @@ def main():
     from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
     from transformers import (
         AutoModelForCausalLM, BitsAndBytesConfig,
-        DataCollatorForSeq2Seq, Trainer, TrainingArguments,
+        DataCollatorForSeq2Seq, Trainer, TrainingArguments, TrainerCallback,
     )
     if not torch.cuda.is_available():
         raise SystemExit("CUDA GPU not found")
@@ -128,13 +130,28 @@ def main():
                         "gate_proj", "up_proj", "down_proj"],
     ))
     model.print_trainable_parameters()
+    deadline = None
+    if args.deadline_file:
+        deadline = float(json.loads(Path(args.deadline_file).read_text(encoding="utf-8"))["deadline_epoch"])
+        if time.time() >= deadline - args.save_margin_seconds:
+            raise SystemExit("STOP: too little time left before hard cloud stop; do not start training")
+
+    class DeadlineCallback(TrainerCallback):
+        def on_step_end(self, args_, state, control, **kwargs):
+            if deadline and time.time() >= deadline - args.save_margin_seconds:
+                print("TIME BUDGET: stopping training after a completed step; saving adapter", flush=True)
+                control.should_training_stop = True
+                control.should_save = True
+            return control
+
     dataset = Dataset.from_list(packed).shuffle(seed=3407)
     train_args = TrainingArguments(
         output_dir=args.output, per_device_train_batch_size=1,
         gradient_accumulation_steps=8, num_train_epochs=args.epochs,
         max_steps=args.max_steps, learning_rate=args.lr,
         lr_scheduler_type="cosine", warmup_ratio=0.03,
-        optim="paged_adamw_8bit", logging_steps=10, save_strategy="epoch",
+        optim="paged_adamw_8bit", logging_steps=10, save_strategy="steps",
+        save_steps=15, save_total_limit=2,
         bf16=bf16, fp16=not bf16, gradient_checkpointing=True,
         max_grad_norm=0.3, weight_decay=0.01, seed=3407,
         report_to="none", remove_unused_columns=False,
@@ -146,6 +163,7 @@ def main():
             pad_to_multiple_of=8, return_tensors="pt",
         ),
         processing_class=tokenizer,
+        callbacks=[DeadlineCallback()],
     )
     trainer.train()
     adapter = Path(args.output) / "adapter"
