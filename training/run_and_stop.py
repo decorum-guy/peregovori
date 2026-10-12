@@ -97,6 +97,8 @@ def main():
         (OUTPUTS / "final_status.json").write_text(
             json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
+        # Flush output files to the attached disk before requesting cloud stop.
+        os.sync()
         print("Stopping cloud server via Intelion API (success or failure).", flush=True)
         # Provider stop request may terminate this process before a reply is printed.
         try:
