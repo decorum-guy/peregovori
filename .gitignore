@@ -3,3 +3,6 @@ eval_private/
 .env.*
 __pycache__/
 *.pyc
+training/derived/
+training/outputs/
+training/.venv/
