@@ -103,3 +103,30 @@ python training/intelion_autostop.py stop --server-id YOUR_SERVER_ID
 ```
 
 If provider API is unavailable, stop server from Intelion dashboard. The hard watchdog makes up to five attempts; it is a safety net, not a provider-side guaranteed spending cap.
+
+## Recovery after unexpected VM stop (no final adapter)
+
+If `python training/check_result.py` reports missing `final_status.json`, adapter and bundle but the train log stops mid-epoch, **do not assume successful training or start another full run**. First inspect:
+
+```bash
+find training/outputs/qlora_v1 -maxdepth 2 -type f \\
+  \( -name '*.safetensors' -o -name 'trainer_state.json' \) -print
+du -sh training/outputs/qlora_v1/* 2>/dev/null
+tail -n 30 training/outputs/intelion_autostop.log
+```
+
+Training saves an HF Trainer checkpoint every 15 optimizer steps, retaining the last two. At step 88 the latest **expected** complete checkpoint is `checkpoint-75`, but verify the actual files. A resumable checkpoint contains `trainer_state.json`, `optimizer.pt`, `scheduler.pt`, `adapter_config.json`, and `*.safetensors`. On VM restart the old in-VM watchdog is gone; archive the stale deadline file and arm a **new** watchdog immediately, checking that no old `_watch` process is active.
+
+After the user has checked the provider rental period/balance and confirmed a complete checkpoint, run the recovery pipeline, NOT the standard smoke/full pipeline:
+
+```bash
+cd ~/peregovori
+source .venv/bin/activate
+git pull --ff-only
+mkdir -p training/outputs
+nohup .venv/bin/python -u training/run_and_stop.py --server-id 11425 --resume-latest \\
+  > training/outputs/recovery.log 2>&1 < /dev/null &
+tail -f training/outputs/recovery.log
+```
+
+This continues the **original** epoch using the saved Trainer optimizer/scheduler/model state and then bundles the adapter and requests provider stop. The `--resume-latest` option skips the 10-step smoke rerun. It refuses to resume if there is no complete checkpoint. If no checkpoint survives, stop and investigate provider timing/disk/files before deciding to retrain.
