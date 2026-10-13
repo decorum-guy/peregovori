@@ -26,6 +26,9 @@ def args_parser():
     p.add_argument("--resume-from-checkpoint", default="", help="Full Trainer checkpoint path or latest")
     p.add_argument("--deadline-file", default="", help="JSON file with absolute stop deadline")
     p.add_argument("--save-margin-seconds", type=int, default=600)
+    p.add_argument("--epoch-snapshots", action="store_true", help="Save separate adapter_epoch_1/2 at completed epoch boundaries")
+    p.add_argument("--preflight-longest", action="store_true", help="Run max-steps=1 on the longest example to test VRAM")
+    p.add_argument("--min-free-vram-gb", type=float, default=0, help="Require this much free VRAM after preflight")
     return p.parse_args()
 
 
@@ -69,6 +72,8 @@ def encode_one(row, tokenizer, max_length):
 
 def main():
     args = args_parser()
+    if args.preflight_longest and args.max_steps != 1:
+        raise SystemExit("--preflight-longest requires --max-steps 1")
     if args.lora_rank not in (8, 16, 32, 64):
         raise SystemExit("Supported LoRA ranks: 8,16,32,64")
     if args.lora_alpha is None:
@@ -155,18 +160,51 @@ def main():
                 control.should_save = True
             return control
 
-    dataset = Dataset.from_list(packed).shuffle(seed=3407)
+    if args.preflight_longest:
+        longest = max(packed, key=lambda item: len(item["input_ids"]))
+        print("PREFLIGHT longest training example tokens:", len(longest["input_ids"]), flush=True)
+        packed_for_train = [longest]
+    else:
+        packed_for_train = packed
+    dataset = Dataset.from_list(packed_for_train).shuffle(seed=3407)
     train_args = TrainingArguments(
         output_dir=args.output, per_device_train_batch_size=1,
         gradient_accumulation_steps=8, num_train_epochs=args.epochs,
         max_steps=args.max_steps, learning_rate=args.lr,
         lr_scheduler_type="cosine", warmup_ratio=0.03,
-        optim="paged_adamw_8bit", logging_steps=10, save_strategy="steps",
+        optim="paged_adamw_8bit", logging_steps=10, save_strategy="epoch" if args.epoch_snapshots else "steps",
         save_steps=15, save_total_limit=2,
         bf16=bf16, fp16=not bf16, gradient_checkpointing=True,
         max_grad_norm=0.3, weight_decay=0.01, seed=3407,
         report_to="none", remove_unused_columns=False,
     )
+    class EpochSnapshotCallback(TrainerCallback):
+        def on_epoch_end(self, training_args, state, control, **kwargs):
+            if not args.epoch_snapshots:
+                return control
+            current = float(state.epoch or 0)
+            number = round(current)
+            if number < 1 or abs(current - number) > 0.003:
+                print(f"SNAPSHOT skipped: incomplete epoch {current:.6f}", flush=True)
+                return control
+            target = Path(args.output) / f"adapter_epoch_{number}"
+            if target.exists():
+                raise RuntimeError(f"Refusing to overwrite snapshot: {target}")
+            target.mkdir(parents=True)
+            # Captured current LoRA model: no reload, preserving training trajectory.
+            model.save_pretrained(str(target), safe_serialization=True)
+            tokenizer.save_pretrained(str(target))
+            (target / "training_epoch.json").write_text(
+                json.dumps({
+                    "actual_epoch": current, "global_step": int(state.global_step),
+                    "model": args.model, "lora_rank": args.lora_rank,
+                    "lr": args.lr, "requested_epochs": args.epochs,
+                    "source": "epoch snapshot from SAME fresh two-epoch run",
+                }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            print(f"EPOCH SNAPSHOT saved: {target}, actual={current:.5f}", flush=True)
+            return control
+
     trainer = Trainer(
         model=model, args=train_args, train_dataset=dataset,
         data_collator=DataCollatorForSeq2Seq(
@@ -174,7 +212,7 @@ def main():
             pad_to_multiple_of=8, return_tensors="pt",
         ),
         processing_class=tokenizer,
-        callbacks=[DeadlineCallback()],
+        callbacks=[DeadlineCallback(), EpochSnapshotCallback()],
     )
     resume_path = None
     if args.resume_from_checkpoint:
@@ -213,6 +251,18 @@ def main():
     completed_target = args.max_steps > 0 or actual_epoch + 0.002 >= args.epochs
     print(f"TRAINING FINISHED: actual_epoch={actual_epoch:.5f}, "
           f"global_step={global_step}, completed_target={completed_target}", flush=True)
+    if args.preflight_longest:
+        torch.cuda.synchronize()
+        free, total = torch.cuda.mem_get_info()
+        peak = torch.cuda.max_memory_reserved()
+        print(json.dumps({
+            "preflight": True,
+            "gpu_total_gb": round(total / 1024**3, 2),
+            "peak_reserved_gb": round(peak / 1024**3, 2),
+            "free_after_step_gb": round(free / 1024**3, 2),
+        }, ensure_ascii=False), flush=True)
+        if free < args.min_free_vram_gb * 1024**3:
+            raise RuntimeError(f"VRAM preflight fails safety margin: only {free/1024**3:.2f} GiB free")
     adapter = Path(args.output) / "adapter"
     adapter.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(str(adapter), safe_serialization=True)
