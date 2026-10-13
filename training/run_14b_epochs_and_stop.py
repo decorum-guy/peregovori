@@ -228,6 +228,21 @@ def main():
             archive_path = OUTPUTS / f"qlora_14b_epoch_{ep}_bundle.tar.gz"
             if archive_path.is_file():
                 packages += [archive_path, Path(str(archive_path)+".sha256")]
+        # Graceful deadline can stop at 0.8 or 1.7 epochs. Such an adapter is
+        # NOT a complete E1/E2, but may be useful research: preserve it.
+        partial = TRAIN / "adapter"
+        partial_cfg = TRAIN / "run_config.json"
+        if (not stages["trained_e2"] and partial_cfg.is_file()
+                and (partial / "adapter_config.json").is_file()
+                and list(partial.glob("*.safetensors"))):
+            try:
+                partial_file = OUTPUTS / "qlora_14b_PARTIAL_incomplete_bundle.tar.gz"
+                archive(partial_file, [(partial, "adapter_incomplete"),
+                                       (partial_cfg, "training_run_config.json")])
+                packages += [partial_file, Path(str(partial_file)+".sha256")]
+                print("INCOMPLETE ADAPTER archived WITHOUT claiming an entire epoch", flush=True)
+            except BaseException as exc:
+                print("PARTIAL adapter archive FAILED:", exc, flush=True)
         status = {
             "model": MODEL, "rank": 16, "planned_epochs": 2,
             "stages": stages, "last_stage": last_stage, "error": failure,
