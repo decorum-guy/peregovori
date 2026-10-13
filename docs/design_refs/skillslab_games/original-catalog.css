@@ -1,0 +1,18 @@
+.lang-switch{display:inline-flex;gap:4px;align-items:center}
+.lang-switch button{cursor:pointer}
+.lang-switch button[aria-pressed=true]{cursor:default}
+.gh-root{min-height:100dvh;background:linear-gradient(160deg,#10564a,#0a352d);display:flex;flex-direction:column;align-items:center;padding:40px 16px 56px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.gh-logo{height:30px;width:auto;margin-bottom:26px}
+.gh-title{color:#eaf3ef;font-size:26px;font-weight:700;margin:0 0 4px}
+.gh-sub{color:#9ec3b6;font-size:14px;margin:0 0 30px}
+.gh-grid{display:grid;gap:16px;width:min(760px,100%);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.gh-card{text-decoration:none;background:#08201bb8;border:1px solid rgba(232,192,106,.22);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:9px;min-height:168px;transition:transform .14s,border-color .14s,box-shadow .14s}
+.gh-card:hover{transform:translateY(-4px);border-color:#e8c06a8c;box-shadow:0 16px 40px #0006}
+.gh-card.is-soon{opacity:.72}
+.gh-card-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;font-weight:800;color:#0a352d}
+.gh-card-name{color:#eaf3ef;font-size:18px;font-weight:700}
+.gh-card-desc{color:#9ec3b6;font-size:13px;line-height:1.4}
+.gh-card-go{color:#e8c06a;font-size:13px;font-weight:600;margin-top:auto}
+.gh-lang{margin:-10px 0 18px}
+.gh-lang-btn{background:transparent;border:1px solid rgba(232,192,106,.35);color:#9ec3b6;border-radius:8px;padding:4px 10px;font:inherit;font-size:12px;font-weight:700}
+.gh-lang-btn.is-on{background:#e8c06a;color:#0a352d;border-color:#e8c06a}

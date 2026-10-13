@@ -58,5 +58,6 @@ with socket.socket() as sock:
         raise SystemExit(1)
 PY
 echo "Линия решения: http://127.0.0.1:8000"
+echo "Каталог игр: http://127.0.0.1:8000/games"
 echo "Остановка приложения: Ctrl+C. Сессии сохраняются в SQLite."
 exec "$DEMO_PYTHON" -m uvicorn app.main:app --app-dir web/backend --host 127.0.0.1 --port 8000

@@ -1,5 +1,5 @@
 import { FormEvent, KeyboardEvent, SelectHTMLAttributes, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowDown, ArrowRight, Check, ChevronDown, CircleAlert, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, Check, ChevronDown, CircleAlert, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
 import { LineMark } from './BrandMark'
 
 type Scenario = 'conflict_only' | 'negotiation_only' | 'conflict_then_negotiation'
@@ -521,10 +521,10 @@ export function SetupScreen({
   return (
     <div className="setup-page">
       <header className="setup-header">
-        <div className="brand-lockup">
+        <a className="brand-lockup" href="/games" aria-label="Линия решения — к каталогу игр">
           <LineMark />
           <p>Линия решения</p>
-        </div>
+        </a>
         <span className="independent-label">Независимый концепт</span>
       </header>
 
@@ -631,7 +631,7 @@ export function GameScreen({
   return (
     <div className="game-shell">
       <header className="game-header">
-        <span className="back-link game-independent-label">Независимый концепт</span>
+        <a className="back-link" href="/games"><ArrowLeft size={16} /> К играм</a>
         <div className="game-title"><LineMark compact /><div><span className="eyebrow">ЛИНИЯ РЕШЕНИЯ</span><h1>{summary.title}</h1></div></div>
         {session.status === 'active' ? <button className="finish-button" onClick={onFinish} disabled={action === 'finishing'}>{action === 'finishing' ? <><span className="spinner spinner--small" /> Завершаем…</> : <>Завершить <X size={16} /></>}</button> : <span className="finished-pill">Диалог завершён</span>}
       </header>

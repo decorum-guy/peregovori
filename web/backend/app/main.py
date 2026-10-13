@@ -87,7 +87,18 @@ def create_app(
     if assets.is_dir():
         app.mount("/assets", StaticFiles(directory=assets), name="assets")
 
+    catalog = WEB_DIR / "catalog"
+    if (catalog / "assets").is_dir():
+        app.mount("/catalog-assets", StaticFiles(directory=catalog / "assets"), name="catalog-assets")
+
+    @app.get("/games", include_in_schema=False)
+    @app.get("/games/", include_in_schema=False)
+    async def games():
+        return FileResponse(catalog / "index.html")
+
     @app.get("/", include_in_schema=False)
+    @app.get("/games/line-decision", include_in_schema=False)
+    @app.get("/games/line-decision/", include_in_schema=False)
     async def root():
         index = dist / "index.html"
         if index.is_file():

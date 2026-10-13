@@ -49,7 +49,8 @@ a { color: inherit; }
 .back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
 .back-link:hover { color: var(--accent); }
 .back-link:focus-visible, .text-button:focus-visible, .icon-button:focus-visible, summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
-.brand-lockup { display: flex; align-items: center; gap: 14px; color: var(--primary); font-size: 17px; font-weight: 700; }
+.brand-lockup { display: flex; align-items: center; gap: 14px; color: var(--primary); font-size: 17px; font-weight: 700; text-decoration: none; }
+.brand-lockup:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
 .brand-lockup p { margin: 0; }
 .independent-label { color: var(--muted); font-size: 11px; line-height: 16px; text-align: right; }
 .line-mark { display: block; width: 46px; height: 46px; flex: 0 0 auto; object-fit: contain; }

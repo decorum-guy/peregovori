@@ -30,6 +30,8 @@ bash scripts/start_demo_mac.sh
 
 Откройте **http://127.0.0.1:8000**. Скрипт создаёт Python-окружение при необходимости, устанавливает недостающие backend-зависимости, собирает frontend при изменениях и запускает FastAPI. Vite отдельно запускать не надо. `Ctrl+C` останавливает сайт; сессии остаются в `web/data/sessions.sqlite3`. Если `.env` ещё нет, скрипт создаст его и сообщит об отсутствующем ключе.
 
+Каталог в оформлении [страницы игр Soft Skills Lab](https://exercises.skillslab.center/games): **http://127.0.0.1:8000/games**. В нём одна карточка «Линия решения», которая открывает **/games/line-decision**. Логотип в настройках и «К играм» в чате возвращают в каталог. Исходный HTML скачан; видимая разметка, стили и сведения об источнике сохранены в `docs/design_refs/skillslab_games`. Все ресурсы копии локальные, отдельный сервер или интернет для открытия каталога не нужен. RU/EN переключает каталог; игра на русском.
+
 Проверка OpenRouter (без вывода ключа и proxy credentials):
 
 ```bash
@@ -140,6 +142,29 @@ bash scripts/start_public_demo.sh
 Ссылку проверьте **с российского мобильного интернета без VPN/прокси**. Открытие с Mac через прокси или с иностранного сервера не подтверждает доступ в России. [Cloudflare требует исходящий порт 7844](https://developers.cloudflare.com/tunnel/configuration/); [Quick Tunnel](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/) — временная случайная ссылка. Домен для демо не обязателен.
 
 Если edge не подключается за короткую попытку, оставьте локальную демонстрацию. Запасной вариант — [ngrok](https://ngrok.com/use-cases/share-localhost): после локальной настройки собственного authtoken выполните `ngrok http 8000`. Его доступность также надо проверить из российской сети; в этой работе он не запускался. Backend менять не требуется. Публикуйте только основной сайт на время демо; Qwen остаётся за SSH-туннелем.
+
+### После покупки собственного домена
+
+Подготовлен `deploy/cloudflared.demo.example.yml`: один hostname направляет весь сайт на **http://127.0.0.1:8000**, остальные hostname получают 404. HTML, assets, `/games/line-decision` и `/api/*` используют один origin и относительные адреса, поэтому имя домена не требует пересборки или настройки CORS. Backend остаётся на loopback, HTTPS принимает туннель. Qwen по-прежнему доступна только backend через SSH.
+
+После покупки домена добавьте его в свой аккаунт Cloudflare и настройте DNS у регистратора. Однократно на Mac с установленным официальным `cloudflared`:
+
+```bash
+cloudflared tunnel login
+cloudflared tunnel create line-decision-demo
+cloudflared tunnel route dns line-decision-demo YOUR_DOMAIN
+cp deploy/cloudflared.demo.example.yml web/cloudflared.local.yml
+```
+
+`YOUR_DOMAIN` замените на ваш домен или поддомен. В локальной YAML заполните hostname, UUID созданного туннеля и абсолютный путь к его credentials JSON в `~/.cloudflared`. Эти credentials и локальная YAML не коммитятся. Формат взят из [официальной инструкции Cloudflare](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/configuration-file/).
+
+Сначала `bash scripts/start_demo_mac.sh`, затем в другом терминале:
+
+```bash
+bash scripts/start_domain_demo.sh
+```
+
+Без запуска туннеля: `bash scripts/start_domain_demo.sh web/cloudflared.local.yml --check`. Скрипт проверяет заполненность и ingress, а перед запуском — локальный backend. Он не создаёт DNS или аккаунт и не печатает credentials. Страницы будут доступны по `https://YOUR_DOMAIN/games` и `https://YOUR_DOMAIN/games/line-decision`. Домен и именованный туннель сейчас не настроены; подготовлен только путь подключения. Проверку доступности из российской сети и диагностику Cloudflare выше выполните после подключения.
 
 ## Проверки и сохранённая логика
 

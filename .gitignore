@@ -16,3 +16,5 @@ web/frontend/*.tsbuildinfo
 !web/.env.example
 !inference/.env.example
 inference/logs/
+web/cloudflared.local.yml
+.cloudflared/
