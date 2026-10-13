@@ -19,6 +19,9 @@ def args_parser():
     p.add_argument("--epochs", type=float, default=1.0)
     p.add_argument("--max-steps", type=int, default=-1, help="10 for smoke test, -1 for full epoch")
     p.add_argument("--lr", type=float, default=0.0001)
+    p.add_argument("--lora-rank", type=int, default=16)
+    p.add_argument("--lora-alpha", type=int, default=None, help="Default 2*rank")
+    p.add_argument("--lora-dropout", type=float, default=0.0)
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--resume-from-checkpoint", default="", help="Full Trainer checkpoint path or latest")
     p.add_argument("--deadline-file", default="", help="JSON file with absolute stop deadline")
@@ -66,6 +69,12 @@ def encode_one(row, tokenizer, max_length):
 
 def main():
     args = args_parser()
+    if args.lora_rank not in (8, 16, 32, 64):
+        raise SystemExit("Supported LoRA ranks: 8,16,32,64")
+    if args.lora_alpha is None:
+        args.lora_alpha = 2 * args.lora_rank
+    if args.lora_alpha <= 0 or not (0 <= args.lora_dropout < 1):
+        raise SystemExit("Invalid LoRA alpha/dropout")
     from datasets import Dataset
     from transformers import AutoTokenizer
 
@@ -126,7 +135,8 @@ def main():
     model.config.use_cache = False
     model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
     model = get_peft_model(model, LoraConfig(
-        r=16, lora_alpha=32, lora_dropout=0.0, bias="none", task_type="CAUSAL_LM",
+        r=args.lora_rank, lora_alpha=args.lora_alpha,
+        lora_dropout=args.lora_dropout, bias="none", task_type="CAUSAL_LM",
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
                         "gate_proj", "up_proj", "down_proj"],
     ))
