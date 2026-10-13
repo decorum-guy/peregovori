@@ -100,6 +100,7 @@ def main():
     ap.add_argument("--probes", required=True)
     ap.add_argument("--adapter", default="training/outputs/qlora_v1/adapter")
     ap.add_argument("--base-only", action="store_true", help="Run one BASE model; do not load a LoRA adapter")
+    ap.add_argument("--lora-only", action="store_true", help="Generate only LoRA responses; reuse earlier saved BASE to reduce GPU costs")
     ap.add_argument("--validate-only", action="store_true", help="Validate DEV and checksums without loading GPU")
     ap.add_argument("--output", default="eval_private/results/dev")
     ap.add_argument("--model", default="Qwen/Qwen3-8B")
@@ -108,6 +109,8 @@ def main():
     ap.add_argument("--deadline-file", default="")
     ap.add_argument("--stop-margin-minutes", type=int, default=12)
     args = ap.parse_args()
+    if args.base_only and args.lora_only:
+        ap.error("--base-only and --lora-only are mutually exclusive")
     if args.suite != "dev" and not args.allow_sealed_test:
         raise SystemExit("Refusing to open sealed TEST without --allow-sealed-test")
     if args.max_new_tokens < 32 or args.max_new_tokens > 512:
@@ -167,7 +170,7 @@ def main():
         prompt_cache[p["probe_id"]] = prompt
     print("All prompts formed without teaching/oracle. Starting inference.", flush=True)
     end_token = tok.convert_tokens_to_ids("<|im_end|>")
-    modes = ("base",) if args.base_only else ("base", "lora")
+    modes = ("base",) if args.base_only else (("lora",) if args.lora_only else ("base", "lora"))
     for run_name in modes:
         path = out / f"{run_name}.jsonl"
         done = {}
@@ -216,6 +219,8 @@ def main():
                     print(f"{run_name}: {idx}/{len(probes)}; latest={p['probe_id']}", flush=True)
     if args.base_only:
         print(f"DONE: {len(probes)} BASE responses from {args.model}, output {out}", flush=True)
+    elif args.lora_only:
+        print(f"DONE: {len(probes)} LORA responses from {args.model}, output {out}", flush=True)
     else:
         print(f"DONE: {len(probes)} BASE and {len(probes)} LORA responses, output {out}", flush=True)
 
