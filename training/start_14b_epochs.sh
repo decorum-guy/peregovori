@@ -72,6 +72,12 @@ test ! -f eval_private/results/qwen3_14b_e2/lora.jsonl || {
   echo "STOP: previous E2 DEV responses already exist; inspect before restart"
   exit 1
 }
+for existing in training/outputs/qlora_14b_2ep/adapter_epoch_1                 training/outputs/qlora_14b_2ep/adapter_epoch_2                 training/outputs/qlora_14b_2ep/checkpoint-112                 training/outputs/qlora_14b_2ep/pipeline.log; do
+  test ! -e "$existing" || {
+    echo "STOP: previous 14B experiment artifacts exist: $existing; protect data before retry"
+    exit 1
+  }
+done
 
 echo "Checking existing provider watchdog..."
 if pgrep -f '/training/intelion_autostop.py _watch' >/dev/null; then
@@ -85,6 +91,11 @@ echo "ARMING Intelion provider API hard-stop at 265min. Ensure AUTO-RENEW is OFF
 "$PY" training/intelion_autostop.py arm --server-id "$ID" --minutes 265
 ARMED=1
 "$PY" training/intelion_autostop.py status
+sleep 1
+if ! pgrep -f '/training/intelion_autostop.py _watch' >/dev/null; then
+  echo "ERROR: detached Intelion watchdog process did not remain active"
+  false
+fi
 
 mkdir -p "$(dirname "$LOG")"
 tmux new-session -d -s "$SESSION" \
