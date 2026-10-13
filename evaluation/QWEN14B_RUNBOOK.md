@@ -1,5 +1,8 @@
 # Qwen3-14B BASE on Intelion RTX 3090: one-command DEV run
 
+> **ИСТОРИЧЕСКИЙ RUNBOOK, ТОЛЬКО BASE-инференс!** Владелец 14.10.2026 утвердил новую цепочку **BASE → 14B QLoRA E1/E2 → DEV**, см. [training/EXPERIMENT_14B_5H.md](../training/EXPERIMENT_14B_5H.md) и `bash training/start_14b_epochs.sh`. Не запускать одновременно/вместо нового пайплайна `evaluation/start_14b.sh`: он останавливает сервер после одного baseline.
+
+
 **First experiment after successful 8B QLoRA V1.** This is INFERENCE ONLY. We do not yet train 14B and do not open TEST_A or TEST_B.
 
 ## What already exists on Intelion server 11425
