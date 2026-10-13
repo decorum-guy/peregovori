@@ -20,6 +20,7 @@ def args_parser():
     p.add_argument("--max-steps", type=int, default=-1, help="10 for smoke test, -1 for full epoch")
     p.add_argument("--lr", type=float, default=0.0001)
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--resume-from-checkpoint", default="", help="Full Trainer checkpoint path or latest")
     p.add_argument("--deadline-file", default="", help="JSON file with absolute stop deadline")
     p.add_argument("--save-margin-seconds", type=int, default=600)
     return p.parse_args()
@@ -165,7 +166,36 @@ def main():
         processing_class=tokenizer,
         callbacks=[DeadlineCallback()],
     )
-    trainer.train()
+    resume_path = None
+    if args.resume_from_checkpoint:
+        if args.resume_from_checkpoint == "latest":
+            root = Path(args.output)
+            candidates = sorted(
+                (d for d in root.glob("checkpoint-*")
+                 if d.is_dir() and d.name[11:].isdigit()),
+                key=lambda d: int(d.name.split("-")[-1]),
+                reverse=True,
+            )
+            for folder in candidates:
+                # Do not resume using only adapter weights: optim/scheduler/RNG are
+                # needed for a faithful continuation of the original epoch.
+                required = ("trainer_state.json", "optimizer.pt", "scheduler.pt",
+                            "adapter_config.json")
+                if (all((folder / n).is_file() for n in required)
+                        and any(folder.glob("*.safetensors"))):
+                    resume_path = str(folder.resolve())
+                    break
+            if not resume_path:
+                raise SystemExit(
+                    f"STOP: no complete resumable checkpoint in {root}; found {[d.name for d in candidates]}"
+                )
+        else:
+            folder = Path(args.resume_from_checkpoint)
+            if not folder.is_dir() or not (folder / "trainer_state.json").is_file():
+                raise SystemExit(f"STOP: checkpoint missing/incomplete: {folder}")
+            resume_path = str(folder.resolve())
+        print("RESUMING FULL TRAINER STATE FROM:", resume_path, flush=True)
+    trainer.train(resume_from_checkpoint=resume_path)
     adapter = Path(args.output) / "adapter"
     adapter.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(str(adapter), safe_serialization=True)
