@@ -15,10 +15,10 @@ Sources:
 
    ```bash
    mkdir -p /tmp/skillslab_design_audit
-   env -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY -u http_proxy -u https_proxy -u all_proxy \\
-     curl --noproxy '*' -L --fail --show-error --silent --compressed \\
-       --connect-timeout 10 --max-time 30 \\
-       'https://exercises.skillslab.center/games' \\
+   env -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY -u http_proxy -u https_proxy -u all_proxy \
+     curl --noproxy '*' -L --fail --show-error --silent --compressed \
+       --connect-timeout 10 --max-time 30 \
+       'https://exercises.skillslab.center/games' \
        -o /tmp/skillslab_design_audit/games.html
    ```
 
