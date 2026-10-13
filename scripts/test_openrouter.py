@@ -2,6 +2,7 @@
 """Real connectivity and small Claude/GPT requests. Never print credentials."""
 import argparse
 import asyncio
+import os
 import tempfile
 import time
 import uuid
@@ -36,10 +37,21 @@ async def run(args):
                                          purpose="diagnostic", max_tokens=32, temperature=0)
         print("%s: %.2f с; %s" % (model, time.monotonic() - started, preview(result)))
     if args.game:
-        from app.main import create_app
         import httpx
         with tempfile.TemporaryDirectory(prefix="line-demo-smoke-") as directory:
-            app = create_app(settings=replace(settings, llm_mode="openrouter"), database_path=str(Path(directory) / "sessions.sqlite3"))
+            database = str(Path(directory) / "sessions.sqlite3")
+            # app.main constructs a default app at import. Isolate that store too:
+            # otherwise importing it can recover pending turns in the live site's DB.
+            previous_database = os.environ.get("DATABASE_PATH")
+            os.environ["DATABASE_PATH"] = database
+            try:
+                from app.main import create_app
+            finally:
+                if previous_database is None:
+                    os.environ.pop("DATABASE_PATH", None)
+                else:
+                    os.environ["DATABASE_PATH"] = previous_database
+            app = create_app(settings=replace(settings, llm_mode="openrouter", database_path=database))
             async with httpx.AsyncClient(transport=httpx.ASGITransport(app), base_url="http://demo-test", trust_env=False) as client:
                 async def post(path, data):
                     response = await client.post(path, json=data)

@@ -379,3 +379,21 @@ def test_finish_during_inflight_turn_closes_session_and_discards_late_reply(tmp_
             assert len([call for call in provider.calls if call["purpose"] == "judge"]) == 0
             assert len([call for call in provider.calls if call["purpose"] == "roleplayer"]) == 1
     asyncio.run(run())
+
+
+def test_interrupted_judge_can_retry_after_restart_only_by_explicit_request(tmp_path):
+    app, _ = make_test_app(tmp_path)
+    with TestClient(app) as client:
+        session = create(client)
+        client.post('/api/sessions/%s/finish' % session['id'])
+    state, _ = app.state.session_store.reserve_debrief(session['id'])
+    assert state == 'reserved'
+    restarted, provider = make_test_app(tmp_path)
+    with TestClient(restarted) as client:
+        restored = client.get('/api/sessions/%s' % session['id']).json()
+        assert restored['debrief_status'] == 'failed'
+        assert restored['status'] == 'finished'
+        assert provider.calls == []
+        assert client.post('/api/sessions/%s/debrief' % session['id']).status_code == 200
+        assert client.post('/api/sessions/%s/debrief' % session['id']).status_code == 200
+    assert [call['purpose'] for call in provider.calls] == ['judge']

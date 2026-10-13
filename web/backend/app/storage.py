@@ -88,6 +88,9 @@ class SessionStore:
                         message["delivery_status"] = "failed"
                 connection.execute("UPDATE sessions SET messages_json = ? WHERE id = ?", (_dump(messages), row["id"]))
             connection.execute("UPDATE message_requests SET status = 'failed' WHERE status = 'pending'")
+            # A pending Judge also belonged to the previous process. Allow a new
+            # explicit request, preserving the finished dialogue and consent gate.
+            connection.execute("UPDATE sessions SET debrief_status = 'failed' WHERE debrief_status = 'pending'")
 
     def create(
         self,
