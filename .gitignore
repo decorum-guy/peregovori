@@ -6,3 +6,10 @@ __pycache__/
 training/derived/
 training/outputs/
 training/.venv/
+web/.venv/
+web/frontend/node_modules/
+web/frontend/dist/
+web/backend/.pytest_cache/
+web/data/*.sqlite3*
+web/frontend/*.tsbuildinfo
+!web/.env.example
