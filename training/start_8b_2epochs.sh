@@ -41,8 +41,10 @@ if tmux has-session -t "$SESSION" 2>/dev/null; then
 fi
 echo "Checking syntax BEFORE paid timer starts..."
 "$PY" -m py_compile training/train_qlora.py training/run_8b_2epochs_and_stop.py \
-  evaluation/run_gpu.py evaluation/compare_8b_2epochs.py
+  training/upload_private_release.py evaluation/run_gpu.py evaluation/compare_8b_2epochs.py
 bash -n training/start_8b_2epochs.sh
+echo "Preflight: GitHub private Release must be configured BEFORE paid training starts..."
+"$PY" training/upload_private_release.py check
 echo "Validating existing adapter and DEV reference with no new inference..."
 (cd training/outputs && sha256sum -c qlora_v1_bundle.tar.gz.sha256)
 "$PY" training/check_result.py
@@ -90,5 +92,6 @@ echo "STARTED detached tmux session: $SESSION"
 echo "GPU: Qwen3-8B NF4, LoRA rank16; TWO FRESH epochs, not resuming V1."
 echo "DEV: only 75 NEW LoRA replies; existing BASE/V1 replies REUSED."
 echo "Watch: tail -f $LOG  (Ctrl+C stops viewing only)."
+echo "GitHub: automatic private release backup of adapter, DEV archive, hashes and log."
 echo "Hard stop: 100min from arming; successful/failed runner requests earlier stop."
 echo "Check Intelion dashboard later: must say STOPPED."
