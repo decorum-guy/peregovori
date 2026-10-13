@@ -93,8 +93,8 @@ def main():
         for s in list_servers():
             print(f"{s.id}: {s.name} — {s.status}")
     elif a.action == "arm":
-        if not 20 <= a.minutes <= 240:
-            raise SystemExit("Minutes must be 20..240")
+        if not 20 <= a.minutes <= 300:
+            raise SystemExit("Minutes must be 20..300")
         if DEADLINE_FILE.exists():
             raise SystemExit("Already armed. Check status; do not start a second timer.")
         s = checked_server(a.server_id)
