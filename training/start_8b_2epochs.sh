@@ -39,6 +39,10 @@ if tmux has-session -t "$SESSION" 2>/dev/null; then
   echo "STOP: tmux $SESSION already running"
   exit 1
 fi
+echo "Checking syntax BEFORE paid timer starts..."
+"$PY" -m py_compile training/train_qlora.py training/run_8b_2epochs_and_stop.py \
+  evaluation/run_gpu.py evaluation/compare_8b_2epochs.py
+bash -n training/start_8b_2epochs.sh
 echo "Validating existing adapter and DEV reference with no new inference..."
 (cd training/outputs && sha256sum -c qlora_v1_bundle.tar.gz.sha256)
 "$PY" training/check_result.py
