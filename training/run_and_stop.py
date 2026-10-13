@@ -59,6 +59,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--server-id", type=int, required=True)
     p.add_argument("--skip-smoke", action="store_true")
+    p.add_argument("--resume-latest", action="store_true", help="Resume existing full epoch from complete latest checkpoint")
     args = p.parse_args()
     OUTPUTS.mkdir(parents=True, exist_ok=True)
     if not DEADLINE.exists():
@@ -74,7 +75,7 @@ def main():
         # Source checksum and 895 SFT completions.
         run([python, "training/prepare_sft.py"])
         run([python, "training/train_qlora.py", "--dry-run", "--max-length", "3072"])
-        if not args.skip_smoke:
+        if not (args.skip_smoke or args.resume_latest):
             safe_budget(d["deadline_epoch"], 25 * 60)
             run([python, "training/train_qlora.py", "--max-steps", "10",
                  "--output", "training/outputs/smoke",
@@ -82,9 +83,12 @@ def main():
             if not (OUTPUTS / "smoke" / "adapter" / "adapter_config.json").exists():
                 raise RuntimeError("Smoke did not save adapter")
         safe_budget(d["deadline_epoch"], 15 * 60)
-        run([python, "training/train_qlora.py", "--epochs", "1",
-             "--output", "training/outputs/qlora_v1",
-             "--deadline-file", str(DEADLINE)])
+        training_command = [python, "training/train_qlora.py", "--epochs", "1",
+                            "--output", "training/outputs/qlora_v1",
+                            "--deadline-file", str(DEADLINE)]
+        if args.resume_latest:
+            training_command += ["--resume-from-checkpoint", "latest"]
+        run(training_command)
         save_bundle()
         success = True
     except Exception:
