@@ -143,6 +143,8 @@ bash scripts/start_public_demo.sh
 
 ## Проверки и сохранённая логика
 
+Для оценки дизайна без ключа и GPU доступны [варианты логотипа](http://127.0.0.1:8000/design-preview?view=logos), [заполненный чат](http://127.0.0.1:8000/design-preview?view=chat) и [заполненный разбор](http://127.0.0.1:8000/design-preview?view=review). Это те же компоненты интерфейса с явно отмеченными синтетическими данными. Переключатели сверху позволяют примерить четыре знака в разных экранах; эта страница не создаёт сессии в SQLite и не вызывает модели.
+
 ```bash
 web/.venv/bin/python -m pytest web/backend/tests -o addopts='' -q
 cd web/frontend && npm run build

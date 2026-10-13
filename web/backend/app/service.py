@@ -373,7 +373,7 @@ class DemoService:
                 "student_side": session["settings"].get("student_side"),
                 "sphere": session["settings"]["sphere"],
                 "custom_topic": session["settings"].get("custom_topic"),
-                "player_name": session["settings"].get("player_name") or "Вы",
+                "player_name": session["settings"].get("player_name") or "",
             },
             "case": {
                 "scenario": public_case["scenario"],

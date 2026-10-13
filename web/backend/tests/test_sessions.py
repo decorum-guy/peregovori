@@ -397,3 +397,13 @@ def test_interrupted_judge_can_retry_after_restart_only_by_explicit_request(tmp_
         assert client.post('/api/sessions/%s/debrief' % session['id']).status_code == 200
         assert client.post('/api/sessions/%s/debrief' % session['id']).status_code == 200
     assert [call['purpose'] for call in provider.calls] == ['judge']
+
+
+@pytest.mark.parametrize('name,expected', [(None, ''), ('Саша', 'Саша')])
+def test_optional_name_stays_blank_in_form_data_and_explicit_names_survive_restore(tmp_path, name, expected):
+    app, _ = make_test_app(tmp_path)
+    with TestClient(app) as client:
+        session = create(client, {**options(), 'player_name': name})
+        assert session['settings']['player_name'] == expected
+        restored = client.get('/api/sessions/%s' % session['id']).json()
+        assert restored['settings']['player_name'] == expected

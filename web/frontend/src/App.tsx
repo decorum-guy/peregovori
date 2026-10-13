@@ -1,5 +1,6 @@
-import { FormEvent, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { FormEvent, KeyboardEvent, SelectHTMLAttributes, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowDown, ArrowRight, Check, ChevronDown, CircleAlert, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
+import { LineMark } from './BrandMark'
 
 type Scenario = 'conflict_only' | 'negotiation_only' | 'conflict_then_negotiation'
 type ConflictType = 'personal' | 'public' | 'mixed'
@@ -9,7 +10,7 @@ type EngineId = 'premium' | 'lora'
 type SessionStatus = 'active' | 'finished' | 'reviewed' | 'finished_without_review'
 
 type Engine = { id: EngineId; label: string; enabled: boolean; reason?: string }
-type AppConfig = {
+export type AppConfig = {
   premium_model_id: string
   premium_model_label: string
   provider_mode: 'openrouter' | 'test_mock' | 'unconfigured'
@@ -18,7 +19,7 @@ type AppConfig = {
   engines: Engine[]
   notice: string
 }
-type Settings = {
+export type Settings = {
   scenario: Scenario
   conflict_type: ConflictType
   difficulty: Difficulty
@@ -57,7 +58,7 @@ type Debrief = {
   next_step: string
   example_phrase: string | null
 }
-type Session = {
+export type Session = {
   id: string
   created_at: string
   status: SessionStatus
@@ -133,7 +134,9 @@ async function api<T>(url: string, body?: unknown): Promise<T> {
 function readSavedSettings(): Settings {
   try {
     const value = localStorage.getItem(SETTINGS_KEY)
-    return value ? { ...defaultSettings, ...JSON.parse(value) } : defaultSettings
+    const saved = value ? JSON.parse(value) : {}
+    // Migrate the old chat fallback that accidentally became a form value.
+    return { ...defaultSettings, ...saved, player_name: saved.player_name === 'Вы' ? '' : saved.player_name || '' }
   } catch {
     return defaultSettings
   }
@@ -163,8 +166,8 @@ function meaningfullyDistinct(value: string | null, comparisons: Array<string | 
   })
 }
 
-function LineMark({ compact = false }: { compact?: boolean }) {
-  return <span className={`line-mark${compact ? ' line-mark--compact' : ''}`} aria-hidden="true"><i /><b /></span>
+function SelectControl(props: SelectHTMLAttributes<HTMLSelectElement>) {
+  return <span className="select-control"><select {...props} /><ChevronDown size={16} aria-hidden="true" /></span>
 }
 
 function ErrorNotice({ message, onClose, onRetry }: { message: string; onClose?: () => void; onRetry?: () => void }) {
@@ -489,7 +492,7 @@ export default function App() {
   )
 }
 
-function SetupScreen({
+export function SetupScreen({
   settings, config, action, error, notice, currentEngine, checkingModels, onRefreshModels, onUpdate, onRandomize, onStart, onClearError,
 }: {
   settings: Settings
@@ -514,12 +517,11 @@ function SetupScreen({
   return (
     <div className="setup-page">
       <header className="setup-header">
-        <span className="header-space" aria-hidden="true" />
         <div className="brand-lockup">
           <LineMark />
-          <div><p className="eyebrow">Независимый концепт</p><p>Линия решения</p></div>
+          <p>Линия решения</p>
         </div>
-        <span className="header-space" aria-hidden="true" />
+        <span className="independent-label">Независимый концепт</span>
       </header>
 
       <section className="setup-intro">
@@ -528,7 +530,6 @@ function SetupScreen({
           <h1>Найдите следующий ход</h1>
           <p className="intro-copy">Выберите ситуацию и попробуйте следующий ход в живом диалоге.</p>
         </div>
-        <div className="intro-mark"><LineMark /><span>Разные позиции.<br />Пространство для решения.</span></div>
       </section>
 
       <form className="setup-card" onSubmit={(event) => void onStart(event)}>
@@ -549,12 +550,12 @@ function SetupScreen({
         </fieldset>
 
         <div className="settings-grid">
-          {hasConflict && <label className="field-group"><span>Тип конфликта</span><select value={settings.conflict_type} onChange={(event) => onUpdate('conflict_type', event.target.value as ConflictType)}>{conflictChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</select></label>}
-          <label className="field-group"><span>Сложность</span><select value={settings.difficulty} onChange={(event) => onUpdate('difficulty', event.target.value as Difficulty)}>{difficultyChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</select>{settings.difficulty === 'impossible' && <small>Одно желаемое условие объективно недостижимо; осмысленный разговор всё ещё возможен.</small>}</label>
-          <label className="field-group"><span>Сфера</span><select value={settings.sphere} onChange={(event) => onUpdate('sphere', event.target.value as Settings['sphere'])}><option value="work">Работа</option><option value="family">Семья</option><option value="study">Учёба</option><option value="friends">Друзья</option><option value="custom">Другое</option></select></label>
-          {hasConflict && <label className="field-group"><span>Ваша сторона</span><select value={settings.student_side} onChange={(event) => onUpdate('student_side', event.target.value as StudentSide)}><option value="protect">Защищаю границы</option><option value="pressure">Оказываю давление</option></select></label>}
+          {hasConflict && <label className="field-group"><span>Тип конфликта</span><SelectControl value={settings.conflict_type} onChange={(event) => onUpdate('conflict_type', event.target.value as ConflictType)}>{conflictChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</SelectControl></label>}
+          <label className="field-group"><span>Сложность</span><SelectControl value={settings.difficulty} onChange={(event) => onUpdate('difficulty', event.target.value as Difficulty)}>{difficultyChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</SelectControl>{settings.difficulty === 'impossible' && <small>Одно желаемое условие объективно недостижимо; осмысленный разговор всё ещё возможен.</small>}</label>
+          <label className="field-group"><span>Сфера</span><SelectControl value={settings.sphere} onChange={(event) => onUpdate('sphere', event.target.value as Settings['sphere'])}><option value="work">Работа</option><option value="family">Семья</option><option value="study">Учёба</option><option value="friends">Друзья</option><option value="custom">Другое</option></SelectControl></label>
+          {hasConflict && <label className="field-group"><span>Ваша сторона</span><SelectControl value={settings.student_side} onChange={(event) => onUpdate('student_side', event.target.value as StudentSide)}><option value="protect">Защищаю границы</option><option value="pressure">Оказываю давление</option></SelectControl></label>}
           {settings.sphere === 'custom' && <label className="field-group field-span"><span>Ваша тема, необязательно</span><textarea rows={2} value={settings.custom_topic} maxLength={240} placeholder="Например, совместный проект или бытовая договорённость" onChange={(event) => onUpdate('custom_topic', event.target.value)} /></label>}
-          <label className="field-group field-span"><span>Ваше имя, необязательно</span><input type="text" maxLength={60} value={settings.player_name} placeholder="Как к вам обращаться?" onChange={(event) => onUpdate('player_name', event.target.value)} /></label>
+          <label className="field-group field-span field-name"><span>Ваше имя, необязательно</span><input type="text" maxLength={60} value={settings.player_name} placeholder="Как к вам обращаться?" onChange={(event) => onUpdate('player_name', event.target.value)} /></label>
         </div>
 
         <fieldset className="field-group engine-fieldset">
@@ -589,8 +590,8 @@ function SetupScreen({
   )
 }
 
-function GameScreen({
-  config, session, action, error, draft, setDraft, detailsOpen, setDetailsOpen, hasNewMessage,
+export function GameScreen({
+  config, session, action, error, draft, setDraft, detailsOpen, setDetailsOpen, hasNewMessage, preview = false,
   onDraftEdited,
   conversationRef, endRef, onConversationScroll, onSend, onKeyDown, onRetry, onFinish, onSkip, onDebrief, onPlayAgain, onClearError,
 }: {
@@ -604,6 +605,7 @@ function GameScreen({
   detailsOpen: boolean
   setDetailsOpen: (value: boolean) => void
   hasNewMessage: boolean
+  preview?: boolean
   conversationRef: React.RefObject<HTMLDivElement>
   endRef: React.RefObject<HTMLDivElement>
   onConversationScroll: () => void
@@ -631,7 +633,7 @@ function GameScreen({
         {session.status === 'active' ? <button className="finish-button" onClick={onFinish} disabled={action === 'finishing'}>{action === 'finishing' ? <><span className="spinner spinner--small" /> Завершаем…</> : <>Завершить <X size={16} /></>}</button> : <span className="finished-pill">Диалог завершён</span>}
       </header>
 
-      {session.provider_mode === 'test_mock' && <div className="game-test-note"><Sparkles size={15} /> Тестовая симуляция: ответы не получены от {config?.premium_model_label || 'Claude/GPT'} API.</div>}
+      {!preview && session.provider_mode === 'test_mock' && <div className="game-test-note"><Sparkles size={15} /> Тестовая симуляция: ответы не получены от {config?.premium_model_label || 'Claude/GPT'} API.</div>}
       {session.source === 'accepted_train_fallback' && <div className="fallback-note"><CircleAlert size={15} /> Резервный принятый TRAIN-кейс. Параметры выбранной сферы могли не примениться.</div>}
       {session.engine.id === 'lora' && !loraEnabled && <div className="fallback-note"><CircleAlert size={15} /> Подключённая модель недоступна; ответы не переключаются на другую модель.</div>}
 
@@ -667,7 +669,7 @@ function GameScreen({
             </>
           ) : showOffer ? (
             <div className="final-card offer-card">
-              <div className="final-mark"><LineMark /></div>
+              <div className="final-mark"><MessageCircle size={32} aria-hidden="true" /></div>
               <p className="eyebrow">ДИАЛОГ ЗАВЕРШЁН</p>
               <h2>Хотите получить разбор?</h2>
               <p>Разбор опирается на реальные реплики и отмечает только то, что было видно в этом диалоге.</p>
@@ -681,13 +683,13 @@ function GameScreen({
           ) : session.debrief ? (
             <DebriefView report={session.debrief} messages={session.messages} onPlayAgain={onPlayAgain} />
           ) : showDone ? (
-            <div className="final-card done-card"><div className="final-mark"><LineMark /></div><p className="eyebrow">ГОТОВО</p><h2>Вы завершили диалог</h2><p>Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.</p><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё <ArrowRight size={17} /></button></div>
+            <div className="final-card done-card"><div className="final-mark"><Check size={32} aria-hidden="true" /></div><p className="eyebrow">ГОТОВО</p><h2>Вы завершили диалог</h2><p>Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.</p><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё <ArrowRight size={17} /></button></div>
           ) : (
             <div className="final-card"><p>Сессия закрыта.</p><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё</button></div>
           )}
         </section>
       </div>
-      <footer className="game-footer"><span>Независимый концепт для демонстрации</span><span>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? ' · тестовая симуляция' : ''}</span></footer>
+      <footer className="game-footer"><span>Независимый концепт для демонстрации</span><span>{preview ? 'Пример интерфейса · синтетические данные' : <>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? ' · тестовая симуляция' : ''}</>}</span></footer>
     </div>
   )
 }
@@ -715,7 +717,7 @@ function CasePanel({ session, detailsOpen, setDetailsOpen }: { session: Session;
           {item.participants.length > 0 && <div className="case-section"><span className="case-label">Участники</span><ul className="participants-list">{item.participants.map((person) => <li key={person.name}><strong>{person.name}</strong><span>{person.role}</span></li>)}</ul></div>}
         </div>
       </details>
-      <div className="sidebar-motif"><LineMark compact /><span>Спокойный разговор<br />даёт больше возможностей.</span></div>
+      <div className="sidebar-motif"><span>Спокойный разговор<br />даёт больше возможностей.</span></div>
     </aside>
   )
 }
@@ -727,7 +729,7 @@ function DebriefView({ report, messages, onPlayAgain }: { report: Debrief; messa
   return (
     <div className="debrief-scroll">
       <div className="debrief-document">
-        <div className="debrief-topline"><div><span className="eyebrow">ПОСЛЕ ДИАЛОГА</span><h2>Ваш разбор</h2></div><LineMark compact /></div>
+        <div className="debrief-topline"><div><span className="eyebrow">ПОСЛЕ ДИАЛОГА</span><h2>Ваш разбор</h2></div></div>
         <p className="debrief-notice"><Sparkles size={15} /> Учебные рекомендации независимого прототипа</p>
         <section className="debrief-section"><h3>Что произошло</h3><p>{report.summary}</p></section>
         {report.strengths.length > 0 && <section className="debrief-section"><h3><Check size={17} /> Сильные действия</h3><div className="evidence-list">{report.strengths.map((point, index) => <EvidencePoint key={`s-${index}`} point={point} kind="strength" />)}</div></section>}
