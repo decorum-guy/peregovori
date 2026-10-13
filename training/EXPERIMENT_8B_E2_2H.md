@@ -2,6 +2,38 @@
 
 **Код подготовлен, платный запуск НЕ выполнялся.** Работаем на существующей Intelion VM 11425 / RTX 3090 / 24 ГБ. Сам сервер должен быть включён владельцем. Баланс и выключенное автопродление проверяются в интерфейсе Intelion.
 
+## НОВОЕ: автоматический бэкап в приватный GitHub Release ДО выключения VM
+
+**Не используйте «приватную ветку» публичного репозитория: такой ветки не существует.** GitHub Releases в отдельном ПРИВАТНОМ репозитории вмещают большие файлы модели и закрытый DEV. Не публиковать оригинальные DEV/TEST и oracle в `decorum-guy/peregovori`.
+
+**Сделать до платного запуска (без сервера):**
+1. GitHub → New repository → выберите **Private**, например `decorum-guy/peregovori-artifacts`, отметьте **Add a README file**. Реальное имя выбираете вы; пример не означает, что репозиторий уже существует.
+2. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → создать временный PAT только для нового приватного репозитория, **Repository permissions / Contents: Read and write**. Токен не присылать в чат, Codex, не публиковать; срок действия минимальный, после эксперимента отозвать.
+3. Запустить старую VM, войти по SSH; **до** вызова start-скрипта выполните (замените owner/repo):
+
+```bash
+cd /root/peregovori
+git switch main
+git pull --ff-only
+source .venv/bin/activate
+python training/upload_private_release.py configure --repo decorum-guy/peregovori-artifacts
+python training/upload_private_release.py check
+```
+
+`configure` незаметно считывает PAT через getpass (символы не отображаются). Файл токена хранится **только в** `~/.config/peregovori/github_artifacts.json` с правами `0600`. Никакой токен в Git не коммитится. Файл примет только приватный репозиторий, публичный отклоняется.
+
+**После успешного CHECK:**
+
+```bash
+bash training/start_8b_2epochs.sh
+```
+
+Перед таймером launcher ещё раз проверяет наличие приватного репозитория/доступа. В конце, до Intelion API stop, эксперимент загружает в GitHub Release: `qlora_v2_e2_bundle.tar.gz`, SHA-256, `qwen3_8b_e2_dev_outputs.tar.gz`, SHA-256, `pipeline.log`. Созданный tag: `qlora-8b-e2-20261013-vm11425`. Скрипт проверяет список активов и размеры; где GitHub предоставляет digest, проверяет и SHA-256.
+
+Если GitHub недоступен, `private_github_upload=FAILED` — результат остаётся на диске VM, сервер **всё равно выключается**. В этом случае доступ к файлам потребует повторного краткого включения. Невозможно гарантировать сеть/доступность API без фактического запуска. Проверка `PRIVATE repo verified` до обучения снижает риск, но не исключает сбой загрузки после.
+
+**После эксперимента:** открыть приватный GitHub → Releases → `qlora-8b-e2-20261013-vm11425`, скачать assets прямо на Mac без запуска Intelion. Сверить локальный `shasum -a 256 -c *.sha256`. Закрытый DEV CSV/пробы внутри приватного архива не размещать в публичном репозитории.
+
 ## Научная гипотеза
 
 Три кандидата на ОДНОМ frozen DEV (25 кейсов, 75 проб):
@@ -46,7 +78,7 @@ tail -f training/outputs/qlora_v2_e2/pipeline.log
 - eval_private/results/qwen3_8b_e2/three_way_blind_review.csv — слепое сравнение трёх систем.
 - eval_private/results/qwen3_8b_e2/three_way_blind_key_PRIVATE.json — закрытый ключ, не передавать Judge до оценки.
 
-PRIVATE архивы и case/probe/ответы не загружать в GitHub. При автоматической остановке архивы НЕ появятся автоматически на Mac. Нужен краткий повторный запуск той же VM для скачивания через SCP (если не успеете скачать до остановки); это тарифицируется дополнительно.
+PRIVATE архивы и case/probe/ответы не загружать в GitHub. При успешном PRIVATE GitHub upload файлы доступны в Release без повторного запуска VM. Если backup завершился ошибкой, архивы останутся только на VM-диске; тогда для SCP потребуется краткий платный перезапуск.
 
 ## Дальнейший выбор
 
