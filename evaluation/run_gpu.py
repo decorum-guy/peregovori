@@ -99,6 +99,8 @@ def main():
     ap.add_argument("--cases", required=True)
     ap.add_argument("--probes", required=True)
     ap.add_argument("--adapter", default="training/outputs/qlora_v1/adapter")
+    ap.add_argument("--base-only", action="store_true", help="Run one BASE model; do not load a LoRA adapter")
+    ap.add_argument("--validate-only", action="store_true", help="Validate DEV and checksums without loading GPU")
     ap.add_argument("--output", default="eval_private/results/dev")
     ap.add_argument("--model", default="Qwen/Qwen3-8B")
     ap.add_argument("--max-new-tokens", type=int, default=192)
@@ -113,7 +115,7 @@ def main():
     cases, case_sha = read_jsonl(args.cases)
     probes, probe_sha = read_jsonl(args.probes)
     by_id = validate_cases_probes(cases, probes, args.suite)
-    adapter_sha = validate_adapter(args.adapter)
+    adapter_sha = None if args.base_only else validate_adapter(args.adapter)
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     args_info = dict(
@@ -124,6 +126,9 @@ def main():
     run_config = out / "run_config.json"
     if run_config.exists() and json.loads(run_config.read_text(encoding="utf-8")) != args_info:
         raise SystemExit("Existing results use a different suite/model/files/adapter/settings; choose NEW --output")
+    if args.validate_only:
+        print(f"VALIDATED {args.suite}: {len(cases)} cases, {len(probes)} probes, hashes {case_sha} / {probe_sha}", flush=True)
+        return
     run_config.write_text(json.dumps(args_info, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     deadline = None
     if args.deadline_file:
@@ -138,7 +143,7 @@ def main():
     if tok.pad_token_id is None:
         tok.pad_token = tok.eos_token
     dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-    print("Loading ONE Qwen3-8B 4-bit base + LoRA adapter", flush=True)
+    print(f"Loading ONE {args.model} 4-bit base" + (" (BASE only)" if args.base_only else " + LoRA adapter"), flush=True)
     base = AutoModelForCausalLM.from_pretrained(
         args.model, device_map={"": 0},
         quantization_config=BitsAndBytesConfig(
@@ -147,7 +152,7 @@ def main():
         ),
         dtype=dtype, attn_implementation="sdpa",
     )
-    model = PeftModel.from_pretrained(base, args.adapter, is_trainable=False)
+    model = base if args.base_only else PeftModel.from_pretrained(base, args.adapter, is_trainable=False)
     model.eval()
     prompt_cache = {}
     for p in probes:
@@ -162,7 +167,8 @@ def main():
         prompt_cache[p["probe_id"]] = prompt
     print("All prompts formed without teaching/oracle. Starting inference.", flush=True)
     end_token = tok.convert_tokens_to_ids("<|im_end|>")
-    for run_name in ("base", "lora"):
+    modes = ("base",) if args.base_only else ("base", "lora")
+    for run_name in modes:
         path = out / f"{run_name}.jsonl"
         done = {}
         if path.is_file():
@@ -173,7 +179,7 @@ def main():
                 assert saved["probe_id"] not in done, "duplicate output probe"
                 done[saved["probe_id"]] = saved
         print(f"Mode={run_name}; already completed={len(done)}", flush=True)
-        ctx = model.disable_adapter() if run_name == "base" else contextlib.nullcontext()
+        ctx = model.disable_adapter() if run_name == "base" and not args.base_only else contextlib.nullcontext()
         with ctx, path.open("a", encoding="utf-8", buffering=1) as stream:
             for idx, p in enumerate(probes, start=1):
                 if p["probe_id"] in done:
@@ -208,7 +214,10 @@ def main():
                 os.fsync(stream.fileno())
                 if idx % 5 == 0 or idx == len(probes):
                     print(f"{run_name}: {idx}/{len(probes)}; latest={p['probe_id']}", flush=True)
-    print(f"DONE: {len(probes)} BASE and {len(probes)} LORA responses, output {out}", flush=True)
+    if args.base_only:
+        print(f"DONE: {len(probes)} BASE responses from {args.model}, output {out}", flush=True)
+    else:
+        print(f"DONE: {len(probes)} BASE and {len(probes)} LORA responses, output {out}", flush=True)
 
 
 if __name__ == "__main__":
