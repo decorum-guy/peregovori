@@ -1,0 +1,30 @@
+name: Training scripts static checks
+on:
+  push:
+    paths:
+      - 'training/**'
+      - 'evaluation/**'
+      - '.github/workflows/training-static-checks.yml'
+  workflow_dispatch:
+
+jobs:
+  compile-training:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile without downloading any models or private data
+        run: |
+          python -m compileall -q training evaluation
+          bash -n training/start_14b_epochs.sh
+          bash -n training/start_8b_2epochs.sh
+          bash -n evaluation/start_14b.sh
+      - name: Verify study artefact links exist
+        run: |
+          test -s training/results/QWEN8B_DEV_2026-10-14.md
+          test -s training/EXPERIMENT_14B_5H.md
+          test -s evaluation/compare_14b_epochs.py
