@@ -206,12 +206,21 @@ def main():
             resume_path = str(folder.resolve())
         print("RESUMING FULL TRAINER STATE FROM:", resume_path, flush=True)
     trainer.train(resume_from_checkpoint=resume_path)
+    # A deadline may end training cleanly BEFORE the requested number of epochs.
+    # Never label such an adapter "2 epochs" unless Trainer actually completed them.
+    actual_epoch = float(trainer.state.epoch or 0.0)
+    global_step = int(trainer.state.global_step)
+    completed_target = args.max_steps > 0 or actual_epoch + 0.002 >= args.epochs
+    print(f"TRAINING FINISHED: actual_epoch={actual_epoch:.5f}, "
+          f"global_step={global_step}, completed_target={completed_target}", flush=True)
     adapter = Path(args.output) / "adapter"
     adapter.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(str(adapter), safe_serialization=True)
     tokenizer.save_pretrained(str(adapter))
     (Path(args.output) / "run_config.json").write_text(
-        json.dumps({**vars(args), **summary, "adapter_path":str(adapter)},
+        json.dumps({**vars(args), **summary, "adapter_path":str(adapter),
+                    "actual_epoch":actual_epoch, "global_step":global_step,
+                    "completed_target":completed_target},
                    ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
     )
     print("DONE: saved adapter to", adapter, flush=True)
