@@ -306,6 +306,10 @@ export default function App() {
     event?.preventDefault()
     if (action) return
     setError('')
+    if (settings.sphere === 'custom' && !settings.custom_topic.trim()) {
+      setError('Укажите вашу тему для сферы «Другое».')
+      return
+    }
     setAction('starting')
     try {
       const payload: Record<string, unknown> = {
@@ -319,7 +323,7 @@ export default function App() {
         payload.conflict_type = settings.conflict_type
         payload.student_side = settings.student_side
       }
-      if (settings.sphere === 'custom') payload.custom_topic = settings.custom_topic.trim() || null
+      if (settings.sphere === 'custom') payload.custom_topic = settings.custom_topic.trim()
       const created = await api<Session>('/api/sessions', payload)
       saveSession(created)
       setError('')
@@ -539,7 +543,7 @@ export function SetupScreen({
           <legend>Режим</legend>
           <div className="scenario-grid" role="radiogroup" aria-label="Режим игры">
             {scenarioChoices.map((choice) => (
-              <label key={choice.value} className={`scenario-choice${settings.scenario === choice.value ? ' selected' : ''}`}>
+              <label key={choice.value} className={`scenario-choice scenario-choice--${choice.value}${settings.scenario === choice.value ? ' selected' : ''}`}>
                 <input type="radio" name="scenario" value={choice.value} checked={settings.scenario === choice.value} onChange={() => onUpdate('scenario', choice.value)} />
                 <span className="choice-check"><Check size={13} /></span>
                 <span className="scenario-label">{choice.label}</span>
@@ -554,7 +558,7 @@ export function SetupScreen({
           <label className="field-group"><span>Сложность</span><SelectControl value={settings.difficulty} onChange={(event) => onUpdate('difficulty', event.target.value as Difficulty)}>{difficultyChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</SelectControl>{settings.difficulty === 'impossible' && <small>Одно желаемое условие объективно недостижимо; осмысленный разговор всё ещё возможен.</small>}</label>
           <label className="field-group"><span>Сфера</span><SelectControl value={settings.sphere} onChange={(event) => onUpdate('sphere', event.target.value as Settings['sphere'])}><option value="work">Работа</option><option value="family">Семья</option><option value="study">Учёба</option><option value="friends">Друзья</option><option value="custom">Другое</option></SelectControl></label>
           {hasConflict && <label className="field-group"><span>Ваша сторона</span><SelectControl value={settings.student_side} onChange={(event) => onUpdate('student_side', event.target.value as StudentSide)}><option value="protect">Защищаю границы</option><option value="pressure">Оказываю давление</option></SelectControl></label>}
-          {settings.sphere === 'custom' && <label className="field-group field-span"><span>Ваша тема, необязательно</span><textarea rows={2} value={settings.custom_topic} maxLength={240} placeholder="Например, совместный проект или бытовая договорённость" onChange={(event) => onUpdate('custom_topic', event.target.value)} /></label>}
+          {settings.sphere === 'custom' && <label className="field-group field-span"><span>Ваша тема</span><textarea rows={2} required value={settings.custom_topic} maxLength={240} placeholder="Например, совместный проект или бытовая договорённость" onChange={(event) => onUpdate('custom_topic', event.target.value)} /></label>}
           <label className="field-group field-span field-name"><span>Ваше имя, необязательно</span><input type="text" maxLength={60} value={settings.player_name} placeholder="Как к вам обращаться?" onChange={(event) => onUpdate('player_name', event.target.value)} /></label>
         </div>
 
@@ -565,13 +569,12 @@ export function SetupScreen({
               <label key={engine.id} className={`engine-choice${settings.engine_id === engine.id ? ' selected' : ''}${!engine.enabled ? ' disabled' : ''}`} title={!engine.enabled ? engine.reason : undefined}>
                 <input type="radio" name="engine" value={engine.id} checked={settings.engine_id === engine.id} disabled={!engine.enabled || (engine.id === 'lora' && checkingModels)} onChange={() => onUpdate('engine_id', engine.id)} />
                 <span className="radio-dot" />
-                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? 'Премиальная модель через сервер' : engine.enabled ? 'Реальный подключённый адаптер' : engine.reason || 'Сервер модели не подключён'}</small></span>
+                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? 'Серверная модель' : 'Локальная модель'}</small></span>
                 {engine.id === 'lora' && <span className="soon-tag" role="status">{checkingModels ? 'Проверяем' : engine.enabled ? 'Доступна' : 'Недоступна'}</span>}
               </label>
             ))}
           </div>
           <button className="text-button" type="button" onClick={onRefreshModels} disabled={checkingModels}>{checkingModels ? 'Проверяем доступность…' : 'Обновить доступность'}</button>
-          {currentEngine && settings.engine_id === 'premium' && <p className="engine-note">Используется настроенная модель {config?.premium_model_id || 'anthropic/claude-opus-5.5'}.</p>}
         </fieldset>
 
         {error && <ErrorNotice message={error} onClose={onClearError} />}
@@ -580,7 +583,7 @@ export function SetupScreen({
 
         <div className="setup-actions">
           <button className="button button-secondary random-button" type="button" onClick={onRandomize} disabled={!!action}><RotateCcw size={16} /> Случайно</button>
-          <button className="button button-primary start-button" type="submit" disabled={!!action || !config?.generation_available || (settings.engine_id === 'lora' && (!currentEngine?.enabled || checkingModels))}>
+          <button className="button button-primary start-button" type="submit" disabled={!!action || !config?.generation_available || (settings.sphere === 'custom' && !settings.custom_topic.trim()) || (settings.engine_id === 'lora' && (!currentEngine?.enabled || checkingModels))}>
             {action === 'starting' ? <><span className="spinner" /> Готовим ситуацию…</> : <>Начать игру <ArrowRight size={17} /></>}
           </button>
         </div>
@@ -717,7 +720,6 @@ function CasePanel({ session, detailsOpen, setDetailsOpen }: { session: Session;
           {item.participants.length > 0 && <div className="case-section"><span className="case-label">Участники</span><ul className="participants-list">{item.participants.map((person) => <li key={person.name}><strong>{person.name}</strong><span>{person.role}</span></li>)}</ul></div>}
         </div>
       </details>
-      <div className="sidebar-motif"><span>Спокойный разговор<br />даёт больше возможностей.</span></div>
     </aside>
   )
 }

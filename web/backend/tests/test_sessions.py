@@ -407,3 +407,27 @@ def test_optional_name_stays_blank_in_form_data_and_explicit_names_survive_resto
         assert session['settings']['player_name'] == expected
         restored = client.get('/api/sessions/%s' % session['id']).json()
         assert restored['settings']['player_name'] == expected
+
+
+@pytest.mark.parametrize('topic', ['omitted', None, '', ' \n\t '])
+def test_custom_sphere_requires_topic_before_any_model_call(tmp_path, topic):
+    app, provider = make_test_app(tmp_path)
+    values = {**options(), 'sphere': 'custom'}
+    if topic != 'omitted':
+        values['custom_topic'] = topic
+    with TestClient(app) as client:
+        response = client.post('/api/sessions', json=values)
+    assert response.status_code == 422
+    assert 'Укажите вашу тему' in response.text
+    assert provider.calls == []
+
+
+def test_custom_topic_is_trimmed_sent_to_generator_and_saved_for_restore(tmp_path):
+    app, provider = make_test_app(tmp_path)
+    topic = 'Приёмка подрядчика после окончания смены'
+    with TestClient(app) as client:
+        session = create(client, {**options(), 'sphere': 'custom', 'custom_topic': '  ' + topic + '  '})
+        restored = client.get('/api/sessions/%s' % session['id']).json()
+    generation = next(call for call in provider.calls if call['purpose'] == 'case')
+    assert _extract_options(generation['messages'])['custom_topic'] == topic
+    assert restored['settings']['custom_topic'] == topic

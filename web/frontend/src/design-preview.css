@@ -17,7 +17,6 @@
 .logo-concept:hover { background: #fcfdff; }
 .logo-concept-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .logo-concept-top strong { font-size: 14px; }
-.logo-recommendation { color: var(--muted); font-size: 10px; }
 .logo-wordmark { display: flex; align-items: center; gap: 18px; min-height: 124px; color: var(--primary); font-size: 23px; font-weight: 700; }
 .logo-wordmark .line-mark { width: 74px; height: 74px; }
 .logo-concept-description { min-height: 36px; color: var(--muted); font-size: 12px; line-height: 18px; }

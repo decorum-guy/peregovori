@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <mask id="dialogue-front" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+      <rect width="80" height="80" fill="white"/>
+      <path d="M44 15H21c-7 0-11 4-11 11v12c0 7 4 11 11 11h2v12l14-12h7c7 0 11-4 11-11V26c0-7-4-11-11-11Z" fill="black" stroke="black" stroke-width="8.5" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <path d="M44 31h15c7 0 11 4 11 11v10c0 7-4 11-11 11h-2v9L44 62h-4c-7 0-11-4-11-11V42c0-7 4-11 11-11Z" stroke="#AE432F" stroke-width="5.5" stroke-linejoin="round" mask="url(#dialogue-front)"/>
   <path d="M44 15H21c-7 0-11 4-11 11v12c0 7 4 11 11 11h2v12l14-12h7c7 0 11-4 11-11V26c0-7-4-11-11-11Z" stroke="#243B5A" stroke-width="5.5" stroke-linejoin="round"/>
-  <path d="M47 32h12c7 0 11 4 11 11v9c0 7-4 11-11 11h-2v9L45 62h-2c-6 0-10-4-10-10" stroke="#AE432F" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

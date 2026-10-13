@@ -70,9 +70,12 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 .field-group legend { margin-bottom: 8px; padding: 0; }
 .scenario-fieldset { margin-top: 20px; }
 .scenario-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.scenario-choice { position: relative; display: flex; flex-direction: column; min-height: 88px; padding: 14px 14px 12px 36px; border: 1px solid var(--control-line); border-radius: 12px; color: var(--primary); background: #fff; transition: background 120ms ease, border-color 120ms ease, transform 120ms ease; cursor: pointer; }
-.scenario-choice:hover { border-color: var(--primary); background: #f8f9fc; }
-.scenario-choice.selected { border-color: var(--primary); background: var(--surface-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+.scenario-choice { --scenario-background: #fff; --scenario-hover: #f8f9fc; --scenario-selected: var(--surface-soft); position: relative; display: flex; flex-direction: column; min-height: 88px; padding: 14px 14px 12px 36px; border: 1px solid var(--control-line); border-radius: 12px; color: var(--primary); background: var(--scenario-background); transition: background 120ms ease, border-color 120ms ease, transform 120ms ease; cursor: pointer; }
+.scenario-choice--conflict_only { --scenario-background: #fcefe9; --scenario-hover: #fbe7de; --scenario-selected: #f7e1d7; }
+.scenario-choice--conflict_only .scenario-label { color: var(--accent); }
+.scenario-choice--conflict_then_negotiation { --scenario-background: linear-gradient(90deg, #fbe9e2 0%, #f8f5f4 35%, #fff 55%); --scenario-hover: linear-gradient(90deg, #f7e1d7 0%, #f4f3f4 35%, #f8f9fc 55%); --scenario-selected: linear-gradient(90deg, #f7dfd5 0%, #eef0f4 40%, #e5eaf4 55%); }
+.scenario-choice:hover { border-color: var(--primary); background: var(--scenario-hover); }
+.scenario-choice.selected { border-color: var(--primary); background: var(--scenario-selected); box-shadow: inset 0 0 0 1px var(--primary); }
 .scenario-choice input, .engine-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .scenario-label { font-size: 14px; line-height: 20px; font-weight: 700; }
 .scenario-short { margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 15px; font-weight: 400; }
@@ -105,7 +108,6 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 .engine-choice.disabled .engine-copy strong { color: #738199; }
 .engine-copy small { margin: 0; font-size: 11px; line-height: 15px; font-weight: 400; }
 .soon-tag { margin-left: auto; padding: 4px 7px; color: #65758d; background: #e7ebf2; border-radius: 7px; font-size: 10px; white-space: nowrap; }
-.engine-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 17px; }
 .setup-help { display: flex; align-items: flex-start; gap: 8px; margin: 16px 0 0; color: #354e70; font-size: 13px; line-height: 19px; }
 .setup-help svg { flex: 0 0 auto; margin-top: 1px; }
 .setup-actions { display: flex; justify-content: space-between; gap: 16px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--divider); }
@@ -177,7 +179,6 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 .participants-list li { display: flex; flex-direction: column; gap: 2px; }
 .participants-list li strong { color: var(--ink); font-size: 13px; }
 .participants-list li span { color: var(--muted); }
-.sidebar-motif { display: flex; align-items: center; gap: 7px; margin-top: 20px; padding: 11px 12px; color: var(--primary); background: var(--accent-soft); border-radius: 10px; font-size: 12px; line-height: 17px; }
 
 .chat-panel { position: relative; display: flex; min-width: 0; min-height: 0; flex-direction: column; background: rgba(255,255,255,.48); border: 1px solid var(--divider); border-radius: 18px; overflow: hidden; }
 .chat-subheader { display: flex; align-items: center; gap: 10px; min-height: 66px; padding: 10px 18px; background: rgba(255,255,255,.78); border-bottom: 1px solid var(--divider); }
@@ -255,7 +256,6 @@ fieldset { min-width: 0; padding: 0; border: 0; }
   .game-shell { padding: 0 18px; }
   .game-layout { grid-template-columns: minmax(240px, 270px) minmax(0, 1fr); gap: 18px; }
   .case-panel { padding: 18px 16px; }
-  .sidebar-motif { display: none; }
   .message-inner { max-width: 84%; }
 }
 

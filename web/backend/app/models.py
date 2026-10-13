@@ -143,8 +143,8 @@ class SessionOptions(StrictModel):
                 raise ValueError("conflict type and student side are not sent for pure negotiations")
         elif self.conflict_type is None or self.student_side is None:
             raise ValueError("conflict scenarios require both conflict_type and student_side")
-        if self.sphere == "custom" and self.custom_topic is not None and not self.custom_topic.strip():
-            raise ValueError("custom_topic must be blank or contain text")
+        if self.sphere == "custom" and (self.custom_topic is None or not self.custom_topic.strip()):
+            raise ValueError("Укажите вашу тему для сферы «Другое».")
         return self
 
 

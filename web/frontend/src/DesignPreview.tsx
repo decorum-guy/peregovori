@@ -42,7 +42,7 @@ const exampleSession: Session = {
     student_role: 'Координатор проекта', student_goal: null,
     negotiation_topic: 'Кто примет подрядчика вечером и как подготовить передачу работы.',
     player_conflict_goal: 'Чтобы отказ от дополнительной смены обсуждался без сомнений в моей лояльности команде.',
-    known_facts: ['Подрядчик приезжает в 19:30.', 'Вы можете подготовить документы до 18:30.', 'Марина участвует в проекте и знакома с подрядчиком.'],
+    known_facts: ['Подрядчик приезжает в 19:30.', 'Вы можете подготовить документы до 18:30.', 'Марина — ещё одна сотрудница команды. Она участвует в проекте и знакома с подрядчиком.'],
     participants: [],
   },
   opponent: { name: 'Алексей', role: 'Руководитель проекта' },
@@ -63,8 +63,8 @@ const exampleReport = {
   risks: [
     { quote: 'Марина сможет встретить подрядчика?', explanation: 'Вариант предложен как вопрос, а не как обещание от имени Марины. Для завершения договорённости ещё нужно получить её подтверждение.' },
   ],
-  next_step: 'Уточните, кто подтвердит участие Марины и кому подрядчик сообщит о задержке. Затем коротко зафиксируйте ответственных и сроки.',
-  example_phrase: 'Я пришлю чек-лист до 18:30. Сможешь подтвердить с Мариной время встречи? Если подрядчик задержится, кому он позвонит?',
+  next_step: 'Уточните, как будет подтверждено участие Марины. Задайте один вопрос и дождитесь ответа, прежде чем обсуждать другие детали.',
+  example_phrase: 'Я пришлю чек-лист до 18:30. Как мы подтвердим с Мариной время встречи?',
 }
 
 export default function DesignPreview() {
@@ -111,10 +111,10 @@ export default function DesignPreview() {
         <div className="app-shell app-shell--preview">
           {view === 'logos' ? (
             <section className="logo-gallery">
-              <header><p className="eyebrow">ЛИНИЯ РЕШЕНИЯ</p><h1>Четыре направления для знака</h1><p>Выберите вариант, затем посмотрите его в настройках, чате и разборе.</p></header>
+              <header><p className="eyebrow">ЛИНИЯ РЕШЕНИЯ</p><h1>Три варианта знака</h1><p>Примерьте вариант в настройках, чате и разборе. Окончательный выбор — позже.</p></header>
               <div className="logo-concepts" role="group" aria-label="Варианты логотипа">
                 {logoConcepts.map((concept) => <button className={`logo-concept${logo === concept.id ? ' selected' : ''}`} key={concept.id} type="button" aria-pressed={logo === concept.id} onClick={() => updateLocation('logos', concept.id)}>
-                  <span className="logo-concept-top"><strong>{concept.name}</strong>{concept.recommended && <span className="logo-recommendation">Предлагаю этот</span>}</span>
+                  <span className="logo-concept-top"><strong>{concept.name}</strong></span>
                   <span className="logo-wordmark"><LineMark variant={concept.id} /><span>Линия решения</span></span>
                   <span className="logo-concept-description">{concept.description}</span>
                   <span className="logo-small-example"><LineMark variant={concept.id} compact /><span>В небольшом размере</span></span>
@@ -126,7 +126,7 @@ export default function DesignPreview() {
             <SetupScreen settings={settings} config={config} action={null} error="" notice="" currentEngine={config.engines[0]} checkingModels={false}
               onRefreshModels={() => {}} onUpdate={(key, value) => setSettings((current) => ({ ...current, [key]: value }))}
               onRandomize={() => setSettings(exampleSettings)} onClearError={() => {}}
-              onStart={(event) => { event?.preventDefault(); setSession({ ...exampleSession, settings: { ...exampleSettings, player_name: settings.player_name } }); updateLocation('chat') }} />
+              onStart={(event) => { event?.preventDefault(); if (settings.sphere === 'custom' && !settings.custom_topic.trim()) return; setSession({ ...exampleSession, settings: { ...exampleSettings, player_name: settings.player_name } }); updateLocation('chat') }} />
           ) : (
             <GameScreen key={view} config={config} session={displayedSession} preview action={null} error="" draft={draft} setDraft={setDraft}
               onDraftEdited={() => {}} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} hasNewMessage={false}
