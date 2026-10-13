@@ -1,6 +1,7 @@
 eval_private/
 .env
 .env.*
+.venv
 __pycache__/
 *.pyc
 training/derived/
@@ -13,3 +14,5 @@ web/backend/.pytest_cache/
 web/data/*.sqlite3*
 web/frontend/*.tsbuildinfo
 !web/.env.example
+!inference/.env.example
+inference/logs/

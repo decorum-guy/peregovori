@@ -17,6 +17,8 @@ from .storage import SessionStore
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 
 def create_app(
@@ -53,8 +55,8 @@ def create_app(
         return {"status": "ok", "database": "ready", "provider_mode": active_settings.provider_mode}
 
     @app.get("/api/config")
-    async def config():
-        return await service.config()
+    async def config(refresh: bool = False):
+        return await service.config(force=refresh)
 
     @app.post("/api/sessions")
     async def create_session(options: SessionOptions):

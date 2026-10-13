@@ -23,6 +23,55 @@ class OpenRouterProvider:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
 
+    def client(self) -> httpx.AsyncClient:
+        # Explicit proxy applies ONLY to OpenRouter. Empty means a direct connection;
+        # HTTP(S)_PROXY / ALL_PROXY cannot silently change this or the Qwen route.
+        return httpx.AsyncClient(
+            timeout=self.settings.request_timeout_seconds,
+            proxy=self.settings.openrouter_proxy_url or None,
+            trust_env=False,
+        )
+
+    @staticmethod
+    def check_response(response: httpx.Response) -> None:
+        if response.status_code < 400:
+            return
+        if response.status_code == 407:
+            raise ProviderError("Прокси отклонил авторизацию. Проверьте OPENROUTER_PROXY_URL в web/.env.", "proxy_auth")
+        if response.status_code in {401, 403}:
+            raise ProviderError("OpenRouter отклонил ключ или доступ. Проверьте ключ, модель и сетевой маршрут.", "provider_auth")
+        if response.status_code == 402:
+            raise ProviderError("Недостаточно средств на счёте OpenRouter.", "provider_credits")
+        if response.status_code == 404:
+            raise ProviderError("Настроенная модель или адрес OpenRouter не найдены.", "provider_model_missing")
+        if response.status_code == 429:
+            raise ProviderError("У API-модели временный лимит запросов. Попробуйте позже.", "provider_rate_limit")
+        raise ProviderError("OpenRouter вернул ошибку HTTP %d. Попробуйте ещё раз." % response.status_code, "provider_response")
+
+    async def request(self, method: str, path: str, **kwargs) -> httpx.Response:
+        try:
+            async with self.client() as client:
+                response = await client.request(method, self.settings.openrouter_base_url + path, **kwargs)
+        except httpx.ProxyError:
+            logger.warning("OpenRouter proxy connection failed")
+            raise ProviderError("Не удалось подключиться через прокси. Проверьте адрес, порт и credentials в web/.env.", "proxy_unavailable") from None
+        except httpx.TimeoutException:
+            logger.warning("OpenRouter timeout")
+            raise ProviderError("OpenRouter не ответил вовремя. Проверьте сеть и прокси; попробуйте ещё раз.", "provider_timeout") from None
+        except (httpx.HTTPError, ValueError):
+            logger.warning("OpenRouter connection failed")
+            raise ProviderError("Не удалось связаться с OpenRouter. Проверьте сеть и OPENROUTER_PROXY_URL.", "provider_unavailable") from None
+        self.check_response(response)
+        return response
+
+    async def model_ids(self) -> set:
+        headers = {"Authorization": "Bearer " + self.settings.openrouter_api_key} if self.settings.openrouter_api_key else {}
+        response = await self.request("GET", "/models", headers=headers)
+        try:
+            return {item["id"] for item in response.json()["data"] if isinstance(item.get("id"), str)}
+        except (ValueError, KeyError, TypeError, AttributeError):
+            raise ProviderError("OpenRouter вернул повреждённый каталог моделей.", "provider_malformed") from None
+
     async def complete(
         self,
         model: str,
@@ -46,25 +95,9 @@ class OpenRouterProvider:
         headers = {
             "Authorization": "Bearer " + self.settings.openrouter_api_key,
             "Content-Type": "application/json",
-            "X-Title": "Линия решения — независимый демо-концепт",
+            "X-Title": "Line of Decision demo",
         }
-        try:
-            async with httpx.AsyncClient(timeout=self.settings.request_timeout_seconds) as client:
-                response = await client.post(self.settings.openrouter_base_url + "/chat/completions", headers=headers, json=payload)
-        except httpx.TimeoutException as exc:
-            logger.warning("OpenRouter timeout purpose=%s model=%s", purpose, model)
-            raise ProviderError("Модель не ответила вовремя. Попробуйте ещё раз.", "provider_timeout") from exc
-        except httpx.HTTPError as exc:
-            logger.warning("OpenRouter connection error purpose=%s model=%s type=%s", purpose, model, type(exc).__name__)
-            raise ProviderError("Не удалось связаться с API-моделью. Попробуйте ещё раз.", "provider_unavailable") from exc
-        if response.status_code >= 400:
-            # The provider body can contain request details. Never log or return it to the browser.
-            logger.warning("OpenRouter rejected purpose=%s model=%s status=%s", purpose, model, response.status_code)
-            if response.status_code in {401, 403}:
-                raise ProviderError("API-модель отклонила серверные credentials или доступ к модели.", "provider_auth")
-            if response.status_code == 429:
-                raise ProviderError("У API-модели временный лимит запросов. Попробуйте позже.", "provider_rate_limit")
-            raise ProviderError("API-модель вернула ошибку. Попробуйте ещё раз.", "provider_response")
+        response = await self.request("POST", "/chat/completions", headers=headers, json=payload)
         try:
             body = response.json()
             content = body["choices"][0]["message"]["content"]

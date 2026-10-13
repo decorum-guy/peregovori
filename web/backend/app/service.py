@@ -16,6 +16,7 @@ from .config import REPO_DIR, Settings
 from .models import DebriefReport, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
+from .qwen import qwen_label, ready_identity
 from .storage import SessionStore
 
 
@@ -187,6 +188,7 @@ class DemoService:
         self.store = store
         self.provider = provider
         self._lora_cache: Tuple[float, bool, str] = (0.0, False, "not_connected")
+        self._lora_identity: Dict[str, str] = {}
 
     async def lora_status(self, force: bool = False) -> Tuple[bool, str]:
         if self.settings.llm_mode == "mock":
@@ -195,27 +197,27 @@ class DemoService:
             return False, "Сервер дообученной модели не подключён."
         import time
         cached_at, available, reason = self._lora_cache
-        if not force and time.monotonic() - cached_at < 20:
+        if not force and time.monotonic() - cached_at < 5:
             return available, reason
         try:
-            async with httpx.AsyncClient(timeout=2.0) as client:
-                response = await client.get(self.settings.lora_base_url + "/health")
+            headers = {"Authorization": "Bearer " + self.settings.lora_api_key} if self.settings.lora_api_key else {}
+            async with httpx.AsyncClient(timeout=2.0, trust_env=False) as client:
+                response = await client.get(self.settings.lora_base_url + "/health", headers=headers)
             payload = response.json() if response.status_code == 200 else {}
-            ready = bool(payload.get("ready") is True or payload.get("status") in {"ok", "healthy", "ready"})
-            adapter = bool(payload.get("adapter_loaded") is True or payload.get("lora_loaded") is True)
-            adapter_name = str(payload.get("adapter") or payload.get("model") or "").lower()
-            verified_adapter = adapter or ("lora" in adapter_name and "base" not in adapter_name)
-            available = response.status_code == 200 and ready and verified_adapter
-            reason = "" if available else "Сервер ответил, но реальная LoRA-адаптация не подтверждена."
+            identity = ready_identity(payload)
+            available = bool(identity)
+            if available:
+                self._lora_identity = identity
+            reason = "" if available else "Модель сейчас не подключена: загрузка базы и адаптера не подтверждена."
         except (httpx.HTTPError, ValueError, TypeError):
             available = False
-            reason = "Сервер дообученной модели не отвечает проверке здоровья."
+            reason = "Модель сейчас не подключена. Проверьте SSH-туннель и статус Qwen на Intelion."
         import time
         self._lora_cache = (time.monotonic(), available, reason)
         return available, reason
 
-    async def config(self) -> Dict[str, Any]:
-        lora_available, lora_reason = await self.lora_status()
+    async def config(self, force: bool = False) -> Dict[str, Any]:
+        lora_available, lora_reason = await self.lora_status(force=force)
         provider_mode = self.settings.provider_mode
         return {
             "premium_model_id": self.settings.premium_model,
@@ -225,18 +227,21 @@ class DemoService:
             "generation_unavailable_reason": "Добавьте OPENROUTER_API_KEY в серверную среду." if provider_mode == "unconfigured" else None,
             "engines": [
                 {"id": "premium", "label": model_label(self.settings.premium_model), "enabled": True},
-                {"id": "lora", "label": "Qwen3-8B · Дообученная", "enabled": lora_available, "reason": lora_reason},
+                {"id": "lora", "label": qwen_label(self._lora_identity.get("base_model", "")), "enabled": lora_available, "reason": lora_reason,
+                 "status": "available" if lora_available else "unavailable"},
             ],
             "notice": "Независимый концепт для демонстрации",
         }
 
     async def create_session(self, options: SessionOptions) -> Dict[str, Any]:
+        selected_qwen: Dict[str, str] = {}
         if self.settings.provider_mode == "unconfigured":
             raise ServiceError(503, "Для реальной генерации нужен OPENROUTER_API_KEY. Для локальной проверки явно включите LLM_MODE=mock.", "ai_not_configured")
         if options.engine_id == "lora":
             available, reason = await self.lora_status(force=True)
             if not available:
                 raise ServiceError(409, reason or "Сервер LoRA-модели не прошёл проверку.", "lora_unavailable")
+            selected_qwen = dict(self._lora_identity)
         case, source = await self._generate_case(options)
         session_id = str(uuid.uuid4())
         public = {
@@ -252,8 +257,10 @@ class DemoService:
             "participants": [participant.model_dump(mode="json") for participant in case.public.participants],
         }
         safe_settings = options.model_dump(mode="json")
+        if options.engine_id == "lora":
+            safe_settings["qwen_identity"] = selected_qwen
         player_name = options.player_name.strip() if options.player_name else "Вы"
-        engine_model = self.settings.premium_model if options.engine_id == "premium" else self.settings.lora_model
+        engine_model = self.settings.premium_model if options.engine_id == "premium" else safe_settings["qwen_identity"]["model"]
         opening = {
             "id": str(uuid.uuid4()),
             "speaker": "opponent",
@@ -383,7 +390,8 @@ class DemoService:
                 ],
             },
             "opponent": {"name": case["opponent"]["name"], "role": case["opponent"]["role"]},
-            "engine": {"id": session["engine_id"], "model_id": session["engine_model"]},
+            "engine": {"id": session["engine_id"], "model_id": session["engine_model"],
+                       "label": model_label(session["engine_model"]) if session["engine_id"] == "premium" else qwen_label(session["settings"].get("qwen_identity", {}).get("base_model", ""))},
             "provider_mode": session["provider_mode"],
             "source": session["source"],
             "messages": messages,
@@ -448,6 +456,9 @@ class DemoService:
                 "provider_auth": "API-модель не приняла серверные credentials или доступ к модели.",
                 "lora_response": "Сервер LoRA не смог ответить. Ваша реплика сохранена; она не будет отправлена другой модели.",
                 "lora_unavailable": "Сервер LoRA не ответил. Ваша реплика сохранена; она не будет отправлена другой модели.",
+                "lora_model_changed": "На Intelion загружена другая база или другой адаптер. Верните выбранную модель для продолжения этой игры либо начните новую игру.",
+                "proxy_unavailable": "Прокси OpenRouter недоступен. Проверьте локальный прокси и повторите запрос; ваша реплика сохранена.",
+                "proxy_auth": "Прокси отклонил авторизацию. Проверьте OPENROUTER_PROXY_URL; ваша реплика сохранена.",
                 "unsafe_roleplay_response": "Ответ не прошёл проверку приватности. Ваша реплика сохранена — попробуйте ещё раз.",
             }.get(exc.code, "Не удалось получить ответ. Ваша реплика сохранена — нажмите повтор, чтобы продолжить.")
             raise ServiceError(502, safe_message, exc.code)
@@ -460,16 +471,23 @@ class DemoService:
         available, reason = await self.lora_status(force=True)
         if not available:
             raise ProviderError(reason or "LoRA-сервер недоступен.", "lora_unavailable")
+        identity = dict(self._lora_identity)
+        selected = session["settings"].get("qwen_identity")
+        if (selected and selected != identity) or session["engine_model"] != identity["model"]:
+            raise ProviderError("На сервере загружена другая Qwen или другой адаптер.", "lora_model_changed")
         messages = roleplay_messages(session["runtime_case"], session["messages"])
         headers = {"Content-Type": "application/json"}
         if self.settings.lora_api_key:
             headers["Authorization"] = "Bearer " + self.settings.lora_api_key
-        payload = {"model": self.settings.lora_model, "messages": messages, "max_tokens": 600, "temperature": 0.75}
+        payload = {"model": session["engine_model"], "messages": messages, "max_tokens": 600, "temperature": 0.75,
+                   "adapter_fingerprint": identity["adapter_fingerprint"]}
         try:
-            async with httpx.AsyncClient(timeout=self.settings.request_timeout_seconds) as client:
+            async with httpx.AsyncClient(timeout=self.settings.request_timeout_seconds, trust_env=False) as client:
                 response = await client.post(self.settings.lora_base_url + "/v1/chat/completions", headers=headers, json=payload)
             if response.status_code >= 400:
                 logger.warning("LoRA server rejected roleplay status=%s", response.status_code)
+                if response.status_code == 409:
+                    raise ProviderError("На сервере загружена другая модель.", "lora_model_changed")
                 raise ProviderError("Сервер LoRA не смог ответить. Ответ не будет подменён другой моделью.", "lora_response")
             content = response.json()["choices"][0]["message"]["content"]
             if not isinstance(content, str):

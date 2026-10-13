@@ -65,7 +65,7 @@ type Session = {
   settings: Partial<Settings>
   case: PublicCase
   opponent: { name: string; role: string }
-  engine: { id: EngineId; model_id: string }
+  engine: { id: EngineId; model_id: string; label?: string }
   provider_mode: 'openrouter' | 'test_mock' | 'unconfigured'
   source: 'openrouter' | 'accepted_train_fallback' | 'test_mock'
   messages: ChatMessage[]
@@ -181,6 +181,7 @@ function ErrorNotice({ message, onClose, onRetry }: { message: string; onClose?:
 export default function App() {
   const [config, setConfig] = useState<AppConfig | null>(null)
   const [configError, setConfigError] = useState('')
+  const [checkingModels, setCheckingModels] = useState(false)
   const [settings, setSettings] = useState<Settings>(readSavedSettings)
   const [session, setSession] = useState<Session | null>(null)
   const [draft, setDraft] = useState('')
@@ -209,7 +210,6 @@ export default function App() {
         if (alive) {
           setConfig(loaded)
           setConfigError('')
-          setSettings((current) => ({ ...current, engine_id: loaded.engines.find((engine) => engine.id === current.engine_id && engine.enabled)?.id || 'premium' }))
         }
       } catch (err) {
         if (alive) setConfigError(describeError(err))
@@ -231,6 +231,24 @@ export default function App() {
     void restore()
     return () => { alive = false }
   }, [])
+
+  const refreshModels = useCallback(async (manual = false) => {
+    if (manual) setCheckingModels(true)
+    try {
+      setConfig(await api<AppConfig>(`/api/config${manual ? '?refresh=true' : ''}`))
+      setConfigError('')
+    } catch (err) {
+      setConfigError(describeError(err))
+      setConfig((current) => current && ({ ...current, engines: current.engines.map((engine) => engine.id === 'lora' ? { ...engine, enabled: false, reason: 'Не удалось проверить доступность модели.' } : engine) }))
+    } finally {
+      if (manual) setCheckingModels(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    const timer = window.setInterval(() => void refreshModels(), 10000)
+    return () => window.clearInterval(timer)
+  }, [refreshModels])
 
   useEffect(() => {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings))
@@ -459,6 +477,8 @@ export default function App() {
           error={error}
           notice={notice}
           currentEngine={currentEngine}
+          checkingModels={checkingModels}
+          onRefreshModels={() => void refreshModels(true)}
           onUpdate={updateSetting}
           onRandomize={randomize}
           onStart={startGame}
@@ -470,7 +490,7 @@ export default function App() {
 }
 
 function SetupScreen({
-  settings, config, action, error, notice, currentEngine, onUpdate, onRandomize, onStart, onClearError,
+  settings, config, action, error, notice, currentEngine, checkingModels, onRefreshModels, onUpdate, onRandomize, onStart, onClearError,
 }: {
   settings: Settings
   config: AppConfig | null
@@ -478,6 +498,8 @@ function SetupScreen({
   error: string
   notice: string
   currentEngine?: Engine
+  checkingModels: boolean
+  onRefreshModels: () => void
   onUpdate: <K extends keyof Settings>(key: K, value: Settings[K]) => void
   onRandomize: () => void
   onStart: (event?: FormEvent) => void
@@ -486,7 +508,7 @@ function SetupScreen({
   const hasConflict = settings.scenario !== 'negotiation_only'
   const engineList = config?.engines || [
     { id: 'premium' as const, label: 'Claude Opus 5.5', enabled: true },
-    { id: 'lora' as const, label: 'Qwen3-8B · Дообученная', enabled: false, reason: 'Сервер дообученной модели не подключён.' },
+    { id: 'lora' as const, label: 'Qwen · Дообученная', enabled: false, reason: 'Модель сейчас не подключена.' },
   ]
 
   return (
@@ -540,13 +562,14 @@ function SetupScreen({
           <div className="engine-grid" role="radiogroup" aria-label="Модель собеседника">
             {engineList.map((engine) => (
               <label key={engine.id} className={`engine-choice${settings.engine_id === engine.id ? ' selected' : ''}${!engine.enabled ? ' disabled' : ''}`} title={!engine.enabled ? engine.reason : undefined}>
-                <input type="radio" name="engine" value={engine.id} checked={settings.engine_id === engine.id} disabled={!engine.enabled} onChange={() => onUpdate('engine_id', engine.id)} />
+                <input type="radio" name="engine" value={engine.id} checked={settings.engine_id === engine.id} disabled={!engine.enabled || (engine.id === 'lora' && checkingModels)} onChange={() => onUpdate('engine_id', engine.id)} />
                 <span className="radio-dot" />
                 <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? 'Премиальная модель через сервер' : engine.enabled ? 'Реальный подключённый адаптер' : engine.reason || 'Сервер модели не подключён'}</small></span>
-                {!engine.enabled && <span className="soon-tag">Недоступна</span>}
+                {engine.id === 'lora' && <span className="soon-tag" role="status">{checkingModels ? 'Проверяем' : engine.enabled ? 'Доступна' : 'Недоступна'}</span>}
               </label>
             ))}
           </div>
+          <button className="text-button" type="button" onClick={onRefreshModels} disabled={checkingModels}>{checkingModels ? 'Проверяем доступность…' : 'Обновить доступность'}</button>
           {currentEngine && settings.engine_id === 'premium' && <p className="engine-note">Используется настроенная модель {config?.premium_model_id || 'anthropic/claude-opus-5.5'}.</p>}
         </fieldset>
 
@@ -556,7 +579,7 @@ function SetupScreen({
 
         <div className="setup-actions">
           <button className="button button-secondary random-button" type="button" onClick={onRandomize} disabled={!!action}><RotateCcw size={16} /> Случайно</button>
-          <button className="button button-primary start-button" type="submit" disabled={!!action || !config?.generation_available || (settings.engine_id === 'lora' && !currentEngine?.enabled)}>
+          <button className="button button-primary start-button" type="submit" disabled={!!action || !config?.generation_available || (settings.engine_id === 'lora' && (!currentEngine?.enabled || checkingModels))}>
             {action === 'starting' ? <><span className="spinner" /> Готовим ситуацию…</> : <>Начать игру <ArrowRight size={17} /></>}
           </button>
         </div>
@@ -664,7 +687,7 @@ function GameScreen({
           )}
         </section>
       </div>
-      <footer className="game-footer"><span>Независимый концепт для демонстрации</span><span>{session.engine.id === 'premium' ? config?.premium_model_label || session.engine.model_id : 'Qwen3-8B · Дообученная'}{session.provider_mode === 'test_mock' ? ' · тестовая симуляция' : ''}</span></footer>
+      <footer className="game-footer"><span>Независимый концепт для демонстрации</span><span>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? ' · тестовая симуляция' : ''}</span></footer>
     </div>
   )
 }
