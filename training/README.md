@@ -1,5 +1,8 @@
 # QLoRA: первый практический запуск (RTX 3090 24 GB)
 
+> **СЛЕДУЮЩИЙ ЭКСПЕРИМЕНТ (14.10.2026):** 14B BASE → longest-example CUDA backward/OOM preflight → 14B QLoRA **два снимка после эпох 1/2** → DEV-75 по обоим; 265min резервный cloud hard-stop и приватный GitHub Release. **Не запускать старый скрипт** `evaluation/start_14b.sh` (он делает только BASE и выключает VM). Новое безопасное ТЗ/команда: [EXPERIMENT_14B_5H.md](EXPERIMENT_14B_5H.md), `bash training/start_14b_epochs.sh`. Архив прежнего [8B DEV-исследования](results/QWEN8B_DEV_2026-10-14.md). Бюджет ограничен, сам 14B GPU-эксперимент ещё **НЕ выполнен**.
+
+
 > **АКТУАЛЬНЫЙ СЛЕДУЮЩИЙ ЭКСПЕРИМЕНТ (13.10.2026):** 8B QLoRA rank16, **2 эпохи с нуля**; 100-минутный Intelion watchdog, `tmux`, только 75 новых DEV-ответов, сохранённые baseline/V1 не пересчитываются. Точный запуск: [EXPERIMENT_8B_E2_2H.md](EXPERIMENT_8B_E2_2H.md), команда на VM: `bash training/start_8b_2epochs.sh`. **Код написан, платный серверный запуск ещё не проводился.** Прежние указания ниже — исторический первый пилот, завершённый 1 эпохой; не запускать старый `training/run_and_stop.py` для V2.
 
 
