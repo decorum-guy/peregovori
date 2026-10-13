@@ -138,6 +138,32 @@ def main():
             archive(PRIVATE_BUNDLE, entries)
         except Exception as exc:
             print(f"ERROR packaging private DEV: {exc}", flush=True)
+        # Upload BEFORE powering off: GitHub Releases can hold the 160MiB adapter
+        # plus PRIVATE DEV. The target repository was independently checked PRIVATE
+        # by launcher; failed upload never cancels the Intelion stop request.
+        upload_status = "not_attempted"
+        try:
+            files = [p for p in (
+                BUNDLE, Path(str(BUNDLE) + ".sha256"),
+                PRIVATE_BUNDLE, Path(str(PRIVATE_BUNDLE) + ".sha256"),
+                TRAIN / "pipeline.log",
+            ) if p.is_file()]
+            if files:
+                stage_tag = "qlora-8b-e2-20261013-vm11425"
+                upload_status = "started"
+                print(f"Backing up {len(files)} artifacts to private GitHub Release...", flush=True)
+                execute("training/upload_private_release.py", "upload",
+                        "--tag", stage_tag, *sum((["--file", str(f)] for f in files), []))
+                upload_status = "verified"
+            else:
+                upload_status = "no_artifacts"
+        except BaseException as exc:
+            upload_status = "FAILED"
+            print(f"WARNING: PRIVATE GITHUB UPLOAD FAILED: {exc}", flush=True)
+            print("Files remain on Intelion VM disk. Never leave VM running to retry indefinitely.", flush=True)
+        status["private_github_upload"] = upload_status
+        (RESULTS / "final_status.json").write_text(
+            json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         os.sync()
         print("Requesting Intelion provider stop now (detached watchdog also armed).", flush=True)
         try:
