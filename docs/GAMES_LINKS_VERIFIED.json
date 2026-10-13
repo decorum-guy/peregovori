@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Обратка",
+    "url": "https://exercises.skillslab.center/games/obratka",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_and_rendered_setup_and_lobby"
+  },
+  {
+    "name": "Декод",
+    "url": "https://exercises.skillslab.center/games/decode",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_and_rendered_setup"
+  },
+  {
+    "name": "Сторителлинг рулетка",
+    "url": "https://exercises.skillslab.center/games/roulette",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_and_rendered_setup_and_lobby"
+  },
+  {
+    "name": "Мостик",
+    "url": "https://exercises.skillslab.center/games/bridges",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_and_rendered_setup"
+  },
+  {
+    "name": "Мостик — дуэль",
+    "url": "https://exercises.skillslab.center/games/bridges/duel",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_and_rendered_setup"
+  },
+  {
+    "name": "Обратка — конструктор",
+    "url": "https://exercises.skillslab.center/games/feedback",
+    "verified_at": "2026-10-13",
+    "discovered_on": "https://exercises.skillslab.center/games",
+    "verification": "gallery_anchor_only",
+    "limitation": "redirects_to_identity_domain; authenticated_game_interface_not_inspected"
+  }
+]

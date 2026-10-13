@@ -1,0 +1,62 @@
+{
+  "method": "WCAG relative luminance; proposed palette, not live product testing",
+  "colors": {
+    "canvas": "#F1F4FA",
+    "surface": "#FFFFFF",
+    "ink": "#202B3E",
+    "muted": "#59677D",
+    "primary": "#243B5A",
+    "accent": "#AE432F",
+    "accentSoft": "#FBE9E2",
+    "error": "#B42335",
+    "success": "#266854",
+    "controlLine": "#78869C"
+  },
+  "pairs": [
+    {
+      "foreground": "ink",
+      "background": "canvas",
+      "ratio": 12.91
+    },
+    {
+      "foreground": "muted",
+      "background": "canvas",
+      "ratio": 5.21
+    },
+    {
+      "foreground": "surface",
+      "background": "primary",
+      "ratio": 11.36
+    },
+    {
+      "foreground": "accent",
+      "background": "surface",
+      "ratio": 5.76
+    },
+    {
+      "foreground": "accent",
+      "background": "accentSoft",
+      "ratio": 4.9
+    },
+    {
+      "foreground": "error",
+      "background": "surface",
+      "ratio": 6.5
+    },
+    {
+      "foreground": "success",
+      "background": "surface",
+      "ratio": 6.58
+    },
+    {
+      "foreground": "controlLine",
+      "background": "surface",
+      "ratio": 3.69
+    },
+    {
+      "foreground": "controlLine",
+      "background": "canvas",
+      "ratio": 3.35
+    }
+  ]
+}
