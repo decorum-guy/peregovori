@@ -8,6 +8,35 @@ Sources:
 - https://skillslab.center/
 - https://exercises.skillslab.center/games
 
+## Core design principle — SAME ECOSYSTEM, NEW GAME (non-negotiable)
+
+**User observation:** Different games at `https://exercises.skillslab.center/games` have **different visual designs**. Therefore **DO NOT** assume a single shared skin, clone the gallery, copy the main website theme everywhere, or imitate one particular game. Our trainer must have an **original and recognizable visual identity** that still feels like it belongs alongside these games.
+
+Inspect **at least 3 distinct games** if publicly accessible, preferably contrasting ones. Record which screens you *actually saw*: gallery, individual start/setup screen and game view where accessible. Cross-game comparison is required before you pick any color, component or mood for our trainer. If only 1–2 games can be verified, say so clearly rather than pretending you analyzed 3.
+
+Separate your conclusions into three explicit layers:
+
+**A. Shared ecosystem DNA (verified versus inferred).** What is genuinely common across several games? Compare information architecture, onboarding flow, interaction patterns, polish, pacing, typography tendencies, navigation conventions, card hierarchy, tone of voice, mobile behavior and general brand atmosphere. A feature observed in only one game is NOT a shared ecosystem rule.
+
+**B. Variable, game-specific visual language.** What clearly differs between games? Compare individual palettes, accents, illustration styles, background treatments, decorative themes, layout emphasis, gameboards/chats, animation and ways of expressing the mechanics. Explain **how different games stay recognizably related despite their own art direction**, only if evidence supports that conclusion.
+
+**C. Our own creative art direction.** Propose a new visual language for a **conflict and negotiation trainer**: psychological tension, dialogue, decisions and consequences, but approachable and pleasant to play. The mood might be tactically intelligent or cinematic/editorial, but should not look like a generic corporate dashboard. Give **2–3 very short concept candidates** (name, mood, differentiator) and **choose ONE recommended direction** with reasons. The selected design must be distinct from each existing game, visually coherent with the broader library, and feasible to implement in the remaining ~46-hour demo sprint.
+
+Mandatory artefacts within `docs/DESIGN_AUDIT.md`:
+- a **cross-game comparison matrix**: real game name + verified URL, observed screens, common traits, distinctive traits, evidence (screenshot/file/DOM/CSS) and unknowns;
+- explicit sections **Shared DNA / Deliberate differences / Chosen concept for our trainer**;
+- label every claim **verified observation**, **reasoned inference**, or **original design proposal**;
+- do not describe a shared design token unless it is actually corroborated across games.
+
+Mandatory artefacts within `docs/BRANDBOOK_DEMO.md`:
+- a short description of the chosen distinct **concept and emotional tone**, plus why it fits the ecosystem;
+- **original** palette, typography, visual motifs, tokens, card/chat/setup/debrief style, responsive behavior and minimum viable motion;
+- what makes our trainer **recognizably different** from games already in the gallery;
+- constraints allowing Codex to build quickly (avoid elaborate custom illustrations/3D effects or heavy frameworks).
+- provide a lightweight design handoff to the next full-stack task.
+
+**Goal:** `same universe, new title` — not `copy one existing game with different words`. If the library cannot be accessed or compared, mark the missing evidence and create a clearly labeled provisional independent style, not invented conclusions.
+
 ## Evidence-first browser workflow
 
 1. Open **both** pages with a real browser, ideally Playwright/browser-capable Codex if available. Try desktop (1440×900) and mobile (390×844); record screen capture of game gallery and (if accessible) 1–3 actual game start/setup/chat screens.
@@ -32,9 +61,9 @@ Sources:
 
 6. Only after trying **browser → direct terminal download (no proxy) → configured proxy download/browser** and still failing, write **BLOCKED** with exact failures, request 3–5 screenshots from the user (gallery desktop/mobile and game setup/chat). Hard cap **30–45 minutes total** across all access attempts. Continue using *verified* main-site references plus original design; never stall P0.
 
-7. Produce `docs/DESIGN_AUDIT.md`: URL, access method and status, date, screenshot filenames if actually created, page type, verified features, layout geometry, colors (#hex from actual CSS/computed styles where available), typefaces, spacing, buttons/cards, responsiveness, header/footer, hover, tone of voice, known uncertainties. Explicitly distinguish **verified observation** versus **own recommendation**, and whether DOM was actually rendered.
+7. Produce `docs/DESIGN_AUDIT.md`: include a **verified comparison of 3+ distinct individual games when accessible**, Shared DNA vs Game-specific differences vs our own direction, URL, access method and status, date, screenshot filenames if actually created, page type, verified features, geometry, colors (#hex from actual CSS/computed styles where available), typefaces, spacing, buttons/cards, responsiveness, header/footer, hover, tone of voice, known uncertainties. Explicitly distinguish **verified observation**, **inference** and **original recommendation**, and whether DOM was actually rendered.
 
-8. Produce `docs/BRANDBOOK_DEMO.md`: a compact **original** implementation recipe: colors, font family available through legitimate CSS/font sources, grid/spacing scale, radii/shadows, interaction conventions, design tokens/components, chat UI, game card, randomizer and post-game offer screen. Keep brand resemblance *without* copying copyrighted assets or suggesting official affiliation.
+8. Produce `docs/BRANDBOOK_DEMO.md`: **2–3 short unique theme concepts, select ONE**, then a compact **original** implementation recipe: why it belongs to the same game family but looks different, mood, colors, font family available through legitimate CSS/font sources, grid/spacing scale, radii/shadows, original art direction, interaction conventions, design tokens/components, chat UI, game card, randomizer and post-game offer screen. Keep ecosystem resemblance *without* copying a game skin, copyrighted assets, or suggesting official affiliation.
 
 9. Emit `docs/GAMES_LINKS_VERIFIED.json` with genuinely observed external game labels and URLs only. If blocked, write `[]` and report why. These appear as external-link cards on our independent demo gallery, alongside our original trainer.
 
