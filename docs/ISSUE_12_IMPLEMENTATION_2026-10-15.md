@@ -1,6 +1,6 @@
 # Issue #12: завершение кейса и PDF
 
-Реализовано 15.10.2026 в `codex/design-audit-2026-10-13`. Основной коммит: `5806e50`.
+Реализовано 15.10.2026 в `codex/design-audit-2026-10-13`. Основной коммит: `5806e50`; QA и документация: `c10ca1d`.
 ТЗ: `prompts/CODEX_COMPLETION_HINT_PDF_EXPORT_2026-10-15.md`;
 Issue: https://github.com/decorum-guy/peregovori/issues/12.
 
@@ -106,6 +106,8 @@ A4, фирменные #243B5A/#AE432F/#202B3E, локальная произв�
 явным `DEMO_ACCESS_CODE=''`. Новые asyncio-тесты восстанавливают предыдущий event loop Python 3.9,
 не изменяя Qwen-код. Итоговый полный прогон чистый.
 
+**Issue #12 обновлён:** критерии реализации и offline QA отмечены, коммиты и этот отчёт приложены; Issue остаётся открытым для приёмки владельцем.
+
 Платных запросов, реального semantic-model playtest и live Qwen вызовов **не было**.
 Cloudflare, VPN, DNS, .env, deployment, обучение, адаптеры и Issue #11 не изменены.
 
@@ -168,8 +170,9 @@ web/.venv/bin/python scripts/qa_completion_pdf_samples.py
 - `web/frontend/src/i18n.tsx`
 - `web/frontend/src/styles.css`
 
-QA и документация (следующий коммит в той же ветке):
+QA и документация (коммит `c10ca1d`, с последующим уточнением этого отчёта):
 
+- `web/README_DEMO.md`
 - `.gitattributes` (PDF как бинарные артефакты Git)
 - `scripts/qa_completion_pdf.cjs`
 - `scripts/qa_completion_pdf_server.py`
