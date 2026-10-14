@@ -299,7 +299,8 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
       ...settings,
       scenario,
       difficulty: difficultyChoices[Math.floor(Math.random() * difficultyChoices.length)].value,
-      sphere: (['work', 'family', 'study', 'friends', 'custom'] as Settings['sphere'][])[Math.floor(Math.random() * 5)],
+      // Random fill must always be immediately playable: custom requires manual topic input.
+      sphere: (['work', 'family', 'study', 'friends'] as Settings['sphere'][])[Math.floor(Math.random() * 4)],
       custom_topic: '',
     }
     if (scenario === 'negotiation_only') {
@@ -585,7 +586,7 @@ export function SetupScreen({
               <label key={engine.id} className={`engine-choice${settings.engine_id === engine.id ? ' selected' : ''}${!engine.enabled ? ' disabled' : ''}`} title={!engine.enabled ? engine.reason : undefined}>
                 <input type="radio" name="engine" value={engine.id} checked={settings.engine_id === engine.id} disabled={!engine.enabled || (engine.id === 'lora' && checkingModels)} onChange={() => onUpdate('engine_id', engine.id)} />
                 <span className="radio-dot" />
-                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? t("Серверная модель") : t("Локальная модель")}</small></span>
+                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? t("Серверная модель") : t("Наша дообученная модель")}</small></span>
                 {engine.id === 'lora' && <span className="soon-tag" role="status">{checkingModels ? t("Проверяем") : engine.enabled ? t("Доступна") : t("Недоступна")}</span>}
               </label>
             ))}
