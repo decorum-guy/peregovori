@@ -34,6 +34,8 @@ from app.spoken_dialogue import spoken_roleplay_messages, asterisk_stage_directi
 
 MODELS = ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5",
           "openai/gpt-6.1-sol", "openai/gpt-6-luna"]
+ROUND2_MODELS = ["google/gemini-3.8-flash", "google/gemini-3.1-pro-preview", "x-ai/grok-4.7"]
+MODELS += ROUND2_MODELS
 SESSIONS = {"negotiation_only": "193c1d65-dda6-4a1a-81d6-5e9604b26c48",
             "conflict_only": "1aa022c1-1914-49ac-9725-5a664880d250",
             "conflict_then_negotiation": "d03a052a-a922-43e1-b058-f2e1f8912537"}
@@ -77,7 +79,7 @@ def checkpoint_history(history, turn):
 
 
 def profile(model, purpose, effort=None, max_tokens=None):
-    opus = model == MODELS[0]
+    opus = model == "anthropic/claude-opus-5.5"
     tokens = {"case": 4096 if opus else 6144, "roleplayer": 1200 if opus else 1600,
               "judge": 2500 if opus else 3500}[purpose]
     return {"max_tokens": max_tokens or tokens,
@@ -119,9 +121,15 @@ def upper_price(messages, meta, max_tokens):
     # Additional framing reserve covers chat template/role overhead; no images/tools.
     input_bound = len(encoded(messages)) + 1024 + 64 * len(messages)
     prices = meta["pricing"]
+    # Reserve at the highest advertised tier, even for short study prompts.
+    # This is deliberately conservative and avoids silently ignoring overrides.
+    tiers = [prices] + prices.get("overrides", [])
     values = [Decimal(str(prices.get(key, "0"))) for key in ("prompt", "completion", "request")]
-    values[0] = max(values[0], Decimal(str(prices.get("input_cache_write", "0"))),
-                    Decimal(str(prices.get("input_cache_write_1h", "0"))))
+    values[0] = max(Decimal(str(tier.get(key, "0"))) for tier in tiers
+                    for key in ("prompt", "input_cache_write", "input_cache_write_1h"))
+    values[1] = max(Decimal(str(tier.get(key, "0"))) for tier in tiers
+                    for key in ("completion", "internal_reasoning"))
+    values[2] = max(Decimal(str(tier.get("request", "0"))) for tier in tiers)
     if any(not x.is_finite() or x < 0 for x in values):
         raise ValueError("Invalid catalog prices")
     return (Decimal(input_bound) * values[0] + Decimal(max_tokens) * values[1] + values[2]) * Decimal("1.10")
@@ -215,24 +223,35 @@ class Runner:
         self.budget = Budget(directory)
         self.provider = OpenRouterProvider(replace(self.settings, request_timeout_seconds=120))
 
-    async def preflight(self):
+    async def preflight(self, *, round2=False):
         self.settings.validate()
         if self.settings.provider_mode != "openrouter" or not self.settings.openrouter_proxy_url:
             raise ValueError("STOP: real key and explicit proxy required")
         response = await self.provider.request("GET", "/models")
-        catalog = {item["id"]: item for item in response.json()["data"] if item["id"] in MODELS}
-        if set(catalog) != set(MODELS):
-            raise ValueError("STOP: exact requested model IDs absent")
+        requested = ROUND2_MODELS if round2 else MODELS[:4]
+        catalog = {item["id"]: item for item in response.json()["data"] if item["id"] in requested}
         safe = {key: {field: meta.get(field) for field in ("id", "pricing", "supported_parameters", "reasoning", "context_length")}
                 for key, meta in catalog.items()}
-        (self.directory / "catalog.json").write_text(json.dumps(safe, indent=2))
+        # Keep the first round's capability snapshot immutable.
+        path = self.directory / ("catalog-round2.json" if round2 else "catalog.json")
+        path.write_text(json.dumps(safe, indent=2))
+        missing = sorted(set(requested) - set(catalog))
+        if missing:
+            raise ValueError("STOP: exact requested model IDs absent: " + ", ".join(missing))
         return safe
 
     async def call(self, model, purpose, scenario, messages, session, *, label, style="A", selected=None, options=None, retry_index=0):
-        catalog = json.loads((self.directory / "catalog.json").read_text())
+        catalog_name = "catalog-round2.json" if model in ROUND2_MODELS else "catalog.json"
+        catalog = json.loads((self.directory / catalog_name).read_text())
         selected = selected or profile(model, purpose)
         if type(selected["max_tokens"]) is not int or not 600 <= selected["max_tokens"] <= 8192:
             raise ValueError("Study token cap must be an integer from 600 to 8192")
+        # Observed transport semantics override assumptions based on capability names.
+        # Never spend again on a model that already exceeded its combined budget.
+        if any(row.get("requested_model") == model and type(row.get("completion_tokens")) is int
+               and row["completion_tokens"] > row.get("settings", {}).get("max_tokens", float("inf"))
+               for row in self.budget.rows()):
+            raise ValueError("STOP: model exceeded combined output budget; verified bounded transport required")
         payload, omissions = payload_for(model, messages, purpose, catalog, selected)
         estimate = upper_price(messages, catalog[model], payload["max_tokens"])
         metadata = {"requested_model": model, "purpose": purpose, "scenario": scenario, "label": label,
@@ -264,6 +283,8 @@ class Runner:
                        "reasoning_tokens": details.get("reasoning_tokens"), "cached_tokens": prompt_details.get("cached_tokens"),
                        "cost_usd": cost, "duration_seconds": round(time.monotonic()-started, 3),
                        "finish_reason": choice.get("finish_reason"), "status": "received"}
+        result_meta["output_budget_exceeded"] = (type(usage.get("completion_tokens")) is int and
+            usage["completion_tokens"] > selected["max_tokens"])
         if type(usage.get("completion_tokens")) is int and type(details.get("reasoning_tokens")) is int:
             result_meta["visible_tokens"] = usage["completion_tokens"] - details["reasoning_tokens"]
         self.budget.complete(identity, result_meta)
@@ -285,10 +306,12 @@ class Runner:
         path = self.directory / (identity + ".json")
         path.write_text(json.dumps(result, ensure_ascii=False, indent=2))
         os.chmod(path, 0o600)
-        self.budget.complete(identity, {"status": "validation_failed" if error else "accepted",
+        self.budget.complete(identity, {"status": "output_budget_exceeded" if result_meta["output_budget_exceeded"] else "validation_failed" if error else "accepted",
                                        "validation_error": error,
                                        "generated_case_sha256": fingerprint(parsed) if purpose == "case" and parsed else None,
                                        "stage_direction_count": len(asterisk_stage_directions(raw)) if purpose == "roleplayer" else None})
+        if result_meta["output_budget_exceeded"]:
+            raise ValueError("STOP: reported combined output exceeds requested budget; cost retained, no automatic retry")
         return result, next(row for row in self.budget.rows() if row["id"] == identity)
 
 
@@ -325,7 +348,7 @@ async def main(args):
         return
     runner = Runner()
     if args.preflight:
-        print(json.dumps(await runner.preflight(), indent=2))
+        print(json.dumps(await runner.preflight(round2=args.round2), indent=2))
         return
     if not args.live:
         raise ValueError("Network calls require --preflight or explicit --live")
@@ -350,6 +373,7 @@ if __name__ == "__main__":
     parser.add_argument("--purpose", choices=["case", "roleplayer", "judge"], default="roleplayer")
     parser.add_argument("--scenario", choices=list(SESSIONS), default="negotiation_only")
     parser.add_argument("--model", choices=MODELS, default=MODELS[1])
+    parser.add_argument("--round2", action="store_true", help="Free preflight for the three new exact IDs; preserve round-one catalog")
     parser.add_argument("--turn", type=int, default=1)
     parser.add_argument("--style", choices=["A", "spoken"], default="spoken")
     parser.add_argument("--effort", choices=["low", "medium", "high"])

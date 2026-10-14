@@ -1,0 +1,12 @@
+[
+  {
+    "term": "колбас",
+    "case_paths": [],
+    "baseline_prefix2_contains": false
+  },
+  {
+    "term": "творог",
+    "case_paths": [],
+    "baseline_prefix2_contains": false
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "study_status": "CLOSED_AFTER_PERSONAL_HIGH_FACT_FAILURE",
+  "no_more_cloud_calls_in_this_task": true,
+  "Generator": {
+    "Flash": "3/3 deliverable, neutral-role warning; independent full semantic acceptance missing",
+    "Pro": "1/3 deliverable, two shared-topic guard rejections; schema/options3/3",
+    "Grok": "two valid JSON, combined-output overruns2/2; public and all RP/Judge blocked"
+  },
+  "Roleplayer_initial": {
+    "Flash": {
+      "PASS": 4,
+      "WARN": 3,
+      "FAIL": 2
+    },
+    "Pro": {
+      "PASS": 6,
+      "WARN": 2,
+      "FAIL": 1
+    },
+    "Sol_reused": {
+      "PASS": 9,
+      "WARN": 0,
+      "FAIL": 0
+    }
+  },
+  "Roleplayer_targeted_high": {
+    "model": "google/gemini-3.1-pro-preview",
+    "effort": "high",
+    "max_tokens": 2000,
+    "calls": 1,
+    "gate": "PASS on specific invented-task checkpoint; not universal fix"
+  },
+  "games": [
+    {
+      "game_id": "round2-pro-high-public",
+      "player_turns": 6,
+      "model_replies": 6,
+      "gate": "WARN",
+      "reason": "Complete conditional negotiation. Early incident-closure ambiguity: public acknowledgment already present, so not scored as proven private-only resolution."
+    },
+    {
+      "game_id": "round2-pro-high-personal",
+      "player_turns": 2,
+      "model_replies": 2,
+      "gate": "FAIL_ABORTED",
+      "reason": "Invented sausage type absent case/history; all paid calls stopped. Not a six-turn game."
+    }
+  ],
+  "Judge": {
+    "Flash": "3/3 deliverable; qualitative2PASS1WARN",
+    "Pro": "0/3 deliverable; schema/exact quotes3/3, only technique-label overlaps; raw rejected reports withheld",
+    "Luna_reused": "3/3 deliverable, qualitative3PASS"
+  },
+  "recommendation": "KEEP Sol Generator / Sol Roleplayer / Luna Judge; production not switched",
+  "candidate_alternative": "Flash Generator/Sol Roleplayer/Luna Judge is cheaper estimate, not an accepted/played full combination",
+  "blinding": "Partial one-reviewer masking in wave1, Pro wave2 model known; no independent consensus",
+  "rpg_stage_directions": 0,
+  "paid_roleplayer_calls": 27,
+  "new_expense_usd": "0.839704250",
+  "pooled_expense_usd": "2.268644325",
+  "remaining_usd": "2.731355675"
+}

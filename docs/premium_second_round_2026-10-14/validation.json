@@ -1,0 +1,20 @@
+{
+  "backend_pytest_passed": 198,
+  "external_paid_calls_during_tests": 0,
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "round1_artifacts_unchanged": true,
+  "production_provider_prompts_service_config_unchanged": true,
+  "secret_scan_matches": 0,
+  "hidden_case_key_matches": 0,
+  "pooled_calls": 146,
+  "round2_calls": 41,
+  "unpriced_calls": 0,
+  "all_reservations_within_5usd": true,
+  "all_round2_actual_costs_reconciled": true,
+  "study_servers_8016_8017": "STOPPED",
+  "normal_demo_8000_health": "200 ok/database ready/openrouter",
+  "frontend_changed": false,
+  "qwen_gpu_started": false,
+  "training_started": false
+}

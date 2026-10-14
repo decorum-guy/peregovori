@@ -1,0 +1,50 @@
+{
+  "reviewer": "one GPT; model already known in focused wave2 review, NOT blind independent review",
+  "ratings": [
+    {
+      "alias": "R2-02",
+      "gate": "PASS",
+      "reason": "Emotion remains after partial repair; proposes advance-call agreement."
+    },
+    {
+      "alias": "R2-03",
+      "gate": "WARN",
+      "reason": "Weak check of false division-of-labor premise; asks to formalize after only a generic realism caveat."
+    },
+    {
+      "alias": "R2-04",
+      "gate": "PASS",
+      "reason": "Anger at relationship threat, spoken only."
+    },
+    {
+      "alias": "R2-15",
+      "gate": "PASS",
+      "reason": "Acknowledges spoiled-food belief without inventing food type; no coaching."
+    },
+    {
+      "alias": "R2-18",
+      "gate": "PASS",
+      "reason": "Defends minimal automation; half-fields manual entry is explicitly hypothetical."
+    },
+    {
+      "alias": "R2-19",
+      "gate": "WARN",
+      "reason": "Assumes extra week from hypothetical two-week plan without confirmed start date."
+    },
+    {
+      "alias": "R2-20",
+      "gate": "FAIL",
+      "reason": "Invents current personal-account work to pause, plus a precise two-developer plan not grounded in prefix."
+    },
+    {
+      "alias": "R2-22",
+      "gate": "PASS",
+      "reason": "Refuses public pressure and impossible full integration deadline."
+    },
+    {
+      "alias": "R2-26",
+      "gate": "PASS",
+      "reason": "No guarantee before both prerequisites; three-day delay is explicitly hypothetical, not claimed past fact."
+    }
+  ]
+}

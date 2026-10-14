@@ -1,0 +1,641 @@
+{
+  "status": "CPU_ONLY_NO_NETWORK",
+  "cap_usd": "5.00",
+  "pooled_spent_usd": "1.428940075",
+  "remaining_usd": "3.571059925",
+  "existing_paid_calls": 105,
+  "matrix": [
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "case",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-case-negotiation_only-1",
+      "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "case",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-case-conflict_only-1",
+      "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "case",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-case-conflict_then_negotiation-1",
+      "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 2,
+      "label": "round2-roleplayer-negotiation_only-2",
+      "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 4,
+      "label": "round2-roleplayer-negotiation_only-4",
+      "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 5,
+      "label": "round2-roleplayer-negotiation_only-5",
+      "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_only-1",
+      "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 2,
+      "label": "round2-roleplayer-conflict_only-2",
+      "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_only-3",
+      "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_then_negotiation-1",
+      "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_then_negotiation-3",
+      "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 5,
+      "label": "round2-roleplayer-conflict_then_negotiation-5",
+      "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "judge",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-judge-negotiation_only-1",
+      "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "judge",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-judge-conflict_only-1",
+      "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "google/gemini-3.8-flash",
+      "purpose": "judge",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-judge-conflict_then_negotiation-1",
+      "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "case",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-case-negotiation_only-1",
+      "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "case",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-case-conflict_only-1",
+      "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "case",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-case-conflict_then_negotiation-1",
+      "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 2,
+      "label": "round2-roleplayer-negotiation_only-2",
+      "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 4,
+      "label": "round2-roleplayer-negotiation_only-4",
+      "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 5,
+      "label": "round2-roleplayer-negotiation_only-5",
+      "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_only-1",
+      "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 2,
+      "label": "round2-roleplayer-conflict_only-2",
+      "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_only-3",
+      "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_then_negotiation-1",
+      "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_then_negotiation-3",
+      "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 5,
+      "label": "round2-roleplayer-conflict_then_negotiation-5",
+      "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "judge",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-judge-negotiation_only-1",
+      "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "judge",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-judge-conflict_only-1",
+      "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "google/gemini-3.1-pro-preview",
+      "purpose": "judge",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-judge-conflict_then_negotiation-1",
+      "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "case",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-case-negotiation_only-1",
+      "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "case",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-case-conflict_only-1",
+      "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "case",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-case-conflict_then_negotiation-1",
+      "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 6144,
+        "effort": "medium",
+        "temperature": 0.65
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 2,
+      "label": "round2-roleplayer-negotiation_only-2",
+      "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 4,
+      "label": "round2-roleplayer-negotiation_only-4",
+      "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "turn": 5,
+      "label": "round2-roleplayer-negotiation_only-5",
+      "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_only-1",
+      "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 2,
+      "label": "round2-roleplayer-conflict_only-2",
+      "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_only-3",
+      "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-roleplayer-conflict_then_negotiation-1",
+      "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 3,
+      "label": "round2-roleplayer-conflict_then_negotiation-3",
+      "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "turn": 5,
+      "label": "round2-roleplayer-conflict_then_negotiation-5",
+      "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 1600,
+        "effort": "medium",
+        "temperature": 0.75
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "judge",
+      "scenario": "negotiation_only",
+      "turn": 1,
+      "label": "round2-judge-negotiation_only-1",
+      "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "judge",
+      "scenario": "conflict_only",
+      "turn": 1,
+      "label": "round2-judge-conflict_only-1",
+      "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    },
+    {
+      "model": "x-ai/grok-4.7",
+      "purpose": "judge",
+      "scenario": "conflict_then_negotiation",
+      "turn": 1,
+      "label": "round2-judge-conflict_then_negotiation-1",
+      "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+      "profile": {
+        "max_tokens": 3500,
+        "effort": "medium",
+        "temperature": 0.3
+      }
+    }
+  ],
+  "browser": "After screening: top one or two; six real model-owned replies; emotional and public repair",
+  "recovery": "No automatic retry; technical hard failure stops its phase pending review"
+}

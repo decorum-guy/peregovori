@@ -4,6 +4,8 @@ Implementation anchor: `04f9253` on `codex/design-audit-2026-10-13`. Website ser
 
 **CPU VERIFIED; future corpus NOT CREATED; GPU/live Qwen parity NOT VERIFIED.** This proves serialized input equivalence, not the quality of an existing Qwen checkpoint.
 
+Round2 update: **198 CPU tests passed**, production serializer/schema/style and future adapters unchanged. [Second-round evidence](PREMIUM_SECOND_ROUND_GOOGLE_GROK_2026-10-14.md) and [current manifest](premium_second_round_2026-10-14/contract-manifest.json) preserve the versions/hashes below; all18 new Google controlled inputs match the nine reused Sol prompt/case hashes. No new TRAIN, actual tokenizer/GPU parity or production spoken-style activation is claimed. [Updated orchestrator handoff](QWEN_TRAINING_ORCHESTRATOR_HANDOFF_2026-10-14.md) includes both rounds and remaining gates.
+
 Source of truth remains `web/backend/app/prompts.py::roleplay_messages`. The additive `app.roleplay_contract` calls that exact function; it does not reproduce the prompt in another template. Future adapters are `training/prepare_runtime_sft_v2.py` and `evaluation/runtime_replay_v2.py`. Version: `runtime-roleplay-1.0`; SFT format: `runtime-sft-v2.0`; future dataset envelope: `runtime-train-v2.0`.
 
 | Input | Website / future adapters |

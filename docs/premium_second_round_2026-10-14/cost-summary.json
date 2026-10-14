@@ -1,0 +1,123 @@
+{
+  "round2_spend_usd": "0.83970425",
+  "pooled_spend_usd": "2.268644325",
+  "remaining_usd": "2.731355675",
+  "cap_usd": "5.00",
+  "round1_spend_usd": "1.428940075",
+  "calls": 41,
+  "unknown_cost_calls": 0,
+  "automatic_retries": 0,
+  "categories_by_model": {
+    "google/gemini-3.8-flash / case": {
+      "calls": 3,
+      "accepted": 3,
+      "cost_usd": "0.05458200",
+      "prompt_tokens": 22041,
+      "completion_tokens": 10147,
+      "reasoning_tokens": 7173,
+      "seconds": [
+        28.775,
+        26.516,
+        30.459
+      ]
+    },
+    "google/gemini-3.1-pro-preview / case": {
+      "calls": 3,
+      "accepted": 1,
+      "cost_usd": "0.180114",
+      "prompt_tokens": 22035,
+      "completion_tokens": 11337,
+      "reasoning_tokens": 8180,
+      "seconds": [
+        63.742,
+        44.322,
+        32.876
+      ]
+    },
+    "x-ai/grok-4.7 / case": {
+      "calls": 2,
+      "accepted": 2,
+      "cost_usd": "0.138932",
+      "prompt_tokens": 16030,
+      "completion_tokens": 18388,
+      "reasoning_tokens": 16011,
+      "seconds": [
+        131.574,
+        137.949
+      ]
+    },
+    "google/gemini-3.8-flash / roleplayer": {
+      "calls": 9,
+      "accepted": 9,
+      "cost_usd": "0.04033200",
+      "prompt_tokens": 17056,
+      "completion_tokens": 7344,
+      "reasoning_tokens": 6482,
+      "seconds": [
+        9.253,
+        7.354,
+        8.933,
+        12.041,
+        10.445,
+        12.561,
+        8.439,
+        11.592,
+        9.254
+      ]
+    },
+    "google/gemini-3.1-pro-preview / roleplayer": {
+      "calls": 18,
+      "accepted": 18,
+      "cost_usd": "0.282312",
+      "prompt_tokens": 33324,
+      "completion_tokens": 17972,
+      "reasoning_tokens": 16620,
+      "seconds": [
+        9.108,
+        11.619,
+        10.425,
+        9.929,
+        10.041,
+        16.612,
+        15.295,
+        10.124,
+        13.64,
+        17.271,
+        12.961,
+        12.071,
+        17.842,
+        14.061,
+        12.01,
+        11.464,
+        20.63,
+        12.378
+      ]
+    },
+    "google/gemini-3.8-flash / judge": {
+      "calls": 3,
+      "accepted": 3,
+      "cost_usd": "0.03141825",
+      "prompt_tokens": 14631,
+      "completion_tokens": 5452,
+      "reasoning_tokens": 4284,
+      "seconds": [
+        13.997,
+        14.654,
+        14.239
+      ]
+    },
+    "google/gemini-3.1-pro-preview / judge": {
+      "calls": 3,
+      "accepted": 0,
+      "cost_usd": "0.112014",
+      "prompt_tokens": 14625,
+      "completion_tokens": 6897,
+      "reasoning_tokens": 5484,
+      "seconds": [
+        22.094,
+        23.411,
+        33.023
+      ]
+    }
+  }
+}

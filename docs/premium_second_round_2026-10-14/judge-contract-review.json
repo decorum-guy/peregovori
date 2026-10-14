@@ -1,0 +1,62 @@
+[
+  {
+    "id": "07533195-fa77-4bd8-8d4e-db1d2de7bc91",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "negotiation_only",
+    "schema_valid": true,
+    "strengths": 2,
+    "risks": 1,
+    "raw_quotes_valid": true,
+    "delivery_status": "accepted"
+  },
+  {
+    "id": "8d4e8928-8e5d-44e3-b564-961f07f26130",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_only",
+    "schema_valid": true,
+    "strengths": 1,
+    "risks": 1,
+    "raw_quotes_valid": true,
+    "delivery_status": "accepted"
+  },
+  {
+    "id": "0fea21b5-c357-43d3-bcb1-f792da0cb806",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_then_negotiation",
+    "schema_valid": true,
+    "strengths": 2,
+    "risks": 2,
+    "raw_quotes_valid": true,
+    "delivery_status": "accepted"
+  },
+  {
+    "id": "dc59720e-804a-42a7-b19f-33bafffa8ad0",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "negotiation_only",
+    "schema_valid": true,
+    "strengths": 2,
+    "risks": 1,
+    "raw_quotes_valid": true,
+    "delivery_status": "validation_failed"
+  },
+  {
+    "id": "f9ec9c82-b797-48eb-a7ab-097e2a83aee9",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_only",
+    "schema_valid": true,
+    "strengths": 2,
+    "risks": 1,
+    "raw_quotes_valid": true,
+    "delivery_status": "validation_failed"
+  },
+  {
+    "id": "e8624009-659e-4df9-b0ab-d069f2cb74ab",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_then_negotiation",
+    "schema_valid": true,
+    "strengths": 2,
+    "risks": 1,
+    "raw_quotes_valid": true,
+    "delivery_status": "validation_failed"
+  }
+]

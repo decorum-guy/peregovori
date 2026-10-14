@@ -28,7 +28,7 @@ def test_selective_explicit_profiles(model, purpose):
     assert payload["provider"] == {"allow_fallbacks": False, "require_parameters": True}
     assert ("response_format" in payload) == (purpose != "roleplayer")
     assert not omissions
-    assert payload["reasoning"]["effort"] == ("low" if model == bench.MODELS[0] and purpose == "roleplayer" else "medium")
+    assert payload["reasoning"]["effort"] == ("low" if model == "anthropic/claude-opus-5.5" and purpose == "roleplayer" else "medium")
 
 
 def test_capability_omissions_and_no_substitution():
@@ -60,7 +60,7 @@ def test_budget_unknown_and_restart(tmp_path):
 
 
 def test_upper_bound_counts_reasoning_once():
-    meta = catalog()[bench.MODELS[0]]
+    meta = catalog()["anthropic/claude-opus-5.5"]
     price = bench.upper_price([{"role": "user", "content": "привет"}], meta, 1600)
     assert price > Decimal(".032")
     assert price < Decimal(".050")
@@ -155,3 +155,89 @@ def test_explicit_judge_recovery_adds_real_schema_without_mutating_baseline():
     report = {"summary": "ok", "strengths": [{"quote": "actual", "explanation": "ok"}]*5, "next_step": "ok"}
     with pytest.raises(ValueError):
         bench.validate_output(json.dumps(report), "judge", {"case": {}, "history": [{"speaker": "player", "text": "actual"}]})
+
+
+@pytest.mark.parametrize("missing", [False, True])
+def test_round2_free_preflight_preserves_first_catalog_and_ledger(tmp_path, missing):
+    import asyncio
+    import httpx
+    from app.config import Settings
+    original = b'{"round":1}'
+    (tmp_path / "catalog.json").write_bytes(original)
+    (tmp_path / "ledger.json").write_text('[]')
+    runner = bench.Runner(Settings(openrouter_api_key="CPU_CANARY", openrouter_proxy_url="http://localhost:1234"), tmp_path)
+    models = bench.ROUND2_MODELS[:-1] if missing else bench.ROUND2_MODELS
+    calls = []
+    class FreeTransport:
+        async def request(self, method, path, **kwargs):
+            calls.append((method, path))
+            return httpx.Response(200, json={"data": [dict(id=m, **catalog()[m]) for m in models]})
+    runner.provider = FreeTransport()
+    if missing:
+        with pytest.raises(ValueError, match="x-ai/grok-4.7"):
+            asyncio.run(runner.preflight(round2=True))
+    else:
+        assert set(asyncio.run(runner.preflight(round2=True))) == set(bench.ROUND2_MODELS)
+    assert calls == [("GET", "/models")]
+    assert (tmp_path / "catalog.json").read_bytes() == original
+    assert (tmp_path / "ledger.json").read_text() == '[]'
+    assert set(json.loads((tmp_path / "catalog-round2.json").read_text())) == set(models)
+
+
+def test_round2_exact_candidates_and_original_opus_profile():
+    assert bench.MODELS[:4] == ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5", "openai/gpt-6.1-sol", "openai/gpt-6-luna"]
+    assert len(bench.MODELS) == len(set(bench.MODELS)) == 7
+    assert bench.profile("anthropic/claude-opus-5.5", "roleplayer") == {"max_tokens":1200, "effort":"low", "temperature":.75}
+    for model in bench.ROUND2_MODELS:
+        assert bench.profile(model, "case")["max_tokens"] == 6144
+        assert bench.profile(model, "roleplayer")["effort"] == "medium"
+        with pytest.raises(ValueError, match="unavailable"):
+            bench.payload_for(model, [], "roleplayer", {}, bench.profile(model, "roleplayer"))
+
+
+def test_tier_prices_and_reasoning_are_conservatively_reserved():
+    meta = {"pricing": {"prompt":"0.000001", "completion":"0.000002", "internal_reasoning":"0.000002",
+        "overrides":[{"min_prompt_tokens":200000,"prompt":"0.000004","completion":"0.000012"}]}}
+    assert bench.upper_price([], meta, 1600) == (Decimal(1026)*Decimal(".000004") + Decimal(1600)*Decimal(".000012"))*Decimal("1.10")
+
+
+def test_loopback_study_settings_allow_only_exact_candidates_and_keep_other_guards():
+    import sys
+    from dataclasses import replace
+    sys.path.insert(0,str(ROOT / "scripts"))
+    from premium_browser_fork import StudySettings
+    from app.config import Settings
+    for model in bench.ROUND2_MODELS:
+        settings = StudySettings(premium_model=model, judge_model=model)
+        settings.validate()
+        assert settings.premium_model == settings.judge_model == model
+        with pytest.raises(ValueError):
+            Settings(premium_model=model).validate()  # Production contract remains unchanged.
+    with pytest.raises(ValueError,match="exact"):
+        StudySettings(premium_model="google/gemini-flash").validate()
+    with pytest.raises(ValueError,match="URL"):
+        replace(settings,openrouter_proxy_url="bad").validate()
+
+
+def test_observed_combined_budget_overrun_blocks_next_paid_request(tmp_path):
+    import asyncio
+    import httpx
+    from app.config import Settings
+    model = "x-ai/grok-4.7"
+    (tmp_path / "catalog-round2.json").write_text(json.dumps(catalog()))
+    runner = bench.Runner(Settings(openrouter_api_key="CPU_CANARY"),tmp_path)
+    calls=[]
+    class OverrunCPUTransport:
+        async def request(self,*args,**kwargs):
+            calls.append(1)
+            return httpx.Response(200,json={"model":model,"choices":[{"finish_reason":"stop","message":{"content":"Нет, я это не обещаю."}}],
+                "usage":{"cost":.02,"completion_tokens":2000,"completion_tokens_details":{"reasoning_tokens":1900}}})
+    runner.provider=OverrunCPUTransport()
+    with pytest.raises(ValueError,match="combined output exceeds"):
+        asyncio.run(runner.call(model,"roleplayer","conflict_only",[],{"case":{}},label="one"))
+    assert runner.budget.rows()[0]["cost_usd"] == .02
+    assert runner.budget.rows()[0]["output_budget_exceeded"] is True
+    assert runner.budget.rows()[0]["status"] == "output_budget_exceeded"
+    with pytest.raises(ValueError,match="bounded transport"):
+        asyncio.run(runner.call(model,"judge","conflict_only",[],{"case":{}},label="two"))
+    assert len(calls)==len(runner.budget.rows())==1

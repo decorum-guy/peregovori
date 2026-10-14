@@ -1,0 +1,149 @@
+{
+  "projections": [
+    {
+      "combination": "Sol/Sol/Luna",
+      "kind": "ESTIMATE_FROM_DIFFERENT_OBSERVED_COMPONENTS",
+      "quality_gate": "Prior recommended baseline, same mean projection",
+      "actual": {
+        "generator": "0.032925167",
+        "six_roleplayer": "0.019751400",
+        "judge_optional": "0.001415967",
+        "without_judge": "0.052676567",
+        "with_judge": "0.054092533"
+      },
+      "cold_base": {
+        "generator": "0.029520667",
+        "six_roleplayer": "0.030324000",
+        "judge_optional": "0.001297633",
+        "without_judge": "0.059844667",
+        "with_judge": "0.061142300"
+      },
+      "cold_upper": {
+        "generator": "0.032926667",
+        "six_roleplayer": "0.036130000",
+        "judge_optional": "0.001416042",
+        "without_judge": "0.069056667",
+        "with_judge": "0.070472708"
+      }
+    },
+    {
+      "combination": "Flash/Flash/Flash",
+      "kind": "ESTIMATE_FROM_DIFFERENT_OBSERVED_COMPONENTS",
+      "quality_gate": "Roleplayer hard failures; not deployable",
+      "actual": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.026888000",
+        "judge_optional": "0.010472750",
+        "without_judge": "0.045082000",
+        "with_judge": "0.055554750"
+      },
+      "cold_base": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.026888000",
+        "judge_optional": "0.010472750",
+        "without_judge": "0.045082000",
+        "with_judge": "0.055554750"
+      },
+      "cold_upper": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.026888000",
+        "judge_optional": "0.010472750",
+        "without_judge": "0.045082000",
+        "with_judge": "0.055554750"
+      }
+    },
+    {
+      "combination": "Pro/Pro/Pro medium",
+      "kind": "ESTIMATE_FROM_DIFFERENT_OBSERVED_COMPONENTS",
+      "quality_gate": "Two Gen / three Judge delivery rejections and RP fact failure; attempted cost, not successful game",
+      "actual": {
+        "generator": "0.060038000",
+        "six_roleplayer": "0.087072000",
+        "judge_optional": "0.037338000",
+        "without_judge": "0.147110000",
+        "with_judge": "0.184448000"
+      },
+      "cold_base": {
+        "generator": "0.060038000",
+        "six_roleplayer": "0.087072000",
+        "judge_optional": "0.037338000",
+        "without_judge": "0.147110000",
+        "with_judge": "0.184448000"
+      },
+      "cold_upper": {
+        "generator": "0.060038000",
+        "six_roleplayer": "0.087072000",
+        "judge_optional": "0.037338000",
+        "without_judge": "0.147110000",
+        "with_judge": "0.184448000"
+      }
+    },
+    {
+      "combination": "Flash/Sol/Luna",
+      "kind": "ESTIMATE_FROM_DIFFERENT_OBSERVED_COMPONENTS",
+      "quality_gate": "Potential cheaper Generator; not played as combo, neutral role + independent semantics acceptance missing",
+      "actual": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.019751400",
+        "judge_optional": "0.001415967",
+        "without_judge": "0.037945400",
+        "with_judge": "0.039361367"
+      },
+      "cold_base": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.030324000",
+        "judge_optional": "0.001297633",
+        "without_judge": "0.048518000",
+        "with_judge": "0.049815633"
+      },
+      "cold_upper": {
+        "generator": "0.018194000",
+        "six_roleplayer": "0.036130000",
+        "judge_optional": "0.001416042",
+        "without_judge": "0.054324000",
+        "with_judge": "0.055740042"
+      }
+    },
+    {
+      "combination": "Sol/Pro high/Luna",
+      "kind": "ESTIMATE_FROM_DIFFERENT_OBSERVED_COMPONENTS",
+      "quality_gate": "One public game complete with warning; personal high failed, not recommended as universal RP",
+      "actual": {
+        "generator": "0.032925167",
+        "six_roleplayer": "0.094696000",
+        "judge_optional": "0.001415967",
+        "without_judge": "0.127621167",
+        "with_judge": "0.129037133"
+      },
+      "cold_base": {
+        "generator": "0.029520667",
+        "six_roleplayer": "0.094696000",
+        "judge_optional": "0.001297633",
+        "without_judge": "0.124216667",
+        "with_judge": "0.125514300"
+      },
+      "cold_upper": {
+        "generator": "0.032926667",
+        "six_roleplayer": "0.094696000",
+        "judge_optional": "0.001416042",
+        "without_judge": "0.127622667",
+        "with_judge": "0.129038708"
+      }
+    }
+  ],
+  "measured_round1_hybrid": {
+    "Sol/Sol/Luna": ".046350025",
+    "without_judge": ".044672600",
+    "no_cache_same_tokens_range": ".063885925-.070013425"
+  },
+  "measured_round2_public_frozen_case": {
+    "new_generator_usd": "0",
+    "roleplayer_usd": ".094696",
+    "judge_usd": "0",
+    "total_new_usd": ".094696",
+    "source": "existing already paid Opus case; Judge not requested"
+  },
+  "grok_full_game": null,
+  "cache_note": "Actual uses usage.cost; cold uses same observed tokens, not a new API run. Rejected attempts are charged and never treated as working outputs.",
+  "projection_rounding": "Component mean estimates rounded to nine decimal places; actual ledger totals are exact."
+}

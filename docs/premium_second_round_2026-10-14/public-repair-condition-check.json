@@ -1,0 +1,110 @@
+[
+  {
+    "field": "goals",
+    "index": 0,
+    "public_marker": true,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "goals",
+    "index": 1,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "goals",
+    "index": 2,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "hard_limits",
+    "index": 0,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "hard_limits",
+    "index": 1,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "hard_limits",
+    "index": 2,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": true
+  },
+  {
+    "field": "concede_if",
+    "index": 0,
+    "public_marker": true,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": true
+  },
+  {
+    "field": "concede_if",
+    "index": 1,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "concede_if",
+    "index": 2,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": true,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "escalate_if",
+    "index": 0,
+    "public_marker": true,
+    "blame_marker": true,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "escalate_if",
+    "index": 1,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  },
+  {
+    "field": "escalate_if",
+    "index": 2,
+    "public_marker": false,
+    "blame_marker": false,
+    "retraction_marker": false,
+    "priority_marker": false,
+    "agreement_marker": false
+  }
+]

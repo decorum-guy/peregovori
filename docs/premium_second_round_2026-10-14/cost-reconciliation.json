@@ -1,0 +1,330 @@
+[
+  {
+    "id": "91bb5bd1-fd99-413f-9994-461dc3173224",
+    "priced": true,
+    "cost_usd": "0.018102",
+    "catalog_token_reconciliation_usd": "0.018102000",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "91b832f8-5771-4fcd-9a97-b46953642b96",
+    "priced": true,
+    "cost_usd": "0.01743825",
+    "catalog_token_reconciliation_usd": "0.017438250",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "5b93da17-684a-4a4a-b9f9-5a725c378d2c",
+    "priced": true,
+    "cost_usd": "0.01904175",
+    "catalog_token_reconciliation_usd": "0.019041750",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "4e57b830-1048-4334-9ae1-1722041790b1",
+    "priced": true,
+    "cost_usd": "0.04934",
+    "catalog_token_reconciliation_usd": "0.0493400",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "d1f03624-802e-4fad-8a44-6d2bef7bbf73",
+    "priced": true,
+    "cost_usd": "0.063248",
+    "catalog_token_reconciliation_usd": "0.0632480",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "fcb2e946-4b54-412e-990d-7d34d552ee69",
+    "priced": true,
+    "cost_usd": "0.067526",
+    "catalog_token_reconciliation_usd": "0.0675260",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "fcaf82f8-8967-4b29-bb99-b45c8a8beb9f",
+    "priced": true,
+    "cost_usd": "0.07053",
+    "catalog_token_reconciliation_usd": "0.0705300",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "2b4a88ec-25d6-4ef9-b14c-20d8abce286b",
+    "priced": true,
+    "cost_usd": "0.068402",
+    "catalog_token_reconciliation_usd": "0.0684020",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "b98eaceb-5f0d-4433-8d62-b28f4f5e096b",
+    "priced": true,
+    "cost_usd": "0.004239",
+    "catalog_token_reconciliation_usd": "0.004239000",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "cd97aabb-1eee-4f02-993c-32cc0c8e5e2e",
+    "priced": true,
+    "cost_usd": "0.003828",
+    "catalog_token_reconciliation_usd": "0.003828000",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "0f9db65b-d03f-4fac-a20c-fb39a518bc95",
+    "priced": true,
+    "cost_usd": "0.00429825",
+    "catalog_token_reconciliation_usd": "0.004298250",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "adbdfa73-6b07-472c-b7cd-bfc84277e248",
+    "priced": true,
+    "cost_usd": "0.00418575",
+    "catalog_token_reconciliation_usd": "0.004185750",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "96b23a75-4d3d-4be9-a243-58f5f8debf30",
+    "priced": true,
+    "cost_usd": "0.0048315",
+    "catalog_token_reconciliation_usd": "0.004831500",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "3e2aa426-40be-4821-921a-d6a67395f8e6",
+    "priced": true,
+    "cost_usd": "0.00558075",
+    "catalog_token_reconciliation_usd": "0.005580750",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "083d3870-3675-4850-82ff-5151f6e19d6a",
+    "priced": true,
+    "cost_usd": "0.003675",
+    "catalog_token_reconciliation_usd": "0.003675000",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "7798473d-2f02-4990-9a14-7e58e16b628f",
+    "priced": true,
+    "cost_usd": "0.00443025",
+    "catalog_token_reconciliation_usd": "0.004430250",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "df9e8524-bf22-470f-be5f-91bd584068c7",
+    "priced": true,
+    "cost_usd": "0.0052635",
+    "catalog_token_reconciliation_usd": "0.005263500",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "8e10652d-0c65-41db-b550-ddf0f42ae79d",
+    "priced": true,
+    "cost_usd": "0.012364",
+    "catalog_token_reconciliation_usd": "0.0123640",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "425f6342-5754-4c2e-8e41-23c1dddd89c5",
+    "priced": true,
+    "cost_usd": "0.013668",
+    "catalog_token_reconciliation_usd": "0.0136680",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "2871fdaf-5e47-4b48-8397-836d1a519e1b",
+    "priced": true,
+    "cost_usd": "0.013464",
+    "catalog_token_reconciliation_usd": "0.0134640",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "258fa7cb-57b4-4779-9110-388f4f1a03cc",
+    "priced": true,
+    "cost_usd": "0.014356",
+    "catalog_token_reconciliation_usd": "0.0143560",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "6fbc2d0b-79b2-4616-96f2-b22ec5743dae",
+    "priced": true,
+    "cost_usd": "0.011636",
+    "catalog_token_reconciliation_usd": "0.0116360",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "9e5aa76a-3fa1-4672-9f53-346cc841c195",
+    "priced": true,
+    "cost_usd": "0.018842",
+    "catalog_token_reconciliation_usd": "0.0188420",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "1ca9e87b-3e82-4e15-b62d-cd362e553b0f",
+    "priced": true,
+    "cost_usd": "0.01379",
+    "catalog_token_reconciliation_usd": "0.0137900",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "864a54ea-bd62-4752-b630-925682564d0e",
+    "priced": true,
+    "cost_usd": "0.013794",
+    "catalog_token_reconciliation_usd": "0.0137940",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "bdcc75de-375d-472d-b1d2-444112b75d4c",
+    "priced": true,
+    "cost_usd": "0.018694",
+    "catalog_token_reconciliation_usd": "0.0186940",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "07533195-fa77-4bd8-8d4e-db1d2de7bc91",
+    "priced": true,
+    "cost_usd": "0.009459",
+    "catalog_token_reconciliation_usd": "0.009459000",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "8d4e8928-8e5d-44e3-b564-961f07f26130",
+    "priced": true,
+    "cost_usd": "0.0111165",
+    "catalog_token_reconciliation_usd": "0.011116500",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "0fea21b5-c357-43d3-bcb1-f792da0cb806",
+    "priced": true,
+    "cost_usd": "0.01084275",
+    "catalog_token_reconciliation_usd": "0.010842750",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "1dac550a-e6cc-424f-b440-7b13f6140368",
+    "priced": true,
+    "cost_usd": "0.020934",
+    "catalog_token_reconciliation_usd": "0.0209340",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "dc59720e-804a-42a7-b19f-33bafffa8ad0",
+    "priced": true,
+    "cost_usd": "0.030154",
+    "catalog_token_reconciliation_usd": "0.0301540",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "f9ec9c82-b797-48eb-a7ab-097e2a83aee9",
+    "priced": true,
+    "cost_usd": "0.036902",
+    "catalog_token_reconciliation_usd": "0.0369020",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "e8624009-659e-4df9-b0ab-d069f2cb74ab",
+    "priced": true,
+    "cost_usd": "0.044958",
+    "catalog_token_reconciliation_usd": "0.0449580",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "8d2f7c6a-7274-45ae-9ae0-18242e335c7f",
+    "priced": true,
+    "cost_usd": "0.015402",
+    "catalog_token_reconciliation_usd": "0.0154020",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "d7a80461-fa23-49e1-92c4-0178148269c2",
+    "priced": true,
+    "cost_usd": "0.01447",
+    "catalog_token_reconciliation_usd": "0.0144700",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "a1edf866-f134-4932-a47b-6c3ceb390a4a",
+    "priced": true,
+    "cost_usd": "0.01908",
+    "catalog_token_reconciliation_usd": "0.0190800",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "4780d8b7-816d-40c1-9b3b-ca14fc04c21e",
+    "priced": true,
+    "cost_usd": "0.016122",
+    "catalog_token_reconciliation_usd": "0.0161220",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "499453d3-c789-492d-ba49-9241322200a3",
+    "priced": true,
+    "cost_usd": "0.014624",
+    "catalog_token_reconciliation_usd": "0.0146240",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "a09b9261-d8fa-4add-87f5-20a6cd6e0465",
+    "priced": true,
+    "cost_usd": "0.014998",
+    "catalog_token_reconciliation_usd": "0.0149980",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "b47b820e-9112-40ac-ab8b-5ed51965e192",
+    "priced": true,
+    "cost_usd": "0.021584",
+    "catalog_token_reconciliation_usd": "0.0215840",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  },
+  {
+    "id": "bca439ad-e93a-4aed-9381-e71c85a6ee7c",
+    "priced": true,
+    "cost_usd": "0.01449",
+    "catalog_token_reconciliation_usd": "0.0144900",
+    "matches_to_1e_9": true,
+    "actual_within_reservation": true
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "scenario": "conflict_only",
+    "turn": 1,
+    "claim_term": "творог",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "claim_term": "сортиров",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "claim_term": "контактн",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "claim_term": "текст обращен",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "доработк",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "отчёт",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "интеграционн",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "бэкенд",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "тринадцат",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "личного кабинета",
+    "source_paths": [],
+    "present_in_prefix": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 3,
+    "claim_term": "двух разработчиков",
+    "source_paths": [],
+    "present_in_prefix": false
+  }
+]

@@ -1,0 +1,45 @@
+[
+  {
+    "report_field": "strengths",
+    "matched_paths": [
+      "teaching.focus_techniques"
+    ],
+    "length": 25,
+    "already_in_public_or_transcript": false
+  },
+  {
+    "report_field": "strengths",
+    "matched_paths": [
+      "teaching.focus_techniques"
+    ],
+    "length": 27,
+    "already_in_public_or_transcript": false
+  },
+  {
+    "scenario": "conflict_only",
+    "report_field": "strengths",
+    "matched_paths": [
+      "teaching.focus_techniques"
+    ],
+    "length": 13,
+    "already_in_public_or_transcript": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "report_field": "strengths",
+    "matched_paths": [
+      "teaching.focus_techniques"
+    ],
+    "length": 25,
+    "already_in_public_or_transcript": false
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "report_field": "strengths",
+    "matched_paths": [
+      "teaching.focus_techniques"
+    ],
+    "length": 25,
+    "already_in_public_or_transcript": false
+  }
+]

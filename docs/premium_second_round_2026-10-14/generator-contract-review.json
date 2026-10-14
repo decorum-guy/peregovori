@@ -1,0 +1,130 @@
+[
+  {
+    "id": "91bb5bd1-fd99-413f-9994-461dc3173224",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "negotiation_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 2,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 0,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "91b832f8-5771-4fcd-9a97-b46953642b96",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 2,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 109,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "5b93da17-684a-4a4a-b9f9-5a725c378d2c",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_then_negotiation",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 2,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 106,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "4e57b830-1048-4334-9ae1-1722041790b1",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "negotiation_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "validation_failed",
+    "public_overlap_provenance": [
+      {
+        "visible_field": "public.negotiation_topic",
+        "source_paths": [
+          "teaching.negotiation_topic"
+        ],
+        "full_value_equal": true
+      }
+    ],
+    "unknowns_count": 2,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 0,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "d1f03624-802e-4fad-8a44-6d2bef7bbf73",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 2,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 89,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "fcb2e946-4b54-412e-990d-7d34d552ee69",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_then_negotiation",
+    "runtime_schema_and_options": true,
+    "delivery_status": "validation_failed",
+    "public_overlap_provenance": [
+      {
+        "visible_field": "public.negotiation_topic",
+        "source_paths": [
+          "teaching.negotiation_topic"
+        ],
+        "full_value_equal": true
+      }
+    ],
+    "unknowns_count": 1,
+    "limits_count": 2,
+    "concession_count": 2,
+    "decoding_characters": 64,
+    "combined_output_overrun": false,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "fcaf82f8-8967-4b29-bb99-b45c8a8beb9f",
+    "model": "x-ai/grok-4.7",
+    "scenario": "negotiation_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 3,
+    "limits_count": 3,
+    "concession_count": 4,
+    "decoding_characters": 0,
+    "combined_output_overrun": true,
+    "full_semantic_independent_acceptance": false
+  },
+  {
+    "id": "2b4a88ec-25d6-4ef9-b14c-20d8abce286b",
+    "model": "x-ai/grok-4.7",
+    "scenario": "conflict_only",
+    "runtime_schema_and_options": true,
+    "delivery_status": "accepted",
+    "public_overlap_provenance": [],
+    "unknowns_count": 3,
+    "limits_count": 3,
+    "concession_count": 3,
+    "decoding_characters": 74,
+    "combined_output_overrun": true,
+    "full_semantic_independent_acceptance": false
+  }
+]

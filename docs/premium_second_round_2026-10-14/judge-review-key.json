@@ -1,0 +1,47 @@
+[
+  {
+    "alias": "J2-01",
+    "id": "8d4e8928-8e5d-44e3-b564-961f07f26130",
+    "model": "google/gemini-3.8-flash"
+  },
+  {
+    "alias": "J2-02",
+    "id": "cec421a1-9f40-4c39-b824-95c21c033d1d",
+    "model": "openai/gpt-6-luna"
+  },
+  {
+    "alias": "J2-03",
+    "id": "0fea21b5-c357-43d3-bcb1-f792da0cb806",
+    "model": "google/gemini-3.8-flash"
+  },
+  {
+    "alias": "J2-04",
+    "id": "e96ffd83-b3db-4c8c-82c1-c5d6171d28e5",
+    "model": "openai/gpt-6-luna"
+  },
+  {
+    "alias": "J2-05",
+    "id": "f9ec9c82-b797-48eb-a7ab-097e2a83aee9",
+    "model": "google/gemini-3.1-pro-preview"
+  },
+  {
+    "alias": "J2-06",
+    "id": "07533195-fa77-4bd8-8d4e-db1d2de7bc91",
+    "model": "google/gemini-3.8-flash"
+  },
+  {
+    "alias": "J2-07",
+    "id": "dc59720e-804a-42a7-b19f-33bafffa8ad0",
+    "model": "google/gemini-3.1-pro-preview"
+  },
+  {
+    "alias": "J2-08",
+    "id": "e8624009-659e-4df9-b0ab-d069f2cb74ab",
+    "model": "google/gemini-3.1-pro-preview"
+  },
+  {
+    "alias": "J2-09",
+    "id": "6cf91056-947a-4d49-b9f3-21e1c4942c05",
+    "model": "openai/gpt-6-luna"
+  }
+]

@@ -1,0 +1,1684 @@
+[
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "round2-case-negotiation_only-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "91bb5bd1-fd99-413f-9994-461dc3173224",
+    "cost_usd": 0.018102,
+    "status": "accepted",
+    "upper_cost_usd": "0.0520113000",
+    "spent_before_usd": "1.428940075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 6306,
+    "completion_tokens": 3566,
+    "reasoning_tokens": 2561,
+    "cached_tokens": 0,
+    "duration_seconds": 28.775,
+    "finish_reason": "stop",
+    "visible_tokens": 1005,
+    "validation_error": null,
+    "generated_case_sha256": "0b4dd9b338850f51b8f1fee3633af807668f1c7d359b5b5313d044109da6792a",
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "round2-case-conflict_only-1",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "91b832f8-5771-4fcd-9a97-b46953642b96",
+    "cost_usd": 0.01743825,
+    "status": "accepted",
+    "upper_cost_usd": "0.0580280250",
+    "spent_before_usd": "1.447042075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 7866,
+    "completion_tokens": 3077,
+    "reasoning_tokens": 2119,
+    "cached_tokens": 0,
+    "duration_seconds": 26.516,
+    "finish_reason": "stop",
+    "visible_tokens": 958,
+    "validation_error": null,
+    "generated_case_sha256": "99aa12162256004e7b66c38e89385e5fc6e8657abe5c05e7c56d52fbabf33d7f",
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "case",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-case-conflict_then_negotiation-1",
+    "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "5b93da17-684a-4a4a-b9f9-5a725c378d2c",
+    "cost_usd": 0.01904175,
+    "status": "accepted",
+    "upper_cost_usd": "0.0580354500",
+    "spent_before_usd": "1.464480325",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 7869,
+    "completion_tokens": 3504,
+    "reasoning_tokens": 2493,
+    "cached_tokens": 0,
+    "duration_seconds": 30.459,
+    "finish_reason": "stop",
+    "visible_tokens": 1011,
+    "validation_error": null,
+    "generated_case_sha256": "14f0cd5ad240a2ec14209c0f7bd451831bfd3d6b08d5aabcc83b1e61c008880d",
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "round2-case-negotiation_only-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "4e57b830-1048-4334-9ae1-1722041790b1",
+    "cost_usd": 0.04934,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.26387680",
+    "spent_before_usd": "1.483522075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 6304,
+    "completion_tokens": 3061,
+    "reasoning_tokens": 1994,
+    "cached_tokens": 0,
+    "duration_seconds": 63.742,
+    "finish_reason": "stop",
+    "visible_tokens": 1067,
+    "validation_error": "a private case value appears in a player-visible field",
+    "generated_case_sha256": null,
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "round2-case-conflict_only-1",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "d1f03624-802e-4fad-8a44-6d2bef7bbf73",
+    "cost_usd": 0.063248,
+    "status": "accepted",
+    "upper_cost_usd": "0.29596600",
+    "spent_before_usd": "1.532862075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 7864,
+    "completion_tokens": 3960,
+    "reasoning_tokens": 3020,
+    "cached_tokens": 0,
+    "duration_seconds": 44.322,
+    "finish_reason": "stop",
+    "visible_tokens": 940,
+    "validation_error": null,
+    "generated_case_sha256": "eb70375edfce79ee5efb6e51ac2df1813bcba32699a5106f8fcf1066dfc03562",
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "case",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-case-conflict_then_negotiation-1",
+    "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "fcb2e946-4b54-412e-990d-7d34d552ee69",
+    "cost_usd": 0.067526,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.29600560",
+    "spent_before_usd": "1.596110075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 7867,
+    "completion_tokens": 4316,
+    "reasoning_tokens": 3166,
+    "cached_tokens": 0,
+    "duration_seconds": 32.876,
+    "finish_reason": "stop",
+    "visible_tokens": 1150,
+    "validation_error": "a private case value appears in a player-visible field",
+    "generated_case_sha256": null,
+    "stage_direction_count": null,
+    "output_budget_exceeded": false
+  },
+  {
+    "requested_model": "x-ai/grok-4.7",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "round2-case-negotiation_only-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "fcaf82f8-8967-4b29-bb99-b45c8a8beb9f",
+    "cost_usd": 0.07053,
+    "status": "accepted",
+    "upper_cost_usd": "0.22332640",
+    "spent_before_usd": "1.663636075",
+    "actual_model": "x-ai/grok-4.7",
+    "provider": "xAI",
+    "prompt_tokens": 7323,
+    "completion_tokens": 9602,
+    "reasoning_tokens": 8189,
+    "cached_tokens": 1152,
+    "duration_seconds": 131.574,
+    "finish_reason": "stop",
+    "visible_tokens": 1413,
+    "validation_error": null,
+    "generated_case_sha256": "da2de01e6f86ee0672e0296da76a3b10812822102d9040864ff1521600d9ff2f",
+    "stage_direction_count": null,
+    "output_budget_exceeded": true
+  },
+  {
+    "requested_model": "x-ai/grok-4.7",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "round2-case-conflict_only-1",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.65,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "2b4a88ec-25d6-4ef9-b14c-20d8abce286b",
+    "cost_usd": 0.068402,
+    "status": "accepted",
+    "upper_cost_usd": "0.25541560",
+    "spent_before_usd": "1.734166075",
+    "actual_model": "x-ai/grok-4.7",
+    "provider": "xAI",
+    "prompt_tokens": 8707,
+    "completion_tokens": 8786,
+    "reasoning_tokens": 7822,
+    "cached_tokens": 1152,
+    "duration_seconds": 137.949,
+    "finish_reason": "stop",
+    "visible_tokens": 964,
+    "validation_error": null,
+    "generated_case_sha256": "7f2866b3f07462015b255d4eb268cd495cb9a06698d30e941aa221dafa1ccfb3",
+    "stage_direction_count": null,
+    "output_budget_exceeded": true
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "b98eaceb-5f0d-4433-8d62-b28f4f5e096b",
+    "cost_usd": 0.004239,
+    "status": "accepted",
+    "upper_cost_usd": "0.0174941250",
+    "spent_before_usd": "1.802568075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 1632,
+    "completion_tokens": 804,
+    "reasoning_tokens": 711,
+    "cached_tokens": 0,
+    "duration_seconds": 9.253,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 93,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "cd97aabb-1eee-4f02-993c-32cc0c8e5e2e",
+    "cost_usd": 0.003828,
+    "status": "accepted",
+    "upper_cost_usd": "0.0203016000",
+    "spent_before_usd": "1.806807075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 2054,
+    "completion_tokens": 610,
+    "reasoning_tokens": 524,
+    "cached_tokens": 0,
+    "duration_seconds": 7.354,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 86,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "0f9db65b-d03f-4fac-a20c-fb39a518bc95",
+    "cost_usd": 0.00429825,
+    "status": "accepted",
+    "upper_cost_usd": "0.0219507750",
+    "spent_before_usd": "1.810635075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 2296,
+    "completion_tokens": 687,
+    "reasoning_tokens": 595,
+    "cached_tokens": 0,
+    "duration_seconds": 8.933,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 92,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "adbdfa73-6b07-472c-b7cd-bfc84277e248",
+    "cost_usd": 0.00418575,
+    "status": "accepted",
+    "upper_cost_usd": "0.0152484750",
+    "spent_before_usd": "1.814933325",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 1426,
+    "completion_tokens": 831,
+    "reasoning_tokens": 767,
+    "cached_tokens": 0,
+    "duration_seconds": 12.041,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 64,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "96b23a75-4d3d-4be9-a243-58f5f8debf30",
+    "cost_usd": 0.0048315,
+    "status": "accepted",
+    "upper_cost_usd": "0.0161955750",
+    "spent_before_usd": "1.819119075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 1592,
+    "completion_tokens": 970,
+    "reasoning_tokens": 875,
+    "cached_tokens": 0,
+    "duration_seconds": 10.445,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 95,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "3e2aa426-40be-4821-921a-d6a67395f8e6",
+    "cost_usd": 0.00558075,
+    "status": "accepted",
+    "upper_cost_usd": "0.0175667250",
+    "spent_before_usd": "1.823950575",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 1831,
+    "completion_tokens": 1122,
+    "reasoning_tokens": 1006,
+    "cached_tokens": 0,
+    "duration_seconds": 12.561,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 116,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "083d3870-3675-4850-82ff-5151f6e19d6a",
+    "cost_usd": 0.003675,
+    "status": "accepted",
+    "upper_cost_usd": "0.0158622750",
+    "spent_before_usd": "1.829531325",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 1515,
+    "completion_tokens": 677,
+    "reasoning_tokens": 601,
+    "cached_tokens": 0,
+    "duration_seconds": 8.439,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 76,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "7798473d-2f02-4990-9a14-7e58e16b628f",
+    "cost_usd": 0.00443025,
+    "status": "accepted",
+    "upper_cost_usd": "0.0190228500",
+    "spent_before_usd": "1.833206325",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 2007,
+    "completion_tokens": 780,
+    "reasoning_tokens": 655,
+    "cached_tokens": 0,
+    "duration_seconds": 11.592,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 125,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "df9e8524-bf22-470f-be5f-91bd584068c7",
+    "cost_usd": 0.0052635,
+    "status": "accepted",
+    "upper_cost_usd": "0.0234003000",
+    "spent_before_usd": "1.837636575",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 2703,
+    "completion_tokens": 863,
+    "reasoning_tokens": 748,
+    "cached_tokens": 0,
+    "duration_seconds": 9.254,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 115,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "8e10652d-0c65-41db-b550-ddf0f42ae79d",
+    "cost_usd": 0.012364,
+    "status": "accepted",
+    "upper_cost_usd": "0.08978200",
+    "spent_before_usd": "1.842900075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1628,
+    "completion_tokens": 759,
+    "reasoning_tokens": 725,
+    "cached_tokens": 0,
+    "duration_seconds": 9.108,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 34,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "425f6342-5754-4c2e-8e41-23c1dddd89c5",
+    "cost_usd": 0.013668,
+    "status": "accepted",
+    "upper_cost_usd": "0.10475520",
+    "spent_before_usd": "1.855264075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2046,
+    "completion_tokens": 798,
+    "reasoning_tokens": 716,
+    "cached_tokens": 0,
+    "duration_seconds": 11.619,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 82,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "round2-roleplayer-negotiation_only-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "2871fdaf-5e47-4b48-8397-836d1a519e1b",
+    "cost_usd": 0.013464,
+    "status": "accepted",
+    "upper_cost_usd": "0.11355080",
+    "spent_before_usd": "1.868932075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2286,
+    "completion_tokens": 741,
+    "reasoning_tokens": 664,
+    "cached_tokens": 0,
+    "duration_seconds": 10.425,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 77,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "258fa7cb-57b4-4779-9110-388f4f1a03cc",
+    "cost_usd": 0.014356,
+    "status": "accepted",
+    "upper_cost_usd": "0.07780520",
+    "spent_before_usd": "1.882396075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1424,
+    "completion_tokens": 959,
+    "reasoning_tokens": 921,
+    "cached_tokens": 0,
+    "duration_seconds": 9.929,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 38,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "6fbc2d0b-79b2-4616-96f2-b22ec5743dae",
+    "cost_usd": 0.011636,
+    "status": "accepted",
+    "upper_cost_usd": "0.08285640",
+    "spent_before_usd": "1.896752075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1588,
+    "completion_tokens": 705,
+    "reasoning_tokens": 660,
+    "cached_tokens": 0,
+    "duration_seconds": 10.041,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 45,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-roleplayer-conflict_only-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "9e5aa76a-3fa1-4672-9f53-346cc841c195",
+    "cost_usd": 0.018842,
+    "status": "accepted",
+    "upper_cost_usd": "0.09016920",
+    "spent_before_usd": "1.908388075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1825,
+    "completion_tokens": 1266,
+    "reasoning_tokens": 1146,
+    "cached_tokens": 0,
+    "duration_seconds": 16.612,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 120,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "1ca9e87b-3e82-4e15-b62d-cd362e553b0f",
+    "cost_usd": 0.01379,
+    "status": "accepted",
+    "upper_cost_usd": "0.08107880",
+    "spent_before_usd": "1.927230075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1513,
+    "completion_tokens": 897,
+    "reasoning_tokens": 809,
+    "cached_tokens": 0,
+    "duration_seconds": 15.295,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 88,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "864a54ea-bd62-4752-b630-925682564d0e",
+    "cost_usd": 0.013794,
+    "status": "accepted",
+    "upper_cost_usd": "0.09793520",
+    "spent_before_usd": "1.941020075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2001,
+    "completion_tokens": 816,
+    "reasoning_tokens": 726,
+    "cached_tokens": 0,
+    "duration_seconds": 10.124,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 90,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-roleplayer-conflict_then_negotiation-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [],
+    "id": "bdcc75de-375d-472d-b1d2-444112b75d4c",
+    "cost_usd": 0.018694,
+    "status": "accepted",
+    "upper_cost_usd": "0.12128160",
+    "spent_before_usd": "1.954814075",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2693,
+    "completion_tokens": 1109,
+    "reasoning_tokens": 979,
+    "cached_tokens": 0,
+    "duration_seconds": 13.64,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 130,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "round2-judge-negotiation_only-1",
+    "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "07533195-fa77-4bd8-8d4e-db1d2de7bc91",
+    "cost_usd": 0.009459,
+    "status": "accepted",
+    "upper_cost_usd": "0.0352803000",
+    "spent_before_usd": "1.973508075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 3787,
+    "completion_tokens": 1765,
+    "reasoning_tokens": 1387,
+    "cached_tokens": 0,
+    "duration_seconds": 13.997,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 378,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "round2-judge-conflict_only-1",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "8d4e8928-8e5d-44e3-b564-961f07f26130",
+    "cost_usd": 0.0111165,
+    "status": "accepted",
+    "upper_cost_usd": "0.0386405250",
+    "spent_before_usd": "1.982967075",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 5037,
+    "completion_tokens": 1957,
+    "reasoning_tokens": 1599,
+    "cached_tokens": 0,
+    "duration_seconds": 14.654,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 358,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.8-flash",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-judge-conflict_then_negotiation-1",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "0fea21b5-c357-43d3-bcb1-f792da0cb806",
+    "cost_usd": 0.01084275,
+    "status": "accepted",
+    "upper_cost_usd": "0.0439584750",
+    "spent_before_usd": "1.994083575",
+    "actual_model": "google/gemini-3.8-flash",
+    "provider": "Google AI Studio",
+    "prompt_tokens": 5807,
+    "completion_tokens": 1730,
+    "reasoning_tokens": 1298,
+    "cached_tokens": 0,
+    "duration_seconds": 14.239,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 432,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-targeted-high-public-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "1dac550a-e6cc-424f-b440-7b13f6140368",
+    "cost_usd": 0.020934,
+    "status": "accepted",
+    "upper_cost_usd": "0.10585520",
+    "spent_before_usd": "2.004926325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2001,
+    "completion_tokens": 1411,
+    "reasoning_tokens": 1329,
+    "cached_tokens": 0,
+    "duration_seconds": 17.271,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 82,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "round2-judge-negotiation_only-1",
+    "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "dc59720e-804a-42a7-b19f-33bafffa8ad0",
+    "cost_usd": 0.030154,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.18046160",
+    "spent_before_usd": "2.025860325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 3785,
+    "completion_tokens": 1882,
+    "reasoning_tokens": 1397,
+    "cached_tokens": 0,
+    "duration_seconds": 22.094,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 485,
+    "validation_error": "Judge private-context overlap; review locally",
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "round2-judge-conflict_only-1",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "f9ec9c82-b797-48eb-a7ab-097e2a83aee9",
+    "cost_usd": 0.036902,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.19838280",
+    "spent_before_usd": "2.056014325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 5035,
+    "completion_tokens": 2236,
+    "reasoning_tokens": 1780,
+    "cached_tokens": 0,
+    "duration_seconds": 23.411,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 456,
+    "validation_error": "Judge private-context overlap; review locally",
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-judge-conflict_then_negotiation-1",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.3,
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [],
+    "id": "e8624009-659e-4df9-b0ab-d069f2cb74ab",
+    "cost_usd": 0.044958,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.22674520",
+    "spent_before_usd": "2.092916325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 5805,
+    "completion_tokens": 2779,
+    "reasoning_tokens": 2307,
+    "cached_tokens": 0,
+    "duration_seconds": 33.023,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 472,
+    "validation_error": "Judge private-context overlap; review locally",
+    "generated_case_sha256": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-1",
+    "prompt_sha256": "d91490d797781fe9731b9b0b18ad6496cb8778598b1567bf15d795092a1a85af",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "8d2f7c6a-7274-45ae-9ae0-18242e335c7f",
+    "cost_usd": 0.015402,
+    "status": "accepted",
+    "upper_cost_usd": "0.08841360",
+    "spent_before_usd": "2.137874325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1497,
+    "completion_tokens": 1034,
+    "reasoning_tokens": 946,
+    "cached_tokens": 0,
+    "duration_seconds": 12.961,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 88,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-2",
+    "prompt_sha256": "88db83a0c39a49387a21498a10369aa9e14f580fca381f50aa886595e1fe83ad",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "d7a80461-fa23-49e1-92c4-0178148269c2",
+    "cost_usd": 0.01447,
+    "status": "accepted",
+    "upper_cost_usd": "0.09430960",
+    "spent_before_usd": "2.153276325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1649,
+    "completion_tokens": 931,
+    "reasoning_tokens": 867,
+    "cached_tokens": 0,
+    "duration_seconds": 12.071,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 64,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-3",
+    "prompt_sha256": "e2f7c0f1786ce3870b9a257bbfbffa25cfc0dbbefc2e82cc4925f0991ec73ddd",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "a1edf866-f134-4932-a47b-6c3ceb390a4a",
+    "cost_usd": 0.01908,
+    "status": "accepted",
+    "upper_cost_usd": "0.09987120",
+    "spent_before_usd": "2.167746325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1794,
+    "completion_tokens": 1291,
+    "reasoning_tokens": 1194,
+    "cached_tokens": 0,
+    "duration_seconds": 17.842,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 97,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-4",
+    "prompt_sha256": "4570b8454a0d26248010043e4ae9bdf179124cf6beb998541b5cdf5845f7829c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "4780d8b7-816d-40c1-9b3b-ca14fc04c21e",
+    "cost_usd": 0.016122,
+    "status": "accepted",
+    "upper_cost_usd": "0.10681440",
+    "spent_before_usd": "2.186826325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1983,
+    "completion_tokens": 1013,
+    "reasoning_tokens": 941,
+    "cached_tokens": 0,
+    "duration_seconds": 14.061,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 72,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-5",
+    "prompt_sha256": "9eb4549b84e9720b84916c3fc5eb5ab79b2207b059c4be782683cbac1c7b35df",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "499453d3-c789-492d-ba49-9241322200a3",
+    "cost_usd": 0.014624,
+    "status": "accepted",
+    "upper_cost_usd": "0.11315920",
+    "spent_before_usd": "2.202948325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2152,
+    "completion_tokens": 860,
+    "reasoning_tokens": 771,
+    "cached_tokens": 0,
+    "duration_seconds": 12.01,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 89,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "round2-pro-high-public-roleplayer-6",
+    "prompt_sha256": "4a09389c20cffe38d306c85977db9f97230fc6fe370392fa17ceab17bdc48438",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "a09b9261-d8fa-4add-87f5-20a6cd6e0465",
+    "cost_usd": 0.014998,
+    "status": "accepted",
+    "upper_cost_usd": "0.12088120",
+    "spent_before_usd": "2.217572325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 2351,
+    "completion_tokens": 858,
+    "reasoning_tokens": 772,
+    "cached_tokens": 0,
+    "duration_seconds": 11.464,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 86,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-pro-high-personal-roleplayer-1",
+    "prompt_sha256": "f55a135d44bb2041efa0d18f61d6005d3e3f8d9db71d63567ddb4245cb909553",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "b47b820e-9112-40ac-ab8b-5ed51965e192",
+    "cost_usd": 0.021584,
+    "status": "accepted",
+    "upper_cost_usd": "0.08509160",
+    "spent_before_usd": "2.232570325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1408,
+    "completion_tokens": 1564,
+    "reasoning_tokens": 1533,
+    "cached_tokens": 0,
+    "duration_seconds": 20.63,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 31,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "google/gemini-3.1-pro-preview",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "round2-pro-high-personal-roleplayer-2",
+    "prompt_sha256": "078cf99625b2f8d3422991aea5354b27bc8d21922b7fff68799367711def5851",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2000,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "temperature": 0.75,
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [],
+    "id": "bca439ad-e93a-4aed-9381-e71c85a6ee7c",
+    "cost_usd": 0.01449,
+    "status": "accepted",
+    "upper_cost_usd": "0.08848400",
+    "spent_before_usd": "2.254154325",
+    "actual_model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "prompt_tokens": 1485,
+    "completion_tokens": 960,
+    "reasoning_tokens": 921,
+    "cached_tokens": 0,
+    "duration_seconds": 12.378,
+    "finish_reason": "stop",
+    "output_budget_exceeded": false,
+    "visible_tokens": 39,
+    "validation_error": null,
+    "generated_case_sha256": null,
+    "stage_direction_count": 0
+  }
+]

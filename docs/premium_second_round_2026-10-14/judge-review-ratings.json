@@ -1,0 +1,50 @@
+{
+  "reviewer": "one GPT; partial masking only, previously seen some answers",
+  "ratings": [
+    {
+      "alias": "J2-01",
+      "gate": "PASS",
+      "reason": "Exact quotes, correct threat/repair/boundary account; fourth utterance means whole-chat indexing, not proven wrong player-turn number."
+    },
+    {
+      "alias": "J2-02",
+      "gate": "PASS",
+      "reason": "Public repair and conditional plan distinguished; no invented commitments."
+    },
+    {
+      "alias": "J2-03",
+      "gate": "WARN",
+      "reason": "Correct quotes and public repair. Frames a question about possible guarantee as attempted guarantee; caution on fairness. Next step rather generic."
+    },
+    {
+      "alias": "J2-04",
+      "gate": "PASS",
+      "reason": "Clearly distinguishes agreed process from unconfirmed delivery date; good arithmetic and workload feedback."
+    },
+    {
+      "alias": "J2-05",
+      "gate": "REJECTED",
+      "reason": "Schema/quotes checked separately; private-overlap delivery gate rejected. No raw rejected report published."
+    },
+    {
+      "alias": "J2-06",
+      "gate": "PASS",
+      "reason": "Correct promise/arithmetic criticism and open-question strength; next step generic but actionable."
+    },
+    {
+      "alias": "J2-07",
+      "gate": "REJECTED",
+      "reason": "Delivery gate rejected; do not infer poor pedagogy from technical overlap alone."
+    },
+    {
+      "alias": "J2-08",
+      "gate": "REJECTED",
+      "reason": "Delivery gate rejected; do not infer poor pedagogy from technical overlap alone."
+    },
+    {
+      "alias": "J2-09",
+      "gate": "PASS",
+      "reason": "Clear boundary and relationship distinction, exact supporting quotes, no invented promise."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "game_id": "round2-pro-high-personal",
+    "scenario": "conflict_only",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "model": "google/gemini-3.1-pro-preview",
+    "player_turns": 2,
+    "full_replies": 2,
+    "status": "finished_without_review",
+    "roleplayer_usd": "0.036074"
+  },
+  {
+    "game_id": "round2-pro-high-public",
+    "scenario": "conflict_then_negotiation",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "model": "google/gemini-3.1-pro-preview",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "finished_without_review",
+    "roleplayer_usd": "0.094696"
+  }
+]

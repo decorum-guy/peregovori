@@ -1,0 +1,95 @@
+{
+  "reviewer": "one GPT, partial masking; prior Sol texts familiar",
+  "ratings": [
+    {
+      "alias": "R2-01",
+      "gate": "PASS",
+      "reason": "Challenges unverified division of labor and unconditional promise."
+    },
+    {
+      "alias": "R2-02",
+      "gate": "WARN",
+      "reason": "Unestablished contact/text fields and sorting described as existing scope to defer; could also be read as proposal."
+    },
+    {
+      "alias": "R2-03",
+      "gate": "PASS",
+      "reason": "Accepts advance consent and retains emotional need."
+    },
+    {
+      "alias": "R2-04",
+      "gate": "FAIL",
+      "reason": "Names discarded food as tvorog; absent from case and prefix."
+    },
+    {
+      "alias": "R2-05",
+      "gate": "PASS",
+      "reason": "Refuses impossible deadline; priority is not an estimate."
+    },
+    {
+      "alias": "R2-06",
+      "gate": "WARN",
+      "reason": "Asserts several reserve days without confirmed start date, weakening hypothetical arithmetic."
+    },
+    {
+      "alias": "R2-07",
+      "gate": "PASS",
+      "reason": "Refuses pressure without inventing resources."
+    },
+    {
+      "alias": "R2-08",
+      "gate": "PASS",
+      "reason": "Two test days and fixes retained; no guaranteed reserve."
+    },
+    {
+      "alias": "R2-09",
+      "gate": "PASS",
+      "reason": "Responds to repair with concrete entry rule."
+    },
+    {
+      "alias": "R2-10",
+      "gate": "PASS",
+      "reason": "Does not mechanically divide time by people."
+    },
+    {
+      "alias": "R2-11",
+      "gate": "PASS",
+      "reason": "Accepts public apology; resource availability remains unknown."
+    },
+    {
+      "alias": "R2-12",
+      "gate": "WARN",
+      "reason": "Initially requires both resource and access, later describes date confirmation after access alone."
+    },
+    {
+      "alias": "R2-13",
+      "gate": "PASS",
+      "reason": "Responds emotionally to threat; no coaching."
+    },
+    {
+      "alias": "R2-14",
+      "gate": "FAIL",
+      "reason": "Invents established report and two integration tasks to remove from sprint. Igor is inherited, not a new-name error."
+    },
+    {
+      "alias": "R2-15",
+      "gate": "PASS",
+      "reason": "Conditional concession; no invented current scope."
+    },
+    {
+      "alias": "R2-16",
+      "gate": "PASS",
+      "reason": "Spoken anger; retirement and loneliness grounded, not newly invented."
+    },
+    {
+      "alias": "R2-17",
+      "gate": "PASS",
+      "reason": "Conflict persists after partial repair; no stage direction or coaching."
+    },
+    {
+      "alias": "R2-18",
+      "gate": "PASS",
+      "reason": "Both prerequisites retained; readiness checkpoint is not a substitute."
+    }
+  ]
+}

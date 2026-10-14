@@ -1,0 +1,191 @@
+[
+  {
+    "alias": "R2-01",
+    "id": "b39516a9-9d56-484a-a352-83d21081b142",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_then_negotiation",
+    "turn": 1
+  },
+  {
+    "alias": "R2-02",
+    "id": "9e5aa76a-3fa1-4672-9f53-346cc841c195",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_only",
+    "turn": 3
+  },
+  {
+    "alias": "R2-03",
+    "id": "8e10652d-0c65-41db-b550-ddf0f42ae79d",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "negotiation_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-04",
+    "id": "6fbc2d0b-79b2-4616-96f2-b22ec5743dae",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-05",
+    "id": "adbdfa73-6b07-472c-b7cd-bfc84277e248",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_only",
+    "turn": 1
+  },
+  {
+    "alias": "R2-06",
+    "id": "b98eaceb-5f0d-4433-8d62-b28f4f5e096b",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "negotiation_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-07",
+    "id": "cd97aabb-1eee-4f02-993c-32cc0c8e5e2e",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "negotiation_only",
+    "turn": 4
+  },
+  {
+    "alias": "R2-08",
+    "id": "2e38f103-9b09-4cb7-a09b-6caaaffdc49d",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "negotiation_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-09",
+    "id": "a1fd6d71-2176-4230-a760-f13dff1fe733",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_then_negotiation",
+    "turn": 5
+  },
+  {
+    "alias": "R2-10",
+    "id": "7798473d-2f02-4990-9a14-7e58e16b628f",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_then_negotiation",
+    "turn": 3
+  },
+  {
+    "alias": "R2-11",
+    "id": "6875b035-aaac-4b6c-a07f-d59d1ce623b7",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_only",
+    "turn": 1
+  },
+  {
+    "alias": "R2-12",
+    "id": "083d3870-3675-4850-82ff-5151f6e19d6a",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_then_negotiation",
+    "turn": 1
+  },
+  {
+    "alias": "R2-13",
+    "id": "df9e8524-bf22-470f-be5f-91bd584068c7",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_then_negotiation",
+    "turn": 5
+  },
+  {
+    "alias": "R2-14",
+    "id": "0f9db65b-d03f-4fac-a20c-fb39a518bc95",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "negotiation_only",
+    "turn": 5
+  },
+  {
+    "alias": "R2-15",
+    "id": "258fa7cb-57b4-4779-9110-388f4f1a03cc",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_only",
+    "turn": 1
+  },
+  {
+    "alias": "R2-16",
+    "id": "bb5c69ef-5cae-4e8d-9b6b-7243268b0498",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_then_negotiation",
+    "turn": 3
+  },
+  {
+    "alias": "R2-17",
+    "id": "fb2ee0d3-dfc9-4f32-b135-07aea02cb007",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "negotiation_only",
+    "turn": 4
+  },
+  {
+    "alias": "R2-18",
+    "id": "2871fdaf-5e47-4b48-8397-836d1a519e1b",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "negotiation_only",
+    "turn": 5
+  },
+  {
+    "alias": "R2-19",
+    "id": "425f6342-5754-4c2e-8e41-23c1dddd89c5",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "negotiation_only",
+    "turn": 4
+  },
+  {
+    "alias": "R2-20",
+    "id": "864a54ea-bd62-4752-b630-925682564d0e",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_then_negotiation",
+    "turn": 3
+  },
+  {
+    "alias": "R2-21",
+    "id": "0fc50aa3-e018-4ab6-aa0f-92e393e847e7",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-22",
+    "id": "1ca9e87b-3e82-4e15-b62d-cd362e553b0f",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_then_negotiation",
+    "turn": 1
+  },
+  {
+    "alias": "R2-23",
+    "id": "96b23a75-4d3d-4be9-a243-58f5f8debf30",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_only",
+    "turn": 2
+  },
+  {
+    "alias": "R2-24",
+    "id": "8978cc5d-3a75-40ae-b5c2-545f7b2a840a",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "negotiation_only",
+    "turn": 5
+  },
+  {
+    "alias": "R2-25",
+    "id": "3e2aa426-40be-4821-921a-d6a67395f8e6",
+    "model": "google/gemini-3.8-flash",
+    "scenario": "conflict_only",
+    "turn": 3
+  },
+  {
+    "alias": "R2-26",
+    "id": "bdcc75de-375d-472d-b1d2-444112b75d4c",
+    "model": "google/gemini-3.1-pro-preview",
+    "scenario": "conflict_then_negotiation",
+    "turn": 5
+  },
+  {
+    "alias": "R2-27",
+    "id": "13566c3a-17d3-4916-a12a-befadcf5d893",
+    "model": "openai/gpt-6.1-sol",
+    "scenario": "conflict_only",
+    "turn": 3
+  }
+]
