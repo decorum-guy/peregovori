@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""Two extra GPU DEV passes on existing 8B V2, then blind review, private backup, Intelion STOP.
+"""GPU DEV prompt A/B/C: 14B E1 (default), optional 14B E2 or legacy 8B E2.
 
-A: REUSE the original 75 V2 responses, exact historical prompt.
-B: same adapter + generic concise course rules.
-C: same adapter + B + TEN relevant but NON-EXCLUSIVE techniques.
-
-This deliberately does NOT touch ongoing 14B run, TRAIN weights or sealed TEST.
-All private data is sent to private-peregovori Release, NEVER public Git.
+One candidate per invocation. A = frozen 75 answers from the SAME checkpoint,
+B/C = 75 additional answers each, same model, adapter, DEV and decoding.
+NO training. Independent blind grading happens AFTER the private export.
+Guaranteed best-effort Intelion API stop with prearmed external watchdog.
 """
 from __future__ import annotations
+
 import argparse
 import hashlib
 import json
@@ -18,139 +17,219 @@ import sys
 import tarfile
 import time
 import traceback
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 PRIVATE = ROOT / "eval_private"
-BASE = PRIVATE / "results" / "qwen3_8b_e2"
 RESULTS = PRIVATE / "results"
-OUT = RESULTS / "methodology_abc_8b_v2_review"
-ADAPTER = ROOT / "training" / "outputs" / "qlora_v2_e2" / "adapter"
+OUTPUTS = ROOT / "training" / "outputs"
 CASES = PRIVATE / "dev" / "cases.jsonl"
 PROBES = PRIVATE / "dev" / "probes.jsonl"
-DEADLINE = ROOT / "training" / "outputs" / "intelion_deadline.json"
-LOG = OUT / "pipeline.log"
-TAG = "methodology-abc-8b-v2-20261014-vm11425"
+DEADLINE = OUTPUTS / "intelion_deadline.json"
+SERVER_ID = 11425
+
+
+@dataclass(frozen=True)
+class Candidate:
+    code: str
+    model: str
+    baseline: Path
+    adapter: Path
+    review: Path
+    tag: str
+    epoch: float
+    full_training_cfg: Path
+
+
+def candidate_for(code: str) -> Candidate:
+    cfg = {
+        "14b-e1": ("Qwen/Qwen3-14B", "qwen3_14b_e1",
+                   "qlora_14b_2ep/adapter_epoch_1", 1,
+                   "qlora_14b_2ep/run_config.json"),
+        "14b-e2": ("Qwen/Qwen3-14B", "qwen3_14b_e2",
+                   "qlora_14b_2ep/adapter_epoch_2", 2,
+                   "qlora_14b_2ep/run_config.json"),
+        "8b-e2": ("Qwen/Qwen3-8B", "qwen3_8b_e2",
+                  "qlora_v2_e2/adapter", 2,
+                  "qlora_v2_e2/run_config.json"),
+    }
+    model, prev, path, epoch, run_cfg = cfg[code]
+    suffix = code.replace("-", "_")
+    return Candidate(
+        code=code, model=model,
+        baseline=RESULTS / prev,
+        adapter=OUTPUTS / path,
+        review=RESULTS / f"methodology_abc_{suffix}_review",
+        tag=f"methodology-abc-{code}-20261014-vm11425",
+        epoch=epoch, full_training_cfg=OUTPUTS / run_cfg,
+    )
 
 
 def call(script, *params):
-    cmd = [sys.executable, script, *map(str, params)]
-    print("RUN:", " ".join(cmd), flush=True)
-    subprocess.run(cmd, cwd=ROOT, check=True)
+    command = [sys.executable, script, *map(str, params)]
+    print("RUN:", " ".join(command), flush=True)
+    subprocess.run(command, cwd=ROOT, check=True)
 
 
 def sha(path):
     h = hashlib.sha256()
     with Path(path).open("rb") as stream:
-        for part in iter(lambda:stream.read(1024*1024),b""):
-            h.update(part)
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(block)
     return h.hexdigest()
 
 
 def time_left():
-    cfg = json.loads(DEADLINE.read_text(encoding="utf-8"))
-    if int(cfg["server_id"]) != 11425:
-        raise RuntimeError("Unexpected Intelion VM 11425 watchdog ID")
-    return float(cfg["deadline_epoch"]) - time.time()
+    state = json.loads(DEADLINE.read_text(encoding="utf-8"))
+    if int(state["server_id"]) != SERVER_ID:
+        raise RuntimeError("Unexpected Intelion hard-stop watchdog server ID")
+    return float(state["deadline_epoch"]) - time.time()
 
 
-def zip_private():
-    path = PRIVATE / "methodology_abc_8b_v2_private.tar.gz"
-    with tarfile.open(path,"w:gz") as tar:
-        for where, to in [
-            (CASES,"dev/cases.jsonl"),(PROBES,"dev/probes.jsonl"),
-            (BASE / "lora.jsonl","previous_A/lora.jsonl"),
-            (BASE / "run_config.json","previous_A/run_config.json"),
-            (RESULTS / "methodology_abc_8b_v2_B","variant_B"),
-            (RESULTS / "methodology_abc_8b_v2_C","variant_C"),
-            (OUT,"blind_review"),
-        ]:
-            if Path(where).exists():
-                tar.add(where,arcname=to)
-    digest=sha(path)
-    checksum=Path(str(path)+".sha256")
-    checksum.write_text(f"{digest}  {path.name}\n",encoding="ascii")
-    print(f"ARCHIVED PRIVATE A/B/C: {path} sha256={digest}",flush=True)
-    return path,checksum
+def check_baseline(c):
+    from evaluation.run_gpu import validate_adapter
+    from evaluation.methodology_context import identity_manifest
+    prior = json.loads((c.baseline / "run_config.json").read_text(encoding="utf-8"))
+    if prior.get("model") != c.model or prior.get("suite") != "dev":
+        raise RuntimeError(f"Wrong original model/suite for {c.code}")
+    if prior.get("prompt_variant", "A") != "A":
+        raise RuntimeError("Archived original A is NOT historical unmodified prompt")
+    if prior.get("decoding") != {"do_sample": False, "max_new_tokens": 192, "thinking": False}:
+        raise RuntimeError("Old A decoding is different; cannot compare")
+    digest = prior.get("adapter_weights_sha256")
+    if not digest or validate_adapter(c.adapter) != digest:
+        raise RuntimeError(f"Wrong LoRA adapter for frozen A {c.code}; STOP before GPU")
+    for key, path in (("case_sha256", CASES), ("probe_sha256", PROBES)):
+        if prior.get(key) != sha(path):
+            raise RuntimeError(f"Frozen DEV mismatch in {key}; STOP")
+    a_answers = [json.loads(line) for line in (c.baseline / "lora.jsonl").read_text(
+        encoding="utf-8").splitlines() if line.strip()]
+    ids = [entry["probe_id"] for entry in a_answers]
+    probe_rows = [json.loads(line) for line in PROBES.read_text(
+        encoding="utf-8").splitlines() if line.strip()]
+    probe_ids = [p["probe_id"] for p in probe_rows]
+    if (len(a_answers) != 75 or len(set(ids)) != 75 or len(probe_ids) != 75
+            or set(ids) != set(probe_ids)):
+        raise RuntimeError("Historical A must contain exactly the SAME 75 frozen DEV probe IDs")
+    training_cfg = json.loads(c.full_training_cfg.read_text(encoding="utf-8"))
+    if training_cfg.get("model") != c.model or training_cfg.get("lora_rank") != 16:
+        raise RuntimeError("Mismatch between checkpoint and frozen training config")
+    if c.code.startswith("14b"):
+        snapshot = json.loads((c.adapter / "training_epoch.json").read_text(encoding="utf-8"))
+        if (snapshot.get("model") != c.model or snapshot.get("lora_rank") != 16
+                or abs(float(snapshot.get("actual_epoch", 0)) - c.epoch) > .003):
+            raise RuntimeError("Actual 14B epoch snapshot metadata disagrees")
+        if float(training_cfg.get("actual_epoch", 0)) < 1.99:
+            raise RuntimeError("Original 14B training was not two complete epochs")
+    else:
+        if float(training_cfg.get("actual_epoch", 0)) < 1.99:
+            raise RuntimeError("Original 8B V2 was not two complete epochs")
+    print(f"FROZEN A VERIFIED: model={c.model}, candidate={c.code}, "
+          f"75 DEV responses, adapter SHA256={digest}", flush=True)
+    print("METHODOLOGY:", json.dumps(identity_manifest(), ensure_ascii=False), flush=True)
+    return digest
+
+
+def archive_private(c, status):
+    # Do not leak DEV cases/oracles into Git; archive belongs ONLY to private Release.
+    archive = PRIVATE / f"methodology_abc_{c.code.replace('-', '_')}_private.tar.gz"
+    with tarfile.open(archive, "w:gz") as tar:
+        items = [
+            (CASES, "dev/cases.jsonl"), (PROBES, "dev/probes.jsonl"),
+            (c.baseline / "lora.jsonl", "historical_A/lora.jsonl"),
+            (c.baseline / "run_config.json", "historical_A/run_config.json"),
+            (c.adapter / "training_epoch.json", "checkpoint_epoch_metadata.json"),
+            (c.review, "blind_comparison"),
+        ]
+        for variant in ("B", "C"):
+            items.append((RESULTS / f"methodology_abc_{c.code.replace('-', '_')}_{variant}",
+                          f"variant_{variant}"))
+        for item, name in items:
+            if item.exists():
+                tar.add(item, arcname=name)
+    checksum = Path(str(archive) + ".sha256")
+    checksum.write_text(f"{sha(archive)}  {archive.name}\n", encoding="ascii")
+    print(f"PRIVATE archive: {archive}, SHA256={sha(archive)}", flush=True)
+    return archive, checksum
 
 
 def main():
-    arg=argparse.ArgumentParser()
-    arg.add_argument("--server-id",type=int,default=11425)
-    args=arg.parse_args()
-    if args.server_id != 11425:
-        raise SystemExit("Wrong cloud server")
-    OUT.mkdir(parents=True,exist_ok=True)
-    state={"model":"Qwen/Qwen3-8B","adapter":"V2 E2 rank16",
-           "A":"reused existing historical DEV",
-           "B":"not_started","C":"not_started","blind":"not_started",
-           "private_backup":"not_started","timestamp_utc":datetime.now(timezone.utc).isoformat()}
-    failure=None
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--candidate", choices=("14b-e1", "14b-e2", "8b-e2"),
+                        default="14b-e1")
+    parser.add_argument("--server-id", type=int, default=SERVER_ID)
+    args = parser.parse_args()
+    if args.server_id != SERVER_ID:
+        raise SystemExit("Wrong Intelion server ID")
+    c = candidate_for(args.candidate)
+    c.review.mkdir(parents=True, exist_ok=True)
+    status_path = c.review / "experiment_status.json"
+    state = {
+        "candidate": c.code, "model": c.model, "epoch": c.epoch,
+        "A": "not_verified", "B": "not_started", "C": "not_started",
+        "blind": "not_started", "private_backup": "not_attempted",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+    }
+    problem = None
     try:
-        source=json.loads((BASE/"run_config.json").read_text(encoding="utf-8"))
-        if source["model"]!="Qwen/Qwen3-8B" or source.get("adapter_weights_sha256") is None:
-            raise RuntimeError("Expected existing real 8B V2 LoRA results for baseline A")
-        from evaluation.run_gpu import validate_adapter
-        if validate_adapter(ADAPTER)!=source["adapter_weights_sha256"]:
-            raise RuntimeError("Current adapter differs from frozen historical V2")
-        for k,p in (("case_sha256",CASES),("probe_sha256",PROBES)):
-            if source[k]!=sha(p):
-                raise RuntimeError("Private frozen DEV changed since original 8B V2: "+k)
-        from evaluation.methodology_context import identity_manifest
-        print(json.dumps(identity_manifest(),ensure_ascii=False,indent=2),flush=True)
-        # Validate input/fingerprints without inference before using GPU minutes.
-        for name in ("B","C"):
-            if time_left() < 30*60:
-                raise RuntimeError(f"Insufficient time for {name} + private backup")
-            state[name]="generating"
-            folder=RESULTS / f"methodology_abc_8b_v2_{name}"
-            call("evaluation/run_gpu.py","--suite","dev","--lora-only",
-                 "--model","Qwen/Qwen3-8B","--adapter",ADAPTER,
-                 "--prompt-variant",name,"--max-new-tokens","192",
-                 "--max-prompt-tokens","6144","--cases",CASES,"--probes",PROBES,
-                 "--output",folder,"--deadline-file",DEADLINE,
-                 "--stop-margin-minutes","10")
-            state[name]="completed_75"
-        if time_left() < 8*60:
-            raise RuntimeError("No time left for blind comparison/private backup")
+        if time_left() < 35 * 60:
+            raise RuntimeError("Less than 35min to watchdog; abort GPU to preserve archive/stop time")
+        check_baseline(c)
+        state["A"] = "reused_75_verified"
+        for variant in ("B", "C"):
+            if time_left() < 25 * 60:
+                raise RuntimeError(f"Insufficient time for {variant} and safe private backup")
+            folder = RESULTS / f"methodology_abc_{c.code.replace('-', '_')}_{variant}"
+            state[variant] = "generating"
+            call("evaluation/run_gpu.py", "--suite", "dev", "--lora-only",
+                 "--model", c.model, "--adapter", c.adapter,
+                 "--prompt-variant", variant, "--max-new-tokens", "192",
+                 "--max-prompt-tokens", "6144", "--cases", CASES,
+                 "--probes", PROBES, "--output", folder,
+                 "--deadline-file", DEADLINE, "--stop-margin-minutes", "10")
+            state[variant] = "completed_75"
+        if time_left() < 7 * 60:
+            raise RuntimeError("Insufficient time for blind analysis/private backup")
         call("evaluation/compare_methodology_abc.py",
-             "--a-dir",BASE,"--b-dir",RESULTS/"methodology_abc_8b_v2_B",
-             "--c-dir",RESULTS/"methodology_abc_8b_v2_C",
-             "--cases",CASES,"--probes",PROBES,"--output",OUT)
-        state["blind"]="ready_unscored"
+             "--a-dir", c.baseline,
+             "--b-dir", RESULTS / f"methodology_abc_{c.code.replace('-', '_')}_B",
+             "--c-dir", RESULTS / f"methodology_abc_{c.code.replace('-', '_')}_C",
+             "--cases", CASES, "--probes", PROBES, "--output", c.review)
+        state["blind"] = "ready_unscored"
     except BaseException as exc:
-        failure=f"{type(exc).__name__}: {exc}"
-        print("A/B/C pipeline incomplete:",failure,flush=True)
+        problem = f"{type(exc).__name__}: {exc}"
+        print("A/B/C failed/partially completed:", problem, flush=True)
         traceback.print_exc()
     finally:
-        state["error"]=failure
-        state["private_backup"]="preparing"
-        status=OUT/"experiment_status.json"
-        status.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        state["error"] = problem
+        status_path.write_text(json.dumps(state, ensure_ascii=False, indent=2)+"\n",
+                               encoding="utf-8")
         try:
-            archive,checksum=zip_private()
-            if time_left() < 5*60:
-                state["private_backup"]="skipped_insufficient_time"
-                print("SKIPPING upload (watchdog imminent); files stay on Intelion disk",flush=True)
+            archive, checksum = archive_private(c, status_path)
+            if time_left() < 5 * 60:
+                state["private_backup"] = "skipped_deadline"
+                print("Too little time for private GitHub upload; preserve VM files and STOP", flush=True)
             else:
-                call("training/upload_private_release.py","upload","--tag",TAG,
-                     "--file",archive,"--file",checksum)
-                state["private_backup"]="verified"
+                call("training/upload_private_release.py", "upload", "--tag", c.tag,
+                     "--file", archive, "--file", checksum, "--file", status_path)
+                state["private_backup"] = "verified"
         except BaseException as exc:
-            state["private_backup"]="FAILED"
-            print("PRIVATE BACKUP FAILED; files stay on server disk:",exc,flush=True)
-        status.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+            state["private_backup"] = "FAILED"
+            print("PRIVATE GITHUB UPLOAD FAILED; VM files remain:", exc, flush=True)
+        status_path.write_text(json.dumps(state, ensure_ascii=False, indent=2)+"\n",
+                               encoding="utf-8")
         os.sync()
-        print("Requesting Intelion provider STOP, watchdog also active",flush=True)
+        print("Requesting Intelion provider STOP; independent watchdog armed", flush=True)
         try:
-            call("training/intelion_autostop.py","stop","--server-id",args.server_id)
+            call("training/intelion_autostop.py", "stop", "--server-id", SERVER_ID)
         except BaseException as exc:
-            print("CRITICAL: STOP API failed; STOP VM IN INTELION CONSOLE:",exc,flush=True)
-    if state["blind"]!="ready_unscored":
-        raise SystemExit("A/B/C incomplete. Inspect private status and partial outputs.")
+            print("CRITICAL: API stop failed; stop manually in dashboard:", exc, flush=True)
+    if state["blind"] != "ready_unscored":
+        raise SystemExit("Incomplete A/B/C. Check private archive/experiment_status.json")
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
