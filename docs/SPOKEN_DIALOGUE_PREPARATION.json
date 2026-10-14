@@ -1,0 +1,11 @@
+{
+  "version": "spoken-dialogue-1.0",
+  "status": "CPU PREPARED; NOT ENABLED; NOT LIVE TESTED",
+  "language_rule_sha256": {
+    "ru": "72a9cc18e3d418b8a2220355a9e7e2b2604fd4ef2d19474f77702bcb35a8e3b5",
+    "en": "f6d9bcb157aac27e964362746e312eb85fbd147809a8a16cafb35198c2dc0ff0"
+  },
+  "original_A_rules_sha256": "fe9f37b3d0d1c2989dd38971a194398f88b3e0b96bdf6aef926f7d76555a5656",
+  "new_paid_calls": 0,
+  "runtime_connected": false
+}

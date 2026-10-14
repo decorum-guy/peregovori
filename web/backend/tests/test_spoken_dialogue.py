@@ -1,0 +1,58 @@
+"""Separate style preparation after baseline, no model calls."""
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from app.prompts import roleplay_messages, ROLEPLAY_RULES
+from app.providers import _mock_case
+from app.spoken_dialogue import spoken_roleplay_messages, asterisk_stage_directions, SPOKEN_RULES, SPOKEN_DIALOGUE_VERSION
+
+
+@pytest.mark.parametrize('language',['ru','en'])
+def test_prepared_rule_only_appends_instruction_and_keeps_history(language):
+    case=_mock_case({'scenario':'conflict_only','difficulty':'hard','conflict_type':'personal','student_side':'protect','language':language})
+    history=[{'speaker':'opponent','text':case['opponent']['opening']},{'speaker':'player','text':'A human move.'}]
+    original=roleplay_messages(case,history,language)
+    prepared=spoken_roleplay_messages(case,history,language)
+    assert prepared[0]['content']==original[0]['content']+'\n'+SPOKEN_RULES[language]
+    assert prepared[1:]==original[1:]
+    assert roleplay_messages(case,history,language)==original
+    assert SPOKEN_DIALOGUE_VERSION=='spoken-dialogue-1.0'
+    assert hashlib.sha256(ROLEPLAY_RULES.encode()).hexdigest()=='fe9f37b3d0d1c2989dd38971a194398f88b3e0b96bdf6aef926f7d76555a5656'
+
+
+@pytest.mark.parametrize('text', ['*(вздыхает, теребит шарф)* Нет.', '*вздыхает* Нет.', '*(тише)* Нет.',
+                                '*(sighs, adjusts scarf)* No.', '*smiles* I disagree.'])
+def test_detects_directions_without_modifying_text(text):
+    before=text
+    assert len(asterisk_stage_directions(text))==1
+    assert text==before
+
+
+@pytest.mark.parametrize('text',['Нет, я не согласна.','No, I disagree.','Только *после* согласования.',
+                               'Only *after* approval.','Она назвала неверное имя.','Я не буду вздыхать.'])
+def test_ordinary_dialogue_and_emphasis_are_not_destructively_filtered(text):
+    assert not asterisk_stage_directions(text)
+
+
+def test_real_personal_baseline_has_nine_stage_directions_and_remains_unmodified():
+    path=Path(__file__).resolve().parents[3]/'docs/live_claude_playtest/2026-10-14/02-personal-public.json'
+    before=path.read_bytes();snapshot=json.loads(before)
+    matches=[direction for m in snapshot['messages'] if m['speaker']=='opponent'
+             for direction in asterisk_stage_directions(m['text'])]
+    assert len(matches)==9
+    assert path.read_bytes()==before
+
+
+def test_fact_and_style_defects_are_independent_in_frozen_evidence():
+    path=Path(__file__).resolve().parents[3]/'docs/live_claude_playtest/2026-10-14/02-personal-public.json'
+    replies=[m['text'] for m in json.loads(path.read_text())['messages'] if m['speaker']=='opponent']
+    invented=next(text for text in replies if 'в институт сумки таскал' in text)
+    assert not asterisk_stage_directions(invented)  # Spoken-only format does not prove factual correctness.
+    assert 'болела' in invented
+
+
+def test_unknown_language_is_rejected():
+    with pytest.raises(ValueError):spoken_roleplay_messages({},[],'fr')
