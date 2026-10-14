@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from training.prepare_sft import model_context
+from evaluation.methodology_context import augmented_messages, identity_manifest, VERSION
 
 
 SUITES = {
@@ -104,6 +105,8 @@ def main():
     ap.add_argument("--validate-only", action="store_true", help="Validate DEV and checksums without loading GPU")
     ap.add_argument("--output", default="eval_private/results/dev")
     ap.add_argument("--model", default="Qwen/Qwen3-8B")
+    ap.add_argument("--prompt-variant", choices=("A", "B", "C"), default="A",
+                    help="A unchanged (historical default), B generic methodology, C B + 10 nonexclusive techniques")
     ap.add_argument("--max-new-tokens", type=int, default=192)
     ap.add_argument("--max-prompt-tokens", type=int, default=4096)
     ap.add_argument("--deadline-file", default="")
@@ -126,6 +129,11 @@ def main():
         case_sha256=case_sha, probe_sha256=probe_sha, adapter_weights_sha256=adapter_sha,
         decoding={"do_sample": False, "max_new_tokens": args.max_new_tokens, "thinking": False},
     )
+    # Historical A run_config stays byte-for-byte equivalent to old experiments.
+    # This allows reuse of previous A results without spending another GPU hour.
+    if args.prompt_variant != "A":
+        args_info["prompt_variant"] = args.prompt_variant
+        args_info["context_manifest"] = identity_manifest()
     run_config = out / "run_config.json"
     if run_config.exists() and json.loads(run_config.read_text(encoding="utf-8")) != args_info:
         raise SystemExit("Existing results use a different suite/model/files/adapter/settings; choose NEW --output")
@@ -158,9 +166,11 @@ def main():
     model = base if args.base_only else PeftModel.from_pretrained(base, args.adapter, is_trainable=False)
     model.eval()
     prompt_cache = {}
+    prompt_evidence = []
     for p in probes:
         c = by_id[p["case_id"]]
         messages = generation_messages(c, p)
+        messages, ids = augmented_messages(messages, c, args.prompt_variant)
         prompt = tok.apply_chat_template(
             messages, tokenize=True, add_generation_prompt=True,
             enable_thinking=False, return_tensors="pt"
@@ -168,7 +178,18 @@ def main():
         if prompt.shape[-1] > args.max_prompt_tokens:
             raise SystemExit(f"Prompt too long: {p['probe_id']} ({prompt.shape[-1]} tokens)")
         prompt_cache[p["probe_id"]] = prompt
-    print("All prompts formed without teaching/oracle. Starting inference.", flush=True)
+        prompt_evidence.append({
+            "probe_id": p["probe_id"],
+            "variant": args.prompt_variant,
+            "technique_ids": ids,
+            "prompt_tokens": int(prompt.shape[-1]),
+            "system_sha256": hashlib.sha256(messages[0]["content"].encode("utf-8")).hexdigest(),
+        })
+    if args.prompt_variant != "A":
+        evidence_path = out / "prompt_evidence_PRIVATE.json"
+        evidence_path.write_text(json.dumps(prompt_evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"All prompts built: variant={args.prompt_variant}; NO teaching/oracle; "
+          f"max prompt tokens={max(x['prompt_tokens'] for x in prompt_evidence)}", flush=True)
     end_token = tok.convert_tokens_to_ids("<|im_end|>")
     modes = ("base",) if args.base_only else (("lora",) if args.lora_only else ("base", "lora"))
     for run_name in modes:
@@ -209,6 +230,7 @@ def main():
                     "difficulty": by_id[p["case_id"]]["difficulty"],
                     "probe_kind": p["probe_kind"], "student_action": p["student_action"],
                     "model_variant": run_name, "response": answer,
+                    **({"prompt_variant": args.prompt_variant} if args.prompt_variant != "A" else {}),
                     "generated_tokens": int(tokens.shape[-1] - inputs.shape[-1]),
                     "duration_sec": round(time.monotonic() - start, 3),
                 }
