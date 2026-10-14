@@ -57,13 +57,13 @@ LLM_TIMEOUT_SECONDS=120
 
 ## 4. Купленный домен и подруга — ещё НЕ подключены
 
-**НОВОЕ ПОДТВЕРЖДЕНИЕ ВЛАДЕЛЬЦА:** куплен домен **`softskills.fun`** у регистратора **REG.RU**, выбран внешний адрес **`https://softskills.fun/games`** (игра: **`https://softskills.fun/games/line-decision`**), то есть **apex/root domain**, а НЕ прежнее предложение `softskills.fun`. Написание `softkills.fun` было опечаткой. Пошаговая доменная инструкция теперь в [DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md](DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md).
+**НОВОЕ ПОДТВЕРЖДЕНИЕ ВЛАДЕЛЬЦА:** куплен домен **`softskills.fun`** у регистратора **REG.RU**, выбран внешний адрес **`https://softskills.fun/games`** (игра: **`https://softskills.fun/games/line-decision`**), то есть **apex/root domain**, а НЕ прежнее предложение `game.<домен>`. Написание `softkills.fun` было опечаткой. Пошаговая доменная инструкция теперь в [DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md](DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md).
 
 **По состоянию на это обновление публичный DNS, Cloudflare Tunnel, внешний HTTPS и доступ подруги ещё не проверены.** Следующая операция — сверить NS/DNS в REG.RU, добавить и активировать Cloudflare-зону (сохранив текущие записи), затем настроить named tunnel на `softskills.fun`. Не заявлять о деплое до проверки извне.
 
 Архитектура: приложение остаётся **Mac localhost 127.0.0.1:8000** + SQLite + API OpenRouter за Mac proxy; внешний TLS выполняет туннель. Уже есть `deploy/cloudflared.demo.example.yml`, `scripts/start_domain_demo.sh`, `scripts/test_cloudflare.py`, `web/README_DEMO.md` с командами. Именованный Cloudflare Tunnel и DNS пока не настроены/не верифицированы; во время будущего показа Mac, HTTP proxy, FastAPI и tunnel должны работать, Mac не должен засыпать. **Не открывать 18080/8001/Qwen GPU в интернет**.
 
-Путь (после получения настоящего hostname и владельческих действий):
+Путь (после проверки текущих NS/DNS в REG.RU и владельческих действий):
 1. Если DNS-зона не на Cloudflare — добавить домен в аккаунт Cloudflare и корректно настроить DNS/NS у регистратора, дождаться делегирования. Установить официальный `cloudflared` на Mac.
 2. Тест `python scripts/test_cloudflare.py --start` (и `--proxy` при необходимости). Cloudflare может быть недоступен в российской сети; API через прокси не доказывает tunnel edge, нужна фактическая проверка.
 3. `cloudflared tunnel login`, `cloudflared tunnel create line-decision-demo`, `cloudflared tunnel route dns line-decision-demo softskills.fun`; сохранить UUID/credentials локально, НЕ в Git.
