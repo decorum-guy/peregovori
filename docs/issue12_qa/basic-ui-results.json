@@ -1,0 +1,46 @@
+[
+  {
+    "lang": "ru",
+    "width": 390,
+    "declineRestore": true,
+    "draftPreserved": true,
+    "manualFinish": true,
+    "hintFinish": true,
+    "optInJudge": true,
+    "pdfDownload": true,
+    "exportModelCalls": 0
+  },
+  {
+    "lang": "ru",
+    "width": 1440,
+    "declineRestore": true,
+    "draftPreserved": true,
+    "manualFinish": true,
+    "hintFinish": true,
+    "optInJudge": true,
+    "pdfDownload": true,
+    "exportModelCalls": 0
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "declineRestore": true,
+    "draftPreserved": true,
+    "manualFinish": true,
+    "hintFinish": true,
+    "optInJudge": true,
+    "pdfDownload": true,
+    "exportModelCalls": 0
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "declineRestore": true,
+    "draftPreserved": true,
+    "manualFinish": true,
+    "hintFinish": true,
+    "optInJudge": true,
+    "pdfDownload": true,
+    "exportModelCalls": 0
+  }
+]

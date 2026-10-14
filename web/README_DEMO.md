@@ -202,3 +202,17 @@ cd web/frontend && npm run build
 Тесты используют отдельные SQLite и фиктивные providers. Проверяются три сценария, разделение темы переговоров/цели конфликта, приватность кейса, история, восстановление после перезапуска, повтор failed-реплики, досрочное завершение, добровольный idempotent Judge, отсутствие перехода Qwen → премиальная модель, health/loading/error, смена 8B/14B и checkpoint, HTTP/HTTPS proxy configuration, настоящая локальная HTTP proxy routing и безопасные ошибки. Также проверяются английские инструкции/кейсы/ответы/разбор, сохранение языка, запрет английской Qwen, отсутствие русского TRAIN-fallback на английском и совместимость старых сессий. GPU заменена заглушкой; настоящий GPU-запуск проверяется отдельно.
 
 Настройки, генерация runtime-кейса, резервный принятый TRAIN-кейс с явной меткой, сохранение сообщений, восстановление браузерной сессии и утверждённый стиль сохранены. Приватные `world`, `opponent` и `teaching` не выдаются браузеру. TRAIN, тренировочные скрипты и checkpoint не меняются. `.env`, SQLite, логи и сборки исключены из Git. Результаты реальных проверок: [DEMO_VERIFICATION.md](../docs/DEMO_VERIFICATION.md).
+
+## Completion hints and PDF (Issue #12)
+
+The independent completion check inherits `PREMIUM_MODEL` unless `COMPLETION_MODEL` is set;
+it never invokes the opt-in Judge or Luna. Configure limits with the `COMPLETION_*` settings
+in `.env.example`, or set `COMPLETION_ENABLED=false`. Qwen remains manual-finish only.
+Default checks begin after three successful player turns, with a three-turn cooldown and
+four-attempt session cap. Errors consume the cap; uncertain/partial results produce no hint.
+`Completion` costs/tokens appear separately in the existing UsageLedger report.
+
+PDF downloads use ReportLab and vendored licensed Cyrillic fonts. The protected
+`GET /api/sessions/{id}/export.pdf` only renders public session data and an existing completed
+review; it makes no model requests. Backend installation must include the updated requirements.
+See `docs/ISSUE_12_IMPLEMENTATION_2026-10-15.md` for offline QA, evidence and limitations.
