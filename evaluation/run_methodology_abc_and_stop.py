@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 PRIVATE = ROOT / "eval_private"
 BASE = PRIVATE / "results" / "qwen3_8b_e2"
 RESULTS = PRIVATE / "results"
