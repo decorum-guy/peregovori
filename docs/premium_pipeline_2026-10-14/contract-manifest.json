@@ -1,0 +1,32 @@
+{
+  "contract_version": "runtime-roleplay-1.0",
+  "sft_version": "runtime-sft-v2.0",
+  "serializer": "app.prompts.roleplay_messages",
+  "serializer_source_sha256": "092076c9ddd679f69e9042b02289c02eb9eefe3ecd69a1d48971bfbf79f9c731",
+  "rules_sha256": {
+    "ru": "fe9f37b3d0d1c2989dd38971a194398f88b3e0b96bdf6aef926f7d76555a5656",
+    "en": "ae8ddd61395e6c042938746edfed36197fd0cc89e5611da4dfc1b54914bace73"
+  },
+  "schema_sha256": "1dc878c40aaac4dc13a6a7f5dbdfc3c547d0c11e4c21fa2b3d7a888d66986ed0",
+  "style_version": "spoken-dialogue-1.0",
+  "production_style": "A; spoken NOT ENABLED",
+  "spoken_rules_sha256": {
+    "ru": "72a9cc18e3d418b8a2220355a9e7e2b2604fd4ef2d19474f77702bcb35a8e3b5",
+    "en": "f6d9bcb157aac27e964362746e312eb85fbd147809a8a16cafb35198c2dc0ff0"
+  },
+  "qwen_suffix_sha256": "d157f1b1c2e444668ef9a2999ae7fd5f2344f58bfa4b53347bb47676a2fba30d",
+  "qwen_decoding": {
+    "temperature": 0.75,
+    "top_p": 0.8,
+    "top_k": 20,
+    "max_tokens": 600,
+    "enable_thinking": false,
+    "max_prompt_tokens_default": 4096
+  },
+  "historical_offline": {
+    "do_sample": false,
+    "max_new_tokens": 192,
+    "enable_thinking": false,
+    "serializer": "training.prepare_sft.model_context; NOT runtime-equivalent"
+  }
+}

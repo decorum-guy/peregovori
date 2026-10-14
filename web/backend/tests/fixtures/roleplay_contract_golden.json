@@ -1,0 +1,10 @@
+{
+  "negotiation_only/none/ru": "12c23b7f8f08943081064abca02e0538dc16a9fa260c95a3db5570bbe375769a",
+  "negotiation_only/none/en": "8d149350f18d06bb1b846c6afab30fd02ecb9b3c935516a3d53a80307d3d8b0b",
+  "conflict_only/protect/ru": "01684c546c82b4df1c0e887f52769068b8282e2ad52852d0cc872a839f367614",
+  "conflict_only/protect/en": "178c0023e904174408a4dfc18e30a52fafd4d54294794c02ec5b53ac561d96ad",
+  "conflict_only/pressure/ru": "932ea21cd22dd11105bf23d77d8783b5be6ea5dd0a05a394e2898a42ab3de121",
+  "conflict_only/pressure/en": "6ba039af8bac03cf25072d2968877f10d116988a7d2574cfbcf7b706d167b449",
+  "conflict_then_negotiation/pressure/ru": "a1d964d2dbe04c68704872f69a46946f8e2931f86ab6c638ebbdec1e974c5966",
+  "conflict_then_negotiation/pressure/en": "0149cf761a6708fc00e21af0b7ef4db16cc03b24f65cbc23d2c3e60d6a7d4f79"
+}

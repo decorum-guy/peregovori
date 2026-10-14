@@ -1,0 +1,256 @@
+{
+  "status": "CPU_ONLY_NO_NETWORK",
+  "new_budget_usd": "5.00",
+  "rows": [
+    {
+      "purpose": "case",
+      "scenario": "negotiation_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+      "input_byte_upper_bound": 32324,
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7"
+    },
+    {
+      "purpose": "roleplayer",
+      "scenario": "negotiation_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "0e9e7244faa5d07265b74d1842b7ed210f3069f1c82daaad3a84b2517d78ad14",
+      "input_byte_upper_bound": 12047,
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7"
+    },
+    {
+      "purpose": "judge",
+      "scenario": "negotiation_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+      "input_byte_upper_bound": 25264,
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7"
+    },
+    {
+      "purpose": "case",
+      "scenario": "conflict_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+      "input_byte_upper_bound": 39617,
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a"
+    },
+    {
+      "purpose": "roleplayer",
+      "scenario": "conflict_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+      "input_byte_upper_bound": 10483,
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a"
+    },
+    {
+      "purpose": "judge",
+      "scenario": "conflict_only",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+      "input_byte_upper_bound": 29337,
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a"
+    },
+    {
+      "purpose": "case",
+      "scenario": "conflict_then_negotiation",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+      "input_byte_upper_bound": 39626,
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7"
+    },
+    {
+      "purpose": "roleplayer",
+      "scenario": "conflict_then_negotiation",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+      "input_byte_upper_bound": 11227,
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7"
+    },
+    {
+      "purpose": "judge",
+      "scenario": "conflict_then_negotiation",
+      "source": "existing_paid_openrouter",
+      "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+      "input_byte_upper_bound": 35783,
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7"
+    }
+  ],
+  "initial_challenger_matrix": {
+    "Generator": 9,
+    "Roleplayer": 27,
+    "Judge": 6
+  },
+  "historical_Opus": "reuse 3 cases, 17 turns, 1 Judge; decoding differs",
+  "reserve": "finalist browser games and optional A/B/C; before each call catalog-bound +10%, durable lock, unknown cost STOP",
+  "catalog_bound_matrix": {
+    "anthropic/claude-sonnet-5.5": [
+      {
+        "purpose": "case",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.13869680"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "negotiation_only",
+        "calls": 3,
+        "upper_usd_each": "0.04410340"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.09408080"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.15474140"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_only",
+        "calls": 3,
+        "upper_usd_each": "0.04066260"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.10304140"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.15476120"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_then_negotiation",
+        "calls": 3,
+        "upper_usd_each": "0.04229940"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.11722260"
+      }
+    ],
+    "openai/gpt-6.1-sol": [
+      {
+        "purpose": "case",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.13869680"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "negotiation_only",
+        "calls": 3,
+        "upper_usd_each": "0.04410340"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.09408080"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.15474140"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_only",
+        "calls": 3,
+        "upper_usd_each": "0.04066260"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.10304140"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.15476120"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_then_negotiation",
+        "calls": 3,
+        "upper_usd_each": "0.04229940"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.11722260"
+      }
+    ],
+    "openai/gpt-6-luna": [
+      {
+        "purpose": "case",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.006934840"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "negotiation_only",
+        "calls": 3,
+        "upper_usd_each": "0.002205170"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "negotiation_only",
+        "calls": 1,
+        "upper_usd_each": "0.004704040"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.007737070"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_only",
+        "calls": 3,
+        "upper_usd_each": "0.002033130"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_only",
+        "calls": 1,
+        "upper_usd_each": "0.005152070"
+      },
+      {
+        "purpose": "case",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.007738060"
+      },
+      {
+        "purpose": "roleplayer",
+        "scenario": "conflict_then_negotiation",
+        "calls": 3,
+        "upper_usd_each": "0.002114970"
+      },
+      {
+        "purpose": "judge",
+        "scenario": "conflict_then_negotiation",
+        "calls": 1,
+        "upper_usd_each": "0.005861130"
+      }
+    ]
+  },
+  "initial_upper_usd": "2.344667820"
+}

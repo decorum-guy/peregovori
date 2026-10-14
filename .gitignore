@@ -12,6 +12,7 @@ web/frontend/node_modules/
 web/frontend/dist/
 web/backend/.pytest_cache/
 web/data/*.sqlite3*
+web/data/premium_study_2026-10-14/
 web/frontend/*.tsbuildinfo
 !web/.env.example
 !inference/.env.example
