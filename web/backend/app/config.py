@@ -20,6 +20,7 @@ def _env(name: str, default: str) -> str:
 @dataclass(frozen=True)
 class Settings:
     openrouter_api_key: str = field(default="", repr=False)
+    demo_access_code: str = field(default="", repr=False)
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
     openrouter_proxy_url: str = field(default="", repr=False)
     premium_model: str = "anthropic/claude-opus-5.5"
@@ -40,6 +41,7 @@ class Settings:
             database_path = (WEB_DIR / database_path).resolve()
         return cls(
             openrouter_api_key=_env("OPENROUTER_API_KEY", ""),
+            demo_access_code=_env("DEMO_ACCESS_CODE", ""),
             openrouter_base_url=_env("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/"),
             openrouter_proxy_url=_env("OPENROUTER_PROXY_URL", ""),
             premium_model=_env("PREMIUM_MODEL", "anthropic/claude-opus-5.5"),
@@ -63,6 +65,8 @@ class Settings:
         return "openrouter"
 
     def validate(self) -> None:
+        if "\n" in self.demo_access_code or "\r" in self.demo_access_code or len(self.demo_access_code) > 128:
+            raise ValueError("DEMO_ACCESS_CODE must be a single line of at most 128 characters.")
         for name, value in (("OPENROUTER_BASE_URL", self.openrouter_base_url), ("OPENROUTER_PROXY_URL", self.openrouter_proxy_url), ("LORA_BASE_URL", self.lora_base_url)):
             if not value:
                 continue
