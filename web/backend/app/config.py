@@ -47,6 +47,11 @@ class Settings:
     cloud_judge_max_tokens: int = 2500
     cloud_judge_reasoning_effort: str = "default"
     cloud_roleplayer_style: str = "original"
+    cloud_case_max_tokens: int = 4096
+    cloud_case_reasoning_effort: str = "default"
+    cloud_judge_max_tokens: int = 2500
+    cloud_judge_reasoning_effort: str = "default"
+    cloud_roleplayer_style: str = "original"
 
     @classmethod
     def from_env(cls) -> "Settings":
