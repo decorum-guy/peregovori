@@ -76,7 +76,7 @@ fi
 
 mkdir -p "$(dirname "$LOG")"
 tmux new-session -d -s "$SESSION" \
-  "cd '$PWD' && '$PY' -u evaluation/run_methodology_abc_and_stop.py --server-id '$SERVER' > '$LOG' 2>&1"
+  "cd '$PWD' && '$PY' -u evaluation/run_methodology_abc_and_stop.py --candidate 8b-e2 --server-id '$SERVER' > '$LOG' 2>&1"
 HANDOFF=1
 
 echo "STARTED: $SESSION"
