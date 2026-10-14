@@ -33,12 +33,12 @@ def rows(path):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--a-dir", default="eval_private/results/qwen3_8b_e2")
-    p.add_argument("--b-dir", default="eval_private/results/methodology_abc_8b_v2_B")
-    p.add_argument("--c-dir", default="eval_private/results/methodology_abc_8b_v2_C")
+    p.add_argument("--a-dir", default="eval_private/results/qwen3_14b_e1")
+    p.add_argument("--b-dir", default="eval_private/results/methodology_abc_14b_e1_B")
+    p.add_argument("--c-dir", default="eval_private/results/methodology_abc_14b_e1_C")
     p.add_argument("--cases", default="eval_private/dev/cases.jsonl")
     p.add_argument("--probes", default="eval_private/dev/probes.jsonl")
-    p.add_argument("--output", default="eval_private/results/methodology_abc_8b_v2_review")
+    p.add_argument("--output", default="eval_private/results/methodology_abc_14b_e1_review")
     p.add_argument("--mode", choices=("base", "lora"), default="lora")
     a = p.parse_args()
     configs = {key: load(Path(folder)/"run_config.json") for key, folder in
