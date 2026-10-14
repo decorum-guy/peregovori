@@ -165,6 +165,8 @@ bash scripts/start_public_demo.sh
 
 ### После покупки собственного домена
 
+**Выбор владельца (14.10.2026):** REG.RU, `softskills.fun`, каталог `https://softskills.fun/games`, игра `https://softskills.fun/games/line-decision`; настраивать apex, а не `game.softskills.fun`. Пошаговые команды и критерии проверки — [DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md](../docs/DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md). DNS/HTTPS ещё не подключены и не проверены. До смены NS сохранить действующие DNS-записи (особенно почту); не выводить в Git токены туннеля и пароли.
+
 Подготовлен `deploy/cloudflared.demo.example.yml`: один hostname направляет весь сайт на **http://127.0.0.1:8000**, остальные hostname получают 404. HTML, assets, `/games/line-decision` и `/api/*` используют один origin и относительные адреса, поэтому имя домена не требует пересборки или настройки CORS. Backend остаётся на loopback, HTTPS принимает туннель. Qwen по-прежнему доступна только backend через SSH.
 
 После покупки домена добавьте его в свой аккаунт Cloudflare и настройте DNS у регистратора. Однократно на Mac с установленным официальным `cloudflared`:
