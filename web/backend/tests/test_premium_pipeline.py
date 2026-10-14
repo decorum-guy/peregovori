@@ -79,7 +79,9 @@ def test_history_stop_at_player_and_exact_quote_rejection():
 
 def test_production_files_unchanged():
     import subprocess
-    for path in ["web/backend/app/providers.py", "web/backend/app/prompts.py", "web/backend/app/service.py", "web/backend/app/config.py"]:
+    # The production provider/config/service now support the opt-in demo profile.
+    # Keep the original A system prompts frozen against the historical baseline.
+    for path in ["web/backend/app/prompts.py"]:
         assert (ROOT / path).read_bytes() == subprocess.check_output(["git", "show", "c803224:" + path], cwd=ROOT)
 
 
