@@ -1,5 +1,7 @@
 # Второй раунд: Gemini Flash / Gemini Pro / Grok
 
+Полный код и реальные evidence второго раунда: **`88cdee9384a83abeae15bd88cb2856728ed74d5e`**. Последующий docs-коммит фиксирует этот указатель и готовое сообщение оркестратору.
+
 **Облачное исследование остановлено после фактологической ошибки Pro high в личной игре. Рекомендация остаётся Sol Generator / Sol Roleplayer / Luna Judge.** Новые кандидаты не доказали более выгодного сочетания качества и цены. Production, исходные игровые инструкции, дизайн, Intelion, TRAIN200, DEV/TEST и веса не изменены.
 
 Ветка `codex/design-audit-2026-10-13`, исходный HEAD задания `2889219`; первый раунд — `863f136755ab59bda8fd2fa99f0dc66a0861aa72`. `origin/main` и roadmap прочитаны без слияния. Основания: [ТЗ](../prompts/CODEX_SECOND_ROUND_GOOGLE_GROK_2026-10-14.md), [Issue #10](https://github.com/decorum-guy/peregovori/issues/10), [первый отчёт](PREMIUM_FULL_PIPELINE_COMPARISON_2026-10-14.md), [актуальный handoff](QWEN_TRAINING_ORCHESTRATOR_HANDOFF_2026-10-14.md), [контракт](ROLEPLAYER_RUNTIME_PARITY_VERIFICATION.md).
