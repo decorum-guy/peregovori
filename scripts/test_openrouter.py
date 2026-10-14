@@ -33,8 +33,9 @@ async def run(args):
         raise ProviderError("Внесите OPENROUTER_API_KEY локально в web/.env. Каталог проверен; inference, генерация и Judge ещё не проверены.", "api_key_missing")
     for model in selected:
         started = time.monotonic()
+        # Claude may spend the first tokens on reasoning before producing visible text.
         result = await provider.complete(model, [{"role": "user", "content": "Ответь одной короткой фразой по-русски: соединение работает."}],
-                                         purpose="diagnostic", max_tokens=32, temperature=0)
+                                         purpose="diagnostic", max_tokens=256, temperature=0)
         print("%s: %.2f с; %s" % (model, time.monotonic() - started, preview(result)))
     if args.game:
         import httpx
