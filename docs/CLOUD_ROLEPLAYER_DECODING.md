@@ -19,3 +19,5 @@ This change preserves original A system messages, Generator, Judge and Qwen. Dec
 Only spoken words of the character are appropriate for this adult negotiation trainer. Asterisk actions, gestures, facial expressions, breathing directions and third-person narration are not acceptable. The personal baseline contains nine `*(...)*` stage directions. Emotion must remain visible in the wording, disagreement, resistance and changing position, rather than theatrical instructions.
 
 Style implementation is gated on completion of the original A baseline and is a separate versioned RU/EN preparation. It must not be mixed into the decoding fix or rewrite previous evidence. No paid style experiments, cosmetic paid retries, automatic destructive stripping, B/C, parity or training are authorized by this task.
+
+The saved baseline subsequently completed six replies with four new `low/1200` requests ($0.099448), without Generator/Judge. [Spoken-dialogue preparation](SPOKEN_DIALOGUE_PREPARATION.md) was then added as a separate CPU-only artifact; the running service still uses original A.
