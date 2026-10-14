@@ -34,6 +34,8 @@ def test_catalog_and_every_asset_work_on_the_same_future_domain_without_model_ca
         parsed = CatalogLinks()
         parsed.feed(response.text)
         assert parsed.cards == ['/games/line-decision']
+        assert response.text.count('data-copy="demo"') == 1
+        assert 'Демо-версия' in response.text
         assert parsed.assets
         for url in parsed.assets:
             assert url.startswith('/catalog-assets/')
