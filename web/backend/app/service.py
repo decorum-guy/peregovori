@@ -478,6 +478,7 @@ class DemoService:
         except ProviderError as exc:
             self.store.fail_message(session_id, request_id)
             safe_message = {
+                "provider_truncated": "Ответ собеседника оборвался. Ваша реплика сохранена — можно запросить ответ повторно.",
                 "provider_timeout": "Собеседник не ответил вовремя. Ваша реплика сохранена — попробуйте повторить запрос.",
                 "provider_rate_limit": "У API-модели временный лимит запросов. Ваша реплика сохранена — попробуйте позже.",
                 "provider_auth": "API-модель не приняла серверные credentials или доступ к модели.",
@@ -581,6 +582,7 @@ class DemoService:
         except ProviderError as exc:
             self.store.fail_debrief(session_id)
             safe_message = {
+                "provider_truncated": "Разбор оборвался. Можно запросить его повторно.",
                 "provider_timeout": "Разбор не успел завершиться. Нажмите кнопку, чтобы повторить запрос.",
                 "provider_rate_limit": "У API-модели временный лимит запросов. Попробуйте позже.",
                 "provider_auth": "API-модель не приняла серверные credentials или доступ к модели.",
