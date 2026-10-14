@@ -24,6 +24,7 @@ jobs:
           bash -n training/start_8b_2epochs.sh
           bash -n evaluation/start_14b.sh
           bash -n training/start_methodology_abc_8b.sh
+          bash -n training/start_methodology_abc_14b.sh
       - name: Validate course YAML-backed methodology selector and oracle isolation (no GPU)
         run: |
           python evaluation/methodology_context.py --validate-only
