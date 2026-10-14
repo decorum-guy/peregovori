@@ -37,7 +37,9 @@ class DemoGuard:
                 return False
             text = base64.b64decode(encoded, validate=True).decode("utf-8")
             username, password = text.split(":", 1)
-            return hmac.compare_digest(username, "demo") and hmac.compare_digest(password, self.access_code)
+            return hmac.compare_digest(username.encode("utf-8"), b"demo") and hmac.compare_digest(
+                password.encode("utf-8"), self.access_code.encode("utf-8")
+            )
         except (ValueError, UnicodeError, binascii.Error):
             return False
 
