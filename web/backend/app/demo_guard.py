@@ -12,7 +12,7 @@ import hmac
 import threading
 import time
 from collections import deque
-from typing import Dict
+from typing import Deque, Dict, Optional
 
 from starlette.requests import Request
 from starlette.responses import PlainTextResponse, Response
@@ -22,7 +22,7 @@ class DemoGuard:
     def __init__(self, access_code: str) -> None:
         self.access_code = access_code
         self._lock = threading.Lock()
-        self._timestamps: Dict[str, deque] = {
+        self._timestamps: Dict[str, Deque[float]] = {
             "case": deque(),
             "turn": deque(),
             "judge": deque(),
@@ -41,7 +41,7 @@ class DemoGuard:
         except (ValueError, UnicodeError, binascii.Error):
             return False
 
-    def check(self, request: Request) -> Response | None:
+    def check(self, request: Request) -> Optional[Response]:
         # When the code isn't set, localhost behaves exactly as before.
         if not self.access_code or request.url.path == "/api/health":
             return None
