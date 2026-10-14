@@ -8,6 +8,8 @@ from evaluation.methodology_context import (
     VERSION, _catalog, augmented_messages, build_addendum,
     identity_manifest, selected_techniques,
 )
+from evaluation.run_methodology_abc_and_stop import candidate_for
+
 
 ROOT=Path(__file__).resolve().parents[2]
 EXAMPLE=json.loads((ROOT/"examples/case.example.json").read_text(encoding="utf-8"))
@@ -20,6 +22,22 @@ class MethodologyAblationTests(unittest.TestCase):
             {"role":"assistant","content":self.case["opponent"]["opening"]},
             {"role":"user","content":"Есть конкретный расчёт нагрузки или пока это опасение?"},
         ]
+
+    def test_14b_epoch1_is_default_candidate_path(self):
+        c = candidate_for("14b-e1")
+        self.assertEqual(c.model, "Qwen/Qwen3-14B")
+        self.assertEqual(c.epoch, 1)
+        self.assertEqual(c.baseline.name, "qwen3_14b_e1")
+        self.assertEqual(c.adapter.name, "adapter_epoch_1")
+        self.assertEqual(c.review.name, "methodology_abc_14b_e1_review")
+        self.assertIn("14b-e1", c.tag)
+        c2 = candidate_for("14b-e2")
+        self.assertEqual(c2.model, c.model)
+        self.assertEqual(c2.adapter.name, "adapter_epoch_2")
+        self.assertNotEqual(c2.review, c.review)
+        old = candidate_for("8b-e2")
+        self.assertEqual(old.model, "Qwen/Qwen3-8B")
+        self.assertEqual(old.baseline.name, "qwen3_8b_e2")
 
     def test_a_is_completely_unchanged(self):
         original=[{"role":"system","content":"ORIGINAL SYSTEM PROMPT"},*self.dialogue]
