@@ -30,7 +30,7 @@ const english: Record<string, string> = {
   'Ваша сторона': 'Your side', 'Защищаю границы': 'Protecting my boundaries', 'Оказываю давление': 'Applying pressure',
   'Ваша тема': 'Your topic', 'Например, совместный проект или бытовая договорённость': 'For example, a shared project or a household agreement',
   'Ваше имя, необязательно': 'Your name, optional', 'Как к вам обращаться?': 'What should we call you?',
-  'Модель собеседника': 'Conversation model', 'Серверная модель': 'Server model', 'Локальная модель': 'Local model',
+  'Модель собеседника': 'Conversation model', 'Серверная модель': 'Cloud model', 'Локальная модель': 'Local model', 'Наша дообученная модель': 'Our fine-tuned model',
   'Проверяем': 'Checking', 'Доступна': 'Available', 'Недоступна': 'Unavailable', 'Проверяем доступность…': 'Checking availability…',
   'Обновить доступность': 'Refresh availability', 'Случайно': 'Randomise', 'Готовим ситуацию…': 'Preparing your case…', 'Начать игру': 'Start game',
   'Независимый концепт для демонстрации': 'Independent demo concept', 'К играм': 'Back to games', 'ЛИНИЯ РЕШЕНИЯ': 'LINE OF DECISION',
