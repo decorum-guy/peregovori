@@ -11,16 +11,18 @@ SESSION=qwen14b-epochs
 LOG=training/outputs/qlora_14b_2ep/pipeline.log
 DEADLINE=training/outputs/intelion_deadline.json
 ARMED=0
+HANDOFF=0
 
-on_error() {
+on_exit() {
   local code=$?
-  if [[ "$ARMED" == "1" ]]; then
-    echo "ERROR AFTER ARMING: requesting IMMEDIATE provider STOP (hard watchdog fallback also active)"
+  trap - EXIT
+  if [[ "$HANDOFF" != "1" ]]; then
+    echo "ERROR OR EARLY EXIT: requesting IMMEDIATE Intelion provider STOP even if watchdog was not armed"
     "$PY" training/intelion_autostop.py stop --server-id "$ID" || true
   fi
   exit "$code"
 }
-trap on_error ERR
+trap on_exit EXIT
 
 echo "=== Qwen3-14B BASE + QLoRA epoch 1/2 + frozen DEV (existing VM 11425) ==="
 test -x "$PY" || { echo "STOP: prepared .venv missing"; exit 1; }
@@ -100,6 +102,7 @@ fi
 mkdir -p "$(dirname "$LOG")"
 tmux new-session -d -s "$SESSION" \
   "cd '$PWD' && '$PY' -u training/run_14b_epochs_and_stop.py --server-id '$ID' > '$LOG' 2>&1"
+HANDOFF=1
 
 echo "STARTED: tmux=$SESSION"
 echo "Order: 14B BASE DEV75 -> 14B longest-example backward VRAM test -> fresh 2-epoch QLoRA"
