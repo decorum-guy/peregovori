@@ -16,6 +16,7 @@ from .config import REPO_DIR, Settings
 from .models import DebriefReport, Language, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
+from .spoken_dialogue import spoken_roleplay_messages
 from .qwen import qwen_label, ready_identity
 from .storage import SessionStore
 from .usage import usage_scope
@@ -37,6 +38,10 @@ def model_label(model_id: str) -> str:
         return "Claude Opus 5.5"
     if lowered == "openai/gpt-6-astra":
         return "GPT-6 Astra"
+    if lowered == "openai/gpt-6.1-sol":
+        return "GPT-6.1 Sol"
+    if lowered == "openai/gpt-6-luna":
+        return "GPT-6 Luna"
     return model_id
 
 
@@ -304,7 +309,7 @@ class DemoService:
                     purpose="case",
                     json_mode=True,
                     # Shared budget includes reasoning; compact visible JSON must fit too.
-                    max_tokens=4096,
+                    max_tokens=self.settings.cloud_case_max_tokens,
                     temperature=0.65,
                 )
             except ProviderError as exc:
@@ -456,7 +461,8 @@ class DemoService:
                 with usage_scope(session_id, "roleplayer/" + request_id, session["settings"]["scenario"]):
                     raw = await self.provider.complete(
                         session["engine_model"],
-                        roleplay_messages(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
+                        (spoken_roleplay_messages if self.settings.cloud_roleplayer_style == "spoken" else roleplay_messages)(
+                            session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                         purpose="roleplayer",
                         max_tokens=self.settings.cloud_roleplayer_max_tokens,
                         temperature=0.75,
@@ -560,7 +566,7 @@ class DemoService:
                     judge_prompt(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                     purpose="judge",
                     json_mode=True,
-                    max_tokens=2500,
+                    max_tokens=self.settings.cloud_judge_max_tokens,
                     temperature=0.3,
                 )
             data = _parse_json_object(raw)
