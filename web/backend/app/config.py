@@ -80,6 +80,11 @@ class Settings:
             cloud_judge_max_tokens=_integer_env("CLOUD_JUDGE_MAX_TOKENS", "2500"),
             cloud_judge_reasoning_effort=_env("CLOUD_JUDGE_REASONING_EFFORT", "default").lower(),
             cloud_roleplayer_style=_env("CLOUD_ROLEPLAYER_STYLE", "original").lower(),
+            cloud_case_max_tokens=_integer_env("CLOUD_CASE_MAX_TOKENS", "4096"),
+            cloud_case_reasoning_effort=_env("CLOUD_CASE_REASONING_EFFORT", "default").lower(),
+            cloud_judge_max_tokens=_integer_env("CLOUD_JUDGE_MAX_TOKENS", "2500"),
+            cloud_judge_reasoning_effort=_env("CLOUD_JUDGE_REASONING_EFFORT", "default").lower(),
+            cloud_roleplayer_style=_env("CLOUD_ROLEPLAYER_STYLE", "original").lower(),
         )
 
     @property
