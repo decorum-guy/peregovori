@@ -1,6 +1,6 @@
 # «Линия решения»: четыре модели, три роли, реальные расходы
 
-**Исследование завершено. Production не переключён.** Ветка `codex/design-audit-2026-10-13`, implementation anchor `04f9253`; итоговый evidence SHA передан владельцу вместе с отчётом. `main` прочитан через Git, не слит. Основания: утверждённые три prompts, roadmap из `origin/main`, Issues [#2](https://github.com/decorum-guy/peregovori/issues/2), [#3](https://github.com/decorum-guy/peregovori/issues/3), [#5](https://github.com/decorum-guy/peregovori/issues/5), [#8](https://github.com/decorum-guy/peregovori/issues/8), [#9](https://github.com/decorum-guy/peregovori/issues/9).
+**Исследование завершено. Production не переключён.** Ветка `codex/design-audit-2026-10-13`, implementation anchor `04f9253`; полный evidence SHA **`eeae44d086d82d534d7ec47638735c14d8b76e4d`**. Последующий документационный коммит добавляет этот указатель. `main` прочитан через Git, не слит. Основания: утверждённые три prompts, roadmap из `origin/main`, Issues [#2](https://github.com/decorum-guy/peregovori/issues/2), [#3](https://github.com/decorum-guy/peregovori/issues/3), [#5](https://github.com/decorum-guy/peregovori/issues/5), [#8](https://github.com/decorum-guy/peregovori/issues/8), [#9](https://github.com/decorum-guy/peregovori/issues/9).
 
 **Новый расход: $1.428940075 из $5.00; остаток $3.571059925.** Все 105 платных попыток имеют provider-reported cost; неизвестных цен нет. Исторические $1.027688 исключены. GPU/Intelion, новый корпус и Qwen training не запускались.
 
