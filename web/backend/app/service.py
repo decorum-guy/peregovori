@@ -458,7 +458,7 @@ class DemoService:
                         session["engine_model"],
                         roleplay_messages(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                         purpose="roleplayer",
-                        max_tokens=600,
+                        max_tokens=self.settings.cloud_roleplayer_max_tokens,
                         temperature=0.75,
                     )
             else:

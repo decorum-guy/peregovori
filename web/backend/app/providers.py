@@ -96,6 +96,11 @@ class OpenRouterProvider:
         }
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
+        # Verified adaptive-effort model only. Never alter case/judge/diagnostic or Qwen.
+        if (purpose == "roleplayer" and model == "anthropic/claude-opus-5.5"
+                and model == self.settings.premium_model
+                and self.settings.cloud_roleplayer_reasoning_effort != "default"):
+            payload["reasoning"] = {"effort": self.settings.cloud_roleplayer_reasoning_effort}
         headers = {
             "Authorization": "Bearer " + self.settings.openrouter_api_key,
             "Content-Type": "application/json",
@@ -128,7 +133,8 @@ class OpenRouterProvider:
             if self.usage_ledger is not None:
                 try:
                     self.usage_ledger.record(purpose=purpose, model=model, body=body, seconds=time.monotonic() - started,
-                                             outcome=outcome, max_tokens=max_tokens, temperature=temperature)
+                                             outcome=outcome, max_tokens=max_tokens, temperature=temperature,
+                                             reasoning_effort=payload.get("reasoning", {}).get("effort"))
                 except sqlite3.Error:
                     # A telemetry failure must never cause a second paid request.
                     logger.error("OpenRouter usage persistence failed; cost accounting incomplete")

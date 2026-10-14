@@ -56,8 +56,11 @@ class UsageLedger:
                 finish_reason TEXT NOT NULL, outcome TEXT NOT NULL,
                 max_tokens INTEGER NOT NULL, temperature REAL NOT NULL
             )""")
+            # Additive migration: historical requests keep NULL, never relabel them as low.
+            if "reasoning_effort" not in {row[1] for row in db.execute("PRAGMA table_info(openrouter_usage)")}:
+                db.execute("ALTER TABLE openrouter_usage ADD COLUMN reasoning_effort TEXT")
 
-    def record(self, *, purpose, model, body, seconds, outcome, max_tokens, temperature):
+    def record(self, *, purpose, model, body, seconds, outcome, max_tokens, temperature, reasoning_effort=None):
         scope = _scope.get()
         body = body if isinstance(body, dict) else {}
         usage = body.get("usage")
@@ -80,7 +83,8 @@ class UsageLedger:
                    scenario, category, _model(model), _model(body.get("model")), prompt, completion, reasoning,
                    max(0, completion - reasoning) if completion is not None and reasoning is not None else None,
                    _count(usage.get("total_tokens")), cost, "reported" if cost is not None else "cost_not_reported",
-                   round(seconds, 3), retries, finish_reason(body), outcome, max_tokens, temperature)
+                   round(seconds, 3), retries, finish_reason(body), outcome, max_tokens, temperature,
+                   reasoning_effort if reasoning_effort in {"low", "medium", "high"} else None)
             db.execute("INSERT INTO openrouter_usage VALUES (NULL," + ",".join("?" for _ in row) + ")", row)
 
     def rows(self, session_ids: Optional[list] = None):

@@ -17,6 +17,13 @@ def _env(name: str, default: str) -> str:
     return os.environ.get(name, default).strip()
 
 
+def _integer_env(name: str, default: str) -> int:
+    try:
+        return int(_env(name, default))
+    except ValueError:
+        raise ValueError("%s must be an integer." % name) from None
+
+
 @dataclass(frozen=True)
 class Settings:
     openrouter_api_key: str = field(default="", repr=False)
@@ -33,6 +40,8 @@ class Settings:
     database_path: str = str(WEB_DIR / "data" / "sessions.sqlite3")
     request_timeout_seconds: float = 50.0
     max_turn_chars: int = 4000
+    cloud_roleplayer_max_tokens: int = 1200
+    cloud_roleplayer_reasoning_effort: str = "low"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -54,6 +63,8 @@ class Settings:
             database_path=str(database_path),
             request_timeout_seconds=float(_env("LLM_TIMEOUT_SECONDS", "50")),
             max_turn_chars=int(_env("MAX_TURN_CHARS", "4000")),
+            cloud_roleplayer_max_tokens=_integer_env("CLOUD_ROLEPLAYER_MAX_TOKENS", "1200"),
+            cloud_roleplayer_reasoning_effort=_env("CLOUD_ROLEPLAYER_REASONING_EFFORT", "low").lower(),
         )
 
     @property
@@ -86,3 +97,7 @@ class Settings:
                 raise ValueError("%s must point to a Claude or GPT model; Qwen is not a premium model." % name)
         if self.max_turn_chars < 100 or self.max_turn_chars > 20000:
             raise ValueError("MAX_TURN_CHARS must be between 100 and 20000.")
+        if type(self.cloud_roleplayer_max_tokens) is not int or not 600 <= self.cloud_roleplayer_max_tokens <= 4096:
+            raise ValueError("CLOUD_ROLEPLAYER_MAX_TOKENS must be an integer between 600 and 4096.")
+        if self.cloud_roleplayer_reasoning_effort not in {"low", "medium", "high", "default"}:
+            raise ValueError("CLOUD_ROLEPLAYER_REASONING_EFFORT must be low, medium, high or default.")
