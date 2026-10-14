@@ -10,10 +10,11 @@ export const logoConcepts = [
 ] as const
 
 export type LogoVariant = typeof logoConcepts[number]['id']
-export const BrandVariantContext = createContext<LogoVariant>('convergence')
+export const DEFAULT_LOGO: LogoVariant = 'next-move'
+export const BrandVariantContext = createContext<LogoVariant>(DEFAULT_LOGO)
 
 export function LineMark({ compact = false, variant }: { compact?: boolean; variant?: LogoVariant }) {
   const selected = useContext(BrandVariantContext)
-  const concept = logoConcepts.find((item) => item.id === (variant || selected)) || logoConcepts[0]
+  const concept = logoConcepts.find((item) => item.id === (variant || selected)) || logoConcepts.find((item) => item.id === DEFAULT_LOGO)!
   return <img className={`line-mark${compact ? ' line-mark--compact' : ''}`} src={concept.src} alt="" aria-hidden="true" />
 }

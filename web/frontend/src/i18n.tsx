@@ -67,7 +67,7 @@ const english: Record<string, string> = {
   '· синтетические данные': '· synthetic data',
   'Давайте уточним этот пункт и зафиксируем, кто отвечает за следующий шаг.': 'Let us clarify this point and record who is responsible for the next step.',
   'Логотипы': 'Logos', 'Настройки': 'Setup', 'Чат': 'Chat', 'Разбор': 'Review', 'Три варианта знака': 'Three logo options',
-  'Примерьте вариант в настройках, чате и разборе. Окончательный выбор — позже.': 'Try an option in setup, chat and review. The final choice comes later.',
+  'Основной знак — «Следующий ход». Здесь сохранены предыдущие варианты.': 'The primary mark is “Next move”. Previous options are kept here.',
   'Варианты логотипа': 'Logo options', 'В небольшом размере': 'At a small size', 'Посмотреть в интерфейсе': 'Try in the interface',
   'Сближение': 'Convergence', 'Две разные позиции встречаются в одной точке.': 'Two different positions meet at one point.',
   'Две реплики складываются в общий разговор.': 'Two turns become one conversation.', 'Поворот от противостояния к конкретному действию.': 'A turn from confrontation towards a concrete action.',

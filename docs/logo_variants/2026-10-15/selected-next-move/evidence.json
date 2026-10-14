@@ -1,0 +1,59 @@
+{
+  "screens": [
+    {
+      "lang": "ru",
+      "width": 390,
+      "height": 844,
+      "loading": true,
+      "setup": true,
+      "chat": true,
+      "review": true,
+      "previewDefault": true,
+      "favicon": true,
+      "schoolCatalogLogoPreserved": true,
+      "sourceSvgExactMatch": true
+    },
+    {
+      "lang": "ru",
+      "width": 1440,
+      "height": 900,
+      "loading": true,
+      "setup": true,
+      "chat": true,
+      "review": true,
+      "previewDefault": true,
+      "favicon": true,
+      "schoolCatalogLogoPreserved": true,
+      "sourceSvgExactMatch": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "height": 844,
+      "loading": true,
+      "setup": true,
+      "chat": true,
+      "review": true,
+      "previewDefault": true,
+      "favicon": true,
+      "schoolCatalogLogoPreserved": true,
+      "sourceSvgExactMatch": true
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "height": 900,
+      "loading": true,
+      "setup": true,
+      "chat": true,
+      "review": true,
+      "previewDefault": true,
+      "favicon": true,
+      "schoolCatalogLogoPreserved": true,
+      "sourceSvgExactMatch": true
+    }
+  ],
+  "errors": [],
+  "paidCalls": 0,
+  "browser": "155.0.8059.79"
+}

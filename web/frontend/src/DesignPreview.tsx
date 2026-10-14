@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { AppConfig, GameScreen, Session, Settings, SetupScreen } from './App'
-import { BrandVariantContext, LineMark, LogoVariant, logoConcepts } from './BrandMark'
+import { BrandVariantContext, DEFAULT_LOGO, LineMark, LogoVariant, logoConcepts } from './BrandMark'
 import { Language, LanguageContext, preferredLanguage, rememberLanguage, useI18n } from './i18n'
 import { englishExample, englishReport } from './preview-data-en'
 import './design-preview.css'
@@ -84,7 +84,7 @@ function Preview({ language, onLanguageChange }: { language: Language; onLanguag
   const previewConfig = { ...config, language }
   const params = new URLSearchParams(window.location.search)
   const [view, setView] = useState<View>(() => views.find((item) => item.id === params.get('view'))?.id || 'chat')
-  const [logo, setLogo] = useState<LogoVariant>(() => logoConcepts.find((item) => item.id === params.get('logo'))?.id || 'convergence')
+  const [logo, setLogo] = useState<LogoVariant>(() => logoConcepts.find((item) => item.id === params.get('logo'))?.id || DEFAULT_LOGO)
   const [settings, setSettings] = useState(initialSettings)
   const [session, setSession] = useState(initialSession)
   const [draft, setDraft] = useState('')
@@ -125,7 +125,7 @@ function Preview({ language, onLanguageChange }: { language: Language; onLanguag
         <div className="app-shell app-shell--preview">
           {view === 'logos' ? (
             <section className="logo-gallery">
-              <header><p className="eyebrow">{t("ЛИНИЯ РЕШЕНИЯ")}</p><h1>{t("Три варианта знака")}</h1><p>{t("Примерьте вариант в настройках, чате и разборе. Окончательный выбор — позже.")}</p></header>
+              <header><p className="eyebrow">{t("ЛИНИЯ РЕШЕНИЯ")}</p><h1>{t("Три варианта знака")}</h1><p>{t("Основной знак — «Следующий ход». Здесь сохранены предыдущие варианты.")}</p></header>
               <div className="logo-concepts" role="group" aria-label={t("Варианты логотипа")}>
                 {logoConcepts.map((concept) => <button className={`logo-concept${logo === concept.id ? ' selected' : ''}`} key={concept.id} type="button" aria-pressed={logo === concept.id} onClick={() => updateLocation('logos', concept.id)}>
                   <span className="logo-concept-top"><strong>{t(concept.name)}</strong></span>

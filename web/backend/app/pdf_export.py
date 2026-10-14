@@ -121,7 +121,7 @@ def render_pdf(snapshot) -> bytes:
     def page_frame(canvas, document):
         canvas.saveState()
         width, height = A4
-        canvas.drawImage(str(ASSETS / "convergence.png"), 21 * mm, height - 24 * mm, 14 * mm, 14 * mm, mask="auto")
+        canvas.drawImage(str(ASSETS / "next-move.png"), 21 * mm, height - 24 * mm, 14 * mm, 14 * mm, mask="auto")
         canvas.setFont("CaseSansBold", 11)
         canvas.setFillColor(NAVY)
         canvas.drawString(39 * mm, height - 17 * mm, label("ЛИНИЯ РЕШЕНИЯ", "LINE OF DECISION"))
