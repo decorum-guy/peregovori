@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import WEB_DIR, Settings
+from .demo_guard import DemoGuard
 from .models import Language, MessageRequest, SessionOptions
 from .providers import MockProvider, OpenRouterProvider
 from .service import DemoService, ServiceError
@@ -35,6 +36,14 @@ def create_app(
     app.state.demo_service = service
     app.state.session_store = store
     app.state.provider = active_provider
+    app.state.demo_guard = DemoGuard(active_settings.demo_access_code)
+
+    @app.middleware("http")
+    async def protect_public_demo(request: Request, call_next):
+        denied = app.state.demo_guard.check(request)
+        if denied is not None:
+            return denied
+        return await call_next(request)
 
     @app.exception_handler(ServiceError)
     async def service_error_handler(_request: Request, exc: ServiceError) -> JSONResponse:
