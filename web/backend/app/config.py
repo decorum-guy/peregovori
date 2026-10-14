@@ -122,6 +122,16 @@ class Settings:
         if self.cloud_roleplayer_reasoning_effort not in {"low", "medium", "high", "default"}:
             raise ValueError("CLOUD_ROLEPLAYER_REASONING_EFFORT must be low, medium, high or default.")
         if type(self.cloud_case_max_tokens) is not int or not 4096 <= self.cloud_case_max_tokens <= 8192:
+            raise ValueError("CLOUD_CASE_MAX_TOKENS must be between 4096 and 8192.")
+        if type(self.cloud_judge_max_tokens) is not int or not 2500 <= self.cloud_judge_max_tokens <= 6144:
+            raise ValueError("CLOUD_JUDGE_MAX_TOKENS must be between 2500 and 6144.")
+        if self.cloud_roleplayer_style not in {"original", "spoken"}:
+            raise ValueError("CLOUD_ROLEPLAYER_STYLE must be original or spoken.")
+        if self.cloud_case_reasoning_effort not in {"low", "medium", "high", "default"}:
+            raise ValueError("CLOUD_CASE_REASONING_EFFORT must be low, medium, high or default.")
+        if self.cloud_judge_reasoning_effort not in {"low", "medium", "high", "default"}:
+            raise ValueError("CLOUD_JUDGE_REASONING_EFFORT must be low, medium, high or default.")
+        if type(self.cloud_case_max_tokens) is not int or not 4096 <= self.cloud_case_max_tokens <= 8192:
             raise ValueError("CLOUD_CASE_MAX_TOKENS must be an integer between 4096 and 8192.")
         if type(self.cloud_judge_max_tokens) is not int or not 2500 <= self.cloud_judge_max_tokens <= 6144:
             raise ValueError("CLOUD_JUDGE_MAX_TOKENS must be an integer between 2500 and 6144.")
