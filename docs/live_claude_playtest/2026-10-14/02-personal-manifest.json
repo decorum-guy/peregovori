@@ -1,0 +1,14 @@
+{
+  "session_id": "1aa022c1-1914-49ac-9725-5a664880d250",
+  "variant": "A",
+  "implementation_commit": "df89eb1",
+  "runtime_case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+  "audit_timing": "after personal gameplay finished; no further personal player actions",
+  "post_game_fact_checks": {
+    "institute_or_university_in_case": false,
+    "past_illness_or_night_care_in_case": false,
+    "cabbage_pie_preference_in_case": false,
+    "curtain_washing_in_opening": true,
+    "started_at_midday_in_case": false
+  }
+}

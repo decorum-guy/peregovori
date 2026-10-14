@@ -1,0 +1,16 @@
+{
+  "session_id": "d03a052a-a922-43e1-b058-f2e1f8912537",
+  "variant": "A",
+  "implementation_commit": "df89eb1",
+  "category": "MODEL_DEFENDER",
+  "runtime_case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+  "roleplay_rules_sha256": "fe9f37b3d0d1c2989dd38971a194398f88b3e0b96bdf6aef926f7d76555a5656",
+  "audit_timing": "after critical stop; no further gameplay actions",
+  "post_game_fact_checks": {
+    "player_name_igor_in_case": false,
+    "one_way_export_in_case": true,
+    "two_of_five_sick_in_case": true,
+    "overtime_authority_in_case": true
+  },
+  "status": "PARTIAL: 2 complete opponent turns; third response rejected as truncated; no Judge"
+}

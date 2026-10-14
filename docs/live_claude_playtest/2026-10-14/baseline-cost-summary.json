@@ -1,0 +1,48 @@
+{
+  "categories": {
+    "Generator": {
+      "old_requests": 4,
+      "new_requests": 2,
+      "old_cost_usd": 0.378768,
+      "new_cost_usd": 0.201188,
+      "total_cost_usd": 0.579956,
+      "new_repeat_requests": 0,
+      "prompt_tokens": 59939,
+      "completion_tokens": 17010,
+      "total_tokens": 76949,
+      "reasoning_tokens": 5491
+    },
+    "Roleplayer": {
+      "old_requests": 6,
+      "new_requests": 8,
+      "old_cost_usd": 0.122588,
+      "new_cost_usd": 0.162104,
+      "total_cost_usd": 0.284692,
+      "new_repeat_requests": 0,
+      "prompt_tokens": 39338,
+      "completion_tokens": 6367,
+      "total_tokens": 45705,
+      "reasoning_tokens": 3297
+    },
+    "Judge": {
+      "old_requests": 1,
+      "new_requests": 0,
+      "old_cost_usd": 0.061624,
+      "new_cost_usd": 0,
+      "total_cost_usd": 0.061624,
+      "new_repeat_requests": 0,
+      "prompt_tokens": 5816,
+      "completion_tokens": 1918,
+      "total_tokens": 7734,
+      "reasoning_tokens": 605
+    }
+  },
+  "new_cost_usd": 0.363292,
+  "site_total_cost_usd": 0.926272,
+  "reported_diagnostic_retries_cost_usd": 0.001968,
+  "reported_grand_total_cost_usd": 0.92824,
+  "unknown_cost_requests": 1,
+  "unknown_cost_description": "initial diagnostic from first run; cost not recorded",
+  "new_requests": 10,
+  "new_repeat_requests": 0
+}
