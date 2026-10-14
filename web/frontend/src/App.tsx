@@ -285,7 +285,7 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
     } else {
       setHasNewMessage(true)
     }
-  }, [session?.messages.length, session?.status])
+  }, [session?.messages.length, session?.status, action === 'sending'])
 
   const currentEngine = useMemo(() => config?.engines.find((engine) => engine.id === settings.engine_id), [config, settings.engine_id])
 
@@ -364,17 +364,36 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
   async function sendMessage(text: string, requestId?: string) {
     if (!session || action || session.status !== 'active' || !text.trim()) return
     const stableId = requestId || draftRequestId || crypto.randomUUID()
+    const messageText = text.trim()
+    const existing = session.messages.find((message) => message.request_id === stableId)
+    const pending: ChatMessage = {
+      id: existing?.id || `pending-${stableId}`,
+      request_id: stableId,
+      speaker: 'player',
+      text: messageText,
+      created_at: existing?.created_at || new Date().toISOString(),
+      delivery_status: 'pending',
+    }
+    setSession({ ...session, messages: existing
+      ? session.messages.map((message) => message.request_id === stableId ? pending : message)
+      : [...session.messages, pending] })
     setAction('sending')
     setError('')
+    setDraft('')
     setDraftRequestId(stableId)
     try {
-      const updated = await api<Session>(`/api/sessions/${session.id}/message`, { text, request_id: stableId })
+      const updated = await api<Session>(`/api/sessions/${session.id}/message`, { text: messageText, request_id: stableId })
       saveSession(updated)
       setDraft('')
       setDraftRequestId('')
     } catch (err) {
       const updated = await refreshSession(session.id)
-      if (updated?.messages.some((message) => message.request_id === stableId)) setDraft('')
+      if (updated) {
+        if (!updated.messages.some((message) => message.request_id === stableId)) setDraft(messageText)
+      } else {
+        setSession((current) => current?.id === session.id ? { ...current, messages: current.messages.map((message) =>
+          message.request_id === stableId && message.delivery_status === 'pending' ? { ...message, delivery_status: 'failed' } : message) } : current)
+      }
       setError(describeError(err, language))
     } finally {
       setAction(null)
@@ -672,13 +691,12 @@ export function GameScreen({
                     <div className="message-inner">
                       <span className="message-speaker">{message.speaker === 'player' ? playerName : session.opponent.name}</span>
                       <div className={`message-bubble${message.speaker === 'player' ? ' message-bubble--player' : ''}${message.delivery_status === 'failed' ? ' message-bubble--failed' : ''}`}>{message.text}</div>
-                      {message.speaker === 'player' && message.delivery_status === 'pending' && <span className="delivery-caption">{t("Собеседник отвечает…")}</span>}
                       {message.speaker === 'player' && message.delivery_status === 'failed' && <div className="retry-inline"><span>{t("Реплика сохранена")}</span><button className="text-button" onClick={() => onRetry(message)} disabled={!!action}><RotateCcw size={14} />{" "}{t("Повторить ответ")}</button></div>}
                       {message.speaker === 'player' && message.delivery_status === 'cancelled' && <span className="delivery-caption">{t("Сессия завершена до ответа")}</span>}
                     </div>
                   </article>
                 ))}
-                {action === 'sending' && !session.messages.some((message) => message.delivery_status === 'pending') && <div className="typing-note"><span className="spinner spinner--small" />{" "}{t("Собеседник отвечает…")}</div>}
+                {(action === 'sending' || session.messages.some((message) => message.speaker === 'player' && message.delivery_status === 'pending')) && <div className="typing-note" role="status"><span className="spinner spinner--small" />{" "}{t("Собеседник отвечает…")}</div>}
                 <div ref={endRef} />
               </div>
               {hasNewMessage && <button className="new-message-button" onClick={() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })}><ArrowDown size={15} />{" "}{t("Новое сообщение")}</button>}

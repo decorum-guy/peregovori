@@ -1,0 +1,838 @@
+{
+  "browser": "155.0.8059.79",
+  "failures": [],
+  "pageErrors": [],
+  "apiErrors": [],
+  "matrix": [
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "catalog",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "setup",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "chat",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "review",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "preview-chat",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "375x812",
+      "view": "preview-review",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "catalog",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "setup",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "chat",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "review",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "preview-chat",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "view": "preview-review",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "catalog",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "setup",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "chat",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "review",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "preview-chat",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "768x1024",
+      "view": "preview-review",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "catalog",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "setup",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "chat",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "review",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "preview-chat",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1280x720",
+      "view": "preview-review",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "catalog",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "setup",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "chat",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "review",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "preview-chat",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "view": "preview-review",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "catalog",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "setup",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "chat",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "review",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "preview-chat",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "375x812",
+      "view": "preview-review",
+      "width": 375,
+      "height": 812,
+      "bodyWidth": 375,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "catalog",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "setup",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "chat",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "review",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "preview-chat",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "view": "preview-review",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "catalog",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "setup",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "chat",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "review",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "preview-chat",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "768x1024",
+      "view": "preview-review",
+      "width": 768,
+      "height": 1024,
+      "bodyWidth": 768,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "catalog",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "setup",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "chat",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "review",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "preview-chat",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1280x720",
+      "view": "preview-review",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "catalog",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": []
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "setup",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "start",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "chat",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "review",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "preview-chat",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "composer",
+        "send",
+        "finish",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "view": "preview-review",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "headerOverlap": false,
+      "controlsReachable": [
+        "again",
+        "caseSummaryReachable",
+        "footer"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "browser": "155.0.8059.79",
+  "screenshots": [
+    {
+      "logo": "convergence",
+      "view": "setup",
+      "width": 1440,
+      "height": 1000,
+      "file": "convergence-setup-1440x1000.png"
+    },
+    {
+      "logo": "convergence",
+      "view": "chat",
+      "width": 1440,
+      "height": 1000,
+      "file": "convergence-chat-1440x1000.png"
+    },
+    {
+      "logo": "dialogue",
+      "view": "setup",
+      "width": 1440,
+      "height": 1000,
+      "file": "dialogue-setup-1440x1000.png"
+    },
+    {
+      "logo": "dialogue",
+      "view": "chat",
+      "width": 1440,
+      "height": 1000,
+      "file": "dialogue-chat-1440x1000.png"
+    },
+    {
+      "logo": "next-move",
+      "view": "setup",
+      "width": 1440,
+      "height": 1000,
+      "file": "next-move-setup-1440x1000.png"
+    },
+    {
+      "logo": "next-move",
+      "view": "chat",
+      "width": 1440,
+      "height": 1000,
+      "file": "next-move-chat-1440x1000.png"
+    },
+    {
+      "logo": "convergence",
+      "view": "setup",
+      "width": 390,
+      "height": 844,
+      "file": "convergence-setup-390x844.png"
+    },
+    {
+      "logo": "convergence",
+      "view": "chat",
+      "width": 390,
+      "height": 844,
+      "file": "convergence-chat-390x844.png"
+    },
+    {
+      "logo": "dialogue",
+      "view": "setup",
+      "width": 390,
+      "height": 844,
+      "file": "dialogue-setup-390x844.png"
+    },
+    {
+      "logo": "dialogue",
+      "view": "chat",
+      "width": 390,
+      "height": 844,
+      "file": "dialogue-chat-390x844.png"
+    },
+    {
+      "logo": "next-move",
+      "view": "setup",
+      "width": 390,
+      "height": 844,
+      "file": "next-move-setup-390x844.png"
+    },
+    {
+      "logo": "next-move",
+      "view": "chat",
+      "width": 390,
+      "height": 844,
+      "file": "next-move-chat-390x844.png"
+    }
+  ]
+}

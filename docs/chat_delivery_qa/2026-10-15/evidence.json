@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "language": "ru",
+      "viewport": "390x844",
+      "immediateMessageAndName": true,
+      "indicatorBelowMessage": {
+        "messageBottom": 669.515625,
+        "indicatorTop": 682.515625,
+        "indicatorBottom": 718.515625,
+        "composerTop": 733,
+        "indicatorLeft": 19,
+        "playerLeft": 54.203125,
+        "viewport": 390,
+        "bodyWidth": 390
+      },
+      "successAndReloadNoDuplicates": true,
+      "rejectedRequestRestoresDraft": true,
+      "networkFailureRetainsBubble": true,
+      "retryReusesIdAndDoesNotDuplicate": true
+    },
+    {
+      "language": "ru",
+      "viewport": "1440x900",
+      "immediateMessageAndName": true,
+      "indicatorBelowMessage": {
+        "messageBottom": 453,
+        "indicatorTop": 471,
+        "indicatorBottom": 507,
+        "composerTop": 752,
+        "indicatorLeft": 441,
+        "playerLeft": 955.875,
+        "viewport": 1440,
+        "bodyWidth": 1440
+      },
+      "successAndReloadNoDuplicates": true,
+      "rejectedRequestRestoresDraft": true,
+      "networkFailureRetainsBubble": true,
+      "retryReusesIdAndDoesNotDuplicate": true
+    },
+    {
+      "language": "en",
+      "viewport": "390x844",
+      "immediateMessageAndName": true,
+      "indicatorBelowMessage": {
+        "messageBottom": 650.515625,
+        "indicatorTop": 663.515625,
+        "indicatorBottom": 699.515625,
+        "composerTop": 733,
+        "indicatorLeft": 19,
+        "playerLeft": 54.203125,
+        "viewport": 390,
+        "bodyWidth": 390
+      },
+      "successAndReloadNoDuplicates": true,
+      "rejectedRequestRestoresDraft": true,
+      "networkFailureRetainsBubble": true,
+      "retryReusesIdAndDoesNotDuplicate": true
+    },
+    {
+      "language": "en",
+      "viewport": "1440x900",
+      "immediateMessageAndName": true,
+      "indicatorBelowMessage": {
+        "messageBottom": 428,
+        "indicatorTop": 446,
+        "indicatorBottom": 482,
+        "composerTop": 752,
+        "indicatorLeft": 441,
+        "playerLeft": 963.671875,
+        "viewport": 1440,
+        "bodyWidth": 1440
+      },
+      "successAndReloadNoDuplicates": true,
+      "rejectedRequestRestoresDraft": true,
+      "networkFailureRetainsBubble": true,
+      "retryReusesIdAndDoesNotDuplicate": true
+    }
+  ],
+  "errors": [],
+  "browser": "155.0.8059.79"
+}

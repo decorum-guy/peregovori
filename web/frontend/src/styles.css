@@ -208,7 +208,7 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 .delivery-caption { padding: 0 8px; color: var(--muted); font-size: 11px; line-height: 16px; }
 .retry-inline { display: flex; align-items: center; gap: 9px; padding: 0 7px; color: var(--error); font-size: 11px; line-height: 16px; }
 .retry-inline .text-button { color: var(--error); }
-.typing-note { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin-left: 10px; color: var(--muted); font-size: 12px; }
+.typing-note { display: inline-flex; flex-shrink: 0; align-items: center; gap: 8px; align-self: flex-start; padding: 8px 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--divider); border-radius: 12px; font-size: 12px; }
 .new-message-button { position: absolute; z-index: 2; right: 26px; bottom: 90px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; color: var(--primary); background: white; border: 1px solid var(--divider); border-radius: 18px; box-shadow: var(--shadow-card); font-size: 12px; font-weight: 600; }
 .composer { position: relative; display: flex; align-items: flex-end; gap: 10px; padding: 12px 16px 20px; background: rgba(255,255,255,.9); border-top: 1px solid var(--divider); }
 .composer textarea { width: 100%; min-height: 52px; max-height: 150px; flex: 1; padding: 13px 14px; resize: vertical; color: var(--ink); background: white; border: 1px solid var(--divider); border-radius: 15px; outline: none; font-size: 16px; line-height: 24px; }
