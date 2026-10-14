@@ -47,11 +47,6 @@ class Settings:
     cloud_judge_max_tokens: int = 2500
     cloud_judge_reasoning_effort: str = "default"
     cloud_roleplayer_style: str = "original"
-    cloud_case_max_tokens: int = 4096
-    cloud_case_reasoning_effort: str = "default"
-    cloud_judge_max_tokens: int = 2500
-    cloud_judge_reasoning_effort: str = "default"
-    cloud_roleplayer_style: str = "original"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -75,11 +70,6 @@ class Settings:
             max_turn_chars=int(_env("MAX_TURN_CHARS", "4000")),
             cloud_roleplayer_max_tokens=_integer_env("CLOUD_ROLEPLAYER_MAX_TOKENS", "1200"),
             cloud_roleplayer_reasoning_effort=_env("CLOUD_ROLEPLAYER_REASONING_EFFORT", "low").lower(),
-            cloud_case_max_tokens=_integer_env("CLOUD_CASE_MAX_TOKENS", "4096"),
-            cloud_case_reasoning_effort=_env("CLOUD_CASE_REASONING_EFFORT", "default").lower(),
-            cloud_judge_max_tokens=_integer_env("CLOUD_JUDGE_MAX_TOKENS", "2500"),
-            cloud_judge_reasoning_effort=_env("CLOUD_JUDGE_REASONING_EFFORT", "default").lower(),
-            cloud_roleplayer_style=_env("CLOUD_ROLEPLAYER_STYLE", "original").lower(),
             cloud_case_max_tokens=_integer_env("CLOUD_CASE_MAX_TOKENS", "4096"),
             cloud_case_reasoning_effort=_env("CLOUD_CASE_REASONING_EFFORT", "default").lower(),
             cloud_judge_max_tokens=_integer_env("CLOUD_JUDGE_MAX_TOKENS", "2500"),
@@ -125,16 +115,6 @@ class Settings:
             raise ValueError("CLOUD_CASE_MAX_TOKENS must be between 4096 and 8192.")
         if type(self.cloud_judge_max_tokens) is not int or not 2500 <= self.cloud_judge_max_tokens <= 6144:
             raise ValueError("CLOUD_JUDGE_MAX_TOKENS must be between 2500 and 6144.")
-        if self.cloud_roleplayer_style not in {"original", "spoken"}:
-            raise ValueError("CLOUD_ROLEPLAYER_STYLE must be original or spoken.")
-        if self.cloud_case_reasoning_effort not in {"low", "medium", "high", "default"}:
-            raise ValueError("CLOUD_CASE_REASONING_EFFORT must be low, medium, high or default.")
-        if self.cloud_judge_reasoning_effort not in {"low", "medium", "high", "default"}:
-            raise ValueError("CLOUD_JUDGE_REASONING_EFFORT must be low, medium, high or default.")
-        if type(self.cloud_case_max_tokens) is not int or not 4096 <= self.cloud_case_max_tokens <= 8192:
-            raise ValueError("CLOUD_CASE_MAX_TOKENS must be an integer between 4096 and 8192.")
-        if type(self.cloud_judge_max_tokens) is not int or not 2500 <= self.cloud_judge_max_tokens <= 6144:
-            raise ValueError("CLOUD_JUDGE_MAX_TOKENS must be an integer between 2500 and 6144.")
         if self.cloud_roleplayer_style not in {"original", "spoken"}:
             raise ValueError("CLOUD_ROLEPLAYER_STYLE must be original or spoken.")
         if self.cloud_case_reasoning_effort not in {"low", "medium", "high", "default"}:
