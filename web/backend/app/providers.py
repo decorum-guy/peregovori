@@ -91,15 +91,25 @@ class OpenRouterProvider:
         payload: Dict[str, Any] = {
             "model": model,
             "messages": messages,
-            "temperature": temperature,
             "max_tokens": max_tokens,
         }
+        # In the verified Sol/Luna OpenRouter model catalog, temperature is unsupported.
+        studied_gpt = model in {"openai/gpt-6.1-sol", "openai/gpt-6-luna"}
+        if not studied_gpt:
+            payload["temperature"] = temperature
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
-        # Verified adaptive-effort model only. Never alter case/judge/diagnostic or Qwen.
-        if (purpose == "roleplayer" and model == "anthropic/claude-opus-5.5"
-                and model == self.settings.premium_model
-                and self.settings.cloud_roleplayer_reasoning_effort != "default"):
+        if studied_gpt and purpose in {"roleplayer", "case", "judge"}:
+            effort = {
+                "roleplayer": self.settings.cloud_roleplayer_reasoning_effort,
+                "case": self.settings.cloud_case_reasoning_effort,
+                "judge": self.settings.cloud_judge_reasoning_effort,
+            }[purpose]
+            if effort != "default":
+                payload["reasoning"] = {"effort": effort}
+        elif (purpose == "roleplayer" and model == "anthropic/claude-opus-5.5"
+              and model == self.settings.premium_model
+              and self.settings.cloud_roleplayer_reasoning_effort != "default"):
             payload["reasoning"] = {"effort": self.settings.cloud_roleplayer_reasoning_effort}
         headers = {
             "Authorization": "Bearer " + self.settings.openrouter_api_key,
