@@ -132,6 +132,7 @@ class MockProvider:
             options = _extract_options(messages)
             return json.dumps(_mock_case(options), ensure_ascii=False)
         if purpose == "roleplayer":
+            english = messages[0]["content"].startswith("Play only")
             turn = sum(1 for item in messages if item.get("role") == "user")
             last = next((item["content"] for item in reversed(messages) if item.get("role") == "user"), "")
             compact = re.sub(r"\s+", " ", last).strip()[:180]
@@ -141,7 +142,14 @@ class MockProvider:
                 "Такой вариант звучит конкретнее. Давайте уточним, кто и когда проверит результат.",
                 "С этим условием я могу согласиться. Осталось зафиксировать следующий шаг.",
             ]
-            return responses[min(max(turn - 1, 0), len(responses) - 1)] + (" Я услышал: «%s»." % compact if compact else "")
+            if english:
+                responses = [
+                    "I understand your position. I also need us to consider the impact on my team.",
+                    "I am willing to discuss this, but I need to understand how your proposal addresses my main concern.",
+                    "That is more specific. Who will check the result?",
+                    "I can agree to that condition. Let us confirm the next step.",
+                ]
+            return responses[min(max(turn - 1, 0), len(responses) - 1)] + ((" I heard: \"%s\"." if english else " Я услышал: «%s».") % compact if compact else "")
         if purpose == "judge":
             transcript = _extract_transcript(messages)
             quote = next((turn["text"] for turn in reversed(transcript) if turn["speaker"] == "player"), "")
@@ -153,6 +161,12 @@ class MockProvider:
                 "next_step": "Подключите API-модель, чтобы получить содержательные рекомендации по фактическому диалогу.",
                 "example_phrase": None,
             }
+            if messages[0]["content"].startswith("You are"):
+                report = {
+                    "summary": "This is a simulated review used to check the interface, not an evaluation by a live model.",
+                    "strengths": [{"quote": quote, "explanation": "This turn is stored in the history. Substantive coaching is not performed in test mode."}] if quote else [],
+                    "risks": [], "next_step": "Connect the API model to receive feedback on the actual dialogue.", "example_phrase": None,
+                }
             return json.dumps(report, ensure_ascii=False)
         raise ProviderError("Неизвестная операция тестового провайдера.", "mock_unknown_purpose")
 
@@ -167,6 +181,8 @@ def _extract_options(messages: List[Dict[str, str]]) -> Dict[str, Any]:
 
 
 def _mock_case(options: Dict[str, Any]) -> Dict[str, Any]:
+    if options.get("language") == "en":
+        return _mock_case_en(options)
     scenario = options.get("scenario", "conflict_then_negotiation")
     difficulty = options.get("difficulty", "medium")
     conflict_type = options.get("conflict_type") or "none"
@@ -254,14 +270,47 @@ def _mock_case(options: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _mock_case_en(options: Dict[str, Any]) -> Dict[str, Any]:
+    case = _mock_case({**options, "language": "ru"})
+    negotiation = case["scenario"] == "negotiation_only"
+    protect = options.get("student_side") == "protect"
+    facts = ["The project deadline is the end of this week.", "The remaining workload has not been estimated.", "No additional team member has been assigned."]
+    case["public"].update({
+        "title": "A shared work plan" if negotiation else "Disagreement over tasks",
+        "context": "Two colleagues need to agree on a realistic deadline and divide preparation of a shared plan." if negotiation else "Colleagues discuss an urgent handover. Comments about reliability are putting personal boundaries under pressure.",
+        "student_role": "Project coordinator" if negotiation else "Project team member" if protect else "Project lead",
+        "negotiation_topic": "The deadline, scope and handover of project materials." if negotiation or case["scenario"] == "conflict_then_negotiation" else None,
+        "player_conflict_goal": None if negotiation else "Discuss disagreement without personal labels or pressure." if protect else "Have the team recognise my responsibility for assigning project tasks.",
+        "known_facts": facts,
+        "participants": [{"name": "Marina", "role": "A colleague present during the discussion"}] if case["conflict_type"] in {"public", "mixed"} else [],
+    })
+    case["world"] = {"facts": facts + ["The colleague prefers a predictable workload."], "unknowns": ["The remaining work may take longer than expected."]}
+    case["opponent"].update({
+        "name": "Irene" if negotiation else "Alex", "role": "Lead of another team" if negotiation else "Project colleague",
+        "opening": "What deadline for preparing the plan do you consider realistic?" if negotiation else "You are leaving this decision to me again. Why should I consider that fair?" if protect else "You want to change our agreement at the last minute. What is the reason?",
+        "private_facts": ["The colleague worries about being assigned an unapproved extra workload again."],
+        "goals": ["Agree on a manageable workload and retain clearly defined boundaries."],
+        "hard_limits": ["Cannot promise a deadline before the remaining work is estimated."],
+        "concede_if": ["The player acknowledges workload risk and proposes a verifiable next action."],
+        "escalate_if": ["The player dismisses concerns and imposes responsibility."], "initial_emotion": "Wariness",
+    })
+    case["teaching"].update({
+        "negotiation_topic": "Choose a feasible schedule and verification criteria.",
+        "conflict_goal": None if negotiation else "Retain the right to state a personal boundary without retaliation." if protect else "Maintain a boundary when faced with pressure to change it.",
+        "decoding": None if negotiation else "unreliable colleague",
+        "acceptable_outcomes": ["Agree on a verifiable action without inventing obligations."],
+    })
+    return case
+
+
 def _extract_transcript(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
     text = messages[-1]["content"] if messages else ""
-    marker = "История реплик:\n"
+    marker = "Transcript:\n" if "Transcript:\n" in text else "История реплик:\n"
     start = text.find(marker)
     if start < 0:
         return []
     rest = text[start + len(marker):]
     try:
-        return json.loads(rest.split("\n\nJSON-схема", 1)[0])
+        return json.loads(rest.split("\n\nJSON", 1)[0])
     except (json.JSONDecodeError, TypeError):
         return []

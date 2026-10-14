@@ -53,6 +53,13 @@ a { color: inherit; }
 .brand-lockup:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
 .brand-lockup p { margin: 0; }
 .independent-label { color: var(--muted); font-size: 11px; line-height: 16px; text-align: right; }
+.setup-header-tools { display: flex; align-items: center; gap: 16px; }
+.language-switch { display: inline-flex; flex-shrink: 0; align-items: center; gap: 4px; }
+.language-switch button { min-height: 32px; padding: 5px 9px; color: var(--muted); background: white; border: 1px solid var(--divider); border-radius: 7px; font-size: 12px; font-weight: 600; }
+.language-switch button[aria-pressed="true"] { color: white; background: var(--primary); border-color: var(--primary); }
+.language-switch button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.language-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 17px; font-weight: 400; }
+@media (max-width: 767px) { .setup-header-tools .independent-label { display: none; } }
 .line-mark { display: block; width: 46px; height: 46px; flex: 0 0 auto; object-fit: contain; }
 .line-mark--compact { width: 32px; height: 32px; }
 

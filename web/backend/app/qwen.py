@@ -19,6 +19,6 @@ def ready_identity(payload: Any) -> Dict[str, str]:
     return {"base_model": base, "model": model, "adapter_fingerprint": fingerprint}
 
 
-def qwen_label(base: str = "") -> str:
+def qwen_label(base: str = "", language: str = "ru") -> str:
     name = base.rstrip("/").rsplit("/", 1)[-1]
-    return (name if name.lower().startswith("qwen") else "Qwen") + " · Дообученная"
+    return (name if name.lower().startswith("qwen") else "Qwen") + (" · Fine-tuned" if language == "en" else " · Дообученная")

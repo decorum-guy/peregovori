@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import WEB_DIR, Settings
-from .models import MessageRequest, SessionOptions
+from .models import Language, MessageRequest, SessionOptions
 from .providers import MockProvider, OpenRouterProvider
 from .service import DemoService, ServiceError
 from .storage import SessionStore
@@ -55,8 +55,8 @@ def create_app(
         return {"status": "ok", "database": "ready", "provider_mode": active_settings.provider_mode}
 
     @app.get("/api/config")
-    async def config(refresh: bool = False):
-        return await service.config(force=refresh)
+    async def config(refresh: bool = False, language: Language = "ru"):
+        return await service.config(force=refresh, language=language)
 
     @app.post("/api/sessions")
     async def create_session(options: SessionOptions):

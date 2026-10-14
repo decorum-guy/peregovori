@@ -13,7 +13,7 @@ import httpx
 from pydantic import ValidationError
 
 from .config import REPO_DIR, Settings
-from .models import DebriefReport, RuntimeCase, SessionOptions
+from .models import DebriefReport, Language, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
 from .qwen import qwen_label, ready_identity
@@ -142,6 +142,8 @@ _FALLBACKS: Dict[Tuple[str, str, Optional[str], Optional[str]], Tuple[str, Dict[
 
 
 def _train_fallback(options: SessionOptions) -> Optional[RuntimeCase]:
+    if options.language != "ru":
+        return None
     key = (options.scenario, options.difficulty, options.conflict_type, options.student_side)
     match = _FALLBACKS.get(key)
     if not match:
@@ -216,24 +218,30 @@ class DemoService:
         self._lora_cache = (time.monotonic(), available, reason)
         return available, reason
 
-    async def config(self, force: bool = False) -> Dict[str, Any]:
-        lora_available, lora_reason = await self.lora_status(force=force)
+    async def config(self, force: bool = False, language: Language = "ru") -> Dict[str, Any]:
+        if language == "en":
+            lora_available, lora_reason = False, "Qwen is available for Russian games only."
+        else:
+            lora_available, lora_reason = await self.lora_status(force=force)
         provider_mode = self.settings.provider_mode
         return {
+            "language": language,
             "premium_model_id": self.settings.premium_model,
             "premium_model_label": model_label(self.settings.premium_model),
             "provider_mode": provider_mode,
             "generation_available": provider_mode in {"openrouter", "test_mock"},
-            "generation_unavailable_reason": "Добавьте OPENROUTER_API_KEY в серверную среду." if provider_mode == "unconfigured" else None,
+            "generation_unavailable_reason": ("Add OPENROUTER_API_KEY to the server environment." if language == "en" else "Добавьте OPENROUTER_API_KEY в серверную среду.") if provider_mode == "unconfigured" else None,
             "engines": [
                 {"id": "premium", "label": model_label(self.settings.premium_model), "enabled": True},
-                {"id": "lora", "label": qwen_label(self._lora_identity.get("base_model", "")), "enabled": lora_available, "reason": lora_reason,
+                {"id": "lora", "label": qwen_label(self._lora_identity.get("base_model", ""), language), "enabled": lora_available, "reason": lora_reason,
                  "status": "available" if lora_available else "unavailable"},
             ],
-            "notice": "Независимый концепт для демонстрации",
+            "notice": "Independent demo concept" if language == "en" else "Независимый концепт для демонстрации",
         }
 
     async def create_session(self, options: SessionOptions) -> Dict[str, Any]:
+        if options.language == "en" and options.engine_id != "premium":
+            raise ServiceError(409, "English games require the OpenRouter model.", "engine_language_not_supported")
         selected_qwen: Dict[str, str] = {}
         if self.settings.provider_mode == "unconfigured":
             raise ServiceError(503, "Для реальной генерации нужен OPENROUTER_API_KEY. Для локальной проверки явно включите LLM_MODE=mock.", "ai_not_configured")
@@ -367,6 +375,7 @@ class DemoService:
             "status": session["status"],
             "debrief_status": session["debrief_status"],
             "settings": {
+                "language": session["settings"].get("language", "ru"),
                 "scenario": session["settings"]["scenario"],
                 "conflict_type": session["settings"].get("conflict_type"),
                 "difficulty": session["settings"]["difficulty"],
@@ -429,7 +438,7 @@ class DemoService:
             if session["engine_id"] == "premium":
                 raw = await self.provider.complete(
                     session["engine_model"],
-                    roleplay_messages(session["runtime_case"], session["messages"]),
+                    roleplay_messages(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                     purpose="roleplayer",
                     max_tokens=600,
                     temperature=0.75,
@@ -528,7 +537,7 @@ class DemoService:
         try:
             raw = await self.provider.complete(
                 self.settings.judge_model,
-                judge_prompt(session["runtime_case"], session["messages"]),
+                judge_prompt(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                 purpose="judge",
                 json_mode=True,
                 max_tokens=2500,

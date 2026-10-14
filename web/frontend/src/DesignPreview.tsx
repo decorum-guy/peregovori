@@ -1,7 +1,9 @@
-import { FormEvent, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { AppConfig, GameScreen, Session, Settings, SetupScreen } from './App'
 import { BrandVariantContext, LineMark, LogoVariant, logoConcepts } from './BrandMark'
+import { Language, LanguageContext, preferredLanguage, rememberLanguage, useI18n } from './i18n'
+import { englishExample, englishReport } from './preview-data-en'
 import './design-preview.css'
 
 type View = 'chat' | 'review' | 'logos' | 'setup'
@@ -11,10 +13,12 @@ const views: { id: View; label: string }[] = [
 ]
 
 const exampleSettings: Settings = {
+  language: 'ru',
   scenario: 'conflict_then_negotiation', conflict_type: 'personal', difficulty: 'medium',
   student_side: 'protect', sphere: 'work', custom_topic: '', player_name: '', engine_id: 'premium',
 }
 const config: AppConfig = {
+  language: 'ru',
   premium_model_id: 'anthropic/claude-opus-5.5', premium_model_label: 'Claude Opus 5.5',
   provider_mode: 'test_mock', generation_available: true, generation_unavailable_reason: null,
   engines: [
@@ -68,11 +72,21 @@ const exampleReport = {
 }
 
 export default function DesignPreview() {
+  const [language, setLanguage] = useState<Language>(preferredLanguage)
+  useEffect(() => rememberLanguage(language), [language])
+  return <LanguageContext.Provider value={language}><Preview key={language} language={language} onLanguageChange={setLanguage} /></LanguageContext.Provider>
+}
+
+function Preview({ language, onLanguageChange }: { language: Language; onLanguageChange: (language: Language) => void }) {
+  const { t } = useI18n()
+  const initialSettings = { ...exampleSettings, language }
+  const initialSession = language === 'en' ? englishExample(exampleSession) : exampleSession
+  const previewConfig = { ...config, language }
   const params = new URLSearchParams(window.location.search)
   const [view, setView] = useState<View>(() => views.find((item) => item.id === params.get('view'))?.id || 'chat')
   const [logo, setLogo] = useState<LogoVariant>(() => logoConcepts.find((item) => item.id === params.get('logo'))?.id || 'convergence')
-  const [settings, setSettings] = useState(exampleSettings)
-  const [session, setSession] = useState(exampleSession)
+  const [settings, setSettings] = useState(initialSettings)
+  const [session, setSession] = useState(initialSession)
   const [draft, setDraft] = useState('')
   const [detailsOpen, setDetailsOpen] = useState(true)
   const conversationRef = useRef<HTMLDivElement>(null)
@@ -81,7 +95,7 @@ export default function DesignPreview() {
   function updateLocation(nextView: View, nextLogo = logo) {
     setView(nextView)
     setLogo(nextLogo)
-    const query = new URLSearchParams({ view: nextView, logo: nextLogo })
+    const query = new URLSearchParams({ view: nextView, logo: nextLogo, lang: language })
     window.history.replaceState(null, '', `/design-preview?${query}`)
   }
 
@@ -90,52 +104,53 @@ export default function DesignPreview() {
     if (!draft.trim()) return
     setSession((current) => ({ ...current, messages: [...current.messages,
       { id: crypto.randomUUID(), speaker: 'player', text: draft.trim(), created_at: '', delivery_status: 'sent' },
-      { id: crypto.randomUUID(), speaker: 'opponent', text: 'Давайте уточним этот пункт и зафиксируем, кто отвечает за следующий шаг.', created_at: '', delivery_status: 'sent' },
+      { id: crypto.randomUUID(), speaker: 'opponent', text: t("Давайте уточним этот пункт и зафиксируем, кто отвечает за следующий шаг."), created_at: '', delivery_status: 'sent' },
     ] }))
     setDraft('')
     window.requestAnimationFrame(() => endRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' }))
   }
 
-  const displayedSession = view === 'review' ? { ...session, status: 'reviewed' as const, debrief_status: 'complete' as const, debrief: exampleReport } : session
+  const displayedSession = view === 'review' ? { ...session, status: 'reviewed' as const, debrief_status: 'complete' as const, debrief: language === 'en' ? englishReport : exampleReport } : session
 
   return (
     <BrandVariantContext.Provider value={logo}>
       <main className="design-preview">
-        <nav className="preview-toolbar" aria-label="Примеры дизайна">
-          <span>Пример дизайна <span className="preview-synthetic">· синтетические данные</span></span>
+        <nav className="preview-toolbar" aria-label={t("Примеры дизайна")}>
+          <span>{t("Пример дизайна")}{" "}<span className="preview-synthetic">{t("· синтетические данные")}</span></span>
           <div>{views.map((item) => <button key={item.id} type="button" aria-pressed={view === item.id} onClick={() => {
             if (item.id === 'chat') setSession((current) => ({ ...current, status: 'active', debrief: null, debrief_status: 'not_requested' }))
             updateLocation(item.id)
-          }}>{item.label}</button>)}</div>
+          }}>{t(item.label)}</button>)}</div>
         </nav>
         <div className="app-shell app-shell--preview">
           {view === 'logos' ? (
             <section className="logo-gallery">
-              <header><p className="eyebrow">ЛИНИЯ РЕШЕНИЯ</p><h1>Три варианта знака</h1><p>Примерьте вариант в настройках, чате и разборе. Окончательный выбор — позже.</p></header>
-              <div className="logo-concepts" role="group" aria-label="Варианты логотипа">
+              <header><p className="eyebrow">{t("ЛИНИЯ РЕШЕНИЯ")}</p><h1>{t("Три варианта знака")}</h1><p>{t("Примерьте вариант в настройках, чате и разборе. Окончательный выбор — позже.")}</p></header>
+              <div className="logo-concepts" role="group" aria-label={t("Варианты логотипа")}>
                 {logoConcepts.map((concept) => <button className={`logo-concept${logo === concept.id ? ' selected' : ''}`} key={concept.id} type="button" aria-pressed={logo === concept.id} onClick={() => updateLocation('logos', concept.id)}>
-                  <span className="logo-concept-top"><strong>{concept.name}</strong></span>
-                  <span className="logo-wordmark"><LineMark variant={concept.id} /><span>Линия решения</span></span>
-                  <span className="logo-concept-description">{concept.description}</span>
-                  <span className="logo-small-example"><LineMark variant={concept.id} compact /><span>В небольшом размере</span></span>
+                  <span className="logo-concept-top"><strong>{t(concept.name)}</strong></span>
+                  <span className="logo-wordmark"><LineMark variant={concept.id} /><span>{t("Линия решения")}</span></span>
+                  <span className="logo-concept-description">{t(concept.description)}</span>
+                  <span className="logo-small-example"><LineMark variant={concept.id} compact /><span>{t("В небольшом размере")}</span></span>
                 </button>)}
               </div>
-              <button className="button button-primary" onClick={() => updateLocation('setup')}>Посмотреть в интерфейсе <ArrowRight size={17} /></button>
+              <button className="button button-primary" onClick={() => updateLocation('setup')}>{t("Посмотреть в интерфейсе")}{" "}<ArrowRight size={17} /></button>
             </section>
           ) : view === 'setup' ? (
-            <SetupScreen settings={settings} config={config} action={null} error="" notice="" currentEngine={config.engines[0]} checkingModels={false}
+            <SetupScreen settings={settings} config={previewConfig} action={null} error="" notice="" currentEngine={previewConfig.engines[0]} checkingModels={false}
+              onLanguageChange={onLanguageChange}
               onRefreshModels={() => {}} onUpdate={(key, value) => setSettings((current) => ({ ...current, [key]: value }))}
-              onRandomize={() => setSettings(exampleSettings)} onClearError={() => {}}
-              onStart={(event) => { event?.preventDefault(); if (settings.sphere === 'custom' && !settings.custom_topic.trim()) return; setSession({ ...exampleSession, settings: { ...exampleSettings, player_name: settings.player_name } }); updateLocation('chat') }} />
+              onRandomize={() => setSettings(initialSettings)} onClearError={() => {}}
+              onStart={(event) => { event?.preventDefault(); if (settings.sphere === 'custom' && !settings.custom_topic.trim()) return; setSession({ ...initialSession, settings: { ...initialSettings, player_name: settings.player_name } }); updateLocation('chat') }} />
           ) : (
-            <GameScreen key={view} config={config} session={displayedSession} preview action={null} error="" draft={draft} setDraft={setDraft}
+            <GameScreen key={view} config={previewConfig} session={displayedSession} preview action={null} error="" draft={draft} setDraft={setDraft}
               onDraftEdited={() => {}} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} hasNewMessage={false}
               conversationRef={conversationRef} endRef={endRef} onConversationScroll={() => {}} onSend={send}
               onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing && !window.matchMedia('(max-width: 767px)').matches) { event.preventDefault(); send(event) } }}
               onRetry={() => {}} onFinish={() => setSession((current) => ({ ...current, status: 'finished' }))}
               onSkip={() => setSession((current) => ({ ...current, status: 'finished_without_review' }))}
               onDebrief={() => updateLocation('review')}
-              onPlayAgain={() => { setSession(exampleSession); updateLocation('setup') }} onClearError={() => {}} />
+              onPlayAgain={() => { setSession(initialSession); updateLocation('setup') }} onClearError={() => {}} />
           )}
         </div>
       </main>

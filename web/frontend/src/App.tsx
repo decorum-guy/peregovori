@@ -1,6 +1,7 @@
 import { FormEvent, KeyboardEvent, SelectHTMLAttributes, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, Check, ChevronDown, CircleAlert, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
 import { LineMark } from './BrandMark'
+import { Language, LanguageContext, LanguageSwitch, catalogUrl, errorText, preferredLanguage, rememberLanguage, sessionKey, settingsKey, useI18n } from './i18n'
 
 type Scenario = 'conflict_only' | 'negotiation_only' | 'conflict_then_negotiation'
 type ConflictType = 'personal' | 'public' | 'mixed'
@@ -11,6 +12,7 @@ type SessionStatus = 'active' | 'finished' | 'reviewed' | 'finished_without_revi
 
 type Engine = { id: EngineId; label: string; enabled: boolean; reason?: string }
 export type AppConfig = {
+  language: Language
   premium_model_id: string
   premium_model_label: string
   provider_mode: 'openrouter' | 'test_mock' | 'unconfigured'
@@ -20,6 +22,7 @@ export type AppConfig = {
   notice: string
 }
 export type Settings = {
+  language: Language
   scenario: Scenario
   conflict_type: ConflictType
   difficulty: Difficulty
@@ -73,10 +76,8 @@ export type Session = {
   debrief: Debrief | null
 }
 
-const SESSION_KEY = 'line-of-decision-session'
-const SETTINGS_KEY = 'line-of-decision-settings'
-
 const defaultSettings: Settings = {
+  language: 'ru',
   scenario: 'conflict_then_negotiation',
   conflict_type: 'personal',
   difficulty: 'medium',
@@ -131,19 +132,19 @@ async function api<T>(url: string, body?: unknown): Promise<T> {
   return payload as T
 }
 
-function readSavedSettings(): Settings {
+function readSavedSettings(language: Language): Settings {
   try {
-    const value = localStorage.getItem(SETTINGS_KEY)
+    const value = localStorage.getItem(settingsKey(language))
     const saved = value ? JSON.parse(value) : {}
     // Migrate the old chat fallback that accidentally became a form value.
-    return { ...defaultSettings, ...saved, player_name: saved.player_name === 'Вы' ? '' : saved.player_name || '' }
+    return { ...defaultSettings, ...saved, language, engine_id: language === 'en' ? 'premium' : saved.engine_id || 'premium', player_name: saved.player_name === 'Вы' ? '' : saved.player_name || '' }
   } catch {
-    return defaultSettings
+    return { ...defaultSettings, language }
   }
 }
 
-function describeError(error: unknown): string {
-  return error instanceof Error ? error.message : 'Что-то пошло не так. Попробуйте ещё раз.'
+function describeError(error: unknown, language: Language): string {
+  return errorText(error instanceof Error ? error.message : 'Что-то пошло не так. Попробуйте ещё раз.', error instanceof ApiError ? error.code : undefined, language)
 }
 
 function normalized(value: string | null | undefined): string {
@@ -171,21 +172,31 @@ function SelectControl(props: SelectHTMLAttributes<HTMLSelectElement>) {
 }
 
 function ErrorNotice({ message, onClose, onRetry }: { message: string; onClose?: () => void; onRetry?: () => void }) {
+  const { t } = useI18n()
   return (
     <div className="notice notice--error" role="alert">
       <CircleAlert size={18} aria-hidden="true" />
       <p>{message}</p>
-      {onRetry && <button className="text-button" onClick={onRetry}>Повторить</button>}
-      {onClose && <button className="icon-button notice-close" aria-label="Закрыть сообщение" onClick={onClose}><X size={16} /></button>}
+      {onRetry && <button className="text-button" onClick={onRetry}>{t("Повторить")}</button>}
+      {onClose && <button className="icon-button notice-close" aria-label={t("Закрыть сообщение")} onClick={onClose}><X size={16} /></button>}
     </div>
   )
 }
 
 export default function App() {
+  const [language, setLanguage] = useState<Language>(preferredLanguage)
+  useEffect(() => rememberLanguage(language), [language])
+  return <LanguageContext.Provider value={language}><Application key={language} language={language} onLanguageChange={setLanguage} /></LanguageContext.Provider>
+}
+
+function Application({ language, onLanguageChange }: { language: Language; onLanguageChange: (language: Language) => void }) {
+  const { t } = useI18n()
+  const SESSION_KEY = sessionKey(language)
+  const SETTINGS_KEY = settingsKey(language)
   const [config, setConfig] = useState<AppConfig | null>(null)
   const [configError, setConfigError] = useState('')
   const [checkingModels, setCheckingModels] = useState(false)
-  const [settings, setSettings] = useState<Settings>(readSavedSettings)
+  const [settings, setSettings] = useState<Settings>(() => readSavedSettings(language))
   const [session, setSession] = useState<Session | null>(null)
   const [draft, setDraft] = useState('')
   const [draftRequestId, setDraftRequestId] = useState('')
@@ -209,18 +220,19 @@ export default function App() {
     let alive = true
     async function restore() {
       try {
-        const loaded = await api<AppConfig>('/api/config')
+        const loaded = await api<AppConfig>(`/api/config?language=${language}`)
         if (alive) {
           setConfig(loaded)
           setConfigError('')
         }
       } catch (err) {
-        if (alive) setConfigError(describeError(err))
+        if (alive) setConfigError(describeError(err, language))
       }
       const sessionId = localStorage.getItem(SESSION_KEY)
       if (sessionId) {
         try {
           const saved = await api<Session>(`/api/sessions/${sessionId}`)
+          if ((saved.settings.language || 'ru') !== language) throw new Error('Saved game language mismatch')
           if (alive) {
             setSession(saved)
             setSettings((current) => ({ ...current, ...saved.settings, engine_id: saved.engine.id }))
@@ -238,11 +250,11 @@ export default function App() {
   const refreshModels = useCallback(async (manual = false) => {
     if (manual) setCheckingModels(true)
     try {
-      setConfig(await api<AppConfig>(`/api/config${manual ? '?refresh=true' : ''}`))
+      setConfig(await api<AppConfig>(`/api/config?language=${language}${manual ? '&refresh=true' : ''}`))
       setConfigError('')
     } catch (err) {
-      setConfigError(describeError(err))
-      setConfig((current) => current && ({ ...current, engines: current.engines.map((engine) => engine.id === 'lora' ? { ...engine, enabled: false, reason: 'Не удалось проверить доступность модели.' } : engine) }))
+      setConfigError(describeError(err, language))
+      setConfig((current) => current && ({ ...current, engines: current.engines.map((engine) => engine.id === 'lora' ? { ...engine, enabled: false, reason: t("Не удалось проверить доступность модели.") } : engine) }))
     } finally {
       if (manual) setCheckingModels(false)
     }
@@ -298,7 +310,7 @@ export default function App() {
       next.student_side = Math.random() < 0.5 ? 'protect' : 'pressure'
     }
     setSettings(next)
-    setNotice('Настройки обновлены')
+    setNotice(t("Настройки обновлены"))
     window.setTimeout(() => setNotice(''), 2200)
   }
 
@@ -307,12 +319,13 @@ export default function App() {
     if (action) return
     setError('')
     if (settings.sphere === 'custom' && !settings.custom_topic.trim()) {
-      setError('Укажите вашу тему для сферы «Другое».')
+      setError(t("Укажите вашу тему для сферы «Другое»."))
       return
     }
     setAction('starting')
     try {
       const payload: Record<string, unknown> = {
+        language,
         scenario: settings.scenario,
         difficulty: settings.difficulty,
         sphere: settings.sphere,
@@ -331,7 +344,7 @@ export default function App() {
       setDraftRequestId('')
       setDetailsOpen(true)
     } catch (err) {
-      setError(describeError(err))
+      setError(describeError(err, language))
     } finally {
       setAction(null)
     }
@@ -361,7 +374,7 @@ export default function App() {
     } catch (err) {
       const updated = await refreshSession(session.id)
       if (updated?.messages.some((message) => message.request_id === stableId)) setDraft('')
-      setError(describeError(err))
+      setError(describeError(err, language))
     } finally {
       setAction(null)
     }
@@ -388,7 +401,7 @@ export default function App() {
       const updated = await api<Session>(`/api/sessions/${session.id}/finish`, {})
       saveSession(updated)
     } catch (err) {
-      setError(describeError(err))
+      setError(describeError(err, language))
     } finally {
       setAction(null)
     }
@@ -402,7 +415,7 @@ export default function App() {
       const updated = await api<Session>(`/api/sessions/${session.id}/skip-debrief`, {})
       saveSession(updated)
     } catch (err) {
-      setError(describeError(err))
+      setError(describeError(err, language))
     } finally {
       setAction(null)
     }
@@ -417,7 +430,7 @@ export default function App() {
       saveSession(updated)
     } catch (err) {
       await refreshSession(session.id)
-      setError(describeError(err))
+      setError(describeError(err, language))
     } finally {
       setAction(null)
     }
@@ -440,17 +453,17 @@ export default function App() {
     if (atEnd) setHasNewMessage(false)
   }
 
-  if (restoring) return <div className="loading-screen"><LineMark /><span>Открываем сессию…</span></div>
+  if (restoring) return <div className="loading-screen"><LineMark /><span>{t("Открываем сессию…")}</span></div>
 
   return (
     <main className={`app-shell${config ? ` app-shell--${config.provider_mode}` : ''}`}>
       {config?.provider_mode === 'test_mock' && (
-        <div className="mode-banner mode-banner--mock"><Sparkles size={16} /> Тестовый режим: ответы и кейсы смоделированы локально, Claude/GPT API не вызывается.</div>
+        <div className="mode-banner mode-banner--mock"><Sparkles size={16} />{" "}{t("Тестовый режим: ответы и кейсы смоделированы локально, Claude/GPT API не вызывается.")}</div>
       )}
       {config?.provider_mode === 'unconfigured' && (
-        <div className="mode-banner mode-banner--setup"><CircleAlert size={16} /> API не подключён. Для настоящей генерации добавьте OPENROUTER_API_KEY на сервере; для локального теста задайте LLM_MODE=mock.</div>
+        <div className="mode-banner mode-banner--setup"><CircleAlert size={16} />{" "}{t("API не подключён. Для настоящей генерации добавьте OPENROUTER_API_KEY на сервере; для локального теста задайте LLM_MODE=mock.")}</div>
       )}
-      {configError && !config && <div className="mode-banner mode-banner--setup"><CircleAlert size={16} /> Не удалось загрузить конфигурацию приложения: {configError}</div>}
+      {configError && !config && <div className="mode-banner mode-banner--setup"><CircleAlert size={16} />{" "}{t("Не удалось загрузить конфигурацию приложения:")}{" "}{configError}</div>}
 
       {session ? (
         <GameScreen
@@ -486,6 +499,7 @@ export default function App() {
           currentEngine={currentEngine}
           checkingModels={checkingModels}
           onRefreshModels={() => void refreshModels(true)}
+          onLanguageChange={onLanguageChange}
           onUpdate={updateSetting}
           onRandomize={randomize}
           onStart={startGame}
@@ -497,7 +511,7 @@ export default function App() {
 }
 
 export function SetupScreen({
-  settings, config, action, error, notice, currentEngine, checkingModels, onRefreshModels, onUpdate, onRandomize, onStart, onClearError,
+  settings, config, action, error, notice, currentEngine, checkingModels, onRefreshModels, onLanguageChange, onUpdate, onRandomize, onStart, onClearError,
 }: {
   settings: Settings
   config: AppConfig | null
@@ -507,74 +521,77 @@ export function SetupScreen({
   currentEngine?: Engine
   checkingModels: boolean
   onRefreshModels: () => void
+  onLanguageChange?: (language: Language) => void
   onUpdate: <K extends keyof Settings>(key: K, value: Settings[K]) => void
   onRandomize: () => void
   onStart: (event?: FormEvent) => void
   onClearError: () => void
 }) {
+  const { language, t } = useI18n()
   const hasConflict = settings.scenario !== 'negotiation_only'
-  const engineList = config?.engines || [
+  const engineList = (config?.engines || [
     { id: 'premium' as const, label: 'Claude Opus 5.5', enabled: true },
-    { id: 'lora' as const, label: 'Qwen · Дообученная', enabled: false, reason: 'Модель сейчас не подключена.' },
-  ]
+    { id: 'lora' as const, label: t("Qwen · Дообученная"), enabled: false, reason: t("Модель сейчас не подключена.") },
+  ]).map((engine) => language === 'en' && engine.id === 'lora' ? { ...engine, label: engine.label.replace(' · Дообученная', ' · Fine-tuned'), enabled: false, reason: t('Qwen доступна только для игры на русском.') } : engine)
 
   return (
     <div className="setup-page">
       <header className="setup-header">
-        <a className="brand-lockup" href="/games" aria-label="Линия решения — к каталогу игр">
+        <a className="brand-lockup" href={catalogUrl(language)} aria-label={t("Линия решения — к каталогу игр")}>
           <LineMark />
-          <p>Линия решения</p>
+          <p>{t("Линия решения")}</p>
         </a>
-        <span className="independent-label">Независимый концепт</span>
+        <div className="setup-header-tools"><span className="independent-label">{t("Независимый концепт")}</span>{onLanguageChange && <LanguageSwitch onChange={onLanguageChange} />}</div>
       </header>
 
       <section className="setup-intro">
         <div>
-          <p className="eyebrow intro-kicker">КОНФЛИКТЫ И ПЕРЕГОВОРЫ</p>
-          <h1>Найдите следующий ход</h1>
-          <p className="intro-copy">Выберите ситуацию и попробуйте следующий ход в живом диалоге.</p>
+          <p className="eyebrow intro-kicker">{t("КОНФЛИКТЫ И ПЕРЕГОВОРЫ")}</p>
+          <h1>{t("Найдите следующий ход")}</h1>
+          <p className="intro-copy">{t("Выберите ситуацию и попробуйте следующий ход в живом диалоге.")}</p>
         </div>
       </section>
 
       <form className="setup-card" onSubmit={(event) => void onStart(event)}>
-        <div className="form-heading"><div><span className="step-kicker">01 / НАСТРОЙКА</span><h2>Настройка игры</h2></div><MessageCircle size={20} aria-hidden="true" /></div>
+        <div className="form-heading"><div><span className="step-kicker">{t("01 / НАСТРОЙКА")}</span><h2>{t("Настройка игры")}</h2></div><MessageCircle size={20} aria-hidden="true" /></div>
 
         <fieldset className="field-group scenario-fieldset">
-          <legend>Режим</legend>
-          <div className="scenario-grid" role="radiogroup" aria-label="Режим игры">
+          <legend>{t("Режим")}</legend>
+          <div className="scenario-grid" role="radiogroup" aria-label={t("Режим игры")}>
             {scenarioChoices.map((choice) => (
               <label key={choice.value} className={`scenario-choice scenario-choice--${choice.value}${settings.scenario === choice.value ? ' selected' : ''}`}>
                 <input type="radio" name="scenario" value={choice.value} checked={settings.scenario === choice.value} onChange={() => onUpdate('scenario', choice.value)} />
                 <span className="choice-check"><Check size={13} /></span>
-                <span className="scenario-label">{choice.label}</span>
-                <span className="scenario-short">{choice.short}</span>
+                <span className="scenario-label">{t(choice.label)}</span>
+                <span className="scenario-short">{t(choice.short)}</span>
               </label>
             ))}
           </div>
         </fieldset>
 
         <div className="settings-grid">
-          {hasConflict && <label className="field-group"><span>Тип конфликта</span><SelectControl value={settings.conflict_type} onChange={(event) => onUpdate('conflict_type', event.target.value as ConflictType)}>{conflictChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</SelectControl></label>}
-          <label className="field-group"><span>Сложность</span><SelectControl value={settings.difficulty} onChange={(event) => onUpdate('difficulty', event.target.value as Difficulty)}>{difficultyChoices.map((choice) => <option value={choice.value} key={choice.value}>{choice.label}</option>)}</SelectControl>{settings.difficulty === 'impossible' && <small>Одно желаемое условие объективно недостижимо; осмысленный разговор всё ещё возможен.</small>}</label>
-          <label className="field-group"><span>Сфера</span><SelectControl value={settings.sphere} onChange={(event) => onUpdate('sphere', event.target.value as Settings['sphere'])}><option value="work">Работа</option><option value="family">Семья</option><option value="study">Учёба</option><option value="friends">Друзья</option><option value="custom">Другое</option></SelectControl></label>
-          {hasConflict && <label className="field-group"><span>Ваша сторона</span><SelectControl value={settings.student_side} onChange={(event) => onUpdate('student_side', event.target.value as StudentSide)}><option value="protect">Защищаю границы</option><option value="pressure">Оказываю давление</option></SelectControl></label>}
-          {settings.sphere === 'custom' && <label className="field-group field-span"><span>Ваша тема</span><textarea rows={2} required value={settings.custom_topic} maxLength={240} placeholder="Например, совместный проект или бытовая договорённость" onChange={(event) => onUpdate('custom_topic', event.target.value)} /></label>}
-          <label className="field-group field-span field-name"><span>Ваше имя, необязательно</span><input type="text" maxLength={60} value={settings.player_name} placeholder="Как к вам обращаться?" onChange={(event) => onUpdate('player_name', event.target.value)} /></label>
+          {hasConflict && <label className="field-group"><span>{t("Тип конфликта")}</span><SelectControl value={settings.conflict_type} onChange={(event) => onUpdate('conflict_type', event.target.value as ConflictType)}>{conflictChoices.map((choice) => <option value={choice.value} key={choice.value}>{t(choice.label)}</option>)}</SelectControl></label>}
+          <label className="field-group"><span>{t("Сложность")}</span><SelectControl value={settings.difficulty} onChange={(event) => onUpdate('difficulty', event.target.value as Difficulty)}>{difficultyChoices.map((choice) => <option value={choice.value} key={choice.value}>{t(choice.label)}</option>)}</SelectControl>{settings.difficulty === 'impossible' && <small>{t("Одно желаемое условие объективно недостижимо; осмысленный разговор всё ещё возможен.")}</small>}</label>
+          <label className="field-group"><span>{t("Сфера")}</span><SelectControl value={settings.sphere} onChange={(event) => onUpdate('sphere', event.target.value as Settings['sphere'])}><option value="work">{t("Работа")}</option><option value="family">{t("Семья")}</option><option value="study">{t("Учёба")}</option><option value="friends">{t("Друзья")}</option><option value="custom">{t("Другое")}</option></SelectControl></label>
+          {hasConflict && <label className="field-group"><span>{t("Ваша сторона")}</span><SelectControl value={settings.student_side} onChange={(event) => onUpdate('student_side', event.target.value as StudentSide)}><option value="protect">{t("Защищаю границы")}</option><option value="pressure">{t("Оказываю давление")}</option></SelectControl></label>}
+          {settings.sphere === 'custom' && <label className="field-group field-span"><span>{t("Ваша тема")}</span><textarea rows={2} required value={settings.custom_topic} maxLength={240} placeholder={t("Например, совместный проект или бытовая договорённость")} onChange={(event) => onUpdate('custom_topic', event.target.value)} /></label>}
+          <label className="field-group field-span field-name"><span>{t("Ваше имя, необязательно")}</span><input type="text" maxLength={60} value={settings.player_name} placeholder={t("Как к вам обращаться?")} onChange={(event) => onUpdate('player_name', event.target.value)} /></label>
         </div>
 
         <fieldset className="field-group engine-fieldset">
-          <legend>Модель собеседника</legend>
-          <div className="engine-grid" role="radiogroup" aria-label="Модель собеседника">
+          <legend>{t("Модель собеседника")}</legend>
+          <div className="engine-grid" role="radiogroup" aria-label={t("Модель собеседника")}>
             {engineList.map((engine) => (
               <label key={engine.id} className={`engine-choice${settings.engine_id === engine.id ? ' selected' : ''}${!engine.enabled ? ' disabled' : ''}`} title={!engine.enabled ? engine.reason : undefined}>
                 <input type="radio" name="engine" value={engine.id} checked={settings.engine_id === engine.id} disabled={!engine.enabled || (engine.id === 'lora' && checkingModels)} onChange={() => onUpdate('engine_id', engine.id)} />
                 <span className="radio-dot" />
-                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? 'Серверная модель' : 'Локальная модель'}</small></span>
-                {engine.id === 'lora' && <span className="soon-tag" role="status">{checkingModels ? 'Проверяем' : engine.enabled ? 'Доступна' : 'Недоступна'}</span>}
+                <span className="engine-copy"><strong>{engine.label}</strong><small>{engine.id === 'premium' ? t("Серверная модель") : t("Локальная модель")}</small></span>
+                {engine.id === 'lora' && <span className="soon-tag" role="status">{checkingModels ? t("Проверяем") : engine.enabled ? t("Доступна") : t("Недоступна")}</span>}
               </label>
             ))}
           </div>
-          <button className="text-button" type="button" onClick={onRefreshModels} disabled={checkingModels}>{checkingModels ? 'Проверяем доступность…' : 'Обновить доступность'}</button>
+          <button className="text-button" type="button" onClick={onRefreshModels} disabled={checkingModels}>{checkingModels ? t("Проверяем доступность…") : t("Обновить доступность")}</button>
+          {language === 'en' && <p className="language-note">{t('Qwen доступна только для игры на русском.')}</p>}
         </fieldset>
 
         {error && <ErrorNotice message={error} onClose={onClearError} />}
@@ -582,13 +599,13 @@ export function SetupScreen({
         {!config?.generation_available && config?.generation_unavailable_reason && <p className="setup-help"><CircleAlert size={16} /> {config.generation_unavailable_reason}</p>}
 
         <div className="setup-actions">
-          <button className="button button-secondary random-button" type="button" onClick={onRandomize} disabled={!!action}><RotateCcw size={16} /> Случайно</button>
+          <button className="button button-secondary random-button" type="button" onClick={onRandomize} disabled={!!action}><RotateCcw size={16} />{" "}{t("Случайно")}</button>
           <button className="button button-primary start-button" type="submit" disabled={!!action || !config?.generation_available || (settings.sphere === 'custom' && !settings.custom_topic.trim()) || (settings.engine_id === 'lora' && (!currentEngine?.enabled || checkingModels))}>
-            {action === 'starting' ? <><span className="spinner" /> Готовим ситуацию…</> : <>Начать игру <ArrowRight size={17} /></>}
+            {action === 'starting' ? <><span className="spinner" />{" "}{t("Готовим ситуацию…")}</> : <>{t("Начать игру")}{" "}<ArrowRight size={17} /></>}
           </button>
         </div>
       </form>
-      <footer className="concept-footer">Линия решения <span /> Независимый концепт для демонстрации</footer>
+      <footer className="concept-footer">{t("Линия решения")}{" "}<span />{" "}{t("Независимый концепт для демонстрации")}</footer>
     </div>
   )
 }
@@ -621,7 +638,8 @@ export function GameScreen({
   onPlayAgain: () => void
   onClearError: () => void
 }) {
-  const playerName = session.settings.player_name?.trim() || 'Вы'
+  const { language, t } = useI18n()
+  const playerName = session.settings.player_name?.trim() || t("Вы")
   const latestFailed = [...session.messages].reverse().find((message) => message.speaker === 'player' && message.delivery_status === 'failed')
   const loraEnabled = config?.engines.find((engine) => engine.id === 'lora')?.enabled
   const showOffer = session.status === 'finished' && !session.debrief
@@ -631,93 +649,94 @@ export function GameScreen({
   return (
     <div className="game-shell">
       <header className="game-header">
-        <a className="back-link" href="/games"><ArrowLeft size={16} /> К играм</a>
-        <div className="game-title"><LineMark compact /><div><span className="eyebrow">ЛИНИЯ РЕШЕНИЯ</span><h1>{summary.title}</h1></div></div>
-        {session.status === 'active' ? <button className="finish-button" onClick={onFinish} disabled={action === 'finishing'}>{action === 'finishing' ? <><span className="spinner spinner--small" /> Завершаем…</> : <>Завершить <X size={16} /></>}</button> : <span className="finished-pill">Диалог завершён</span>}
+        <a className="back-link" href={catalogUrl(language)}><ArrowLeft size={16} />{" "}{t("К играм")}</a>
+        <div className="game-title"><LineMark compact /><div><span className="eyebrow">{t("ЛИНИЯ РЕШЕНИЯ")}</span><h1>{summary.title}</h1></div></div>
+        {session.status === 'active' ? <button className="finish-button" onClick={onFinish} disabled={action === 'finishing'}>{action === 'finishing' ? <><span className="spinner spinner--small" />{" "}{t("Завершаем…")}</> : <>{t("Завершить")}{" "}<X size={16} /></>}</button> : <span className="finished-pill">{t("Диалог завершён")}</span>}
       </header>
 
-      {!preview && session.provider_mode === 'test_mock' && <div className="game-test-note"><Sparkles size={15} /> Тестовая симуляция: ответы не получены от {config?.premium_model_label || 'Claude/GPT'} API.</div>}
-      {session.source === 'accepted_train_fallback' && <div className="fallback-note"><CircleAlert size={15} /> Резервный принятый TRAIN-кейс. Параметры выбранной сферы могли не примениться.</div>}
-      {session.engine.id === 'lora' && !loraEnabled && <div className="fallback-note"><CircleAlert size={15} /> Подключённая модель недоступна; ответы не переключаются на другую модель.</div>}
+      {!preview && session.provider_mode === 'test_mock' && <div className="game-test-note"><Sparkles size={15} />{" "}{t("Тестовая симуляция: ответы не получены от")}{" "}{config?.premium_model_label || 'Claude/GPT'} API.</div>}
+      {session.source === 'accepted_train_fallback' && <div className="fallback-note"><CircleAlert size={15} />{" "}{t("Резервный принятый TRAIN-кейс. Параметры выбранной сферы могли не примениться.")}</div>}
+      {session.engine.id === 'lora' && !loraEnabled && <div className="fallback-note"><CircleAlert size={15} />{" "}{t("Подключённая модель недоступна; ответы не переключаются на другую модель.")}</div>}
 
       <div className={`game-layout${showOffer || showDone || session.debrief ? ' game-layout--final' : ''}`}>
         <CasePanel session={session} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
 
-        <section className="chat-panel" aria-label="Игровой чат">
+        <section className="chat-panel" aria-label={t("Игровой чат")}>
           {session.status === 'active' ? (
             <>
-              <div className="chat-subheader"><div className="opponent-avatar" aria-hidden="true">{session.opponent.name.slice(0, 1)}</div><div><strong>{session.opponent.name}</strong><span>{session.opponent.role}</span></div><span className="chat-live"><i /> Диалог</span></div>
+              <div className="chat-subheader"><div className="opponent-avatar" aria-hidden="true">{session.opponent.name.slice(0, 1)}</div><div><strong>{session.opponent.name}</strong><span>{session.opponent.role}</span></div><span className="chat-live"><i />{" "}{t("Диалог")}</span></div>
               <div className="conversation" ref={conversationRef} onScroll={onConversationScroll} aria-live="polite">
                 {session.messages.map((message) => (
                   <article key={message.id} className={`message-row${message.speaker === 'player' ? ' message-row--player' : ''}`}>
                     <div className="message-inner">
                       <span className="message-speaker">{message.speaker === 'player' ? playerName : session.opponent.name}</span>
                       <div className={`message-bubble${message.speaker === 'player' ? ' message-bubble--player' : ''}${message.delivery_status === 'failed' ? ' message-bubble--failed' : ''}`}>{message.text}</div>
-                      {message.speaker === 'player' && message.delivery_status === 'pending' && <span className="delivery-caption">Собеседник отвечает…</span>}
-                      {message.speaker === 'player' && message.delivery_status === 'failed' && <div className="retry-inline"><span>Реплика сохранена</span><button className="text-button" onClick={() => onRetry(message)} disabled={!!action}><RotateCcw size={14} /> Повторить ответ</button></div>}
-                      {message.speaker === 'player' && message.delivery_status === 'cancelled' && <span className="delivery-caption">Сессия завершена до ответа</span>}
+                      {message.speaker === 'player' && message.delivery_status === 'pending' && <span className="delivery-caption">{t("Собеседник отвечает…")}</span>}
+                      {message.speaker === 'player' && message.delivery_status === 'failed' && <div className="retry-inline"><span>{t("Реплика сохранена")}</span><button className="text-button" onClick={() => onRetry(message)} disabled={!!action}><RotateCcw size={14} />{" "}{t("Повторить ответ")}</button></div>}
+                      {message.speaker === 'player' && message.delivery_status === 'cancelled' && <span className="delivery-caption">{t("Сессия завершена до ответа")}</span>}
                     </div>
                   </article>
                 ))}
-                {action === 'sending' && !session.messages.some((message) => message.delivery_status === 'pending') && <div className="typing-note"><span className="spinner spinner--small" /> Собеседник отвечает…</div>}
+                {action === 'sending' && !session.messages.some((message) => message.delivery_status === 'pending') && <div className="typing-note"><span className="spinner spinner--small" />{" "}{t("Собеседник отвечает…")}</div>}
                 <div ref={endRef} />
               </div>
-              {hasNewMessage && <button className="new-message-button" onClick={() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })}><ArrowDown size={15} /> Новое сообщение</button>}
+              {hasNewMessage && <button className="new-message-button" onClick={() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })}><ArrowDown size={15} />{" "}{t("Новое сообщение")}</button>}
               {error && <div className="chat-error"><ErrorNotice message={error} onClose={onClearError} onRetry={latestFailed ? () => onRetry(latestFailed) : undefined} /></div>}
               <form className="composer" onSubmit={(event) => void onSend(event)}>
-                <textarea value={draft} onChange={(event) => { setDraft(event.target.value); if (!latestFailed) onDraftEdited() }} onKeyDown={onKeyDown} maxLength={4000} rows={2} placeholder="Напишите ответ…" aria-label="Ваша реплика" disabled={!!action || !!latestFailed} />
-                <button className="send-button" type="submit" aria-label="Отправить реплику" disabled={!!action || !!latestFailed || !draft.trim()}>{action === 'sending' ? <span className="spinner spinner--light" /> : <Send size={19} />}</button>
-                <span className="composer-hint">Enter — отправить · Shift + Enter — новая строка</span>
+                <textarea value={draft} onChange={(event) => { setDraft(event.target.value); if (!latestFailed) onDraftEdited() }} onKeyDown={onKeyDown} maxLength={4000} rows={2} placeholder={t("Напишите ответ…")} aria-label={t("Ваша реплика")} disabled={!!action || !!latestFailed} />
+                <button className="send-button" type="submit" aria-label={t("Отправить реплику")} disabled={!!action || !!latestFailed || !draft.trim()}>{action === 'sending' ? <span className="spinner spinner--light" /> : <Send size={19} />}</button>
+                <span className="composer-hint">{t("Enter — отправить · Shift + Enter — новая строка")}</span>
               </form>
             </>
           ) : showOffer ? (
             <div className="final-card offer-card">
               <div className="final-mark"><MessageCircle size={32} aria-hidden="true" /></div>
-              <p className="eyebrow">ДИАЛОГ ЗАВЕРШЁН</p>
-              <h2>Хотите получить разбор?</h2>
-              <p>Разбор опирается на реальные реплики и отмечает только то, что было видно в этом диалоге.</p>
+              <p className="eyebrow">{t("ДИАЛОГ ЗАВЕРШЁН")}</p>
+              <h2>{t("Хотите получить разбор?")}</h2>
+              <p>{t("Разбор опирается на реальные реплики и отмечает только то, что было видно в этом диалоге.")}</p>
               {session.debrief_status === 'failed' && error && <ErrorNotice message={error} onClose={onClearError} />}
               <div className="final-actions">
-                <button className="button button-primary" onClick={onDebrief} disabled={!!action}>{action === 'judging' ? <><span className="spinner spinner--light" /> Разбираем диалог…</> : <>Получить разбор <ArrowRight size={17} /></>}</button>
-                <button className="button button-secondary" onClick={onSkip} disabled={!!action}>{action === 'skipping' ? <><span className="spinner" /> Завершаем…</> : 'Завершить без оценки'}</button>
+                <button className="button button-primary" onClick={onDebrief} disabled={!!action}>{action === 'judging' ? <><span className="spinner spinner--light" />{" "}{t("Разбираем диалог…")}</> : <>{t("Получить разбор")}{" "}<ArrowRight size={17} /></>}</button>
+                <button className="button button-secondary" onClick={onSkip} disabled={!!action}>{action === 'skipping' ? <><span className="spinner" />{" "}{t("Завершаем…")}</> : t("Завершить без оценки")}</button>
               </div>
-              <p className="final-footnote">Учебные рекомендации независимого прототипа. Это не официальный балл.</p>
+              <p className="final-footnote">{t("Учебные рекомендации независимого прототипа. Это не официальный балл.")}</p>
             </div>
           ) : session.debrief ? (
             <DebriefView report={session.debrief} messages={session.messages} onPlayAgain={onPlayAgain} />
           ) : showDone ? (
-            <div className="final-card done-card"><div className="final-mark"><Check size={32} aria-hidden="true" /></div><p className="eyebrow">ГОТОВО</p><h2>Вы завершили диалог</h2><p>Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.</p><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё <ArrowRight size={17} /></button></div>
+            <div className="final-card done-card"><div className="final-mark"><Check size={32} aria-hidden="true" /></div><p className="eyebrow">{t("ГОТОВО")}</p><h2>{t("Вы завершили диалог")}</h2><p>{t("Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.")}</p><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button></div>
           ) : (
-            <div className="final-card"><p>Сессия закрыта.</p><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё</button></div>
+            <div className="final-card"><p>{t("Сессия закрыта.")}</p><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}</button></div>
           )}
         </section>
       </div>
-      <footer className="game-footer"><span>Независимый концепт для демонстрации</span><span>{preview ? 'Пример интерфейса · синтетические данные' : <>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? ' · тестовая симуляция' : ''}</>}</span></footer>
+      <footer className="game-footer"><span>{t("Независимый концепт для демонстрации")}</span><span>{preview ? t("Пример интерфейса · синтетические данные") : <>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? t(" · тестовая симуляция") : ''}</>}</span></footer>
     </div>
   )
 }
 
 function CasePanel({ session, detailsOpen, setDetailsOpen }: { session: Session; detailsOpen: boolean; setDetailsOpen: (value: boolean) => void }) {
+  const { t } = useI18n()
   const item = session.case
   const distinctStudentGoal = item.student_goal && meaningfullyDistinct(item.student_goal, [item.negotiation_topic, item.player_conflict_goal])
   return (
-    <aside className="case-panel" aria-label="Публичная сводка кейса">
+    <aside className="case-panel" aria-label={t("Публичная сводка кейса")}>
       <div className="case-primary">
-        <div className="case-label-row"><span className="eyebrow">СИТУАЦИЯ</span>{item.conflict_type !== 'none' && <span className="conflict-tag">{conflictChoices.find((choice) => choice.value === item.conflict_type)?.label}</span>}</div>
+        <div className="case-label-row"><span className="eyebrow">{t("СИТУАЦИЯ")}</span>{item.conflict_type !== 'none' && <span className="conflict-tag">{t(conflictChoices.find((choice) => choice.value === item.conflict_type)?.label || '')}</span>}</div>
         <h2>{item.title}</h2>
       </div>
       <div className="case-facts-primary">
-        <div className="case-section"><span className="case-label">Ваша роль</span><p>{item.student_role}</p></div>
-        {item.negotiation_topic && <div className="case-section case-topic"><span className="case-label">Тема на переговоры</span><p>{item.negotiation_topic}</p></div>}
-        {item.player_conflict_goal && <div className="case-section case-goal"><span className="case-label">Цель на конфликт</span><p>{item.player_conflict_goal}</p></div>}
-        {distinctStudentGoal && <div className="case-section"><span className="case-label">Ваша задача</span><p>{item.student_goal}</p></div>}
+        <div className="case-section"><span className="case-label">{t("Ваша роль")}</span><p>{item.student_role}</p></div>
+        {item.negotiation_topic && <div className="case-section case-topic"><span className="case-label">{t("Тема на переговоры")}</span><p>{item.negotiation_topic}</p></div>}
+        {item.player_conflict_goal && <div className="case-section case-goal"><span className="case-label">{t("Цель на конфликт")}</span><p>{item.player_conflict_goal}</p></div>}
+        {distinctStudentGoal && <div className="case-section"><span className="case-label">{t("Ваша задача")}</span><p>{item.student_goal}</p></div>}
       </div>
       <details className="case-details" open={detailsOpen} onToggle={(event) => setDetailsOpen(event.currentTarget.open)}>
-        <summary>Ситуация и факты <ChevronDown size={16} /></summary>
+        <summary>{t("Ситуация и факты")}{" "}<ChevronDown size={16} /></summary>
         <div className="case-secondary">
-          <div className="case-section case-context"><span className="case-label">Контекст</span><p>{item.context}</p></div>
-          <div className="case-section"><span className="case-label">Известные факты</span><ul>{item.known_facts.map((fact, index) => <li key={`${index}-${fact}`}>{fact}</li>)}</ul></div>
-          {item.participants.length > 0 && <div className="case-section"><span className="case-label">Участники</span><ul className="participants-list">{item.participants.map((person) => <li key={person.name}><strong>{person.name}</strong><span>{person.role}</span></li>)}</ul></div>}
+          <div className="case-section case-context"><span className="case-label">{t("Контекст")}</span><p>{item.context}</p></div>
+          <div className="case-section"><span className="case-label">{t("Известные факты")}</span><ul>{item.known_facts.map((fact, index) => <li key={`${index}-${fact}`}>{fact}</li>)}</ul></div>
+          {item.participants.length > 0 && <div className="case-section"><span className="case-label">{t("Участники")}</span><ul className="participants-list">{item.participants.map((person) => <li key={person.name}><strong>{person.name}</strong><span>{person.role}</span></li>)}</ul></div>}
         </div>
       </details>
     </aside>
@@ -725,20 +744,21 @@ function CasePanel({ session, detailsOpen, setDetailsOpen }: { session: Session;
 }
 
 function DebriefView({ report, messages, onPlayAgain }: { report: Debrief; messages: ChatMessage[]; onPlayAgain: () => void }) {
+  const { t } = useI18n()
   const [showHistory, setShowHistory] = useState(false)
   const quotes = [...report.strengths, ...report.risks].map((point) => point.quote)
   const evidenceMessages = messages.filter((message) => message.speaker === 'player' && quotes.some((quote) => message.text.includes(quote)))
   return (
     <div className="debrief-scroll">
       <div className="debrief-document">
-        <div className="debrief-topline"><div><span className="eyebrow">ПОСЛЕ ДИАЛОГА</span><h2>Ваш разбор</h2></div></div>
-        <p className="debrief-notice"><Sparkles size={15} /> Учебные рекомендации независимого прототипа</p>
-        <section className="debrief-section"><h3>Что произошло</h3><p>{report.summary}</p></section>
-        {report.strengths.length > 0 && <section className="debrief-section"><h3><Check size={17} /> Сильные действия</h3><div className="evidence-list">{report.strengths.map((point, index) => <EvidencePoint key={`s-${index}`} point={point} kind="strength" />)}</div></section>}
-        {report.risks.length > 0 && <section className="debrief-section"><h3>Что можно изменить</h3><div className="evidence-list">{report.risks.map((point, index) => <EvidencePoint key={`r-${index}`} point={point} kind="risk" />)}</div></section>}
-        <section className="debrief-section next-step-section"><h3>Следующий ход</h3><p>{report.next_step}</p>{report.example_phrase && <blockquote><span>Пример формулировки</span>{report.example_phrase}</blockquote>}</section>
-        {evidenceMessages.length > 0 && <details className="history-details" open={showHistory} onToggle={(event) => setShowHistory(event.currentTarget.open)}><summary>Посмотреть реплики из разбора <ChevronDown size={16} /></summary><div>{evidenceMessages.map((message) => <p className="history-quote" key={message.id}>{message.text}</p>)}</div></details>}
-        <div className="debrief-actions"><button className="button button-primary" onClick={onPlayAgain}>Сыграть ещё <ArrowRight size={17} /></button><span>Раннее завершение не считается провалом.</span></div>
+        <div className="debrief-topline"><div><span className="eyebrow">{t("ПОСЛЕ ДИАЛОГА")}</span><h2>{t("Ваш разбор")}</h2></div></div>
+        <p className="debrief-notice"><Sparkles size={15} />{" "}{t("Учебные рекомендации независимого прототипа")}</p>
+        <section className="debrief-section"><h3>{t("Что произошло")}</h3><p>{report.summary}</p></section>
+        {report.strengths.length > 0 && <section className="debrief-section"><h3><Check size={17} />{" "}{t("Сильные действия")}</h3><div className="evidence-list">{report.strengths.map((point, index) => <EvidencePoint key={`s-${index}`} point={point} kind="strength" />)}</div></section>}
+        {report.risks.length > 0 && <section className="debrief-section"><h3>{t("Что можно изменить")}</h3><div className="evidence-list">{report.risks.map((point, index) => <EvidencePoint key={`r-${index}`} point={point} kind="risk" />)}</div></section>}
+        <section className="debrief-section next-step-section"><h3>{t("Следующий ход")}</h3><p>{report.next_step}</p>{report.example_phrase && <blockquote><span>{t("Пример формулировки")}</span>{report.example_phrase}</blockquote>}</section>
+        {evidenceMessages.length > 0 && <details className="history-details" open={showHistory} onToggle={(event) => setShowHistory(event.currentTarget.open)}><summary>{t("Посмотреть реплики из разбора")}{" "}<ChevronDown size={16} /></summary><div>{evidenceMessages.map((message) => <p className="history-quote" key={message.id}>{message.text}</p>)}</div></details>}
+        <div className="debrief-actions"><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button><span>{t("Раннее завершение не считается провалом.")}</span></div>
       </div>
     </div>
   )

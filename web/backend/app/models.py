@@ -13,6 +13,7 @@ ConflictType = Literal["personal", "public", "mixed", "none"]
 Category = Literal["MODEL_MANIPULATOR", "MODEL_DEFENDER", "MODEL_NEGOTIATOR"]
 StudentSide = Literal["protect", "pressure"]
 EngineId = Literal["premium", "lora"]
+Language = Literal["ru", "en"]
 
 
 class StrictModel(BaseModel):
@@ -127,6 +128,7 @@ class RuntimeCase(StrictModel):
 
 
 class SessionOptions(StrictModel):
+    language: Language = "ru"
     scenario: Scenario
     conflict_type: Optional[Literal["personal", "public", "mixed"]] = None
     difficulty: Difficulty
@@ -138,13 +140,15 @@ class SessionOptions(StrictModel):
 
     @model_validator(mode="after")
     def validate_conditional_options(self) -> "SessionOptions":
+        if self.language == "en" and self.engine_id == "lora":
+            raise ValueError("English games require the OpenRouter model. Qwen is available for Russian games only.")
         if self.scenario == "negotiation_only":
             if self.conflict_type is not None or self.student_side is not None:
                 raise ValueError("conflict type and student side are not sent for pure negotiations")
         elif self.conflict_type is None or self.student_side is None:
             raise ValueError("conflict scenarios require both conflict_type and student_side")
         if self.sphere == "custom" and (self.custom_topic is None or not self.custom_topic.strip()):
-            raise ValueError("Укажите вашу тему для сферы «Другое».")
+            raise ValueError("Enter your topic for the Other setting." if self.language == "en" else "Укажите вашу тему для сферы «Другое».")
         return self
 
 
