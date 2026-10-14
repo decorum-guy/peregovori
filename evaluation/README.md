@@ -1,3 +1,5 @@
+> **САМЫЙ АКТУАЛЬНЫЙ A/B/C:** [Qwen3-14B E1 — 75 прежних A + 75 B + 75 C](METHODOLOGY_ABC_14B_E1_RUNBOOK.md). Скрипт `bash training/start_methodology_abc_14b.sh` (по умолчанию 14B **1 эпоха**; отдельный опциональный `--epoch 2`), без нового обучения. При ожидании GPU сайт остаётся нетронутым. [P0 issue](https://github.com/decorum-guy/peregovori/issues/1).
+
 > **P0 до демо (14.10.2026):** [A/B/C тест методологии Roleplayer](METHODOLOGY_ABC_2026-10-14.md), [GitHub Issue #1](https://github.com/decorum-guy/peregovori/issues/1). Реальные готовые UI/API находятся в отдельной ветке `codex/design-audit-2026-10-13`. Ни одно изменение эксперимента не включает методологию в текущем сайте автоматически. После завершения 14B запускать ТОЛЬКО отдельно: `bash training/start_methodology_abc_8b.sh`. C использует десять НЕ исчерпывающих техник.
 
 # Независимая оценка Roleplayer: заморозка после 200 train
