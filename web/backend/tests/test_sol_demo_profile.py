@@ -130,3 +130,43 @@ def test_unexpected_profile_settings_are_rejected(tmp_path, change):
     s = demo_settings(tmp_path)
     with pytest.raises(ValueError):
         Settings(**{**s.__dict__, **change}).validate()
+
+
+def test_cloud_settings_not_duplicated_in_source():
+    """Guard against duplicate dataclass fields, constructor kwargs and validators."""
+    import ast
+    from pathlib import Path
+
+    import app.config as config_module
+
+    tree = ast.parse(Path(config_module.__file__).read_text(encoding="utf-8"))
+    settings_cls = next(
+        node for node in tree.body
+        if isinstance(node, ast.ClassDef) and node.name == "Settings"
+    )
+    declarations = [
+        node.target.id for node in settings_cls.body
+        if isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name)
+    ]
+    assert len(declarations) == len(set(declarations))
+
+    from_env = next(
+        node for node in settings_cls.body
+        if isinstance(node, ast.FunctionDef) and node.name == "from_env"
+    )
+    constructor = next(
+        node for node in ast.walk(from_env)
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "cls"
+    )
+    kwargs = [kw.arg for kw in constructor.keywords if kw.arg is not None]
+    assert len(kwargs) == len(set(kwargs))
+
+    validate = next(
+        node for node in settings_cls.body
+        if isinstance(node, ast.FunctionDef) and node.name == "validate"
+    )
+    cloud_conditions = [
+        ast.dump(node.test) for node in validate.body
+        if isinstance(node, ast.If) and "self.cloud_" in ast.unparse(node.test)
+    ]
+    assert len(cloud_conditions) == len(set(cloud_conditions))
