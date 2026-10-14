@@ -1,0 +1,56 @@
+{
+  "variant": "A",
+  "repo_baseline": "34103efaa03eb363284be7f11895feb51a759b6e",
+  "roleplay_rules_sha256": "fe9f37b3d0d1c2989dd38971a194398f88b3e0b96bdf6aef926f7d76555a5656",
+  "runtime_case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+  "browser": "Codex in-app browser on owner Mac",
+  "viewport": {
+    "width": 897,
+    "height": 745
+  },
+  "post_game_grounding_checks": {
+    "audit_timing": "after gameplay finished; no further player actions",
+    "main_form_grounded": true,
+    "campaign_in_three_weeks_grounded": true,
+    "doubled_volume_grounded": true,
+    "hard_limit_count": 2,
+    "testing_limit_exists_in_case": true,
+    "two_days_is_dialogue_offer_not_preestablished_exact_number": true,
+    "parallelization_is_explicitly_unknown_in_case": true
+  },
+  "call_counts": {
+    "case": 4,
+    "roleplayer": 6,
+    "judge": 1
+  },
+  "measured_live_api_cost_usd": 0.56298,
+  "roleplayer_latency_seconds": {
+    "min": 5.811,
+    "median": 7.58,
+    "max": 9.077
+  },
+  "stage_status": "PARTIAL LIVE TESTED; critical generator failure before scenario 2; scenario 3 NOT TESTED",
+  "diagnostic_retries": [
+    {
+      "response_id": "gen-1791983670-ygavPSYMODJRBx6HE0WW",
+      "actual_model": "anthropic/claude-opus-5.5",
+      "max_tokens": 32,
+      "seconds": 4.45,
+      "finish_reason": "length",
+      "reasoning_tokens": 32,
+      "visible_content_present": false,
+      "cost_usd": 0.000764
+    },
+    {
+      "response_id": "gen-1791983713-TT8iz1mOIDhXcULBrS4A",
+      "actual_model": "anthropic/claude-opus-5.5",
+      "max_tokens": 256,
+      "seconds": 5.33,
+      "finish_reason": "stop",
+      "reasoning_tokens": 45,
+      "visible_content_present": true,
+      "cost_usd": 0.001204
+    }
+  ],
+  "initial_diagnostic_cost": "not measured"
+}

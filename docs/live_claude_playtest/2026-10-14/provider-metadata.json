@@ -1,0 +1,398 @@
+[
+  {
+    "purpose": "case",
+    "seconds": 37.863,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791983831-eTqVIdgd1TkgCWfqS9TM",
+    "max_tokens": 3200,
+    "temperature": 0.65,
+    "messages_sha256": "ce59e76e0025017c8a622b79042d0aa9b123144f4b21b4382442050868cd187e",
+    "finish_reason": "length",
+    "content_length": 5519,
+    "usage": {
+      "prompt_tokens": 8116,
+      "completion_tokens": 3200,
+      "total_tokens": 11316,
+      "cost": 0.096464,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.096464,
+        "upstream_inference_prompt_cost": 0.032464,
+        "upstream_inference_completions_cost": 0.064
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 985,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "case",
+    "seconds": 26.805,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791983868-jaSH47ilWvyCQdpfBC1F",
+    "max_tokens": 3200,
+    "temperature": 0.65,
+    "messages_sha256": "5f4f33b5ebf78d7fa3ec840498a67d8fbf75c408bf7ee70dfb27e3a36e95299f",
+    "finish_reason": "stop",
+    "content_length": 4752,
+    "usage": {
+      "prompt_tokens": 8163,
+      "completion_tokens": 2199,
+      "total_tokens": 10362,
+      "cost": 0.076632,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.076632,
+        "upstream_inference_prompt_cost": 0.032652,
+        "upstream_inference_completions_cost": 0.04398
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 306,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 7.4,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791983923-BkQxPmoVOfLeHnBUO3ZU",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "e8a1bbfa0a0d187b0ed03b0f0608a06d213316556404add66f672bb55bbe6bd2",
+    "finish_reason": "stop",
+    "content_length": 330,
+    "usage": {
+      "prompt_tokens": 2259,
+      "completion_tokens": 338,
+      "total_tokens": 2597,
+      "cost": 0.015796,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.015796,
+        "upstream_inference_prompt_cost": 0.009036,
+        "upstream_inference_completions_cost": 0.00676
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 210,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 9.077,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791983970-PXZHpFGBGjWVga0AT5jd",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "22a23c25241b9cbdaf6c9cb193074cbecc19cf6937973e2dc053a40769765a19",
+    "finish_reason": "stop",
+    "content_length": 456,
+    "usage": {
+      "prompt_tokens": 2465,
+      "completion_tokens": 460,
+      "total_tokens": 2925,
+      "cost": 0.01906,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.01906,
+        "upstream_inference_prompt_cost": 0.00986,
+        "upstream_inference_completions_cost": 0.0092
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 269,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 7.899,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791983995-KOEptbmYi0Hdpa9qFObp",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "72788e43bf61c8233a5116edc66e98fbe1ea89177aec93776c90089ae8824bc2",
+    "finish_reason": "stop",
+    "content_length": 547,
+    "usage": {
+      "prompt_tokens": 2788,
+      "completion_tokens": 512,
+      "total_tokens": 3300,
+      "cost": 0.021392,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.021392,
+        "upstream_inference_prompt_cost": 0.011152,
+        "upstream_inference_completions_cost": 0.01024
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 291,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 7.158,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984033-m0FitoWY9aRWQmrntyVg",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "38a6129da013adba1195f1a961f45c33d4e9bbce7a017b03d785691a0b2e8e7d",
+    "finish_reason": "stop",
+    "content_length": 531,
+    "usage": {
+      "prompt_tokens": 3154,
+      "completion_tokens": 480,
+      "total_tokens": 3634,
+      "cost": 0.022216,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.022216,
+        "upstream_inference_prompt_cost": 0.012616,
+        "upstream_inference_completions_cost": 0.0096
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 257,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 7.76,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984067-CxdqbxQI0ecineQG95DK",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "a8b49656c124b886620581d4e2c7efb5f45192b6ea22c848572a6b16a9515959",
+    "finish_reason": "stop",
+    "content_length": 387,
+    "usage": {
+      "prompt_tokens": 3560,
+      "completion_tokens": 387,
+      "total_tokens": 3947,
+      "cost": 0.02198,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.02198,
+        "upstream_inference_prompt_cost": 0.01424,
+        "upstream_inference_completions_cost": 0.00774
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 233,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "roleplayer",
+    "seconds": 5.811,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984118-MQZGx6I8qNsFBXw1KKJa",
+    "max_tokens": 600,
+    "temperature": 0.75,
+    "messages_sha256": "f9fe93109f3b451e34eda3dad918bef77cbe33982edad08fde189182f8a533d8",
+    "finish_reason": "stop",
+    "content_length": 519,
+    "usage": {
+      "prompt_tokens": 3956,
+      "completion_tokens": 316,
+      "total_tokens": 4272,
+      "cost": 0.022144,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.022144,
+        "upstream_inference_prompt_cost": 0.015824,
+        "upstream_inference_completions_cost": 0.00632
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 109,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "judge",
+    "seconds": 21.442,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984157-jeTitYyosRaWXC3GIa31",
+    "max_tokens": 2500,
+    "temperature": 0.3,
+    "messages_sha256": "472a59cd503e19a0edc9d1b8b191d57e712489d1018f93d337678a3e1ba6bd65",
+    "finish_reason": "stop",
+    "content_length": 3261,
+    "usage": {
+      "prompt_tokens": 5816,
+      "completion_tokens": 1918,
+      "total_tokens": 7734,
+      "cost": 0.061624,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.061624,
+        "upstream_inference_prompt_cost": 0.023264,
+        "upstream_inference_completions_cost": 0.03836
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 605,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "case",
+    "seconds": 41.344,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984232-xz7atboBwXg8VIFbda4g",
+    "max_tokens": 3200,
+    "temperature": 0.65,
+    "messages_sha256": "c5a7d2a25a3387f3cada5f3b3a209920cb920b7b516190e0ae9eeb695a18a8a7",
+    "finish_reason": "length",
+    "content_length": 3939,
+    "usage": {
+      "prompt_tokens": 10263,
+      "completion_tokens": 3200,
+      "total_tokens": 13463,
+      "cost": 0.105052,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.105052,
+        "upstream_inference_prompt_cost": 0.041052,
+        "upstream_inference_completions_cost": 0.064
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1530,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "purpose": "case",
+    "seconds": 32.849,
+    "http_status": 200,
+    "requested_model": "anthropic/claude-opus-5.5",
+    "response_model": "anthropic/claude-opus-5.5",
+    "response_id": "gen-1791984274-lqdVoiw8IlmUGPdvS2Yo",
+    "max_tokens": 3200,
+    "temperature": 0.65,
+    "messages_sha256": "b23eba046edc918a59375857fa7738e625c05cf87cd5f7d907398be55a32ae11",
+    "finish_reason": "stop",
+    "content_length": 5304,
+    "usage": {
+      "prompt_tokens": 10310,
+      "completion_tokens": 2969,
+      "total_tokens": 13279,
+      "cost": 0.10062,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.10062,
+        "upstream_inference_prompt_cost": 0.04124,
+        "upstream_inference_completions_cost": 0.05938
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 760,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+]

@@ -1,5 +1,7 @@
 # Claude A: блокер входа в этап 1 — 14 октября 2026
 
+**Обновление после разрешённой повторной диагностики:** этот блокер снят. Подтверждено, что 32 токена целиком ушли на reasoning (`finish_reason=length`, пустой content); с лимитом 256 получен ответ «Соединение работает.» за 5,33 с. Исходная запись ниже сохраняется как история. Фактический частичный live результат и новый блокер генератора описаны в [LIVE_CLAUDE_PLAYTEST_REPORT.md](LIVE_CLAUDE_PLAYTEST_REPORT.md).
+
 **Статус: NOT TESTED — живые игры и Judge не запускались.** Это запись диагностики, не отчёт об успешном live playtest.
 
 Рабочая ветка `codex/design-audit-2026-10-13` обновлена fast-forward с `68cc4eb` до `34103efaa03eb363284be7f11895feb51a759b6e`. `main` не сливался. Прочитаны обе спецификации из `origin/main` на `9e063e8bedec92f0f9c5ed65d212afd28e8a2084`, задание после QA, прежнее задание живого теста и GitHub Issues [#2](https://github.com/decorum-guy/peregovori/issues/2), [#3](https://github.com/decorum-guy/peregovori/issues/3).
