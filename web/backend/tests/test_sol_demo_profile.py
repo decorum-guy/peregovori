@@ -37,7 +37,8 @@ def demo_settings(tmp_path):
     ("roleplayer", "openai/gpt-6.1-sol", "medium", False),
     ("judge", "openai/gpt-6-luna", "medium", False),
     ("diagnostic", "openai/gpt-6.1-sol", None, False),
-    ("roleplayer", "anthropic/claude-opus-5.5", "medium", True),
+    # The Sol demo profile must not apply its roleplayer effort to unrelated Opus calls.
+    ("roleplayer", "anthropic/claude-opus-5.5", None, True),
 ])
 def test_live_payload_exact_model_reasoning_and_temperature(tmp_path, monkeypatch, purpose, model, effort, expected_temperature):
     sent = []
@@ -63,6 +64,36 @@ def test_live_payload_exact_model_reasoning_and_temperature(tmp_path, monkeypatc
     assert ("temperature" in sent[0]) == expected_temperature
     assert sent[0].get("reasoning") == ({"effort": effort} if effort else None)
     assert ("response_format" in sent[0]) == (purpose in {"case", "judge"})
+
+
+def test_selected_opus_roleplayer_keeps_explicit_reasoning_effort(tmp_path, monkeypatch):
+    """Historical Opus route still receives its explicitly selected effort."""
+    sent = []
+
+    async def fake_request(_client, _method, _url, **kwargs):
+        sent.append(kwargs["json"])
+        return httpx.Response(200, json={
+            "choices": [{"finish_reason": "stop", "message": {"content": "OK."}}],
+        })
+
+    monkeypatch.setattr(httpx.AsyncClient, "request", fake_request)
+    settings = Settings(
+        openrouter_api_key="CPU_ONLY_FAKE",
+        llm_mode="openrouter",
+        premium_model="anthropic/claude-opus-5.5",
+        cloud_roleplayer_reasoning_effort="medium",
+    )
+    settings.validate()
+    actual = asyncio.run(OpenRouterProvider(settings).complete(
+        "anthropic/claude-opus-5.5",
+        [{"role": "user", "content": "Тест."}],
+        purpose="roleplayer",
+        max_tokens=1600,
+    ))
+    assert actual == "OK."
+    assert len(sent) == 1
+    assert sent[0]["reasoning"] == {"effort": "medium"}
+    assert "temperature" in sent[0]
 
 
 def test_legacy_opus_case_and_judge_have_no_reasoning_override(tmp_path, monkeypatch):
