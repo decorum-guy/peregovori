@@ -49,7 +49,7 @@ def main():
                     probe_sha256=hashlib.sha256(Path(a.probes).read_bytes()).hexdigest(),
                     decoding={"do_sample": False, "max_new_tokens": 192, "thinking": False},
                     adapter_weights_sha256=source["adapter_weights_sha256"])
-    if p and a.mode == "lora" and not expected["adapter_weights_sha256"]:
+    if a.mode == "lora" and not expected["adapter_weights_sha256"]:
         raise SystemExit("LoRA required for requested mode; baseline A has no adapter SHA")
     if a.mode == "base" and expected["adapter_weights_sha256"] is not None:
         raise SystemExit("BASE requested but archived A used a LoRA adapter")
