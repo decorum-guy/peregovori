@@ -388,3 +388,16 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Moderator is a separate UI control, never a dialogue turn. */
+.completion-hint { margin: 16px 0 22px; padding: 18px; border: 1px solid #d8dee7; border-left: 3px solid #ae432f; border-radius: 12px; background: #f5f6f8; color: #202b3e; }
+.completion-hint > strong { color: #243b5a; font-size: 13px; }
+.completion-hint p { margin: 8px 0 14px; line-height: 1.5; }
+.completion-hint-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.completion-hint-actions .button { min-height: 44px; }
+.done-card > .button { margin: 6px; }
+@media (max-width: 767px) {
+  .completion-hint-actions { flex-direction: column; }
+  .completion-hint-actions .button { width: 100%; }
+  .debrief-actions { flex-wrap: wrap; }
+}

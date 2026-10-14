@@ -99,11 +99,12 @@ class OpenRouterProvider:
             payload["temperature"] = temperature
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
-        if studied_gpt and purpose in {"roleplayer", "case", "judge"}:
+        if studied_gpt and purpose in {"roleplayer", "case", "judge", "completion"}:
             effort = {
                 "roleplayer": self.settings.cloud_roleplayer_reasoning_effort,
                 "case": self.settings.cloud_case_reasoning_effort,
                 "judge": self.settings.cloud_judge_reasoning_effort,
+                "completion": "low",
             }[purpose]
             if effort != "default":
                 payload["reasoning"] = {"effort": effort}
@@ -189,6 +190,9 @@ class MockProvider:
                     "I can agree to that condition. Let us confirm the next step.",
                 ]
             return responses[min(max(turn - 1, 0), len(responses) - 1)] + ((" I heard: \"%s\"." if english else " Я услышал: «%s».") % compact if compact else "")
+        if purpose == "completion":
+            return json.dumps({"status": "uncertain", "confidence": 0.0, "all_goals_met": False,
+                               "unresolved": ["Mock mode does not assess semantic achievement."], "evidence": []})
         if purpose == "judge":
             transcript = _extract_transcript(messages)
             quote = next((turn["text"] for turn in reversed(transcript) if turn["speaker"] == "player"), "")

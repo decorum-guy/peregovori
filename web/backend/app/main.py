@@ -6,12 +6,13 @@ from typing import Optional
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .config import WEB_DIR, Settings
 from .demo_guard import DemoGuard
-from .models import Language, MessageRequest, SessionOptions
+from .models import CompletionDismissRequest, Language, MessageRequest, SessionOptions
+from .pdf_export import export_filename, render_pdf
 from .providers import MockProvider, OpenRouterProvider
 from .service import DemoService, ServiceError
 from .storage import SessionStore
@@ -81,6 +82,20 @@ def create_app(
     @app.post("/api/sessions/{session_id}/message")
     async def send_message(session_id: str, message: MessageRequest):
         return await service.message(session_id, message.request_id, message.text)
+
+    @app.post("/api/sessions/{session_id}/completion-hint/dismiss")
+    async def dismiss_completion_hint(session_id: str, request: CompletionDismissRequest):
+        return service.dismiss_completion(session_id, request.reply_id)
+
+    @app.get("/api/sessions/{session_id}/export.pdf")
+    def export_session_pdf(session_id: str):
+        snapshot = service.snapshot(store.get(session_id))
+        if snapshot["status"] == "active":
+            raise ServiceError(409, "Сначала завершите игру.", "session_active")
+        return Response(render_pdf(snapshot), media_type="application/pdf", headers={
+            "Content-Disposition": 'attachment; filename="' + export_filename(snapshot) + '"',
+            "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff",
+        })
 
     @app.post("/api/sessions/{session_id}/finish")
     async def finish_session(session_id: str):

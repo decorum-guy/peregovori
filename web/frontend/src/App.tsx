@@ -1,5 +1,5 @@
 import { FormEvent, KeyboardEvent, SelectHTMLAttributes, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowDown, ArrowLeft, ArrowRight, Check, ChevronDown, CircleAlert, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, Check, ChevronDown, CircleAlert, Download, MessageCircle, RotateCcw, Send, Sparkles, X } from 'lucide-react'
 import { LineMark } from './BrandMark'
 import { Language, LanguageContext, LanguageSwitch, catalogUrl, errorText, preferredLanguage, rememberLanguage, sessionKey, settingsKey, useI18n } from './i18n'
 
@@ -73,6 +73,7 @@ export type Session = {
   provider_mode: 'openrouter' | 'test_mock' | 'unconfigured'
   source: 'openrouter' | 'accepted_train_fallback' | 'test_mock'
   messages: ChatMessage[]
+  completion_hint?: { reply_id: string; status: 'offered' | 'dismissed' | 'hidden' } | null
   debrief: Debrief | null
 }
 
@@ -201,7 +202,7 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
   const [draft, setDraft] = useState('')
   const [draftRequestId, setDraftRequestId] = useState('')
   const [error, setError] = useState('')
-  const [action, setAction] = useState<'starting' | 'sending' | 'finishing' | 'judging' | 'skipping' | null>(null)
+  const [action, setAction] = useState<'starting' | 'sending' | 'finishing' | 'judging' | 'skipping' | 'dismissing' | 'exporting' | null>(null)
   const [restoring, setRestoring] = useState(true)
   const [notice, setNotice] = useState('')
   const conversationRef = useRef<HTMLDivElement>(null)
@@ -285,7 +286,7 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
     } else {
       setHasNewMessage(true)
     }
-  }, [session?.messages.length, session?.status, action === 'sending'])
+  }, [session?.messages.length, session?.status, session?.completion_hint?.status, action === 'sending'])
 
   const currentEngine = useMemo(() => config?.engines.find((engine) => engine.id === settings.engine_id), [config, settings.engine_id])
 
@@ -456,6 +457,43 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
     }
   }
 
+  async function dismissCompletion() {
+    if (!session?.completion_hint || action) return
+    setAction('dismissing')
+    setError('')
+    try {
+      saveSession(await api<Session>(`/api/sessions/${session.id}/completion-hint/dismiss`, { reply_id: session.completion_hint.reply_id }))
+    } catch (err) {
+      setError(describeError(err, language))
+    } finally {
+      setAction(null)
+      window.setTimeout(() => document.querySelector<HTMLTextAreaElement>('.composer textarea')?.focus(), 0)
+    }
+  }
+
+  async function exportPdf() {
+    if (!session || action || session.status === 'active') return
+    setAction('exporting')
+    setError('')
+    try {
+      const response = await fetch(`/api/sessions/${session.id}/export.pdf`, { credentials: 'same-origin' })
+      if (!response.ok) throw new Error(t("Не удалось сохранить PDF. Попробуйте ещё раз."))
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `line-of-decision-${session.id.replace(/[^a-zA-Z0-9-]/g, '').slice(0, 40)}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.setTimeout(() => URL.revokeObjectURL(url), 60000)
+    } catch (err) {
+      setError(describeError(err, language))
+    } finally {
+      setAction(null)
+    }
+  }
+
   function playAgain() {
     localStorage.removeItem(SESSION_KEY)
     setSession(null)
@@ -503,6 +541,8 @@ function Application({ language, onLanguageChange }: { language: Language; onLan
           onSend={handleComposerSubmit}
           onKeyDown={handleComposerKey}
           onRetry={(message) => void sendMessage(message.text, message.request_id)}
+          onDismissCompletion={() => void dismissCompletion()}
+          onExport={() => void exportPdf()}
           onFinish={() => void finishGame()}
           onSkip={() => void skipDebrief()}
           onDebrief={() => void requestDebrief()}
@@ -625,7 +665,7 @@ export function SetupScreen({
           </button>
         </div>
       </form>
-      <footer className="concept-footer">{t("Линия решения")}{" "}<span />{" "}{t("Независимый концепт для демонстрации")}</footer>
+      <footer className="concept-footer">{t("Линия решения")}{" "}<span />{" "}{t("Независимый концепт")}</footer>
     </div>
   )
 }
@@ -633,7 +673,7 @@ export function SetupScreen({
 export function GameScreen({
   config, session, action, error, draft, setDraft, detailsOpen, setDetailsOpen, hasNewMessage, preview = false,
   onDraftEdited,
-  conversationRef, endRef, onConversationScroll, onSend, onKeyDown, onRetry, onFinish, onSkip, onDebrief, onPlayAgain, onClearError,
+  conversationRef, endRef, onConversationScroll, onSend, onKeyDown, onRetry, onFinish, onSkip, onDebrief, onPlayAgain, onClearError, onDismissCompletion, onExport,
 }: {
   config: AppConfig | null
   session: Session
@@ -652,6 +692,8 @@ export function GameScreen({
   onSend: (event: FormEvent) => void
   onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void
   onRetry: (message: ChatMessage) => void
+  onDismissCompletion?: () => void
+  onExport?: () => void
   onFinish: () => void
   onSkip: () => void
   onDebrief: () => void
@@ -664,6 +706,14 @@ export function GameScreen({
   const loraEnabled = config?.engines.find((engine) => engine.id === 'lora')?.enabled
   const showOffer = session.status === 'finished' && !session.debrief
   const showDone = session.status === 'finished_without_review'
+  const showCompletion = session.status === 'active' && session.completion_hint?.status === 'offered'
+    && session.messages[session.messages.length - 1]?.id === session.completion_hint.reply_id
+    && session.messages.every((message) => message.delivery_status === 'sent')
+    && (!action || action === 'dismissing')
+  const exportButton = <button className="button button-secondary" onClick={onExport} disabled={!!action || preview || !onExport}>
+    {action === 'exporting' ? <span className="spinner" /> : <Download size={17} aria-hidden="true" />}{" "}
+    {t(session.debrief ? "Сохранить в PDF" : "Сохранить кейс в PDF")}
+  </button>
   const summary = session.case
 
   return (
@@ -682,6 +732,7 @@ export function GameScreen({
         <CasePanel session={session} detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} />
 
         <section className="chat-panel" aria-label={t("Игровой чат")}>
+          {session.status !== 'active' && error && <div className="chat-error"><ErrorNotice message={error} onClose={onClearError} /></div>}
           {session.status === 'active' ? (
             <>
               <div className="chat-subheader"><div className="opponent-avatar" aria-hidden="true">{session.opponent.name.slice(0, 1)}</div><div><strong>{session.opponent.name}</strong><span>{session.opponent.role}</span></div><span className="chat-live"><i />{" "}{t("Диалог")}</span></div>
@@ -697,6 +748,14 @@ export function GameScreen({
                   </article>
                 ))}
                 {(action === 'sending' || session.messages.some((message) => message.speaker === 'player' && message.delivery_status === 'pending')) && <div className="typing-note" role="status"><span className="spinner spinner--small" />{" "}{t("Собеседник отвечает…")}</div>}
+                {showCompletion && <aside className="completion-hint" role="group" aria-labelledby="completion-moderator">
+                  <strong id="completion-moderator">{t("Модератор")}</strong>
+                  <p>{t("Кажется, вы достигли цели этого кейса. Хотите завершить диалог?")}</p>
+                  <div className="completion-hint-actions">
+                    <button className="button button-primary" onClick={onFinish} disabled={!!action}>{t("Да, завершить")}</button>
+                    <button className="button button-secondary" onClick={onDismissCompletion} disabled={!!action || !onDismissCompletion}>{t("Нет, продолжить")}</button>
+                  </div>
+                </aside>}
                 <div ref={endRef} />
               </div>
               {hasNewMessage && <button className="new-message-button" onClick={() => endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })}><ArrowDown size={15} />{" "}{t("Новое сообщение")}</button>}
@@ -713,23 +772,24 @@ export function GameScreen({
               <p className="eyebrow">{t("ДИАЛОГ ЗАВЕРШЁН")}</p>
               <h2>{t("Хотите получить разбор?")}</h2>
               <p>{t("Разбор опирается на реальные реплики и отмечает только то, что было видно в этом диалоге.")}</p>
-              {session.debrief_status === 'failed' && error && <ErrorNotice message={error} onClose={onClearError} />}
+
               <div className="final-actions">
                 <button className="button button-primary" onClick={onDebrief} disabled={!!action}>{action === 'judging' ? <><span className="spinner spinner--light" />{" "}{t("Разбираем диалог…")}</> : <>{t("Получить разбор")}{" "}<ArrowRight size={17} /></>}</button>
                 <button className="button button-secondary" onClick={onSkip} disabled={!!action}>{action === 'skipping' ? <><span className="spinner" />{" "}{t("Завершаем…")}</> : t("Завершить без оценки")}</button>
               </div>
+              {session.debrief_status === 'failed' && exportButton}
               <p className="final-footnote">{t("Учебные рекомендации независимого прототипа. Это не официальный балл.")}</p>
             </div>
           ) : session.debrief ? (
-            <DebriefView report={session.debrief} messages={session.messages} onPlayAgain={onPlayAgain} />
+            <DebriefView report={session.debrief} messages={session.messages} onPlayAgain={onPlayAgain} exportButton={exportButton} />
           ) : showDone ? (
-            <div className="final-card done-card"><div className="final-mark"><Check size={32} aria-hidden="true" /></div><p className="eyebrow">{t("ГОТОВО")}</p><h2>{t("Вы завершили диалог")}</h2><p>{t("Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.")}</p><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button></div>
+            <div className="final-card done-card"><div className="final-mark"><Check size={32} aria-hidden="true" /></div><p className="eyebrow">{t("ГОТОВО")}</p><h2>{t("Вы завершили диалог")}</h2><p>{t("Разбор не запрашивался. Если захотите продолжить, можно начать новую игру.")}</p>{exportButton}<button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button></div>
           ) : (
             <div className="final-card"><p>{t("Сессия закрыта.")}</p><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}</button></div>
           )}
         </section>
       </div>
-      <footer className="game-footer"><span>{t("Независимый концепт для демонстрации")}</span><span>{preview ? t("Пример интерфейса · синтетические данные") : <>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? t(" · тестовая симуляция") : ''}</>}</span></footer>
+      <footer className="game-footer"><span>{t("Независимый концепт")}</span><span>{preview ? t("Пример интерфейса · синтетические данные") : <>{session.engine.label || session.engine.model_id}{session.provider_mode === 'test_mock' ? t(" · тестовая симуляция") : ''}</>}</span></footer>
     </div>
   )
 }
@@ -762,7 +822,7 @@ function CasePanel({ session, detailsOpen, setDetailsOpen }: { session: Session;
   )
 }
 
-function DebriefView({ report, messages, onPlayAgain }: { report: Debrief; messages: ChatMessage[]; onPlayAgain: () => void }) {
+function DebriefView({ report, messages, onPlayAgain, exportButton }: { report: Debrief; messages: ChatMessage[]; onPlayAgain: () => void; exportButton?: React.ReactNode }) {
   const { t } = useI18n()
   const [showHistory, setShowHistory] = useState(false)
   const quotes = [...report.strengths, ...report.risks].map((point) => point.quote)
@@ -777,7 +837,7 @@ function DebriefView({ report, messages, onPlayAgain }: { report: Debrief; messa
         {report.risks.length > 0 && <section className="debrief-section"><h3>{t("Что можно изменить")}</h3><div className="evidence-list">{report.risks.map((point, index) => <EvidencePoint key={`r-${index}`} point={point} kind="risk" />)}</div></section>}
         <section className="debrief-section next-step-section"><h3>{t("Следующий ход")}</h3><p>{report.next_step}</p>{report.example_phrase && <blockquote><span>{t("Пример формулировки")}</span>{report.example_phrase}</blockquote>}</section>
         {evidenceMessages.length > 0 && <details className="history-details" open={showHistory} onToggle={(event) => setShowHistory(event.currentTarget.open)}><summary>{t("Посмотреть реплики из разбора")}{" "}<ChevronDown size={16} /></summary><div>{evidenceMessages.map((message) => <p className="history-quote" key={message.id}>{message.text}</p>)}</div></details>}
-        <div className="debrief-actions"><button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button><span>{t("Раннее завершение не считается провалом.")}</span></div>
+        <div className="debrief-actions">{exportButton}<button className="button button-primary" onClick={onPlayAgain}>{t("Сыграть ещё")}{" "}<ArrowRight size={17} /></button><span>{t("Раннее завершение не считается провалом.")}</span></div>
       </div>
     </div>
   )

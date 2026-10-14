@@ -71,7 +71,7 @@ class UsageLedger:
         reasoning = _count(details.get("reasoning_tokens"))
         cost = usage.get("cost")
         cost = float(cost) if type(cost) in (int, float) and math.isfinite(cost) and cost >= 0 else None
-        category = {"case": "Generator", "roleplayer": "Roleplayer", "judge": "Judge", "diagnostic": "Diagnostic"}.get(purpose, "Other")
+        category = {"case": "Generator", "roleplayer": "Roleplayer", "judge": "Judge", "diagnostic": "Diagnostic", "completion": "Completion"}.get(purpose, "Other")
         scenario = scope.get("scenario")
         if scenario not in {"conflict_only", "negotiation_only", "conflict_then_negotiation"}:
             scenario = None

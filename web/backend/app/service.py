@@ -13,6 +13,7 @@ import httpx
 from pydantic import ValidationError
 
 from .config import REPO_DIR, Settings
+from .completion import CompletionResult, completion_messages, confirmed_achievement
 from .models import DebriefReport, Language, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
@@ -242,7 +243,7 @@ class DemoService:
                 {"id": "lora", "label": qwen_label(self._lora_identity.get("base_model", ""), language), "enabled": lora_available, "reason": lora_reason,
                  "status": "available" if lora_available else "unavailable"},
             ],
-            "notice": "Independent demo concept" if language == "en" else "Независимый концепт для демонстрации",
+            "notice": "Independent concept" if language == "en" else "Независимый концепт",
         }
 
     async def create_session(self, options: SessionOptions) -> Dict[str, Any]:
@@ -396,6 +397,7 @@ class DemoService:
             "created_at": session["created_at"],
             "status": session["status"],
             "debrief_status": session["debrief_status"],
+            "completion_hint": self._safe_completion_hint(session),
             "settings": {
                 "language": session["settings"].get("language", "ru"),
                 "scenario": session["settings"]["scenario"],
@@ -428,6 +430,50 @@ class DemoService:
             "messages": messages,
             "debrief": self._safe_debrief(session["debrief"]) if session["debrief"] else None,
         }
+
+    @staticmethod
+    def _safe_completion_hint(session):
+        hint = session.get("completion_hint")
+        if not hint:
+            return None
+        messages = session["messages"]
+        visible = (session["status"] == "active" and hint["status"] == "offered"
+                   and messages[-1]["id"] == hint["reply_id"]
+                   and all(m.get("delivery_status", "sent") == "sent" for m in messages))
+        return {"reply_id": hint["reply_id"], "status": hint["status"] if visible or hint["status"] == "dismissed" else "hidden"}
+
+    async def _check_completion(self, session_id, reply_id):
+        if not self.settings.completion_enabled:
+            return
+        session = self.store.get(session_id)
+        if not session or session["engine_id"] != "premium" or session["provider_mode"] == "unconfigured":
+            return
+        snapshot = self.snapshot(session)
+        # Keep the full transcript or abstain; truncation could hide a contradiction.
+        prompts = completion_messages(snapshot)
+        if len(prompts[-1]["content"]) > self.settings.completion_max_input_chars:
+            return
+        if not self.store.reserve_completion(session_id, reply_id, min_turns=self.settings.completion_min_turns,
+                                             cooldown=self.settings.completion_cooldown_turns,
+                                             max_checks=self.settings.completion_max_checks):
+            return
+        achieved = False
+        try:
+            with usage_scope(session_id, "completion/" + reply_id, session["settings"]["scenario"]):
+                raw = await asyncio.wait_for(self.provider.complete(
+                    self.settings.completion_model or self.settings.premium_model, prompts,
+                    purpose="completion", json_mode=True, max_tokens=self.settings.completion_max_tokens,
+                    temperature=0.0), timeout=self.settings.completion_timeout_seconds)
+            result = CompletionResult.model_validate_json(raw)
+            achieved = confirmed_achievement(result, snapshot)
+        except Exception as exc:
+            # No provider content or private facts in logs; never fail a delivered turn.
+            logger.info("completion abstained session=%s type=%s", session_id, type(exc).__name__)
+        finally:
+            self.store.complete_completion(session_id, reply_id, achieved)
+
+    def dismiss_completion(self, session_id, reply_id):
+        return self.snapshot(self.store.dismiss_completion(session_id, reply_id))
 
     @staticmethod
     def _safe_debrief(report: Dict[str, Any]) -> Dict[str, Any]:
@@ -479,8 +525,13 @@ class DemoService:
                     pass
             if not reply or len(reply) > 3500 or "<think>" in reply.lower() or _hidden_leak(reply, session["runtime_case"]):
                 raise ProviderError("Ответ содержал закрытые данные или не прошёл формат проверки. Попробуйте ещё раз.", "unsafe_roleplay_response")
-            result = self.store.complete_message(session_id, request_id, reply)
-            return self.snapshot(result)
+            self.store.complete_message(session_id, request_id, reply)
+            # Detector failure must never turn a successfully delivered reply into a retry.
+            try:
+                await self._check_completion(session_id, request_id + "-reply")
+            except Exception as exc:
+                logger.info("completion unavailable type=%s", type(exc).__name__)
+            return self.snapshot(self.store.get(session_id))
         except ProviderError as exc:
             self.store.fail_message(session_id, request_id)
             safe_message = {

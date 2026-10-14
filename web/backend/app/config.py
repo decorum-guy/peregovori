@@ -48,6 +48,16 @@ class Settings:
     cloud_judge_reasoning_effort: str = "default"
     cloud_roleplayer_style: str = "original"
 
+    # Empty model inherits the explicitly configured roleplayer, never the opt-in Judge.
+    completion_enabled: bool = True
+    completion_model: str = ""
+    completion_min_turns: int = 3
+    completion_cooldown_turns: int = 3
+    completion_max_checks: int = 4
+    completion_max_input_chars: int = 24000
+    completion_max_tokens: int = 800
+    completion_timeout_seconds: float = 8.0
+
     @classmethod
     def from_env(cls) -> "Settings":
         database_path = Path(_env("DATABASE_PATH", str(WEB_DIR / "data" / "sessions.sqlite3")))
@@ -74,6 +84,14 @@ class Settings:
             cloud_case_reasoning_effort=_env("CLOUD_CASE_REASONING_EFFORT", "default").lower(),
             cloud_judge_max_tokens=_integer_env("CLOUD_JUDGE_MAX_TOKENS", "2500"),
             cloud_judge_reasoning_effort=_env("CLOUD_JUDGE_REASONING_EFFORT", "default").lower(),
+            completion_enabled=_env("COMPLETION_ENABLED", "true").lower() == "true",
+            completion_model=_env("COMPLETION_MODEL", ""),
+            completion_min_turns=_integer_env("COMPLETION_MIN_TURNS", "3"),
+            completion_cooldown_turns=_integer_env("COMPLETION_COOLDOWN_TURNS", "3"),
+            completion_max_checks=_integer_env("COMPLETION_MAX_CHECKS", "4"),
+            completion_max_input_chars=_integer_env("COMPLETION_MAX_INPUT_CHARS", "24000"),
+            completion_max_tokens=_integer_env("COMPLETION_MAX_TOKENS", "800"),
+            completion_timeout_seconds=float(_env("COMPLETION_TIMEOUT_SECONDS", "8")),
             cloud_roleplayer_style=_env("CLOUD_ROLEPLAYER_STYLE", "original").lower(),
         )
 
@@ -121,3 +139,19 @@ class Settings:
             raise ValueError("CLOUD_CASE_REASONING_EFFORT must be low, medium, high or default.")
         if self.cloud_judge_reasoning_effort not in {"low", "medium", "high", "default"}:
             raise ValueError("CLOUD_JUDGE_REASONING_EFFORT must be low, medium, high or default.")
+
+        if self.completion_model and not self.completion_model.startswith(("anthropic/claude-", "openai/gpt-")):
+            raise ValueError("COMPLETION_MODEL must be a Claude or GPT model.")
+        if self.completion_enabled and (self.completion_model or self.premium_model).lower().startswith("openai/gpt-6-luna"):
+            raise ValueError("The opt-in Luna model cannot be used for automatic completion checks.")
+        for name, value, low, high in (
+            ("COMPLETION_MIN_TURNS", self.completion_min_turns, 3, 20),
+            ("COMPLETION_COOLDOWN_TURNS", self.completion_cooldown_turns, 2, 20),
+            ("COMPLETION_MAX_CHECKS", self.completion_max_checks, 1, 10),
+            ("COMPLETION_MAX_INPUT_CHARS", self.completion_max_input_chars, 1000, 60000),
+            ("COMPLETION_MAX_TOKENS", self.completion_max_tokens, 400, 1600),
+        ):
+            if type(value) is not int or not low <= value <= high:
+                raise ValueError("%s is outside its safe bounds." % name)
+        if not 1 <= self.completion_timeout_seconds <= 15:
+            raise ValueError("COMPLETION_TIMEOUT_SECONDS must be between 1 and 15.")

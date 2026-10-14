@@ -66,10 +66,23 @@ class SessionStore:
                     created_at TEXT NOT NULL,
                     PRIMARY KEY (session_id, request_id)
                 );
+                CREATE TABLE IF NOT EXISTS completion_checks (
+                    session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+                    reply_id TEXT NOT NULL,
+                    turn INTEGER NOT NULL,
+                    status TEXT NOT NULL DEFAULT 'pending',
+                    PRIMARY KEY (session_id, reply_id)
+                );
+                CREATE TABLE IF NOT EXISTS completion_hints (
+                    session_id TEXT PRIMARY KEY REFERENCES sessions(id) ON DELETE CASCADE,
+                    reply_id TEXT NOT NULL,
+                    status TEXT NOT NULL DEFAULT 'offered'
+                );
                 CREATE INDEX IF NOT EXISTS message_requests_status_idx
                     ON message_requests(session_id, status);
                 """
             )
+            connection.execute("UPDATE completion_checks SET status = 'interrupted' WHERE status = 'pending'")
             # A process restart means no request handler is still able to finish these turns.
             # Preserve the player's message and allow a same-request-id retry after refresh.
             interrupted = connection.execute(
@@ -121,7 +134,13 @@ class SessionStore:
     def get(self, session_id: str) -> Optional[Dict[str, Any]]:
         with self._connection() as connection:
             row = connection.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
-        return self._row_to_dict(row) if row else None
+        if not row:
+            return None
+        session = self._row_to_dict(row)
+        with self._connection() as connection:
+            hint = connection.execute("SELECT reply_id, status FROM completion_hints WHERE session_id = ?", (session_id,)).fetchone()
+        session["completion_hint"] = dict(hint) if hint else None
+        return session
 
     def reserve_message(self, session_id: str, request_id: str, text: str) -> Tuple[str, Optional[Dict[str, Any]]]:
         with self._connection() as connection:
@@ -144,7 +163,7 @@ class SessionStore:
                     return "request_id_conflict", session
                 if existing["status"] == "complete":
                     connection.rollback()
-                    return "complete", session
+                    return "complete", self.get(session_id)
                 if existing["status"] == "pending":
                     connection.rollback()
                     return "pending", session
@@ -171,6 +190,7 @@ class SessionStore:
             if pending or failed:
                 connection.rollback()
                 return "another_request_pending", session
+            connection.execute("UPDATE completion_hints SET status = 'dismissed' WHERE session_id = ?", (session_id,))
             message_id = request_id
             created_at = now_iso()
             messages = session["messages"]
@@ -252,6 +272,51 @@ class SessionStore:
                 connection.rollback()
         return self.get(session_id)
 
+    def reserve_completion(self, session_id: str, reply_id: str, *, min_turns: int,
+                           cooldown: int, max_checks: int) -> bool:
+        """Durable reservation: count errors/restarts too; no second paid attempt."""
+        with self._connection() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            row = connection.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
+            if not row:
+                return False
+            session = self._row_to_dict(row)
+            messages = session["messages"]
+            if (session["status"] != "active" or not messages or messages[-1]["id"] != reply_id
+                    or messages[-1]["speaker"] != "opponent"
+                    or any(m.get("delivery_status", "sent") != "sent" for m in messages)
+                    or connection.execute("SELECT 1 FROM completion_hints WHERE session_id = ?", (session_id,)).fetchone()):
+                return False
+            turns = sum(m["speaker"] == "player" for m in messages)
+            checks = connection.execute("SELECT reply_id, turn, status FROM completion_checks WHERE session_id = ?", (session_id,)).fetchall()
+            if (turns < min_turns or len(checks) >= max_checks
+                    or any(c["reply_id"] == reply_id or c["status"] == "pending" for c in checks)
+                    or (checks and turns - max(c["turn"] for c in checks) < cooldown)):
+                return False
+            connection.execute("INSERT INTO completion_checks (session_id, reply_id, turn) VALUES (?, ?, ?)",
+                               (session_id, reply_id, turns))
+            connection.commit()
+            return True
+
+    def complete_completion(self, session_id: str, reply_id: str, achieved: bool) -> None:
+        with self._connection() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            updated = connection.execute("UPDATE completion_checks SET status = ? WHERE session_id = ? AND reply_id = ? AND status = 'pending'",
+                                         ("achieved" if achieved else "no_hint", session_id, reply_id)).rowcount
+            row = connection.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
+            if updated and achieved and row:
+                session = self._row_to_dict(row)
+                messages = session["messages"]
+                if (session["status"] == "active" and messages[-1]["id"] == reply_id
+                        and all(m.get("delivery_status", "sent") == "sent" for m in messages)):
+                    connection.execute("INSERT OR IGNORE INTO completion_hints (session_id, reply_id) VALUES (?, ?)", (session_id, reply_id))
+            connection.commit()
+
+    def dismiss_completion(self, session_id: str, reply_id: str) -> Optional[Dict[str, Any]]:
+        with self._connection() as connection:
+            connection.execute("UPDATE completion_hints SET status = 'dismissed' WHERE session_id = ? AND reply_id = ?", (session_id, reply_id))
+        return self.get(session_id)
+
     def finish(self, session_id: str) -> Optional[Dict[str, Any]]:
         with self._connection() as connection:
             connection.execute("BEGIN IMMEDIATE")
@@ -309,7 +374,7 @@ class SessionStore:
                 return "active", session
             if session["debrief"] is not None:
                 connection.rollback()
-                return "complete", session
+                return "complete", self.get(session_id)
             if session["debrief_status"] == "pending":
                 connection.rollback()
                 return "pending", session

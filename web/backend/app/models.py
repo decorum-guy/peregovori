@@ -164,6 +164,10 @@ class MessageRequest(StrictModel):
         return value.strip()
 
 
+class CompletionDismissRequest(StrictModel):
+    reply_id: StrictStr = Field(min_length=1, max_length=100)
+
+
 class DebriefPoint(StrictModel):
     quote: StrictStr = Field(min_length=1, max_length=1200)
     explanation: StrictStr = Field(min_length=1, max_length=1200)
