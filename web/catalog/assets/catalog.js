@@ -1,7 +1,7 @@
 (() => {
   const copy = {
-    ru: { title: 'Игры', subtitle: 'Выбери игру', initial: 'Л', name: 'Линия решения', description: 'Тренажёр конфликтов и переговоров с живым диалогом', play: 'Играть →' },
-    en: { title: 'Games', subtitle: 'Choose a game', initial: 'L', name: 'Line of Decision', description: 'Conflict and negotiation practice with a live dialogue', play: 'Play →' },
+    ru: { title: 'Игры', subtitle: 'Выбери игру', initial: 'Л', name: 'Линия решения', description: 'Тренажёр конфликтов и переговоров с живым диалогом', play: 'Играть →', demo: 'Демо-версия' },
+    en: { title: 'Games', subtitle: 'Choose a game', initial: 'L', name: 'Line of Decision', description: 'Conflict and negotiation practice with a live dialogue', play: 'Play →', demo: 'Demo version' },
   }
   function selectLanguage(lang) {
       if (!Object.hasOwn(copy, lang)) return
