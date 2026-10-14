@@ -57,15 +57,17 @@ LLM_TIMEOUT_SECONDS=120
 
 ## 4. Купленный домен и подруга — ещё НЕ подключены
 
-Владелец сообщил, что **купил домен**, но его конкретное **имя/регистратор/текущие NS/DNS НЕ известны** из этой переписки и прошлых сообщений. **Первый вопрос следующего чата о публикации: «Какой именно домен ты купил и где им управляешь?»** Предпочитать поддомен `game.<его-домен>`, если он согласен. Не путать с давним доменом Home Assistant; тот относится к другому проекту.
+**НОВОЕ ПОДТВЕРЖДЕНИЕ ВЛАДЕЛЬЦА:** куплен домен **`softskills.fun`** у регистратора **REG.RU**, выбран внешний адрес **`https://softskills.fun/games`** (игра: **`https://softskills.fun/games/line-decision`**), то есть **apex/root domain**, а НЕ прежнее предложение `softskills.fun`. Написание `softkills.fun` было опечаткой. Пошаговая доменная инструкция теперь в [DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md](DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md).
+
+**По состоянию на это обновление публичный DNS, Cloudflare Tunnel, внешний HTTPS и доступ подруги ещё не проверены.** Следующая операция — сверить NS/DNS в REG.RU, добавить и активировать Cloudflare-зону (сохранив текущие записи), затем настроить named tunnel на `softskills.fun`. Не заявлять о деплое до проверки извне.
 
 Архитектура: приложение остаётся **Mac localhost 127.0.0.1:8000** + SQLite + API OpenRouter за Mac proxy; внешний TLS выполняет туннель. Уже есть `deploy/cloudflared.demo.example.yml`, `scripts/start_domain_demo.sh`, `scripts/test_cloudflare.py`, `web/README_DEMO.md` с командами. Именованный Cloudflare Tunnel и DNS пока не настроены/не верифицированы; во время будущего показа Mac, HTTP proxy, FastAPI и tunnel должны работать, Mac не должен засыпать. **Не открывать 18080/8001/Qwen GPU в интернет**.
 
 Путь (после получения настоящего hostname и владельческих действий):
 1. Если DNS-зона не на Cloudflare — добавить домен в аккаунт Cloudflare и корректно настроить DNS/NS у регистратора, дождаться делегирования. Установить официальный `cloudflared` на Mac.
 2. Тест `python scripts/test_cloudflare.py --start` (и `--proxy` при необходимости). Cloudflare может быть недоступен в российской сети; API через прокси не доказывает tunnel edge, нужна фактическая проверка.
-3. `cloudflared tunnel login`, `cloudflared tunnel create line-decision-demo`, `cloudflared tunnel route dns line-decision-demo game.<реальный-домен>`; сохранить UUID/credentials локально, НЕ в Git.
-4. `cp deploy/cloudflared.demo.example.yml web/cloudflared.local.yml` и подставить hostname, UUID, путь к credential JSON. `bash scripts/start_domain_demo.sh web/cloudflared.local.yml --check`; после запуска `bash scripts/start_demo_mac.sh` в другом терминале `bash scripts/start_domain_demo.sh`. Доступ должен быть вида `https://game.<реальный-домен>/games`; проверить тот же origin и для API.
+3. `cloudflared tunnel login`, `cloudflared tunnel create line-decision-demo`, `cloudflared tunnel route dns line-decision-demo softskills.fun`; сохранить UUID/credentials локально, НЕ в Git.
+4. `cp deploy/cloudflared.demo.example.yml web/cloudflared.local.yml` и подставить hostname, UUID, путь к credential JSON. `bash scripts/start_domain_demo.sh web/cloudflared.local.yml --check`; после запуска `bash scripts/start_demo_mac.sh` в другом терминале `bash scripts/start_domain_demo.sh`. Доступ должен быть вида `https://softskills.fun/games`; проверить тот же origin и для API.
 5. До публикации задать длинный `DEMO_ACCESS_CODE` в ignored `web/.env` и перезапустить backend. HTTP Basic username **demo**, пароль — `DEMO_ACCESS_CODE`. Не передавать пароль в Git/публичных чатах, только отдельно подруге. Проверь неправильный пароль→401, корректный→200, HTTPS и отсутствие утечки secret; current lightweight 5-min global limit 8 cases / 80 turns / 8 Judges при включённом code. Это не отдельные учётные записи и не полноценная production-модель auth.
 6. Проверить публичную ссылку с телефона/сети подруги, **особенно из России без VPN**, actual 6-turn game либо как минимум успешный вход/начало игры. Если Cloudflare edge реально блокируется, не тратить часы на попытки — проверить HTTPS fallback (например, заранее настроенный ngrok) либо другой доступный туннель/сервер с outbound-прокси, сохранив Backend на Mac и HTTPS. НЕ объявлять ссылку работающей, пока реальное устройство не открыло её.
 
@@ -80,5 +82,7 @@ LLM_TIMEOUT_SECONDS=120
 ## 6. Done и закрытие Issue #11
 
 Закрывать [Issue #11](https://github.com/decorum-guy/peregovori/issues/11) **только после**: backend/tests/build success; профиль в локальном действительном .env реально распознан; личная оплаченная Sol/Sol/Luna игра владельца и добровольный Luna Judge подтверждены; купленный домен подключён к HTTPS tunnel и публично открывается подруге с защищённым доступом; зафиксированы фактический URL, расходы/ошибки и актуальный commit SHA. Если домен/сетевой доступ блокируется — оставить issue открытым и отметить точное препятствие. Исследовательские Issues #2/#5 не закрывать этим action.
+
+**Доменная настройка:** [DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md](DOMAIN_SOFTSKILLS_FUN_SETUP_2026-10-14.md). Приоритет: apex `softskills.fun`, каталог `/games`; не генерировать поддомен `game` без отдельного согласия.
 
 **Ключевые исходные GitHub refs:** `b050f54` Mac-opt-in QA; `c6a8013` отчёт двух раундов; `b362c08` freeze. Следи за новым HEAD.
