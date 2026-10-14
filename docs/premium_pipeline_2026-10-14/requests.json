@@ -1,0 +1,4191 @@
+[
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "smoke-case-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b3f62fe7-6564-4944-b655-08b145f6a734",
+    "cost_usd": 0.034248,
+    "status": "accepted",
+    "upper_cost_usd": "0.13869680",
+    "spent_before_usd": "0",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 9394,
+    "completion_tokens": 1546,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 12.793,
+    "finish_reason": "stop",
+    "visible_tokens": 1546,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "generated_case_sha256": "f06bf5d77884a3c24ee6fe71951cf22f6571fd95efdae96f5a3326e1bd705ee9"
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "smoke-roleplayer-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "11dc9b01-8edb-4171-9831-5004995e0832",
+    "cost_usd": 0.007694,
+    "status": "accepted",
+    "upper_cost_usd": "0.04318820",
+    "spent_before_usd": "0.034248",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2452,
+    "completion_tokens": 279,
+    "reasoning_tokens": 134,
+    "cached_tokens": 0,
+    "duration_seconds": 5.496,
+    "finish_reason": "stop",
+    "visible_tokens": 145,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "smoke-judge-1",
+    "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b36c714f-fc17-4aaa-b96a-608d0dc6df86",
+    "cost_usd": 0.021722,
+    "status": "accepted",
+    "upper_cost_usd": "0.09408080",
+    "spent_before_usd": "0.041942",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 5816,
+    "completion_tokens": 1009,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 7.9,
+    "finish_reason": "stop",
+    "visible_tokens": 1009,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "smoke-case-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "c4aa5113-242d-45d9-a26f-e63f682811ab",
+    "cost_usd": 0.032601,
+    "status": "accepted",
+    "upper_cost_usd": "0.13869680",
+    "spent_before_usd": "0.063664",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 5873,
+    "completion_tokens": 1792,
+    "reasoning_tokens": 325,
+    "cached_tokens": 0,
+    "duration_seconds": 40.13,
+    "finish_reason": "stop",
+    "visible_tokens": 1467,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "generated_case_sha256": "7d34fb3f268195da64189eaa9633ae7eae221aac2731b13b3ecd5a36afddb354"
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "smoke-roleplayer-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "0fc50aa3-e018-4ab6-aa0f-92e393e847e7",
+    "cost_usd": 0.004546,
+    "status": "accepted",
+    "upper_cost_usd": "0.04318820",
+    "spent_before_usd": "0.096265",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1607,
+    "completion_tokens": 53,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 4.069,
+    "finish_reason": "stop",
+    "visible_tokens": 53,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "smoke-judge-1",
+    "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "e84a083a-f52b-489d-8d1f-d8c0bf41f111",
+    "cost_usd": 0.0187535,
+    "status": "accepted",
+    "upper_cost_usd": "0.09408080",
+    "spent_before_usd": "0.100811",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 3706,
+    "completion_tokens": 949,
+    "reasoning_tokens": 237,
+    "cached_tokens": 0,
+    "duration_seconds": 19.992,
+    "finish_reason": "stop",
+    "visible_tokens": 712,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "case",
+    "scenario": "negotiation_only",
+    "label": "smoke-case-1",
+    "prompt_sha256": "54ad1332530a5edd4d02b3537c20126bcecb325c9b891d4e6783b83f0a983577",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8ecf674e-5400-49c5-a8f2-2e51d6bd4d12",
+    "cost_usd": 0.00196555,
+    "status": "accepted",
+    "upper_cost_usd": "0.006934840",
+    "spent_before_usd": "0.1195645",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 5873,
+    "completion_tokens": 2463,
+    "reasoning_tokens": 1341,
+    "cached_tokens": 0,
+    "duration_seconds": 30.973,
+    "finish_reason": "stop",
+    "visible_tokens": 1122,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "generated_case_sha256": "7fae5712eb3c6eb9afdab4bbea9b79b41688b412c0620daa3c5aba6cc5f2b114"
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "smoke-roleplayer-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b5442a0c-7547-41ed-8e2e-6815feb52b1a",
+    "cost_usd": 0.0002703,
+    "status": "accepted",
+    "upper_cost_usd": "0.002159410",
+    "spent_before_usd": "0.12153005",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1607,
+    "completion_tokens": 139,
+    "reasoning_tokens": 74,
+    "cached_tokens": 0,
+    "duration_seconds": 3.295,
+    "finish_reason": "stop",
+    "visible_tokens": 65,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "smoke-judge-1",
+    "prompt_sha256": "0662d3e6cfa6a3579eeac455fbe8fd87b8f5c33d5f1aac955c73fef0ccc86ac4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "e96ffd83-b3db-4c8c-82c1-c5d6171d28e5",
+    "cost_usd": 0.001395175,
+    "status": "accepted",
+    "upper_cost_usd": "0.004704040",
+    "spent_before_usd": "0.12180035",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 3706,
+    "completion_tokens": 1864,
+    "reasoning_tokens": 1307,
+    "cached_tokens": 0,
+    "duration_seconds": 23.414,
+    "finish_reason": "stop",
+    "visible_tokens": 557,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "generator-conflict_only",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a757d0f9-da0e-41fd-9bf3-f2d971d57a13",
+    "cost_usd": 0.036492,
+    "status": "accepted",
+    "upper_cost_usd": "0.15474140",
+    "spent_before_usd": "0.123195525",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 11541,
+    "completion_tokens": 1341,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 12.171,
+    "finish_reason": "stop",
+    "visible_tokens": 1341,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "generated_case_sha256": "d9fced022407ae473fc9ea86bd005d6759e2bf62c00163dd3bcead62196f0519"
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "case",
+    "scenario": "conflict_then_negotiation",
+    "label": "generator-conflict_then_negotiation",
+    "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "62f01a5d-8b6f-47a0-b24b-cec03e39ac76",
+    "cost_usd": 0.037942,
+    "status": "accepted",
+    "upper_cost_usd": "0.15476120",
+    "spent_before_usd": "0.159687525",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 11546,
+    "completion_tokens": 1485,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 12.365,
+    "finish_reason": "stop",
+    "visible_tokens": 1485,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "generated_case_sha256": "734e59651dbc4e235db609d172900365e53e95651f183d75666498b1236eb9c7"
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "generator-conflict_only",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "c1bfb1e0-f5b4-4a51-bbfa-eb891798f941",
+    "cost_usd": 0.0326485,
+    "status": "accepted",
+    "upper_cost_usd": "0.15474140",
+    "spent_before_usd": "0.197629525",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 7280,
+    "completion_tokens": 1445,
+    "reasoning_tokens": 81,
+    "cached_tokens": 0,
+    "duration_seconds": 31.899,
+    "finish_reason": "stop",
+    "visible_tokens": 1364,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "generated_case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5"
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "case",
+    "scenario": "conflict_then_negotiation",
+    "label": "generator-conflict_then_negotiation",
+    "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "7f302a1f-54ad-4015-a840-94123c4d60d5",
+    "cost_usd": 0.033526,
+    "status": "accepted",
+    "upper_cost_usd": "0.15476120",
+    "spent_before_usd": "0.230278025",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 7283,
+    "completion_tokens": 1532,
+    "reasoning_tokens": 115,
+    "cached_tokens": 0,
+    "duration_seconds": 34.85,
+    "finish_reason": "stop",
+    "visible_tokens": 1417,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "generated_case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9"
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "case",
+    "scenario": "conflict_only",
+    "label": "generator-conflict_only",
+    "prompt_sha256": "f68e5bb90121506fe176203b220e6937d45704223362fc2e8d91cfa30928f212",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "eaa49b9a-563e-47eb-81eb-2f503e987242",
+    "cost_usd": 0.002354925,
+    "status": "accepted",
+    "upper_cost_usd": "0.007737070",
+    "spent_before_usd": "0.263804025",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 7280,
+    "completion_tokens": 2890,
+    "reasoning_tokens": 1763,
+    "cached_tokens": 0,
+    "duration_seconds": 33.159,
+    "finish_reason": "stop",
+    "visible_tokens": 1127,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "generated_case_sha256": "302586ce48fd419e0278067b060f99c1384f8ee40f4759b38d1737ed82476060"
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "case",
+    "scenario": "conflict_then_negotiation",
+    "label": "generator-conflict_then_negotiation",
+    "prompt_sha256": "37b5f4092d54edc1e71e9b3f2c5e1fc0963491c5ed48929fba3447468c2c59bd",
+    "case_sha256": null,
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6ed96c6d-5fb4-47fe-80f8-ce987a0b7118",
+    "cost_usd": 0.0022263,
+    "status": "accepted",
+    "upper_cost_usd": "0.007738060",
+    "spent_before_usd": "0.266158950",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 7283,
+    "completion_tokens": 2632,
+    "reasoning_tokens": 1295,
+    "cached_tokens": 0,
+    "duration_seconds": 28.044,
+    "finish_reason": "stop",
+    "visible_tokens": 1337,
+    "validation_error": null,
+    "stage_direction_count": null,
+    "initial_source_options_case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "generated_case_sha256": "38e8ba1e0f7f9d885a3829b92651075cefc4dd02c39c2b9c00b58a595b1f7faa"
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "66c85c19-0e9c-46c6-8e74-3987e51f0563",
+    "cost_usd": 0.015996,
+    "status": "accepted",
+    "upper_cost_usd": "0.14260400",
+    "spent_before_usd": "0.268385250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2639,
+    "completion_tokens": 272,
+    "reasoning_tokens": 96,
+    "cached_tokens": 0,
+    "duration_seconds": 5.456,
+    "finish_reason": "stop",
+    "visible_tokens": 176,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "3f3a8390-b8f8-4c33-9b31-ce78abc80c92",
+    "cost_usd": 0.019992,
+    "status": "accepted",
+    "upper_cost_usd": "0.17255040",
+    "spent_before_usd": "0.284381250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3328,
+    "completion_tokens": 334,
+    "reasoning_tokens": 127,
+    "cached_tokens": 0,
+    "duration_seconds": 5.666,
+    "finish_reason": "stop",
+    "visible_tokens": 207,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a70fb1c6-1b83-4e89-8841-9320717a8065",
+    "cost_usd": 0.021076,
+    "status": "accepted",
+    "upper_cost_usd": "0.19014160",
+    "spent_before_usd": "0.304373250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3734,
+    "completion_tokens": 307,
+    "reasoning_tokens": 94,
+    "cached_tokens": 0,
+    "duration_seconds": 6.05,
+    "finish_reason": "stop",
+    "visible_tokens": 213,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "47c8325d-99ca-43b7-a636-bd9dc5f9f3ec",
+    "cost_usd": 0.015064,
+    "status": "accepted",
+    "upper_cost_usd": "0.11865040",
+    "spent_before_usd": "0.325449250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2201,
+    "completion_tokens": 313,
+    "reasoning_tokens": 100,
+    "cached_tokens": 0,
+    "duration_seconds": 6.815,
+    "finish_reason": "stop",
+    "visible_tokens": 213,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-2",
+    "prompt_sha256": "f87b8b6adcec3e3fe61726413b71187a353ca31c8baa56a39a572f1a6fe23366",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "5b790f1e-2148-485a-9efe-dbc9cbae8f55",
+    "cost_usd": 0.014668,
+    "status": "accepted",
+    "upper_cost_usd": "0.12875280",
+    "spent_before_usd": "0.340513250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2452,
+    "completion_tokens": 243,
+    "reasoning_tokens": 55,
+    "cached_tokens": 0,
+    "duration_seconds": 6.169,
+    "finish_reason": "stop",
+    "visible_tokens": 188,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "070e6f84-b62d-4f38-aa79-105825e57f5b",
+    "cost_usd": 0.018756,
+    "status": "accepted",
+    "upper_cost_usd": "0.14337840",
+    "spent_before_usd": "0.355181250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2834,
+    "completion_tokens": 371,
+    "reasoning_tokens": 118,
+    "cached_tokens": 0,
+    "duration_seconds": 8.55,
+    "finish_reason": "stop",
+    "visible_tokens": 253,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "1774c19e-bf41-42b5-bed5-0e03689f5425",
+    "cost_usd": 0.017484,
+    "status": "accepted",
+    "upper_cost_usd": "0.12519760",
+    "spent_before_usd": "0.373937250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2366,
+    "completion_tokens": 401,
+    "reasoning_tokens": 134,
+    "cached_tokens": 0,
+    "duration_seconds": 7.269,
+    "finish_reason": "stop",
+    "visible_tokens": 267,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "ce3bbdc5-7073-4c8a-92b0-8829fad1d313",
+    "cost_usd": 0.024108,
+    "status": "accepted",
+    "upper_cost_usd": "0.15891040",
+    "spent_before_usd": "0.391421250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3152,
+    "completion_tokens": 575,
+    "reasoning_tokens": 174,
+    "cached_tokens": 0,
+    "duration_seconds": 9.997,
+    "finish_reason": "stop",
+    "visible_tokens": 401,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1200,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "fd63ad63-18eb-487c-bb16-6f1b83fa5ecd",
+    "cost_usd": 0.026844,
+    "status": "accepted",
+    "upper_cost_usd": "0.20560320",
+    "spent_before_usd": "0.415529250",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 4316,
+    "completion_tokens": 479,
+    "reasoning_tokens": 59,
+    "cached_tokens": 0,
+    "duration_seconds": 8.46,
+    "finish_reason": "stop",
+    "visible_tokens": 420,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "bf230339-a09f-4365-a92d-47c45073b6e2",
+    "cost_usd": 0.007108,
+    "status": "accepted",
+    "upper_cost_usd": "0.07570200",
+    "spent_before_usd": "0.442373250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2639,
+    "completion_tokens": 183,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 3.08,
+    "finish_reason": "stop",
+    "visible_tokens": 183,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "7cbbf8f5-7b75-4dd7-9862-a6338d49bfad",
+    "cost_usd": 0.008626,
+    "status": "accepted",
+    "upper_cost_usd": "0.09067520",
+    "spent_before_usd": "0.449481250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3328,
+    "completion_tokens": 197,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 3.107,
+    "finish_reason": "stop",
+    "visible_tokens": 197,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "4a4cf1d6-68af-4bbe-8094-de819fe49867",
+    "cost_usd": 0.010928,
+    "status": "accepted",
+    "upper_cost_usd": "0.09947080",
+    "spent_before_usd": "0.458107250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3734,
+    "completion_tokens": 346,
+    "reasoning_tokens": 204,
+    "cached_tokens": 0,
+    "duration_seconds": 5.346,
+    "finish_reason": "stop",
+    "visible_tokens": 142,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "bd2db6bc-1eea-4a29-9c14-721dbbbe2feb",
+    "cost_usd": 0.008232,
+    "status": "accepted",
+    "upper_cost_usd": "0.06372520",
+    "spent_before_usd": "0.469035250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2201,
+    "completion_tokens": 383,
+    "reasoning_tokens": 237,
+    "cached_tokens": 0,
+    "duration_seconds": 5.492,
+    "finish_reason": "stop",
+    "visible_tokens": 146,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "4b374d60-31ba-4641-99df-63caab85e60c",
+    "cost_usd": 0.009888,
+    "status": "accepted",
+    "upper_cost_usd": "0.07608920",
+    "spent_before_usd": "0.477267250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2834,
+    "completion_tokens": 422,
+    "reasoning_tokens": 250,
+    "cached_tokens": 0,
+    "duration_seconds": 6.107,
+    "finish_reason": "stop",
+    "visible_tokens": 172,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "94ed2db4-0bdf-44e5-ba2b-b88a0c8683b8",
+    "cost_usd": 0.006462,
+    "status": "accepted",
+    "upper_cost_usd": "0.06699880",
+    "spent_before_usd": "0.487155250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 2366,
+    "completion_tokens": 173,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 3.56,
+    "finish_reason": "stop",
+    "visible_tokens": 173,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "d53dd3b4-eb1e-4a30-a1d3-1abce8aff729",
+    "cost_usd": 0.008194,
+    "status": "accepted",
+    "upper_cost_usd": "0.08385520",
+    "spent_before_usd": "0.493617250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 3152,
+    "completion_tokens": 189,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 2.872,
+    "finish_reason": "stop",
+    "visible_tokens": 189,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "0365ea50-0eec-4a54-98e4-7fe667ea0286",
+    "cost_usd": 0.011702,
+    "status": "accepted",
+    "upper_cost_usd": "0.10720160",
+    "spent_before_usd": "0.501811250",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 4316,
+    "completion_tokens": 307,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 3.674,
+    "finish_reason": "stop",
+    "visible_tokens": 307,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "2e38f103-9b09-4cb7-a09b-6caaaffdc49d",
+    "cost_usd": 0.0048385,
+    "status": "accepted",
+    "upper_cost_usd": "0.053913750",
+    "spent_before_usd": "0.513513250",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1656,
+    "completion_tokens": 70,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 4.473,
+    "finish_reason": "stop",
+    "visible_tokens": 70,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "fb2ee0d3-dfc9-4f32-b135-07aea02cb007",
+    "cost_usd": 0.0021938,
+    "status": "accepted",
+    "upper_cost_usd": "0.063272000",
+    "spent_before_usd": "0.518351750",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2097,
+    "completion_tokens": 92,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1653,
+    "duration_seconds": 3.486,
+    "finish_reason": "stop",
+    "visible_tokens": 92,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8978cc5d-3a75-40ae-b5c2-545f7b2a840a",
+    "cost_usd": 0.0015154,
+    "status": "accepted",
+    "upper_cost_usd": "0.068769250",
+    "spent_before_usd": "0.520545550",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2353,
+    "completion_tokens": 66,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2094,
+    "duration_seconds": 3.291,
+    "finish_reason": "stop",
+    "visible_tokens": 66,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6875b035-aaac-4b6c-a07f-d59d1ce623b7",
+    "cost_usd": 0.0027346,
+    "status": "accepted",
+    "upper_cost_usd": "0.046428250",
+    "spent_before_usd": "0.522060950",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1433,
+    "completion_tokens": 224,
+    "reasoning_tokens": 138,
+    "cached_tokens": 1286,
+    "duration_seconds": 8.209,
+    "finish_reason": "stop",
+    "visible_tokens": 86,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "13566c3a-17d3-4916-a12a-befadcf5d893",
+    "cost_usd": 0.0022439,
+    "status": "accepted",
+    "upper_cost_usd": "0.054155750",
+    "spent_before_usd": "0.524795550",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1854,
+    "completion_tokens": 146,
+    "reasoning_tokens": 59,
+    "cached_tokens": 1604,
+    "duration_seconds": 6.96,
+    "finish_reason": "stop",
+    "visible_tokens": 87,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b39516a9-9d56-484a-a352-83d21081b142",
+    "cost_usd": 0.004831,
+    "status": "accepted",
+    "upper_cost_usd": "0.048474250",
+    "spent_before_usd": "0.527039450",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1533,
+    "completion_tokens": 100,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 2.974,
+    "finish_reason": "stop",
+    "visible_tokens": 100,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "bb5c69ef-5cae-4e8d-9b6b-7243268b0498",
+    "cost_usd": 0.003464,
+    "status": "accepted",
+    "upper_cost_usd": "0.059009500",
+    "spent_before_usd": "0.531870450",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2067,
+    "completion_tokens": 197,
+    "reasoning_tokens": 63,
+    "cached_tokens": 1530,
+    "duration_seconds": 6.234,
+    "finish_reason": "stop",
+    "visible_tokens": 134,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a1fd6d71-2176-4230-a760-f13dff1fe733",
+    "cost_usd": 0.0032599,
+    "status": "accepted",
+    "upper_cost_usd": "0.073601000",
+    "spent_before_usd": "0.535334450",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2818,
+    "completion_tokens": 117,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2064,
+    "duration_seconds": 4.259,
+    "finish_reason": "stop",
+    "visible_tokens": 117,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-2",
+    "prompt_sha256": "a9da62f35051e18a11c6f890f936b6dc10b1b2c84c2c13817f20e920b9e7f7c4",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "fceef1c4-78ac-413f-a046-a528e9e33471",
+    "cost_usd": 0.000442925,
+    "status": "accepted",
+    "upper_cost_usd": "0.00269568750",
+    "spent_before_usd": "0.538594350",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1656,
+    "completion_tokens": 472,
+    "reasoning_tokens": 372,
+    "cached_tokens": 0,
+    "duration_seconds": 7.955,
+    "finish_reason": "stop",
+    "visible_tokens": 100,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-4",
+    "prompt_sha256": "221183a0db77a87c8e44095603ca8ac1a0a8ec06a3515054c3e24b3453919168",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "28fe1e4f-be52-4662-a96b-70f7fac058cb",
+    "cost_usd": 0.000155455,
+    "status": "accepted",
+    "upper_cost_usd": "0.00316360000",
+    "spent_before_usd": "0.539037275",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2097,
+    "completion_tokens": 167,
+    "reasoning_tokens": 87,
+    "cached_tokens": 1653,
+    "duration_seconds": 3.942,
+    "finish_reason": "stop",
+    "visible_tokens": 80,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "dd155052-67d3-4892-97bd-a5b187730370",
+    "cost_usd": 0.00019274,
+    "status": "accepted",
+    "upper_cost_usd": "0.00343846250",
+    "spent_before_usd": "0.539192730",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2353,
+    "completion_tokens": 279,
+    "reasoning_tokens": 205,
+    "cached_tokens": 2094,
+    "duration_seconds": 4.183,
+    "finish_reason": "stop",
+    "visible_tokens": 74,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "7d1344d4b171a8fcab2598240f841a97cfc183cb741cf9f84f95c9f25fa74435",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "06872889-97bd-496e-aaf1-239fcbfb7c5e",
+    "cost_usd": 0.00020816,
+    "status": "accepted",
+    "upper_cost_usd": "0.00232141250",
+    "spent_before_usd": "0.539385470",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1433,
+    "completion_tokens": 354,
+    "reasoning_tokens": 254,
+    "cached_tokens": 1286,
+    "duration_seconds": 5.001,
+    "finish_reason": "stop",
+    "visible_tokens": 100,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6de3d31f-5fbf-4d49-8009-5b350092fdbb",
+    "cost_usd": 0.000162715,
+    "status": "accepted",
+    "upper_cost_usd": "0.00270778750",
+    "spent_before_usd": "0.539593630",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1854,
+    "completion_tokens": 231,
+    "reasoning_tokens": 151,
+    "cached_tokens": 1604,
+    "duration_seconds": 4.533,
+    "finish_reason": "stop",
+    "visible_tokens": 80,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-1",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a0344cfe-258c-4867-b8c4-868efeb958b8",
+    "cost_usd": 0.00029005,
+    "status": "accepted",
+    "upper_cost_usd": "0.00242371250",
+    "spent_before_usd": "0.539756345",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1533,
+    "completion_tokens": 197,
+    "reasoning_tokens": 95,
+    "cached_tokens": 0,
+    "duration_seconds": 3.243,
+    "finish_reason": "stop",
+    "visible_tokens": 102,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-3",
+    "prompt_sha256": "a366088ecaca240b86599f6ee6ba06eb1a3b425577e0d59a628d9dbe2828b1c7",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "29e6a575-e5b5-4f82-a3e6-342ab08a6da3",
+    "cost_usd": 0.00030885,
+    "status": "accepted",
+    "upper_cost_usd": "0.00295047500",
+    "spent_before_usd": "0.540046395",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2067,
+    "completion_tokens": 453,
+    "reasoning_tokens": 360,
+    "cached_tokens": 1530,
+    "duration_seconds": 5.274,
+    "finish_reason": "stop",
+    "visible_tokens": 93,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "controlled-turn-5",
+    "prompt_sha256": "1c74ecb47a8942c6762eb66eac70de4c2f45238c6eb381e53363d3183abf6526",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "890ed645-29a4-4acc-8c5d-a1cb409a4e4e",
+    "cost_usd": 0.000223315,
+    "status": "accepted",
+    "upper_cost_usd": "0.00368005000",
+    "spent_before_usd": "0.540355245",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2818,
+    "completion_tokens": 217,
+    "reasoning_tokens": 134,
+    "cached_tokens": 2064,
+    "duration_seconds": 3.488,
+    "finish_reason": "stop",
+    "visible_tokens": 83,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "judge-conflict_only",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "15c81d42-6634-4e4e-a06c-245640305ad4",
+    "cost_usd": 0.0695,
+    "status": "accepted",
+    "upper_cost_usd": "0.31316560",
+    "spent_before_usd": "0.540578560",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 7405,
+    "completion_tokens": 1994,
+    "reasoning_tokens": 915,
+    "cached_tokens": 0,
+    "duration_seconds": 21.599,
+    "finish_reason": "stop",
+    "visible_tokens": 1079,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "judge-conflict_then_negotiation",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8525518e-24bb-40ea-83fc-14f80fe5c406",
+    "cost_usd": 0.079848,
+    "status": "accepted",
+    "upper_cost_usd": "0.36989040",
+    "spent_before_usd": "0.610078560",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 8762,
+    "completion_tokens": 2240,
+    "reasoning_tokens": 971,
+    "cached_tokens": 0,
+    "duration_seconds": 22.828,
+    "finish_reason": "stop",
+    "visible_tokens": 1269,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "judge-conflict_only",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b1344bb9-30e4-46de-a671-d65fd2a8c1c9",
+    "cost_usd": 0.02565,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.16758280",
+    "spent_before_usd": "0.689926560",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 7405,
+    "completion_tokens": 1084,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 9.337,
+    "finish_reason": "stop",
+    "visible_tokens": 1084,
+    "validation_error": "Judge private-context overlap; review locally",
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-sonnet-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "judge-conflict_then_negotiation",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "2f5cb8c1-08f2-4056-b960-8a6dabbcc1a4",
+    "cost_usd": 0.030424,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.19594520",
+    "spent_before_usd": "0.715576560",
+    "actual_model": "anthropic/claude-sonnet-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 8762,
+    "completion_tokens": 1290,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 10.526,
+    "finish_reason": "stop",
+    "visible_tokens": 1290,
+    "validation_error": "Raw quote capitalisation changed; fails exact substring requirement",
+    "stage_direction_count": null,
+    "initial_validation_status": "accepted_with_production_normalized_quote_guard"
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "judge-conflict_only",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "461c5c12-5441-44de-a6ee-a6c0029ab1d2",
+    "cost_usd": 0.0200335,
+    "status": "accepted",
+    "upper_cost_usd": "0.119176750",
+    "spent_before_usd": "0.746000560",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 4818,
+    "completion_tokens": 799,
+    "reasoning_tokens": 230,
+    "cached_tokens": 0,
+    "duration_seconds": 17.354,
+    "finish_reason": "stop",
+    "visible_tokens": 569,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "judge-conflict_then_negotiation",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "1565f2be-787b-4e13-8b94-9813e55f1cf8",
+    "cost_usd": 0.024541,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.136903250",
+    "spent_before_usd": "0.766034060",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 5685,
+    "completion_tokens": 1033,
+    "reasoning_tokens": 268,
+    "cached_tokens": 0,
+    "duration_seconds": 23.292,
+    "finish_reason": "stop",
+    "visible_tokens": 765,
+    "validation_error": "Judge private-context overlap; review locally",
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "judge-conflict_only",
+    "prompt_sha256": "dbf865987a070c5de1609fa9f496a006f2136a047d0fbf28bf3600ba2f08e888",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6cf91056-947a-4d49-b9f3-21e1c4942c05",
+    "cost_usd": 0.001440675,
+    "status": "accepted",
+    "upper_cost_usd": "0.00595883750",
+    "spent_before_usd": "0.790575060",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 4818,
+    "completion_tokens": 1677,
+    "reasoning_tokens": 1274,
+    "cached_tokens": 0,
+    "duration_seconds": 16.068,
+    "finish_reason": "stop",
+    "visible_tokens": 403,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "judge-conflict_then_negotiation",
+    "prompt_sha256": "b2a8a599c622207f22738e0d92152ee0877f5415739e6b717967055a11c3abc0",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "cec421a1-9f40-4c39-b824-95c21c033d1d",
+    "cost_usd": 0.00141205,
+    "status": "accepted",
+    "upper_cost_usd": "0.00684516250",
+    "spent_before_usd": "0.792015735",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 5685,
+    "completion_tokens": 1403,
+    "reasoning_tokens": 1032,
+    "cached_tokens": 0,
+    "duration_seconds": 14.858,
+    "finish_reason": "stop",
+    "visible_tokens": 371,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "targeted-high-gender",
+    "prompt_sha256": "31393e59b55f64fe3ba5ab85334de921d4399ee8db5a742368f810b6b7cab95c",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "2cfc171d-8596-49a2-840d-d208bbbfd66f",
+    "cost_usd": 0.00048855,
+    "status": "accepted",
+    "upper_cost_usd": "0.00242371250",
+    "spent_before_usd": "0.793427785",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1533,
+    "completion_tokens": 594,
+    "reasoning_tokens": 500,
+    "cached_tokens": 0,
+    "duration_seconds": 7.503,
+    "finish_reason": "stop",
+    "visible_tokens": 94,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-1",
+    "prompt_sha256": "40604348e8f6181a021db31953d3ae20e9951a29c22b6b03ffe5574fbd143754",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "349fe601-d0cd-4c74-9726-c543ea87b1e8",
+    "cost_usd": 0.000144035,
+    "status": "accepted",
+    "upper_cost_usd": "0.00230986250",
+    "spent_before_usd": "0.793916335",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1420,
+    "completion_tokens": 229,
+    "reasoning_tokens": 173,
+    "cached_tokens": 1286,
+    "duration_seconds": 5.894,
+    "finish_reason": "stop",
+    "visible_tokens": 56,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-2",
+    "prompt_sha256": "1cf039d9064ab04b67a3c2e9a8378c956458f2ac00d36e8ca5a60c98d13f8edb",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "95f46e5a-aa5a-42cd-98eb-52f3fb4cc061",
+    "cost_usd": 6.797e-05,
+    "status": "accepted",
+    "upper_cost_usd": "0.00241312500",
+    "spent_before_usd": "0.794060370",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1508,
+    "completion_tokens": 85,
+    "reasoning_tokens": 45,
+    "cached_tokens": 1417,
+    "duration_seconds": 4.105,
+    "finish_reason": "stop",
+    "visible_tokens": 40,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-3",
+    "prompt_sha256": "c7622a2e18b6cb7219eba1a58c30fe483c6741e23c5e52f34f965671cddde5b0",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "13117b21-c51f-41e0-aa8c-3f676a243807",
+    "cost_usd": 0.000155725,
+    "status": "accepted",
+    "upper_cost_usd": "0.00253591250",
+    "spent_before_usd": "0.794128340",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1627,
+    "completion_tokens": 251,
+    "reasoning_tokens": 185,
+    "cached_tokens": 1505,
+    "duration_seconds": 5.392,
+    "finish_reason": "stop",
+    "visible_tokens": 66,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-4",
+    "prompt_sha256": "b2b16cb079038285692f9622ce8ed78c759690aa7de4f4536beb462e9f6e52b5",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "e7544369-654a-48a9-be8d-2b190bca826f",
+    "cost_usd": 8.3665e-05,
+    "status": "accepted",
+    "upper_cost_usd": "0.00267080000",
+    "spent_before_usd": "0.794284065",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1756,
+    "completion_tokens": 102,
+    "reasoning_tokens": 53,
+    "cached_tokens": 1624,
+    "duration_seconds": 3.127,
+    "finish_reason": "stop",
+    "visible_tokens": 49,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-5",
+    "prompt_sha256": "6559b218f1f5ce94d196f0843d7fcaf40901b540ae38df81159ce31588b73493",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8ec2189a-2447-4891-b043-40b9db92c89c",
+    "cost_usd": 8.1705e-05,
+    "status": "accepted",
+    "upper_cost_usd": "0.00280458750",
+    "spent_before_usd": "0.794367730",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1879,
+    "completion_tokens": 97,
+    "reasoning_tokens": 54,
+    "cached_tokens": 1753,
+    "duration_seconds": 2.286,
+    "finish_reason": "stop",
+    "visible_tokens": 43,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "luna-personal-roleplayer-6",
+    "prompt_sha256": "e1382eb6a2f2f70aea62eb8ebf9b9f186937e19f5c09608985dc05a19c225246",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8e39c882-78a3-4970-8f0a-fd7772eda9d3",
+    "cost_usd": 8.6935e-05,
+    "status": "accepted",
+    "upper_cost_usd": "0.00294126250",
+    "spent_before_usd": "0.794449435",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2006,
+    "completion_tokens": 104,
+    "reasoning_tokens": 41,
+    "cached_tokens": 1876,
+    "duration_seconds": 2.65,
+    "finish_reason": "stop",
+    "visible_tokens": 63,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-1",
+    "prompt_sha256": "6d92f9773eeb62c13711b0bfe07ce413ffe288b071f3b568e164e98b2bb90ba5",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "679a0160-39aa-4e48-8f49-18a057b8a3ba",
+    "cost_usd": 0.000188955,
+    "status": "accepted",
+    "upper_cost_usd": "0.00239978750",
+    "spent_before_usd": "0.794536370",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1512,
+    "completion_tokens": 317,
+    "reasoning_tokens": 197,
+    "cached_tokens": 1378,
+    "duration_seconds": 4.539,
+    "finish_reason": "stop",
+    "visible_tokens": 120,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-2",
+    "prompt_sha256": "4622de733dbf2d67ecd9c785288b9d1dc4156e76cd815be042323de9d9fa32db",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6b3a06f6-f771-46db-ae8a-fc93d6a667aa",
+    "cost_usd": 0.00064639,
+    "status": "accepted",
+    "upper_cost_usd": "0.00259091250",
+    "spent_before_usd": "0.794725325",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1700,
+    "completion_tokens": 1215,
+    "reasoning_tokens": 1129,
+    "cached_tokens": 1509,
+    "duration_seconds": 14.681,
+    "finish_reason": "stop",
+    "visible_tokens": 86,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-3",
+    "prompt_sha256": "a6533d723551ba6273e91f4b3e74916dcd0302264f2dcfdf8b1e25878fc2f388",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8aa817fb-61bf-46be-ad7c-d0e047653630",
+    "cost_usd": 0.000228395,
+    "status": "accepted",
+    "upper_cost_usd": "0.00277365000",
+    "spent_before_usd": "0.795371715",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 1873,
+    "completion_tokens": 379,
+    "reasoning_tokens": 289,
+    "cached_tokens": 1697,
+    "duration_seconds": 4.977,
+    "finish_reason": "stop",
+    "visible_tokens": 90,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-4",
+    "prompt_sha256": "09ec1fd4607ca9a197d2ddaba24dea73431d29b8e5f633fbcbe512fba08f54dc",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "d4e4f988-2ffa-4c1a-9d05-1c5f11144106",
+    "cost_usd": 0.00028825,
+    "status": "accepted",
+    "upper_cost_usd": "0.00295638750",
+    "spent_before_usd": "0.795600110",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2039,
+    "completion_tokens": 497,
+    "reasoning_tokens": 370,
+    "cached_tokens": 1870,
+    "duration_seconds": 7.259,
+    "finish_reason": "stop",
+    "visible_tokens": 127,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-5",
+    "prompt_sha256": "3ac493d4e05f02ff5cec7da0377e791ff4f63c669a0dbd381b5bd8bfc04af795",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "33e5ca05-a6fa-451c-9ab0-8f45ec80f451",
+    "cost_usd": 0.000212285,
+    "status": "accepted",
+    "upper_cost_usd": "0.00314503750",
+    "spent_before_usd": "0.795888360",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2216,
+    "completion_tokens": 339,
+    "reasoning_tokens": 241,
+    "cached_tokens": 2036,
+    "duration_seconds": 5.177,
+    "finish_reason": "stop",
+    "visible_tokens": 98,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "luna-public-high-roleplayer-6",
+    "prompt_sha256": "aaf4a8c8b361993c6eccd0004a57f9cd6fdba18a8c10c47f758df2e20d7a4d5a",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "894ce1e8-7a94-45be-9ab3-7748af3e39e8",
+    "cost_usd": 0.000132805,
+    "status": "accepted",
+    "upper_cost_usd": "0.00338016250",
+    "spent_before_usd": "0.796100645",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 2435,
+    "completion_tokens": 166,
+    "reasoning_tokens": 60,
+    "cached_tokens": 2213,
+    "duration_seconds": 3.4,
+    "finish_reason": "stop",
+    "visible_tokens": 106,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "independent-blind-generator-audit-12",
+    "prompt_sha256": "4670cae7f467a12d1cf69d84b7f88be2ca8bd08dbf85a8d482bab27aaddf16b0",
+    "case_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "semantic-audit",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "9c9f869c-3425-4aaa-84a5-f233bbea3fe5",
+    "cost_usd": 0.182864,
+    "status": "validation_failed",
+    "upper_cost_usd": "1.09219440",
+    "spent_before_usd": "0.796233450",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 28216,
+    "completion_tokens": 3500,
+    "reasoning_tokens": 3500,
+    "cached_tokens": 0,
+    "duration_seconds": 42.411,
+    "finish_reason": "length",
+    "visible_tokens": 0,
+    "validation_error": "Non-stop finish; partial output rejected",
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "negotiation_only",
+    "label": "independent-blind-generator-audit-12",
+    "prompt_sha256": "4670cae7f467a12d1cf69d84b7f88be2ca8bd08dbf85a8d482bab27aaddf16b0",
+    "case_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "semantic-audit",
+    "retry_index": 1,
+    "settings": {
+      "max_tokens": 6144,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "low"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b022f538-921e-4964-9805-e980dc713e0c",
+    "cost_usd": 0.160604,
+    "status": "validation_failed",
+    "upper_cost_usd": "1.15036240",
+    "spent_before_usd": "0.979097450",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 28216,
+    "completion_tokens": 2387,
+    "reasoning_tokens": 1432,
+    "cached_tokens": 0,
+    "duration_seconds": 28.03,
+    "finish_reason": "stop",
+    "visible_tokens": 955,
+    "validation_error": "<extra_field>: string_too_long (max_length=1500)",
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-1",
+    "prompt_sha256": "61a5e2fb3328686ff4e1dcd53a2877f3a8453121671a827f09b1dfa2a6f90fb6",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "88daa275-de71-4524-a0a2-a053d8d182db",
+    "cost_usd": 0.0013885,
+    "status": "accepted",
+    "upper_cost_usd": "0.050699000",
+    "spent_before_usd": "1.139701450",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1504,
+    "completion_tokens": 99,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1400,
+    "duration_seconds": 54.223,
+    "finish_reason": "stop",
+    "visible_tokens": 99,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-2",
+    "prompt_sha256": "d54b3d4707db9e0434d19fc1d1399d8f7da50b9f367f338a2ddb4e6dff270399",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "dfbd7fab-b17f-4f65-92d1-29cf07093f4d",
+    "cost_usd": 0.0015911,
+    "status": "accepted",
+    "upper_cost_usd": "0.054216250",
+    "spent_before_usd": "1.141089950",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1654,
+    "completion_tokens": 106,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1501,
+    "duration_seconds": 4.599,
+    "finish_reason": "stop",
+    "visible_tokens": 106,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-3",
+    "prompt_sha256": "886e9a8fe387afeddb39c5122bc9b5fe2396870da80117e96101c5253f99a65e",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8bad67b2-c13f-4904-b8ee-250cd2c76e48",
+    "cost_usd": 0.0014686,
+    "status": "accepted",
+    "upper_cost_usd": "0.058382500",
+    "spent_before_usd": "1.142681050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1845,
+    "completion_tokens": 82,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1651,
+    "duration_seconds": 5.842,
+    "finish_reason": "stop",
+    "visible_tokens": 82,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-4",
+    "prompt_sha256": "2a551183d1e733c9ffdebe69798d9aaafd98b2b10380bb3f86a0a0a40babf8ad",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6da8dc9a-d5ca-48c0-a1a5-4cc7bde62c2b",
+    "cost_usd": 0.0020852,
+    "status": "accepted",
+    "upper_cost_usd": "0.061861250",
+    "spent_before_usd": "1.144149650",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1999,
+    "completion_tokens": 151,
+    "reasoning_tokens": 60,
+    "cached_tokens": 1842,
+    "duration_seconds": 7.295,
+    "finish_reason": "stop",
+    "visible_tokens": 91,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-5",
+    "prompt_sha256": "12d345330a581551c03ad7106729da0153430d3d05c554becd534d341d398938",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "cb62281b-3e4b-4eac-bb51-10e6ff5cd03a",
+    "cost_usd": 0.0016581,
+    "status": "accepted",
+    "upper_cost_usd": "0.066063250",
+    "spent_before_usd": "1.146234850",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2184,
+    "completion_tokens": 99,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1996,
+    "duration_seconds": 5.006,
+    "finish_reason": "stop",
+    "visible_tokens": 99,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "sol-negotiation-roleplayer-6",
+    "prompt_sha256": "c944906d1a8be172fb438eadd447d8fb6768c3795f692ea68f938490e674aaed",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "16b3568d-540e-4dee-86a7-81a47726eced",
+    "cost_usd": 0.0015141,
+    "status": "accepted",
+    "upper_cost_usd": "0.070422000",
+    "spent_before_usd": "1.147892950",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2400,
+    "completion_tokens": 75,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2181,
+    "duration_seconds": 11.819,
+    "finish_reason": "stop",
+    "visible_tokens": 75,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-1",
+    "prompt_sha256": "77bb9487660a99c3df75c8b6d5ec2432649b57fa3993cce5d73014dbdf4cdeeb",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "1499f080-ecc3-40ce-a1d2-68598bcd18e0",
+    "cost_usd": 0.0014088,
+    "status": "accepted",
+    "upper_cost_usd": "0.047872000",
+    "spent_before_usd": "1.149407050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1507,
+    "completion_tokens": 95,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1378,
+    "duration_seconds": 4.127,
+    "finish_reason": "stop",
+    "visible_tokens": 95,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-2",
+    "prompt_sha256": "4024da7b391784203c9480895fc36266ad39e30dc8f5a5ae00b90226c88c1dd2",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "310a08c5-36ff-411f-a7fd-2694ed993989",
+    "cost_usd": 0.0022164,
+    "status": "accepted",
+    "upper_cost_usd": "0.050806250",
+    "spent_before_usd": "1.150815850",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1643,
+    "completion_tokens": 172,
+    "reasoning_tokens": 54,
+    "cached_tokens": 1504,
+    "duration_seconds": 6.0,
+    "finish_reason": "stop",
+    "visible_tokens": 118,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-3",
+    "prompt_sha256": "e6542dc169aa2ee09a9054788fb59c3677bfd5a5d9a0e0386ad147c8bf36bf84",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "5df8cf76-c1f0-4c54-a1a2-56672ba45e4a",
+    "cost_usd": 0.002985,
+    "status": "accepted",
+    "upper_cost_usd": "0.055343750",
+    "spent_before_usd": "1.153032250",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1861,
+    "completion_tokens": 227,
+    "reasoning_tokens": 60,
+    "cached_tokens": 1640,
+    "duration_seconds": 7.006,
+    "finish_reason": "stop",
+    "visible_tokens": 167,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-4",
+    "prompt_sha256": "7e9335e8b44f0f85e238403a36803ae914a066b355cfc6946466673bdac09c3d",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "89434015-1ae5-4c38-99b6-68af1a4827c4",
+    "cost_usd": 0.0022393,
+    "status": "accepted",
+    "upper_cost_usd": "0.060533000",
+    "spent_before_usd": "1.156017250",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2108,
+    "completion_tokens": 143,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1858,
+    "duration_seconds": 5.162,
+    "finish_reason": "stop",
+    "visible_tokens": 143,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-5",
+    "prompt_sha256": "274197b8ccfc0e8a5fc4440f783e3fde64e17b105383acaede658d9d644ced75",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "6894d191-2cb0-42ac-a4e2-684661689b40",
+    "cost_usd": 0.0016815,
+    "status": "accepted",
+    "upper_cost_usd": "0.064883500",
+    "spent_before_usd": "1.158256550",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2298,
+    "completion_tokens": 99,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2105,
+    "duration_seconds": 5.265,
+    "finish_reason": "stop",
+    "visible_tokens": 99,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "sol-public-roleplayer-6",
+    "prompt_sha256": "cb23d8a4e3aa5eab36dd15d407d8a8d50a727344b4630d63a80760bbbc32ab9a",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "7e546d26-6561-4dc8-910d-0499b695bbb0",
+    "cost_usd": 0.001643,
+    "status": "accepted",
+    "upper_cost_usd": "0.069652000",
+    "spent_before_usd": "1.159938050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2509,
+    "completion_tokens": 88,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2295,
+    "duration_seconds": 5.476,
+    "finish_reason": "stop",
+    "visible_tokens": 88,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-1",
+    "prompt_sha256": "feaad24cf71a75451478de127452e8f8429689673e02cac87469c6301afcab79",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "d2ca9936-adcf-43c4-beac-c50d13c5f723",
+    "cost_usd": 0.0049335,
+    "status": "accepted",
+    "upper_cost_usd": "0.054271250",
+    "spent_before_usd": "1.161581050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1678,
+    "completion_tokens": 74,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 4.221,
+    "finish_reason": "stop",
+    "visible_tokens": 74,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-2",
+    "prompt_sha256": "28e8aed0ec7816a13a5a28564ba3aa8321d09cc82f882199c40a6e5a14eefabf",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "662d721e-1f06-4eb6-91af-d3a71b31ca21",
+    "cost_usd": 0.0021985,
+    "status": "accepted",
+    "upper_cost_usd": "0.056999250",
+    "spent_before_usd": "1.166514550",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1804,
+    "completion_tokens": 171,
+    "reasoning_tokens": 72,
+    "cached_tokens": 1675,
+    "duration_seconds": 5.42,
+    "finish_reason": "stop",
+    "visible_tokens": 99,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-3",
+    "prompt_sha256": "977256c479f1272fce613d0b77274b5be23690c3f0229e481832d7be42f4b43e",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "cfccd0b8-62f9-4f1f-8e49-9c4edef01c9a",
+    "cost_usd": 0.0014586,
+    "status": "accepted",
+    "upper_cost_usd": "0.060720000",
+    "spent_before_usd": "1.168713050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1993,
+    "completion_tokens": 80,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1801,
+    "duration_seconds": 3.976,
+    "finish_reason": "stop",
+    "visible_tokens": 80,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-4",
+    "prompt_sha256": "489ed898309294f375c5deae75bc9c7fd36988abeb84815d7d5c40a8dc82e670",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a6371cba-a91b-4ac0-872c-e7dd006d1449",
+    "cost_usd": 0.0010875,
+    "status": "accepted",
+    "upper_cost_usd": "0.063943000",
+    "spent_before_usd": "1.170171650",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2142,
+    "completion_tokens": 51,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1990,
+    "duration_seconds": 3.15,
+    "finish_reason": "stop",
+    "visible_tokens": 51,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-5",
+    "prompt_sha256": "284c03547cd05a70c94fef7ec0df6bab61dc9ec9b9fd5a28e2c79de3d8fee961",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "0189f521-a587-48a0-b9b9-d70d0f145b11",
+    "cost_usd": 0.0010399,
+    "status": "accepted",
+    "upper_cost_usd": "0.066621500",
+    "spent_before_usd": "1.171259150",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2254,
+    "completion_tokens": 54,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2139,
+    "duration_seconds": 4.116,
+    "finish_reason": "stop",
+    "visible_tokens": 54,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-roleplayer-6",
+    "prompt_sha256": "bdd27bb8e4da2583b3eafbfdd41c0c522c808590ec60ba01435e6510275d43de",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "a2d632fd-db24-47e8-b5f0-df0a111b01af",
+    "cost_usd": 0.0013061,
+    "status": "accepted",
+    "upper_cost_usd": "0.069608000",
+    "spent_before_usd": "1.172299050",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2384,
+    "completion_tokens": 75,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2251,
+    "duration_seconds": 3.628,
+    "finish_reason": "stop",
+    "visible_tokens": 75,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6-luna",
+    "purpose": "judge",
+    "scenario": "conflict_only",
+    "label": "hybrid-economy-judge-6",
+    "prompt_sha256": "ceedfbd64243bb2c7cacf522c2ba6ed3253d5de07edc6095215d39701d89302c",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 3500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "15344822-60e8-4165-991e-f470397d7135",
+    "cost_usd": 0.001677425,
+    "status": "accepted",
+    "upper_cost_usd": "0.00596585000",
+    "spent_before_usd": "1.173605150",
+    "actual_model": "openai/gpt-6-luna",
+    "provider": "OpenAI",
+    "prompt_tokens": 4576,
+    "completion_tokens": 2211,
+    "reasoning_tokens": 1728,
+    "cached_tokens": 0,
+    "duration_seconds": 25.088,
+    "finish_reason": "stop",
+    "visible_tokens": 483,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-1",
+    "prompt_sha256": "19607426263e84dc07717fada5b1fef424fb6173145838933ff4ae320a554869",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "ab5a5bfc-fb3e-44bd-8a7a-9593d6faa8fd",
+    "cost_usd": 0.005601,
+    "status": "accepted",
+    "upper_cost_usd": "0.055528000",
+    "spent_before_usd": "1.175282575",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1721,
+    "completion_tokens": 130,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 4.374,
+    "finish_reason": "stop",
+    "visible_tokens": 130,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-2",
+    "prompt_sha256": "1def9ca9cff41eb5a7a71be7cf1304c67398ad55613e396c2edc6ce43b548984",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "eb0fe600-88f9-4ea6-8cf0-7e33988ee1de",
+    "cost_usd": 0.0020528,
+    "status": "accepted",
+    "upper_cost_usd": "0.059873000",
+    "spent_before_usd": "1.180883575",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1923,
+    "completion_tokens": 137,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1718,
+    "duration_seconds": 4.304,
+    "finish_reason": "stop",
+    "visible_tokens": 137,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-3",
+    "prompt_sha256": "22e7c2ead4a284e8746eb6ba4aa4ee3c82ebde58e711d9b740eef7c9da126a53",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "7f9527ae-7e05-4a82-b024-dc8e2529f455",
+    "cost_usd": 0.0018455,
+    "status": "accepted",
+    "upper_cost_usd": "0.064517750",
+    "spent_before_usd": "1.182936375",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2150,
+    "completion_tokens": 108,
+    "reasoning_tokens": 0,
+    "cached_tokens": 1920,
+    "duration_seconds": 4.112,
+    "finish_reason": "stop",
+    "visible_tokens": 108,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-4",
+    "prompt_sha256": "24493ccacb5e127e2943a9b58ac2b2b4f4229c36ac88e0765dde165102bfc65d",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "4b6a00ea-4030-4e30-a382-f8877791412f",
+    "cost_usd": 0.0020657,
+    "status": "accepted",
+    "upper_cost_usd": "0.068450250",
+    "spent_before_usd": "1.184781875",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2348,
+    "completion_tokens": 135,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2147,
+    "duration_seconds": 4.402,
+    "finish_reason": "stop",
+    "visible_tokens": 135,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-5",
+    "prompt_sha256": "545aa6406b0a4beff3e6e960e6e43115bc6972bc8a36a2c24ff0cddfbd83246e",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "81fbd5ab-d7a8-46fe-bebc-88abcc43b720",
+    "cost_usd": 0.0017705,
+    "status": "accepted",
+    "upper_cost_usd": "0.072844750",
+    "spent_before_usd": "1.186847575",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2540,
+    "completion_tokens": 105,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2345,
+    "duration_seconds": 3.57,
+    "finish_reason": "stop",
+    "visible_tokens": 105,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-roleplayer-6",
+    "prompt_sha256": "a2d86a527c4b598c841660067e82c790a3274a263d0c521d44c16b0649b3a42f",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "spoken",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "94a5c778-893d-4236-8d41-c20a9124b950",
+    "cost_usd": 0.0017172,
+    "status": "accepted",
+    "upper_cost_usd": "0.077866250",
+    "spent_before_usd": "1.188618075",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2779,
+    "completion_tokens": 86,
+    "reasoning_tokens": 0,
+    "cached_tokens": 2537,
+    "duration_seconds": 3.375,
+    "finish_reason": "stop",
+    "visible_tokens": 86,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-judge-6",
+    "prompt_sha256": "1960238184c8fce96b1ee4f4d173fb5278e36ea25b934586e4654949edac92db",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "original",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 2500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "c65769c7-0454-4114-bcd9-5d1ed1ef4171",
+    "cost_usd": 0.078188,
+    "status": "validation_failed",
+    "upper_cost_usd": "0.33928400",
+    "spent_before_usd": "1.190335275",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 7742,
+    "completion_tokens": 2361,
+    "reasoning_tokens": 836,
+    "cached_tokens": 0,
+    "duration_seconds": 24.103,
+    "finish_reason": "stop",
+    "visible_tokens": 1525,
+    "validation_error": "<extra_field>: too_long (max_length=4); <extra_field>: too_long (max_length=4)",
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "anthropic/claude-opus-5.5",
+    "purpose": "judge",
+    "scenario": "conflict_then_negotiation",
+    "label": "hybrid-quality-judge-6",
+    "prompt_sha256": "d7928d561ee35a4a1235a090809aa16b7307fa19a657efa82fc8dc4592a0e5f2",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "style": "original+debrief-schema-1.0",
+    "retry_index": 1,
+    "settings": {
+      "max_tokens": 2500,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      },
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "c481fdc2-32f3-4a7a-a99d-2f4635194090",
+    "cost_usd": 0.080812,
+    "status": "accepted",
+    "upper_cost_usd": "0.35151600",
+    "spent_before_usd": "1.268523275",
+    "actual_model": "anthropic/claude-opus-5.5",
+    "provider": "Claude Platform on AWS",
+    "prompt_tokens": 8278,
+    "completion_tokens": 2385,
+    "reasoning_tokens": 1032,
+    "cached_tokens": 0,
+    "duration_seconds": 25.046,
+    "finish_reason": "stop",
+    "visible_tokens": 1353,
+    "validation_error": null,
+    "stage_direction_count": null
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "methods-B-turn-5",
+    "prompt_sha256": "e797c6d7550f7bac96fa3758f964b7d6f0db5653c46b3021240d957d94d538f9",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken+B",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "196459ca-f500-41e5-a579-ee841fb83568",
+    "cost_usd": 0.0075935,
+    "status": "accepted",
+    "upper_cost_usd": "0.072844750",
+    "spent_before_usd": "1.349335275",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2554,
+    "completion_tokens": 121,
+    "reasoning_tokens": 34,
+    "cached_tokens": 0,
+    "duration_seconds": 6.361,
+    "finish_reason": "stop",
+    "visible_tokens": 87,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "negotiation_only",
+    "label": "methods-C-turn-5",
+    "prompt_sha256": "e5f9ac496198f2b88d5260a4305254bc4d9c76ef39631a54418ffb5a754a6ae3",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "style": "spoken+C",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "d3f6868d-d29a-4b92-b9c1-fb207e71852a",
+    "cost_usd": 0.0171185,
+    "status": "accepted",
+    "upper_cost_usd": "0.137016000",
+    "spent_before_usd": "1.356928775",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 6596,
+    "completion_tokens": 63,
+    "reasoning_tokens": 0,
+    "cached_tokens": 0,
+    "duration_seconds": 2.893,
+    "finish_reason": "stop",
+    "visible_tokens": 63,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "methods-B-turn-3",
+    "prompt_sha256": "5a2bff53c6ad40a1be5839594143e1a0abeea685b04f2e18ca384793c7799013",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken+B",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "894addb9-0c94-4e4b-abd8-c1d4fcb4c884",
+    "cost_usd": 0.006586,
+    "status": "accepted",
+    "upper_cost_usd": "0.058231250",
+    "spent_before_usd": "1.374047275",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 2055,
+    "completion_tokens": 145,
+    "reasoning_tokens": 61,
+    "cached_tokens": 0,
+    "duration_seconds": 5.603,
+    "finish_reason": "stop",
+    "visible_tokens": 84,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_only",
+    "label": "methods-C-turn-3",
+    "prompt_sha256": "5891bbbadb37fa0e84838bee574a757b02dea66010170506d654190b50a2aed1",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "style": "spoken+C",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "8d2ac753-8132-4243-9cc7-018a1c1128c4",
+    "cost_usd": 0.0194635,
+    "status": "accepted",
+    "upper_cost_usd": "0.134956250",
+    "spent_before_usd": "1.380633275",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 7218,
+    "completion_tokens": 142,
+    "reasoning_tokens": 51,
+    "cached_tokens": 0,
+    "duration_seconds": 5.751,
+    "finish_reason": "stop",
+    "visible_tokens": 91,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "methods-A-turn-2",
+    "prompt_sha256": "cebe74499aedcbf94e3f6aad0b0c1ec88de4f270cbd9f24ed4fd5944418d2d44",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken+A",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "9a97d4ec-6257-4023-b18d-1e9483dee7c2",
+    "cost_usd": 0.0030488,
+    "status": "accepted",
+    "upper_cost_usd": "0.052431500",
+    "spent_before_usd": "1.400096775",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1735,
+    "completion_tokens": 202,
+    "reasoning_tokens": 78,
+    "cached_tokens": 1378,
+    "duration_seconds": 6.826,
+    "finish_reason": "stop",
+    "visible_tokens": 124,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "methods-B-turn-2",
+    "prompt_sha256": "a74338e3e9519cd5cee9766e9dd9ca53a5bafd9c5f745047e18071a5ab5f775e",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken+B",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "97095441-8642-4b57-93e4-d5ffebb1fc05",
+    "cost_usd": 0.0072385,
+    "status": "accepted",
+    "upper_cost_usd": "0.056507000",
+    "spent_before_usd": "1.403145575",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 1936,
+    "completion_tokens": 240,
+    "reasoning_tokens": 97,
+    "cached_tokens": 0,
+    "duration_seconds": 7.163,
+    "finish_reason": "stop",
+    "visible_tokens": 143,
+    "validation_error": null,
+    "stage_direction_count": 0
+  },
+  {
+    "requested_model": "openai/gpt-6.1-sol",
+    "purpose": "roleplayer",
+    "scenario": "conflict_then_negotiation",
+    "label": "methods-C-turn-2",
+    "prompt_sha256": "db245dd52b4e0160aaf56e974d7d25e5491540cc875fd868ab5dc2c1238b1e89",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "style": "spoken+C",
+    "retry_index": 0,
+    "settings": {
+      "max_tokens": 1600,
+      "provider": {
+        "allow_fallbacks": false,
+        "require_parameters": true
+      },
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "omissions": [
+      "temperature unsupported; omitted"
+    ],
+    "id": "b57301c5-25dc-4795-9548-58b59ead7986",
+    "cost_usd": 0.018556,
+    "status": "accepted",
+    "upper_cost_usd": "0.129676250",
+    "spent_before_usd": "1.410384075",
+    "actual_model": "openai/gpt-6.1-sol",
+    "provider": "OpenAI",
+    "prompt_tokens": 6715,
+    "completion_tokens": 177,
+    "reasoning_tokens": 56,
+    "cached_tokens": 0,
+    "duration_seconds": 5.65,
+    "finish_reason": "stop",
+    "visible_tokens": 121,
+    "validation_error": null,
+    "stage_direction_count": 0
+  }
+]

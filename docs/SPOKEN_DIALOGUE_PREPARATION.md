@@ -1,5 +1,7 @@
 # Spoken-only dialogue — separate post-baseline preparation
 
+**Research update 2026-10-14:** the same `spoken-dialogue-1.0` is now used for all four models in the isolated comparison and finalist browser forks. See [the full study](PREMIUM_FULL_PIPELINE_COMPARISON_2026-10-14.md). This does not enable it in the production service or retroactively change the original A baseline. The preparation record below is historical.
+
 **CPU PREPARED, NOT ENABLED, NOT LIVE TESTED.** Prepared only after the original A public session completed six full replies and was finished without Judge. No additional model calls. This is a style requirement, not Cloud B/C or runtime/training parity.
 
 Owner requirement: an adult negotiation trainer shows only what the character actually says. No asterisk stage directions, gestures, facial expressions, breathing/action descriptions or third-person narrator. Emotion remains in words, resistance, disagreement and changes of position. Original no-coaching, character-boundary and one-question requirements remain.

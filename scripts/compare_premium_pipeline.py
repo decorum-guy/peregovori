@@ -29,7 +29,7 @@ from app.models import DebriefReport, RuntimeCase, SessionOptions
 from app.prompts import generator_prompt, judge_prompt, roleplay_messages
 from app.providers import OpenRouterProvider, ProviderError
 from app.service import (_check_requested_options, _hidden_leak, _parse_json_object,
-                         _quote_is_real, _validate_public_separation, DemoService)
+                         _validate_public_separation, DemoService)
 from app.spoken_dialogue import spoken_roleplay_messages, asterisk_stage_directions
 
 MODELS = ["anthropic/claude-opus-5.5", "anthropic/claude-sonnet-5.5",
@@ -177,11 +177,16 @@ def validate_output(raw, purpose, session, options=None):
         case = RuntimeCase.model_validate(_parse_json_object(raw))
         _check_requested_options(case, options or session["options"])
         _validate_public_separation(case)
+        # The website also displays opponent name/role outside public.*.
+        # Research must inspect the actual visible surface, without changing it.
+        data = case.model_dump(mode="json")
+        if any(_hidden_leak(data["opponent"][key], data) for key in ("name", "role")):
+            raise ValueError("Private case value copied into visible character name/role")
         return case.model_dump(mode="json")
     if purpose == "judge":
         report = DebriefReport.model_validate(_parse_json_object(raw))
         turns = [m["text"] for m in session["history"] if m["speaker"] == "player"]
-        if any(not _quote_is_real(p.quote, turns) for p in report.strengths + report.risks):
+        if any(not any(p.quote in turn for turn in turns) for p in report.strengths + report.risks):
             raise ValueError("Invented/non-exact Judge quote; reject whole report")
         from app.service import _all_strings
         if any(_hidden_leak(value, session["case"]) for value in _all_strings(report.model_dump())):
@@ -190,6 +195,17 @@ def validate_output(raw, purpose, session, options=None):
     if not raw.strip() or len(raw) > 3500 or "<think>" in raw.lower() or _hidden_leak(raw, session["case"]):
         raise ValueError("Roleplayer delivery guard rejected answer")
     return raw.strip()
+
+
+def judge_schema_recovery(messages):
+    """Explicit study-only format recovery; original production Judge unchanged."""
+    output = [dict(message) for message in messages]
+    output[-1]["content"] += ("\n\nFORMAT CONTRACT (explicit study recovery, not extra evaluation criteria): "
+        "Return one complete compact JSON. strengths and risks must each contain AT MOST FOUR items. "
+        "Every quote must be an exact, case-sensitive substring of one player turn. "
+        "Do not expose private case values. Obey all string limits and reject extra fields. JSON Schema:\n" +
+        json.dumps(DebriefReport.model_json_schema(), ensure_ascii=False, separators=(",", ":")))
+    return output
 
 
 class Runner:
@@ -220,7 +236,7 @@ class Runner:
         payload, omissions = payload_for(model, messages, purpose, catalog, selected)
         estimate = upper_price(messages, catalog[model], payload["max_tokens"])
         metadata = {"requested_model": model, "purpose": purpose, "scenario": scenario, "label": label,
-                    "prompt_sha256": fingerprint(messages), "case_sha256": fingerprint(session["case"]),
+                    "prompt_sha256": fingerprint(messages), "case_sha256": None if purpose == "case" else fingerprint(session["case"]),
                     "style": style, "retry_index": retry_index,
                     "settings": {k: v for k, v in payload.items() if k not in {"messages", "model"}}, "omissions": omissions}
         identity = self.budget.reserve(estimate, metadata)
@@ -271,8 +287,9 @@ class Runner:
         os.chmod(path, 0o600)
         self.budget.complete(identity, {"status": "validation_failed" if error else "accepted",
                                        "validation_error": error,
+                                       "generated_case_sha256": fingerprint(parsed) if purpose == "case" and parsed else None,
                                        "stage_direction_count": len(asterisk_stage_directions(raw)) if purpose == "roleplayer" else None})
-        return result, self.budget.rows()[-1]
+        return result, next(row for row in self.budget.rows() if row["id"] == identity)
 
 
 def prepare(purpose, scenario, turn=1, style="spoken"):

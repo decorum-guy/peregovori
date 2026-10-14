@@ -1,0 +1,74 @@
+[
+  {
+    "game_id": "hybrid-economy",
+    "scenario": "conflict_only",
+    "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5",
+    "model": "openai/gpt-6.1-sol",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "reviewed",
+    "debrief_status": "complete",
+    "new_roleplayer_usd": "0.0120241",
+    "new_judge_usd": "0.001677425"
+  },
+  {
+    "game_id": "hybrid-quality",
+    "scenario": "conflict_then_negotiation",
+    "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9",
+    "model": "openai/gpt-6.1-sol",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "reviewed",
+    "debrief_status": "complete",
+    "new_roleplayer_usd": "0.0150527",
+    "new_judge_usd": "0.159000"
+  },
+  {
+    "game_id": "luna-personal",
+    "scenario": "conflict_only",
+    "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a",
+    "model": "openai/gpt-6-luna",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "finished_without_review",
+    "debrief_status": "not_requested",
+    "new_roleplayer_usd": "0.000620035",
+    "new_judge_usd": "0"
+  },
+  {
+    "game_id": "luna-public-high",
+    "scenario": "conflict_then_negotiation",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "model": "openai/gpt-6-luna",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "finished_without_review",
+    "debrief_status": "not_requested",
+    "new_roleplayer_usd": "0.001697080",
+    "new_judge_usd": "0"
+  },
+  {
+    "game_id": "sol-negotiation",
+    "scenario": "negotiation_only",
+    "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7",
+    "model": "openai/gpt-6.1-sol",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "finished_without_review",
+    "debrief_status": "not_requested",
+    "new_roleplayer_usd": "0.0097056",
+    "new_judge_usd": "0"
+  },
+  {
+    "game_id": "sol-public",
+    "scenario": "conflict_then_negotiation",
+    "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7",
+    "model": "openai/gpt-6.1-sol",
+    "player_turns": 6,
+    "full_replies": 6,
+    "status": "finished_without_review",
+    "debrief_status": "not_requested",
+    "new_roleplayer_usd": "0.0121740",
+    "new_judge_usd": "0"
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "new_spend_usd": "1.428940075",
+  "remaining_usd": "3.571059925",
+  "cap_usd": "5.00",
+  "historical_baseline_excluded_usd": "1.027688",
+  "unknown_cost_calls": 0,
+  "automatic_retries": 0,
+  "calls": 105,
+  "categories": {
+    "case": {
+      "calls": 9,
+      "cost_usd": "0.214004275",
+      "accepted": 9,
+      "prompt_tokens": 73353,
+      "completion_tokens": 17126,
+      "reasoning_tokens": 4920
+    },
+    "roleplayer": {
+      "calls": 80,
+      "cost_usd": "0.416070475",
+      "accepted": 80,
+      "prompt_tokens": 190421,
+      "completion_tokens": 17455,
+      "reasoning_tokens": 7734
+    },
+    "judge": {
+      "calls": 16,
+      "cost_usd": "0.798865325",
+      "accepted": 10,
+      "prompt_tokens": 143596,
+      "completion_tokens": 28186,
+      "reasoning_tokens": 14762
+    }
+  },
+  "models": {
+    "anthropic/claude-sonnet-5.5": {
+      "calls": 15,
+      "cost_usd": "0.265312",
+      "accepted": 13,
+      "prompt_tokens": 81486,
+      "completion_tokens": 10234,
+      "reasoning_tokens": 825
+    },
+    "openai/gpt-6.1-sol": {
+      "calls": 46,
+      "cost_usd": "0.3202918",
+      "accepted": 45,
+      "prompt_tokens": 130100,
+      "completion_tokens": 12347,
+      "reasoning_tokens": 2139
+    },
+    "openai/gpt-6-luna": {
+      "calls": 29,
+      "cost_usd": "0.017532275",
+      "accepted": 29,
+      "prompt_tokens": 80143,
+      "completion_tokens": 22024,
+      "reasoning_tokens": 14809
+    },
+    "anthropic/claude-opus-5.5": {
+      "calls": 15,
+      "cost_usd": "0.825804",
+      "accepted": 12,
+      "prompt_tokens": 115641,
+      "completion_tokens": 18162,
+      "reasoning_tokens": 9643
+    }
+  }
+}

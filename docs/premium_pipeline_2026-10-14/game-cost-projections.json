@@ -1,0 +1,75 @@
+{
+  "standalone_estimates": [
+    {
+      "model": "anthropic/claude-opus-5.5",
+      "generator_mean_usd": "0.100594",
+      "roleplayer_6turn_estimate_usd": "0.115992",
+      "judge_first_attempt_mean_usd": "0.074674",
+      "estimated_game_without_judge_usd": "0.216586",
+      "estimated_game_with_judge_usd": "0.291260",
+      "note": "Not a measured full game; warm-cache study means; failed first Judge attempts included; Opus generator uses historical two post-fix cases."
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "generator_mean_usd": "0.03622733333333333333333333333",
+      "roleplayer_6turn_estimate_usd": "0.05255600000000000000000000000",
+      "judge_first_attempt_mean_usd": "0.025932",
+      "estimated_game_without_judge_usd": "0.08878333333333333333333333333",
+      "estimated_game_with_judge_usd": "0.1147153333333333333333333333",
+      "note": "Not a measured full game; warm-cache study means; failed first Judge attempts included; Opus generator uses historical two post-fix cases."
+    },
+    {
+      "model": "openai/gpt-6.1-sol",
+      "generator_mean_usd": "0.03292516666666666666666666667",
+      "roleplayer_6turn_estimate_usd": "0.0197514",
+      "judge_first_attempt_mean_usd": "0.02110933333333333333333333333",
+      "estimated_game_without_judge_usd": "0.05267656666666666666666666667",
+      "estimated_game_with_judge_usd": "0.07378590000000000000000000000",
+      "note": "Not a measured full game; warm-cache study means; failed first Judge attempts included; Opus generator uses historical two post-fix cases."
+    },
+    {
+      "model": "openai/gpt-6-luna",
+      "generator_mean_usd": "0.002182258333333333333333333333",
+      "roleplayer_6turn_estimate_usd": "0.001503006666666666666666666667",
+      "judge_first_attempt_mean_usd": "0.001415966666666666666666666667",
+      "estimated_game_without_judge_usd": "0.003685265000000000000000000000",
+      "estimated_game_with_judge_usd": "0.005101231666666666666666666667",
+      "note": "Not a measured full game; warm-cache study means; failed first Judge attempts included; Opus generator uses historical two post-fix cases."
+    }
+  ],
+  "hybrid_measured": [
+    {
+      "game": "hybrid-economy",
+      "generator_call_id": "c1bfb1e0-f5b4-4a51-bbfa-eb891798f941",
+      "generator_usd": "0.0326485",
+      "roleplayer_usd": "0.0120241",
+      "judge_including_failures_usd": "0.001677425",
+      "measured_allocated_game_usd": "0.046350025",
+      "measured_without_judge_usd": "0.0446726",
+      "successful_judge_only_game_usd": "0.046350025",
+      "roleplayer_no_cache_catalog_lower_usd": "0.029560",
+      "roleplayer_all_input_cache_write_upper_usd": "0.0356875",
+      "no_cache_estimate_with_successful_judge_usd_range": [
+        "0.063885925",
+        "0.070013425"
+      ]
+    },
+    {
+      "game": "hybrid-quality",
+      "generator_call_id": "7f302a1f-54ad-4015-a840-94123c4d60d5",
+      "generator_usd": "0.033526",
+      "roleplayer_usd": "0.0150527",
+      "judge_including_failures_usd": "0.159000",
+      "measured_allocated_game_usd": "0.2075787",
+      "measured_without_judge_usd": "0.0485787",
+      "successful_judge_only_game_usd": "0.1293907",
+      "roleplayer_no_cache_catalog_lower_usd": "0.033932",
+      "roleplayer_all_input_cache_write_upper_usd": "0.0406625",
+      "no_cache_estimate_with_successful_judge_usd_range": [
+        "0.148270",
+        "0.1550005"
+      ]
+    }
+  ],
+  "limitations": "Cases generated earlier in this same study are allocated exactly once per game; no repeated Generator charge. No-cache bounds assume unchanged observed tokens/rates, not measured cache-off runs."
+}

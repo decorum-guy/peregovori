@@ -1,0 +1,50 @@
+{
+  "reviewer": "GPT; partial masking, A already seen; no independent human consensus",
+  "ratings": [
+    {
+      "alias": "M01",
+      "gate": "PASS",
+      "notes": "No critical issue identified; one checkpoint is limited evidence."
+    },
+    {
+      "alias": "M02",
+      "gate": "PASS",
+      "notes": "No critical issue identified; one checkpoint is limited evidence."
+    },
+    {
+      "alias": "M03",
+      "gate": "PASS",
+      "notes": "No critical issue identified; one checkpoint is limited evidence."
+    },
+    {
+      "alias": "M04",
+      "gate": "PASS",
+      "notes": "Explicitly distinguishes private apology from public repair while allowing conditional technical discussion."
+    },
+    {
+      "alias": "M05",
+      "gate": "PASS",
+      "notes": "No critical issue identified; one checkpoint is limited evidence."
+    },
+    {
+      "alias": "M06",
+      "gate": "PASS",
+      "notes": "Preserves public repair, conditional resource and client acceptance."
+    },
+    {
+      "alias": "M07",
+      "gate": "PASS",
+      "notes": "Explicitly preserves three-day reserve and later-start caveat; no numeric invention."
+    },
+    {
+      "alias": "M08",
+      "gate": "PASS",
+      "notes": "No critical issue identified; one checkpoint is limited evidence."
+    },
+    {
+      "alias": "M09",
+      "gate": "PASS",
+      "notes": "Public responsibility remains open; technical option conditional on resource and testing."
+    }
+  ]
+}

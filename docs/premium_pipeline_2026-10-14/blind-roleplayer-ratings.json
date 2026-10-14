@@ -1,0 +1,195 @@
+{
+  "reviewer": "GPT in this chat; one reviewer; smoke outputs partly seen with model labels beforehand",
+  "rubric": [
+    "role/gender",
+    "facts/names/numbers provenance",
+    "hard limits/concession logic",
+    "causal conflict repair",
+    "one question",
+    "no stage directions",
+    "no coaching",
+    "arithmetic/reserve/unknowns"
+  ],
+  "ratings": [
+    {
+      "alias": "R01",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R02",
+      "gate": "FAIL",
+      "notes": "Gender/role drift: male \u00ab\u0413\u043e\u0442\u043e\u0432\u00bb for established female Irina."
+    },
+    {
+      "alias": "R03",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R04",
+      "gate": "WARN",
+      "notes": "Possible invented packaging/food inference; verify private evidence before final finding."
+    },
+    {
+      "alias": "R05",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R06",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R07",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R08",
+      "gate": "PASS",
+      "notes": "Conditional scope/deadline proposal explicitly remains conditional; not a guarantee."
+    },
+    {
+      "alias": "R09",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R10",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R11",
+      "gate": "WARN",
+      "notes": "Generic unestablished child-care past (\u00ab\u043d\u043e\u0447\u0430\u043c\u0438 \u043d\u0435 \u0441\u043f\u0430\u043b\u0430\u00bb)."
+    },
+    {
+      "alias": "R12",
+      "gate": "FAIL",
+      "notes": "Second independently introduced Lena: absent from case and exact turn-3 prefix."
+    },
+    {
+      "alias": "R13",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R14",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R15",
+      "gate": "FAIL",
+      "notes": "Introduced \u00ab\u041b\u0435\u043d\u0430\u00bb at turn 1 although no name in case or prefix."
+    },
+    {
+      "alias": "R16",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R17",
+      "gate": "PASS",
+      "notes": "Quarterly obligations confirmed in case and dialogue prefix; initial provenance flag cleared."
+    },
+    {
+      "alias": "R18",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R19",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R20",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R21",
+      "gate": "WARN",
+      "notes": "Vague risk magnification: 10 days within 15 described as almost no reserve."
+    },
+    {
+      "alias": "R22",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R23",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R24",
+      "gate": "WARN",
+      "notes": "Specific one-developer request needs conditional resource grounding."
+    },
+    {
+      "alias": "R25",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R26",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R27",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R28",
+      "gate": "PASS",
+      "notes": "Six-month retirement/living-alone duration exists in established world; not a hallucination."
+    },
+    {
+      "alias": "R29",
+      "gate": "WARN",
+      "notes": "Inherited Igor; two-developer request needs resource grounding."
+    },
+    {
+      "alias": "R30",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R31",
+      "gate": "WARN",
+      "notes": "One-week reserve assumes immediate start; start still unconfirmed."
+    },
+    {
+      "alias": "R32",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R33",
+      "gate": "WARN",
+      "notes": "One-week reserve assumes immediate start; start still unconfirmed."
+    },
+    {
+      "alias": "R34",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R35",
+      "gate": "PASS",
+      "notes": "No critical issue identified in public response; one turn is limited evidence."
+    },
+    {
+      "alias": "R36",
+      "gate": "WARN",
+      "notes": "Inherited Igor, not independently introduced in this prefix."
+    }
+  ]
+}

@@ -125,3 +125,33 @@ def test_retry_identity_is_persisted(tmp_path):
     ledger.complete(one, {"cost_usd": .01})
     two = bench.Budget(tmp_path).reserve(Decimal(".1"), metadata)
     assert ledger.rows()[-1]["retry_index"] == 1
+
+
+def test_visible_opponent_role_is_in_research_privacy_surface():
+    from app.providers import _mock_case
+    from app.models import SessionOptions
+    case = _mock_case({"scenario": "negotiation_only", "difficulty": "medium"})
+    case["opponent"]["private_facts"] = ["PRIVATE_ROLE_COPY_CANARY_DO_NOT_DELIVER"]
+    case["opponent"]["role"] = case["opponent"]["private_facts"][0]
+    options = SessionOptions(scenario="negotiation_only", difficulty="medium", sphere="work")
+    with pytest.raises(ValueError, match="visible character"):
+        bench.validate_output(json.dumps(case), "case", {"options": options})
+
+
+def test_judge_quote_is_raw_substring_not_casefold_match():
+    report = {"summary": "ok", "strengths": [{"quote": "Actual text", "explanation": "ok"}], "next_step": "ok"}
+    with pytest.raises(ValueError, match="non-exact"):
+        bench.validate_output(json.dumps(report), "judge", {"case": {}, "history": [{"speaker": "player", "text": "actual text"}]})
+
+
+def test_explicit_judge_recovery_adds_real_schema_without_mutating_baseline():
+    original = [{"role": "system", "content": "Original Judge system"}, {"role": "user", "content": "Original private context and transcript"}]
+    recovered = bench.judge_schema_recovery(original)
+    assert recovered[0] == original[0]
+    assert recovered[1]["content"].startswith(original[1]["content"])
+    assert original[1]["content"] == "Original private context and transcript"
+    assert '"maxItems":4' in recovered[1]["content"]
+    assert '"maxLength":1500' in recovered[1]["content"]
+    report = {"summary": "ok", "strengths": [{"quote": "actual", "explanation": "ok"}]*5, "next_step": "ok"}
+    with pytest.raises(ValueError):
+        bench.validate_output(json.dumps(report), "judge", {"case": {}, "history": [{"speaker": "player", "text": "actual"}]})

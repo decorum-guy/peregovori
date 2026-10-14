@@ -1,0 +1,99 @@
+[
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "variant": "A",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "38cb2827fcae12523a9ca9c1113a0c772ff37e3ed1666bc327d23cb0a96c8b0e",
+    "reuse_call_id": "8978cc5d-3a75-40ae-b5c2-545f7b2a840a",
+    "upper_new_usd": "0"
+  },
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "variant": "B",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "e797c6d7550f7bac96fa3758f964b7d6f0db5653c46b3021240d957d94d538f9",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.072844750",
+    "live_call_id": "196459ca-f500-41e5-a579-ee841fb83568"
+  },
+  {
+    "scenario": "negotiation_only",
+    "turn": 5,
+    "variant": "C",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "e5f9ac496198f2b88d5260a4305254bc4d9c76ef39631a54418ffb5a754a6ae3",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.137016000",
+    "live_call_id": "d3f6868d-d29a-4b92-b9c1-fb207e71852a"
+  },
+  {
+    "scenario": "conflict_only",
+    "turn": 3,
+    "variant": "A",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "eeb153b245ed0f5153a4aa3ba4da5f6b9510e78ba3b32777d2d45bc4c4ef08e8",
+    "reuse_call_id": "13566c3a-17d3-4916-a12a-befadcf5d893",
+    "upper_new_usd": "0"
+  },
+  {
+    "scenario": "conflict_only",
+    "turn": 3,
+    "variant": "B",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "5a2bff53c6ad40a1be5839594143e1a0abeea685b04f2e18ca384793c7799013",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.058231250",
+    "live_call_id": "894addb9-0c94-4e4b-abd8-c1d4fcb4c884"
+  },
+  {
+    "scenario": "conflict_only",
+    "turn": 3,
+    "variant": "C",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "5891bbbadb37fa0e84838bee574a757b02dea66010170506d654190b50a2aed1",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.134956250",
+    "live_call_id": "8d2ac753-8132-4243-9cc7-018a1c1128c4"
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 2,
+    "variant": "A",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "cebe74499aedcbf94e3f6aad0b0c1ec88de4f270cbd9f24ed4fd5944418d2d44",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.052431500",
+    "live_call_id": "9a97d4ec-6257-4023-b18d-1e9483dee7c2"
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 2,
+    "variant": "B",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "a74338e3e9519cd5cee9766e9dd9ca53a5bafd9c5f745047e18071a5ab5f775e",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.056507000",
+    "live_call_id": "97095441-8642-4b57-93e4-d5ffebb1fc05"
+  },
+  {
+    "scenario": "conflict_then_negotiation",
+    "turn": 2,
+    "variant": "C",
+    "method_version": "cloud-role-aware-methods-1.0",
+    "shared_spoken": "spoken-dialogue-1.0",
+    "prompt_sha256": "db245dd52b4e0160aaf56e974d7d25e5491540cc875fd868ab5dc2c1238b1e89",
+    "reuse_call_id": null,
+    "upper_new_usd": "0.129676250",
+    "live_call_id": "b57301c5-25dc-4795-9548-58b59ead7986"
+  }
+]

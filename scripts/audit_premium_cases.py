@@ -8,7 +8,7 @@ from app.prompts import RUNTIME_SPEC
 from app.service import _all_strings, _hidden_leak
 
 
-async def run():
+async def run(recovery=False):
     runner = Runner()
     candidates = []
     for scenario in SESSIONS:
@@ -35,7 +35,7 @@ async def run():
                  "Методология:\n" + RUNTIME_SPEC + "\nКейсы:\n" + json.dumps(aliases, ensure_ascii=False)}]
     result, meta = await runner.call(MODELS[0], "judge", "negotiation_only", messages,
         {"case": {}, "history": []}, label="independent-blind-generator-audit-12", style="semantic-audit",
-        selected={"max_tokens": 3500, "effort": "medium", "temperature": .3})
+        selected={"max_tokens": 6144 if recovery else 3500, "effort": "low" if recovery else "medium", "temperature": .3})
     if result["parsed"] and any(_hidden_leak(v, row["case"]) for v in _all_strings(result["parsed"]) for row in candidates):
         runner.budget.complete(meta["id"], {"status": "validation_failed", "validation_error": "audit private-context overlap"})
         result["parsed"] = None
@@ -46,5 +46,9 @@ async def run():
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--live", action="store_true", required=True)
-    p.parse_args()
-    asyncio.run(run())
+    p.add_argument("--single-recovery", action="store_true", help="Explicit one recovery after all-reasoning truncation; low/6144")
+    args=p.parse_args()
+    matching=[r for r in Runner().budget.rows() if r['label']=='independent-blind-generator-audit-12']
+    if matching and not (args.single_recovery and len(matching)==1 and matching[0]['status']=='validation_failed'):
+        raise ValueError('No further audit retries permitted')
+    asyncio.run(run(args.single_recovery))

@@ -1,0 +1,132 @@
+{
+  "status": "COMPLETE_TEXT_BUT_DEBRIEF_SCHEMA_REJECTED; ADVISORY_ONLY; NOT STRICT_ACCEPTANCE",
+  "first_attempt": "length; 3500 reasoning / 0 visible; rejected",
+  "one_explicit_recovery": "low/6144; stop; summary 1588 >1500; rejected, never clipped",
+  "audit_call_ids": [
+    "9c9f869c-3425-4aaa-84a5-f233bbea3fe5",
+    "b022f538-921e-4964-9805-e980dc713e0c"
+  ],
+  "interpretation": "Advisory flags require local human semantic review; do not equate personal participants=[] with invalidity or assume manipulator teaching/public goals must differ.",
+  "verdicts": [
+    {
+      "alias": "G01",
+      "advisory_verdict": "WARN",
+      "issue_classes": [
+        "goals",
+        "public_private",
+        "witnesses"
+      ],
+      "model": "anthropic/claude-sonnet-5.5",
+      "origin": "62f01a5d-8b6f-47a0-b24b-cec03e39ac76",
+      "case_sha256": "734e59651dbc4e235db609d172900365e53e95651f183d75666498b1236eb9c7"
+    },
+    {
+      "alias": "G02",
+      "advisory_verdict": "FAIL",
+      "issue_classes": [
+        "public_private",
+        "consistency"
+      ],
+      "model": "anthropic/claude-sonnet-5.5",
+      "origin": "a757d0f9-da0e-41fd-9bf3-f2d971d57a13",
+      "case_sha256": "d9fced022407ae473fc9ea86bd005d6759e2bf62c00163dd3bcead62196f0519"
+    },
+    {
+      "alias": "G03",
+      "advisory_verdict": "PASS",
+      "issue_classes": [
+        "resource"
+      ],
+      "model": "anthropic/claude-opus-5.5",
+      "origin": "historical-paid",
+      "case_sha256": "74a8454a4494a8cf7319f462cf4d1eaa4e347ad6bdba61051290b628de55eeb7"
+    },
+    {
+      "alias": "G04",
+      "advisory_verdict": "WARN",
+      "issue_classes": [
+        "goals",
+        "public_private",
+        "consistency"
+      ],
+      "model": "anthropic/claude-opus-5.5",
+      "origin": "historical-paid",
+      "case_sha256": "a7af92e1f2caa5e637a91046e9c1d31b2f7ed431439cf187fca04f965f846cd7"
+    },
+    {
+      "alias": "G05",
+      "advisory_verdict": "PASS",
+      "issue_classes": [],
+      "model": "openai/gpt-6-luna",
+      "origin": "8ecf674e-5400-49c5-a8f2-2e51d6bd4d12",
+      "case_sha256": "7fae5712eb3c6eb9afdab4bbea9b79b41688b412c0620daa3c5aba6cc5f2b114"
+    },
+    {
+      "alias": "G06",
+      "advisory_verdict": "PASS",
+      "issue_classes": [],
+      "model": "anthropic/claude-opus-5.5",
+      "origin": "historical-paid",
+      "case_sha256": "e509a18cbd14fd70698acc07dac422e281a435bb9fcea5c832841120dec04f9a"
+    },
+    {
+      "alias": "G07",
+      "advisory_verdict": "FAIL",
+      "issue_classes": [
+        "goals",
+        "public_private"
+      ],
+      "model": "openai/gpt-6-luna",
+      "origin": "eaa49b9a-563e-47eb-81eb-2f503e987242",
+      "case_sha256": "302586ce48fd419e0278067b060f99c1384f8ee40f4759b38d1737ed82476060"
+    },
+    {
+      "alias": "G08",
+      "advisory_verdict": "PASS",
+      "issue_classes": [
+        "resource"
+      ],
+      "model": "anthropic/claude-sonnet-5.5",
+      "origin": "b3f62fe7-6564-4944-b655-08b145f6a734",
+      "case_sha256": "f06bf5d77884a3c24ee6fe71951cf22f6571fd95efdae96f5a3326e1bd705ee9"
+    },
+    {
+      "alias": "G09",
+      "advisory_verdict": "PASS",
+      "issue_classes": [],
+      "model": "openai/gpt-6.1-sol",
+      "origin": "c1bfb1e0-f5b4-4a51-bbfa-eb891798f941",
+      "case_sha256": "c9107d46ac58b91c643f2465714f208a3e6ab43ab776648ad33179d044ce12a5"
+    },
+    {
+      "alias": "G10",
+      "advisory_verdict": "PASS",
+      "issue_classes": [
+        "witnesses"
+      ],
+      "model": "openai/gpt-6.1-sol",
+      "origin": "7f302a1f-54ad-4015-a840-94123c4d60d5",
+      "case_sha256": "9d2be8fae6c2369ab0ca0c106b50b26582d3e8eb3ce7b9e52d11233509f849b9"
+    },
+    {
+      "alias": "G11",
+      "advisory_verdict": "PASS",
+      "issue_classes": [
+        "goals"
+      ],
+      "model": "openai/gpt-6-luna",
+      "origin": "6ed96c6d-5fb4-47fe-80f8-ce987a0b7118",
+      "case_sha256": "38e8ba1e0f7f9d885a3829b92651075cefc4dd02c39c2b9c00b58a595b1f7faa"
+    },
+    {
+      "alias": "G12",
+      "advisory_verdict": "PASS",
+      "issue_classes": [
+        "arithmetic"
+      ],
+      "model": "openai/gpt-6.1-sol",
+      "origin": "c4aa5113-242d-45d9-a26f-e63f682811ab",
+      "case_sha256": "7d34fb3f268195da64189eaa9633ae7eae221aac2731b13b3ecd5a36afddb354"
+    }
+  ]
+}

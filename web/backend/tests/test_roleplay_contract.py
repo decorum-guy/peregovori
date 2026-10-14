@@ -107,3 +107,11 @@ def test_actual_future_cli_adapters_share_serializer():
     assert modules[0].convert_records([record])[-1]["prompt"] == modules[1].replay_messages(case, history)
     assert modules[1].replay_messages(case, history, target="http") == roleplay_messages(case, history)
     assert modules[1].replay_messages(case, history)[0]["content"].count(QWEN_SUFFIX) == 1
+
+
+@pytest.mark.parametrize("difficulty", ["easy", "medium", "hard", "extra_hard", "impossible"])
+def test_all_difficulty_values_preserved_without_claiming_semantic_feasibility(difficulty):
+    case, history = fixture("conflict_then_negotiation", "pressure", "ru")
+    case["difficulty"] = difficulty
+    assert runtime_messages(case, history) == roleplay_messages(case, history)
+    assert dev_replay(case, history, transport="cloud") == roleplay_messages(case, history)

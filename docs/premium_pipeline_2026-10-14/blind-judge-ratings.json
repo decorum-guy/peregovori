@@ -1,0 +1,61 @@
+{
+  "reviewer": "GPT; partial blinding, smoke previously labelled",
+  "ratings": [
+    {
+      "alias": "J01",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J02",
+      "gate": "FAIL",
+      "notes": "Raw quote changes initial capitalisation; production-normalized guard passed but exact substring gate fails. Also wrongly criticises a legitimate overtime constraint in an open question.",
+      "initial_gate": "WARN"
+    },
+    {
+      "alias": "J03",
+      "gate": "FAIL",
+      "notes": "False criticism: minimum scope was already elicited before the later scope-reduction question."
+    },
+    {
+      "alias": "J04",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J05",
+      "gate": "FAIL",
+      "notes": "Judge private-context overlap; review locally"
+    },
+    {
+      "alias": "J06",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J07",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J08",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J09",
+      "gate": "FAIL",
+      "notes": "Judge private-context overlap; review locally"
+    },
+    {
+      "alias": "J10",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    },
+    {
+      "alias": "J11",
+      "gate": "PASS",
+      "notes": "Exact player quotations; useful evidence-limited feedback; no critical issue identified."
+    }
+  ]
+}
