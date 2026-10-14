@@ -3,11 +3,14 @@ from __future__ import annotations
 import json
 import logging
 import re
+import sqlite3
+import time
 from typing import Any, Dict, List, Optional
 
 import httpx
 
 from .config import Settings
+from .usage import finish_reason
 
 
 logger = logging.getLogger("line_of_decision.llm")
@@ -22,6 +25,7 @@ class ProviderError(RuntimeError):
 class OpenRouterProvider:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
+        self.usage_ledger = None
 
     def client(self) -> httpx.AsyncClient:
         # Explicit proxy applies ONLY to OpenRouter. Empty means a direct connection;
@@ -97,18 +101,37 @@ class OpenRouterProvider:
             "Content-Type": "application/json",
             "X-Title": "Line of Decision demo",
         }
-        response = await self.request("POST", "/chat/completions", headers=headers, json=payload)
+        started = time.monotonic()
+        body, outcome = None, "error"
         try:
-            body = response.json()
-            content = body["choices"][0]["message"]["content"]
-            if isinstance(content, list):
-                content = "".join(item.get("text", "") for item in content if isinstance(item, dict))
-            if not isinstance(content, str) or not content.strip():
-                raise ValueError("empty content")
-            return content.strip()
-        except (ValueError, KeyError, IndexError, TypeError) as exc:
-            logger.warning("OpenRouter malformed response purpose=%s model=%s", purpose, model)
-            raise ProviderError("API-модель вернула пустой или повреждённый ответ.", "provider_malformed") from exc
+            response = await self.request("POST", "/chat/completions", headers=headers, json=payload)
+            try:
+                body = response.json()
+                reason = finish_reason(body)
+                if reason == "length":
+                    outcome = "truncated"
+                    raise ProviderError("Ответ достиг общего лимита reasoning и текста.", "provider_truncated")
+                if reason not in {"stop", "not_reported"}:
+                    raise ProviderError("API-модель не завершила ответ нормально.", "provider_bad_finish")
+                content = body["choices"][0]["message"]["content"]
+                if isinstance(content, list):
+                    content = "".join(item.get("text", "") for item in content if isinstance(item, dict))
+                if not isinstance(content, str) or not content.strip():
+                    raise ValueError("empty content")
+                outcome = "complete"
+                return content.strip()
+            except (ValueError, KeyError, IndexError, TypeError, AttributeError) as exc:
+                outcome = "malformed"
+                logger.warning("OpenRouter malformed response purpose=%s model=%s", purpose, model)
+                raise ProviderError("API-модель вернула пустой или повреждённый ответ.", "provider_malformed") from exc
+        finally:
+            if self.usage_ledger is not None:
+                try:
+                    self.usage_ledger.record(purpose=purpose, model=model, body=body, seconds=time.monotonic() - started,
+                                             outcome=outcome, max_tokens=max_tokens, temperature=temperature)
+                except sqlite3.Error:
+                    # A telemetry failure must never cause a second paid request.
+                    logger.error("OpenRouter usage persistence failed; cost accounting incomplete")
 
 
 class MockProvider:

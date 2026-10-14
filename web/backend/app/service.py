@@ -18,6 +18,7 @@ from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
 from .qwen import qwen_label, ready_identity
 from .storage import SessionStore
+from .usage import usage_scope
 
 
 logger = logging.getLogger("line_of_decision.service")
@@ -250,8 +251,9 @@ class DemoService:
             if not available:
                 raise ServiceError(409, reason or "Сервер LoRA-модели не прошёл проверку.", "lora_unavailable")
             selected_qwen = dict(self._lora_identity)
-        case, source = await self._generate_case(options)
         session_id = str(uuid.uuid4())
+        with usage_scope(session_id, "case", options.scenario):
+            case, source = await self._generate_case(options)
         public = {
             "scenario": case.scenario,
             "conflict_type": case.conflict_type,
@@ -301,10 +303,15 @@ class DemoService:
                     generator_prompt(options_dict, errors if attempt else ""),
                     purpose="case",
                     json_mode=True,
-                    max_tokens=3200,
+                    # Shared budget includes reasoning; compact visible JSON must fit too.
+                    max_tokens=4096,
                     temperature=0.65,
                 )
             except ProviderError as exc:
+                if exc.code == "provider_truncated" and attempt == 0:
+                    errors = "The combined reasoning/output limit was reached. Regenerate a shorter COMPLETE JSON; do not continue a fragment."
+                    logger.warning("case response truncated attempt=1; one compact repair permitted")
+                    continue
                 provider_failure = exc
                 break
             except Exception as exc:
@@ -347,7 +354,17 @@ class DemoService:
     def _validation_summary(exc: Exception) -> str:
         if isinstance(exc, ValidationError):
             errors = exc.errors(include_input=False)
-            return "; ".join(".".join(str(part) for part in error.get("loc", ())) + ": " + error.get("msg", "invalid") for error in errors[:8])
+            allowed = {name for schema in [RuntimeCase.model_json_schema()] + list(RuntimeCase.model_json_schema().get("$defs", {}).values()) for name in schema.get("properties", {})}
+            summaries = []
+            for error in errors[:8]:
+                location = ".".join(str(part) if isinstance(part, int) or part in allowed else "<extra_field>" for part in error.get("loc", ()))
+                limits = ",".join("%s=%s" % (key, value) for key, value in error.get("ctx", {}).items()
+                                  if key in {"max_length", "min_length"} and type(value) is int)
+                summaries.append(location + ": " + error.get("type", "invalid") + (" (" + limits + ")" if limits else ""))
+            return "; ".join(summaries)
+        if isinstance(exc, json.JSONDecodeError):
+            return "invalid or incomplete JSON (line=%d, column=%d)" % (exc.lineno, exc.colno)
+        # These errors originate in our semantic validators, not in provider text.
         return str(exc)[:1500]
 
     def snapshot(self, session: Optional[Dict[str, Any]]) -> Dict[str, Any]:
@@ -436,13 +453,14 @@ class DemoService:
         assert session is not None
         try:
             if session["engine_id"] == "premium":
-                raw = await self.provider.complete(
-                    session["engine_model"],
-                    roleplay_messages(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
-                    purpose="roleplayer",
-                    max_tokens=600,
-                    temperature=0.75,
-                )
+                with usage_scope(session_id, "roleplayer/" + request_id, session["settings"]["scenario"]):
+                    raw = await self.provider.complete(
+                        session["engine_model"],
+                        roleplay_messages(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
+                        purpose="roleplayer",
+                        max_tokens=600,
+                        temperature=0.75,
+                    )
             else:
                 raw = await self._lora_complete(session)
             reply = raw.strip()
@@ -535,14 +553,15 @@ class DemoService:
             self.store.fail_debrief(session_id)
             raise ServiceError(503, "Для разбора нужен OPENROUTER_API_KEY.", "ai_not_configured")
         try:
-            raw = await self.provider.complete(
-                self.settings.judge_model,
-                judge_prompt(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
-                purpose="judge",
-                json_mode=True,
-                max_tokens=2500,
-                temperature=0.3,
-            )
+            with usage_scope(session_id, "judge", session["settings"]["scenario"]):
+                raw = await self.provider.complete(
+                    self.settings.judge_model,
+                    judge_prompt(session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
+                    purpose="judge",
+                    json_mode=True,
+                    max_tokens=2500,
+                    temperature=0.3,
+                )
             data = _parse_json_object(raw)
             report = DebriefReport.model_validate(data)
             player_quotes = [message["text"] for message in session["messages"] if message["speaker"] == "player"]

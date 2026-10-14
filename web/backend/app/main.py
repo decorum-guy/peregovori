@@ -15,6 +15,7 @@ from .models import Language, MessageRequest, SessionOptions
 from .providers import MockProvider, OpenRouterProvider
 from .service import DemoService, ServiceError
 from .storage import SessionStore
+from .usage import UsageLedger
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
@@ -31,6 +32,8 @@ def create_app(
     active_settings.validate()
     store = SessionStore(database_path or active_settings.database_path)
     active_provider = provider or (MockProvider() if active_settings.llm_mode == "mock" else OpenRouterProvider(active_settings))
+    if provider is None and active_settings.llm_mode != "mock":
+        active_provider.usage_ledger = UsageLedger(store.database_path)
     service = DemoService(active_settings, store, active_provider)
     app = FastAPI(title="Линия решения", version="0.1.0", docs_url=None, redoc_url=None)
     app.state.demo_service = service

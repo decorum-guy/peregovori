@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 from .config import REPO_DIR
+from .models import RuntimeCase
 
 
 RUNTIME_SPEC_PATH = REPO_DIR / "course_sot" / "compact_runtime_spec.yaml"
@@ -55,35 +56,15 @@ def relevant_rubric(scenario: str) -> str:
 
 
 def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str, str]]:
-    schema = {
-        "schema_version": "runtime-1.0",
-        "category": "MODEL_MANIPULATOR | MODEL_DEFENDER | MODEL_NEGOTIATOR",
-        "difficulty": "easy | medium | hard | extra_hard | impossible",
-        "scenario": "conflict_only | negotiation_only | conflict_then_negotiation",
-        "conflict_type": "personal | public | mixed | none",
-        "public": {
-            "title": "string",
-            "context": "string",
-            "student_role": "string",
-            "student_goal": "string or null",
-            "negotiation_topic": "string or null",
-            "player_conflict_goal": "string or null",
-            "known_facts": ["string"],
-            "participants": [{"name": "string", "role": "string"}],
-        },
-        "world": {"facts": ["string"], "unknowns": ["string"]},
-        "opponent": {
-            "name": "string", "role": "string", "opening": "string", "private_facts": ["string"],
-            "goals": ["string"], "hard_limits": ["string"], "concede_if": ["string"],
-            "escalate_if": ["string"], "initial_emotion": "string",
-        },
-        "teaching": {
-            "perspective": "student | model_character | not_applicable", "conflict_type": "personal | public | mixed | none",
-            "negotiation_topic": "string or null", "conflict_goal": "string or null", "decoding": "string or null",
-            "initial_stage": "emotion | show_boundary | defend_boundary | stage4 | negotiation",
-            "focus_techniques": ["string"], "acceptable_outcomes": ["string"],
-        },
-    }
+    # Pydantic is the source of truth for lengths, arrays, enums and nullability.
+    schema = RuntimeCase.model_json_schema()
+    def without_titles(value):
+        if isinstance(value, dict):
+            return {key: without_titles(item) for key, item in value.items() if key != "title" or not isinstance(item, str)}
+        if isinstance(value, list):
+            return [without_titles(item) for item in value]
+        return value
+    schema = without_titles(schema)
     user = (
         "Создай один новый, реалистичный русский runtime-кейс и верни только JSON-объект по контракту ниже. "
         "Не возвращай markdown, dialogue, заранее написанные ходы, C### id или любые дополнительные поля.\n\n"
@@ -104,7 +85,7 @@ def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str
         "В конфликте и переговорах следуй минимально достаточному этапу; причинная эскалация допустима, случайный срыв — нет. "
         "В первой реплике opponent.opening сразу начинает сцену. Если персонаж задаёт вопрос, пусть это будет один вопрос, "
         "после которого он ждёт ответа; не соединяй несколько вопросов в одной реплике. Не включай эталонную технику в видимую задачу.\n\n"
-        "Структура JSON:\n" + json.dumps(schema, ensure_ascii=False, indent=2) + "\n\n"
+        "Структура JSON:\n" + json.dumps(schema, ensure_ascii=False, separators=(",", ":")) + "\n\n"
         "Краткая методология курса:\n" + RUNTIME_SPEC + "\n\n"
         "Релевантные техники курса:\n" + relevant_methodology(options["scenario"])
     )
@@ -128,11 +109,28 @@ def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str
             "Impossible difficulty means one objectively unattainable desired condition, not endless refusal. "
             "Use the minimally sufficient stage; escalation needs a cause. The opening immediately starts the scene. "
             "Ask at most one question in that opening, then wait for the answer. Do not reveal the reference technique in the player's task.\n\n"
-            "JSON contract:\n" + json.dumps(schema, ensure_ascii=False, indent=2) + "\n\n"
+            "JSON contract:\n" + json.dumps(schema, ensure_ascii=False, separators=(",", ":")) + "\n\n"
             "Original course materials below may be in Russian. Apply their methodology and write the case in English.\n"
             "Compact course specification:\n" + RUNTIME_SPEC + "\n\n"
             "Relevant course techniques:\n" + relevant_methodology(options["scenario"])
         )
+    user += (
+        "\n\nCompactness: return one COMPLETE JSON object, with every required field and closing bracket. "
+        "Aim for 3500–5000 characters total; no indentation, explanations or repeated prose. "
+        "Obey the schema's maxLength/minLength and maxItems/minItems. Prefer context <=600 characters, "
+        "goals <=220 characters, opening <=250 characters, and teaching.decoding <=180 characters "
+        "(strict maximum 300), or null when not applicable. Use 2–4 concise items per list where allowed, "
+        "and only necessary named participants. Keep enough facts, unknowns, hard limits and concession conditions "
+        "for meaningful multi-turn play. Never omit the character's constraints to save space."
+        if english else
+        "\n\nКомпактность: верни один ПОЛНЫЙ JSON со всеми обязательными полями и закрывающими скобками. "
+        "Ориентир 3500–5000 символов суммарно: без отступов, пояснений и повторов. "
+        "Соблюдай maxLength/minLength и maxItems/minItems схемы. Предпочитай context <=600 символов, "
+        "цели <=220 символов, opening <=250 символов; teaching.decoding <=180 символов "
+        "(строгий максимум 300), либо null, если неприменимо. В списках обычно 2–4 коротких пункта, "
+        "если схема допускает; только необходимые участники. Сохраняй достаточно фактов, неизвестного, "
+        "ограничений и условий уступки для многоходовой игры. Не выкидывай ограничения ради краткости."
+    )
     if repair:
         user += ("\n\nRepair the previous result. Contract errors: " if english else "\n\nИсправь предыдущий результат. Ошибки контракта: ") + repair[:2500]
     return [
