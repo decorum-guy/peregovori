@@ -6,7 +6,7 @@ from typing import Optional
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .config import WEB_DIR, Settings
@@ -124,6 +124,9 @@ def create_app(
         return FileResponse(catalog / "index.html")
 
     @app.get("/", include_in_schema=False)
+    async def homepage():
+        return RedirectResponse(url="/games", status_code=302)
+
     @app.get("/games/line-decision", include_in_schema=False)
     @app.get("/games/line-decision/", include_in_schema=False)
     async def root():
