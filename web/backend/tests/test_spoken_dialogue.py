@@ -81,5 +81,38 @@ def test_case_generator_requests_observable_goals_and_real_constraints(language)
 
 
 
+
+@pytest.mark.parametrize('style', ['original', 'spoken'])
+def test_live_spoken_mode_uses_guidance_without_affecting_original(tmp_path, style):
+    from fastapi.testclient import TestClient
+    from app.live_difficulty import DIFFICULTY_ROLEPLAY_RU, GENERATOR_GUIDANCE_RU
+    from test_sessions import make_test_app, options
+
+    app, provider = make_test_app(
+        tmp_path, cloud_roleplayer_style=style, completion_enabled=False
+    )
+    with TestClient(app) as client:
+        session = client.post(
+            '/api/sessions', json=options(scenario='conflict_only', difficulty='medium')
+        )
+        assert session.status_code == 200, session.text
+        turn = client.post(
+            f"/api/sessions/{session.json()['id']}/message",
+            json={'text': 'Мне важно договориться.', 'request_id': 'spoken-guidance-test'},
+        )
+        assert turn.status_code == 200, turn.text
+
+    case_prompt = next(call for call in provider.calls if call['purpose'] == 'case')
+    reply_prompt = next(call for call in provider.calls if call['purpose'] == 'roleplayer')
+    assert GENERATOR_GUIDANCE_RU in case_prompt['messages'][-1]['content']
+    guided = DIFFICULTY_ROLEPLAY_RU['medium'] in reply_prompt['messages'][0]['content']
+    assert guided is (style == 'spoken')
+    if style == 'original':
+        assert SPOKEN_RULES['ru'] not in reply_prompt['messages'][0]['content']
+    else:
+        assert SPOKEN_RULES['ru'] in reply_prompt['messages'][0]['content']
+
+
+
 def test_unknown_language_is_rejected():
     with pytest.raises(ValueError):spoken_roleplay_messages({},[],'fr')
