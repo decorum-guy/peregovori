@@ -84,7 +84,7 @@ def test_classes_public_context_and_no_judge(tmp_path, classification, difficult
         'partial': 'Буду говорить спокойнее, но всё равно требую принять всю работу.',
         'not_achieved': 'Ладно, согласен. Но сначала вы обязаны выполнить прежнее требование.',
         'uncertain': 'Возможно, обсудим это когда-нибудь.'}[classification]
-    app, _ = make_test_app(tmp_path, provider, completion_model='openai/gpt-6.1-sol')
+    app, _ = make_test_app(tmp_path, provider, completion_model='openai/gpt-6.1-sol', completion_min_turns=3)
     with TestClient(app) as client:
         created = client.post('/api/sessions', json=options(difficulty=difficulty)).json()
         final = three_turns(client, created['id'])
@@ -104,9 +104,45 @@ def test_classes_public_context_and_no_judge(tmp_path, classification, difficult
         assert len(checks(provider)) == 1
 
 
+
+@pytest.mark.parametrize('classify,expected', [('achieved', True), ('partial', False)])
+def test_first_successful_reply_is_eligible_for_immediate_completion_hint(tmp_path, classify, expected):
+    """One exchange is enough to detect explicit success; it does not force success."""
+    provider = CompletionProvider()
+    provider.classification = classify
+    provider.completion_reply = (
+        'Я больше не буду тебя так называть; буду обращаться по имени.'
+        if expected else 'Я поняла, но всё равно продолжу называть тебя так.'
+    )
+    app, _ = make_test_app(tmp_path, provider)
+    with TestClient(app) as client:
+        session = client.post('/api/sessions', json=options()).json()
+        result = client.post(
+            f"/api/sessions/{session['id']}/message",
+            json={'request_id': 'first-boundary-reply', 'text': 'Пожалуйста, обращайся по имени.'},
+        )
+        assert result.status_code == 200
+        snapshot = result.json()
+        assert snapshot['status'] == 'active'
+        assert bool(snapshot['completion_hint']) is expected
+        assert len(checks(provider)) == 1
+        assert not any(c['purpose'] == 'judge' for c in provider.calls)
+        if expected:
+            assert snapshot['completion_hint']['status'] == 'offered'
+            assert client.get(f"/api/sessions/{session['id']}").json()['completion_hint'] == snapshot['completion_hint']
+
+
+def test_public_completion_policy_no_longer_requires_three_turns():
+    from app.config import Settings
+    s = Settings()
+    assert s.completion_min_turns == 1
+    s.validate()
+
+
+
 def test_decline_restore_draft_independence_and_no_repeat(tmp_path):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     with TestClient(app) as client:
         session = client.post('/api/sessions', json=options()).json()
         final = three_turns(client, session['id'])
@@ -133,7 +169,7 @@ def test_abstention_and_request_budgets(tmp_path, mode):
     settings = {'completion_enabled': mode != 'disabled', 'completion_max_checks': 2}
     if mode == 'context_cap':
         settings['completion_max_input_chars'] = 1000
-    app, _ = make_test_app(tmp_path, provider, **settings)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3, **settings)
     with TestClient(app) as client:
         session = client.post('/api/sessions', json=options()).json()
         for i in range(12):
@@ -145,7 +181,7 @@ def test_abstention_and_request_budgets(tmp_path, mode):
 
 def test_qwen_never_checks_paid_provider(tmp_path):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     service = app.state.demo_service
     async def exercise():
         session = await service.create_session(__import__('app.models', fromlist=['SessionOptions']).SessionOptions(**options()))
@@ -160,7 +196,7 @@ def test_qwen_never_checks_paid_provider(tmp_path):
 @pytest.mark.parametrize('race', ['finish', 'new_turn', 'duplicate'])
 def test_detector_races(tmp_path, race):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     async def exercise():
         async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://test') as client:
             session = (await client.post('/api/sessions', json=options())).json()
@@ -189,7 +225,7 @@ def test_detector_races(tmp_path, race):
 
 def test_failed_cancelled_turns_and_interrupted_reservation(tmp_path):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     with TestClient(app) as client:
         session = client.post('/api/sessions', json=options()).json()
         store = app.state.session_store
@@ -217,7 +253,7 @@ def test_failed_cancelled_turns_and_interrupted_reservation(tmp_path):
     {'all_goals_met': 'true'}, {'unresolved': ['условие']}, {'evidence': []}, {'extra': 'untrusted'}])
 def test_strict_schema_rejects_unsupported_success(tmp_path, changes):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     with TestClient(app) as client:
         session = client.post('/api/sessions', json=options()).json()
         last = session['messages'][-1]
@@ -241,7 +277,7 @@ def test_completion_usage_is_separate_from_judge(tmp_path):
 
 def test_completion_timeout_keeps_delivered_turn_and_consumes_attempt(tmp_path, monkeypatch):
     provider = CompletionProvider()
-    app, _ = make_test_app(tmp_path, provider)
+    app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
     async def timeout(awaitable, timeout):
         awaitable.close()
         raise asyncio.TimeoutError()
@@ -258,7 +294,7 @@ def test_completion_timeout_keeps_delivered_turn_and_consumes_attempt(tmp_path, 
 
 def test_completion_config_rejects_luna_and_unsafe_budgets():
     from app.config import Settings
-    for overrides in ({'completion_model': 'openai/gpt-6-luna'}, {'completion_min_turns': 1},
+    for overrides in ({'completion_model': 'openai/gpt-6-luna'}, {'completion_min_turns': 0},
                       {'completion_max_checks': 11}, {'completion_max_tokens': 9000},
                       {'completion_timeout_seconds': float('nan')}, {'completion_model': 'qwen/local'}):
         with pytest.raises(ValueError):
