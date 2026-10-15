@@ -54,5 +54,32 @@ def test_fact_and_style_defects_are_independent_in_frozen_evidence():
     assert 'болела' in invented
 
 
+
+@pytest.mark.parametrize('language', ['ru', 'en'])
+@pytest.mark.parametrize('difficulty', ['easy', 'medium', 'hard', 'extra_hard', 'impossible'])
+def test_roleplayer_receives_distinct_causal_difficulty_instructions(language, difficulty):
+    from app.prompts import DIFFICULTY_ROLEPLAY_EN, DIFFICULTY_ROLEPLAY_RU
+    case = _mock_case({'scenario': 'conflict_only', 'difficulty': difficulty,
+                       'conflict_type': 'personal', 'student_side': 'protect', 'language': language})
+    instruction = (DIFFICULTY_ROLEPLAY_EN if language == 'en' else DIFFICULTY_ROLEPLAY_RU)[difficulty]
+    prompts = spoken_roleplay_messages(case, [], language)
+    assert instruction in prompts[0]['content']
+    assert case['opponent']['hard_limits']
+    assert prompts[0]['role'] == 'system'
+
+
+@pytest.mark.parametrize('language', ['ru', 'en'])
+def test_case_generator_requests_observable_goals_and_real_constraints(language):
+    from app.prompts import generator_prompt
+    options = {'scenario': 'conflict_only', 'difficulty': 'extra_hard',
+               'conflict_type': 'personal', 'student_side': 'protect', 'language': language}
+    messages = generator_prompt(options)
+    guidance = messages[-1]['content']
+    assert ('проверяемое изменение' if language == 'ru' else 'observable as a feasible change') in guidance
+    assert 'concede_if' in guidance
+    assert 'hard_limits' in guidance
+
+
+
 def test_unknown_language_is_rejected():
     with pytest.raises(ValueError):spoken_roleplay_messages({},[],'fr')
