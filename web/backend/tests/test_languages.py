@@ -21,10 +21,15 @@ class LanguageProvider(MockProvider):
 
 
 def language_app(tmp_path, provider=None):
-    return create_app(settings=Settings(openrouter_api_key='test-key', llm_mode='openrouter',
-                                       database_path=str(tmp_path / 'languages.sqlite3'),
-                                       completion_enabled=False))  # Language tests check opt-in Judge, not completion.,
-                      provider=provider or LanguageProvider())
+    return create_app(
+        settings=Settings(
+            openrouter_api_key='test-key',
+            llm_mode='openrouter',
+            database_path=str(tmp_path / 'languages.sqlite3'),
+            completion_enabled=False,  # Language tests check opt-in Judge, not completion.
+        ),
+        provider=provider or LanguageProvider(),
+    )
 
 
 @pytest.mark.parametrize('scenario', ['conflict_only', 'negotiation_only', 'conflict_then_negotiation'])
