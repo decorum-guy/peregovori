@@ -1,0 +1,15 @@
+{
+  "checkpoint": "02",
+  "private_zip_sha256": "c1d39cc280222dce9f7839b58a7883ae9f0e8cc946a9953cd16d91185a8dab65",
+  "private_zip_bytes": null,
+  "case_count_rewritten": 29,
+  "branches": 87,
+  "sft_targets_pending_QA": 348,
+  "case_status": "PENDING_INDEPENDENT_QA",
+  "remaining_to_rewrite": 33,
+  "accepted_cases_untouched": 118,
+  "public_git_contains_private_case_data": false,
+  "actual_runtime_import": "PENDING_RUNTIME_VERIFICATION",
+  "sources": "private user attachments",
+  "safety": "SHA only; no card/teaching/dialogue content published"
+}
