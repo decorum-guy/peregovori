@@ -26,11 +26,11 @@ class CompletionResult(StrictModel):
 # Cheap candidate filter controls paid checks, never decides achievement.
 # A missed phrase still gets a periodic check through the configured cooldown.
 _AGREEMENT_CUE = re.compile(
-    r"\\b(?:соглас(?:ен|на|ны|ились)|договорились|перестану|перестанем|"
-    r"не\\s+буду|не\\s+стану|больше\\s+не|обещаю|откажусь|"
-    r"давай\\s+так|хорошо|принимаю|"
-    r"agree|agreed|deal|promise|won't|will\\s+not|"
-    r"i\\s+will|i'll\\s+stop|we\\s+can\\s+do\\s+that)\\b",
+    r"\b(?:соглас(?:ен|на|ны|ились)|договорились|перестану|перестанем|"
+    r"не\s+буду|не\s+стану|больше\s+не|обещаю|откажусь|"
+    r"давай\s+так|хорошо|принимаю|"
+    r"agree|agreed|deal|promise|won't|will\s+not|"
+    r"i\s+will|i'll\s+stop|we\s+can\s+do\s+that)\b",
     flags=re.IGNORECASE,
 )
 
