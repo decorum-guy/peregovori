@@ -273,7 +273,7 @@ class SessionStore:
         return self.get(session_id)
 
     def reserve_completion(self, session_id: str, reply_id: str, *, min_turns: int,
-                           cooldown: int, max_checks: int) -> bool:
+                           cooldown: int, max_checks: int, priority: bool = False) -> bool:
         """Durable reservation: count errors/restarts too; no second paid attempt."""
         with self._connection() as connection:
             connection.execute("BEGIN IMMEDIATE")
@@ -291,7 +291,7 @@ class SessionStore:
             checks = connection.execute("SELECT reply_id, turn, status FROM completion_checks WHERE session_id = ?", (session_id,)).fetchall()
             if (turns < min_turns or len(checks) >= max_checks
                     or any(c["reply_id"] == reply_id or c["status"] == "pending" for c in checks)
-                    or (checks and turns - max(c["turn"] for c in checks) < cooldown)):
+                    or (checks and not priority and turns - max(c["turn"] for c in checks) < cooldown)):
                 return False
             connection.execute("INSERT INTO completion_checks (session_id, reply_id, turn) VALUES (?, ?, ?)",
                                (session_id, reply_id, turns))
