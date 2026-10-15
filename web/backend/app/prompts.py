@@ -135,7 +135,7 @@ def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str
     # superficial label. A concrete behavioral outcome is more observable than
     # compelling someone to endorse a moral/legal claim.
     if english:
-        user += ("\\n\\nDifficulty design: Make the public player goal observable as a feasible change "
+        user += ("\n\nDifficulty design: Make the public player goal observable as a feasible change "
                  "in behavior or a concrete agreement, not forced verbal recognition of a right, "
                  "repentance, love, or a private belief. Avoid goals that demand an inner state. "
                  "Easy may yield to one clear request; medium must contain a real competing interest "
@@ -146,7 +146,7 @@ def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str
                  "a fixed number of turns, baseless aggression or an automatic concession merely for "
                  "using an I-statement. No artificial resistance after all obstacles are actually resolved.")
     else:
-        user += ("\\n\\nКонструирование сложности: публичная цель игрока — проверяемое изменение "
+        user += ("\n\nКонструирование сложности: публичная цель игрока — проверяемое изменение "
                  "поведения или конкретная договорённость, НЕ принуждение собеседника «признать право», "
                  "испытывать правильные чувства, сожалеть или внутренне согласиться. "
                  "Лёгкая: достаточно ясной просьбы при отсутствии препятствий; средняя: реальный "
