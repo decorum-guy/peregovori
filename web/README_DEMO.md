@@ -215,10 +215,16 @@ sets `COMPLETION_MIN_TURNS=3` or `COMPLETION_MAX_CHECKS=4`, update them manually
 restart FastAPI. Rejection remains possible for partial results, impossible cases and
 detector errors; the manual Finish button is always available.
 
-Generated **new** cases now require observable public goals and causally stronger
-competing interests for medium/hard/very-hard difficulty; runtime roleplayer guidance
-also follows that ladder. This is a prompt-quality change, **not a proven live-model
-difficulty score**. Previously generated/stored cases keep their original facts.
+Generated **new** cases now receive observable-goal and difficulty constraints through
+`app.live_difficulty.live_generator_messages`. The interactive `spoken` style uses
+`live_spoken_roleplay_messages` for distinct medium/hard/very-hard character behavior.
+The canonical `app.prompts.generator_prompt` and `roleplay_messages` remain frozen
+**byte-for-byte** for historical training/golden replay compatibility; `original` style
+deliberately retains that baseline. These are prompt-quality changes, **not measured
+live-model difficulty scores**. Previously generated cases remain unchanged.
+The early Completion detector also remains an optional *separate* paid request; smoke
+and historical HTTP-count tests disable it in their isolated fixtures, while dedicated
+completion tests cover the new first-reply, cooldown, budget and safety behavior.
 
 The independent completion check inherits `PREMIUM_MODEL` unless `COMPLETION_MODEL` is set;
 it never invokes the opt-in Judge or Luna. Configure limits with the `COMPLETION_*` settings
