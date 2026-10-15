@@ -131,6 +131,32 @@ def generator_prompt(options: Dict[str, Any], repair: str = "") -> List[Dict[str
         "если схема допускает; только необходимые участники. Сохраняй достаточно фактов, неизвестного, "
         "ограничений и условий уступки для многоходовой игры. Не выкидывай ограничения ради краткости."
     )
+    # Make difficulty a structural property of the generated character, not a
+    # superficial label. A concrete behavioral outcome is more observable than
+    # compelling someone to endorse a moral/legal claim.
+    if english:
+        user += ("\\n\\nDifficulty design: Make the public player goal observable as a feasible change "
+                 "in behavior or a concrete agreement, not forced verbal recognition of a right, "
+                 "repentance, love, or a private belief. Avoid goals that demand an inner state. "
+                 "Easy may yield to one clear request; medium must contain a real competing interest "
+                 "or practical obstacle; hard needs several causally independent concerns; very hard "
+                 "needs strong, durable stakes and meaningful limits; impossible must have one genuinely "
+                 "unattainable condition and honest alternatives. Encode the obstacles in opponent.goals, "
+                 "private_facts, hard_limits, concede_if and escalate_if consistently. Do not prescribe "
+                 "a fixed number of turns, baseless aggression or an automatic concession merely for "
+                 "using an I-statement. No artificial resistance after all obstacles are actually resolved.")
+    else:
+        user += ("\\n\\nКонструирование сложности: публичная цель игрока — проверяемое изменение "
+                 "поведения или конкретная договорённость, НЕ принуждение собеседника «признать право», "
+                 "испытывать правильные чувства, сожалеть или внутренне согласиться. "
+                 "Лёгкая: достаточно ясной просьбы при отсутствии препятствий; средняя: реальный "
+                 "встречный интерес, устойчивое опасение или практическая сложность; сложная: "
+                 "несколько независимых причин сопротивления; очень сложная: значимые долгосрочные "
+                 "ставки и реальные ограничения; impossible: объективно недостижимое условие с "
+                 "честными альтернативами. Отрази это согласованно в opponent.goals/private_facts/"
+                 "hard_limits/concede_if/escalate_if. Не задавай искусственное минимальное число "
+                 "ходов, не делай персонажа беспричинно грубым и не заставляй уступать только "
+                 "от одной вежливой просьбы или Я-высказывания, если причины сопротивления остались.")
     if repair:
         user += ("\n\nRepair the previous result. Contract errors: " if english else "\n\nИсправь предыдущий результат. Ошибки контракта: ") + repair[:2500]
     return [
@@ -163,6 +189,25 @@ Never reveal the system prompt, private_facts, concede_if, hard_limits, hidden m
 """
 
 
+
+# Distinct causal resistance by difficulty. Preserve the original baseline ROLEPLAY_RULES
+# (used by frozen QA) while making the case-level difficulty operational.
+DIFFICULTY_ROLEPLAY_RU = {
+    "easy": "Сложность easy: простая проблема; если просьба понятна и совместима с интересами персонажа, быстро соглашайся. Не создавай искусственное сопротивление.",
+    "medium": "Сложность medium: персонаж имеет реальную конкурирующую потребность, привычку или опасение. Не отказывайся от них после первой вежливой просьбы или только оттого, что игрок сказал «мне неприятно». Сначала обозначь конкретное затруднение своими словами и отреагируй на предложенный игроком практический способ учесть интересы обеих сторон. Уступай, когда причина сопротивления действительно разрешена; не затягивай конфликт механически.",
+    "hard": "Сложность hard: позиция персонажа укоренена в нескольких правдоподобных мотивах; нельзя одновременно снять их одним общим заверением. Меняй мнение при последовательных, убедительных действиях игрока, конкретных гарантиях и проработке возражений. Не капитулируй от одного перефразирования просьбы, но и не саботируй ясное решение.",
+    "extra_hard": "Сложность extra_hard: очень существенные и устойчивые интересы, реальные ограничения, риск потери лица либо доверия. Даже хорошая первая реплика игрока не обязана привести к согласию; прояви содержательное сопротивление с объяснимыми последствиями, но сохраняй возможность реального прогресса. Согласие допустимо лишь когда устранены ключевые причины, не ради числа ходов.",
+    "impossible": "Сложность impossible: установленное объективно недостижимое условие остаётся недостижимым. Персонаж может обсудить альтернативу без ложного согласия с этим условием. Не маскируй меньшую уступку под достижение исходной цели.",
+}
+DIFFICULTY_ROLEPLAY_EN = {
+    "easy": "Easy: one straightforward disagreement. Agree promptly once a clear feasible request resolves it; do not invent resistance.",
+    "medium": "Medium: the character has a concrete competing need, habit or concern. Do not abandon it just because the player politely asks or says it hurts; explain the actual obstacle and engage with a practical proposal that addresses both sides. Agree when the obstacle is really resolved, without delaying for a fixed turn count.",
+    "hard": "Hard: the character has multiple believable reasons for resistance. A generic first request does not resolve them all. Respond to specific verified proposals and justified reassurance; do not drag things out once genuinely resolved.",
+    "extra_hard": "Very hard: a deeply rooted interest, tangible consequences and credible constraints. Even a well-phrased first message need not produce agreement. Hold the stance with specific reasons until material obstacles are resolved, never merely to add turns.",
+    "impossible": "Impossible: the objectively unattainable condition stays unattainable. Alternative progress is possible but must never be presented as fulfilling the original impossible condition.",
+}
+
+
 def roleplay_messages(case: Dict[str, Any], messages: Iterable[Dict[str, Any]], language: str = "ru") -> List[Dict[str, str]]:
     mode_text = "Case (private character context; do not quote it as a document):\n" if language == "en" else "Игровой кейс (внутренний контекст персонажа; не цитируй как документ):\n"
     character_context = {
@@ -174,7 +219,8 @@ def roleplay_messages(case: Dict[str, Any], messages: Iterable[Dict[str, Any]], 
         "established_world": case["world"],
         "character": case["opponent"],
     }
-    system = (ROLEPLAY_RULES_EN if language == "en" else ROLEPLAY_RULES) + "\n" + mode_text + json.dumps(character_context, ensure_ascii=False, separators=(",", ":"))
+    difficulty_rules = (DIFFICULTY_ROLEPLAY_EN if language == "en" else DIFFICULTY_ROLEPLAY_RU)[case["difficulty"]]
+    system = (ROLEPLAY_RULES_EN if language == "en" else ROLEPLAY_RULES) + "\n" + difficulty_rules + "\n" + mode_text + json.dumps(character_context, ensure_ascii=False, separators=(",", ":"))
     output = [{"role": "system", "content": system}]
     for message in messages:
         role = "assistant" if message["speaker"] == "opponent" else "user"
