@@ -42,7 +42,8 @@ def app_with_http(tmp_path, monkeypatch, bodies):
         return httpx.Response(200, json=bodies.pop(0))
     monkeypatch.setattr(httpx.AsyncClient, 'request', request)
     settings = Settings(database_path=str(tmp_path / 'sessions.sqlite3'), openrouter_api_key='API_SECRET_SENTINEL',
-                        openrouter_proxy_url='http://user:PROXY_SECRET_SENTINEL@example.invalid:8080')
+                        openrouter_proxy_url='http://user:PROXY_SECRET_SENTINEL@example.invalid:8080',
+                        completion_enabled=False)  # Isolate scripted 1:1 request/retry and accounting tests.
     return create_app(settings=settings), requests
 
 
