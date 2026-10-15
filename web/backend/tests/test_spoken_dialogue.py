@@ -58,11 +58,11 @@ def test_fact_and_style_defects_are_independent_in_frozen_evidence():
 @pytest.mark.parametrize('language', ['ru', 'en'])
 @pytest.mark.parametrize('difficulty', ['easy', 'medium', 'hard', 'extra_hard', 'impossible'])
 def test_roleplayer_receives_distinct_causal_difficulty_instructions(language, difficulty):
-    from app.prompts import DIFFICULTY_ROLEPLAY_EN, DIFFICULTY_ROLEPLAY_RU
+    from app.live_difficulty import DIFFICULTY_ROLEPLAY_EN, DIFFICULTY_ROLEPLAY_RU, live_spoken_roleplay_messages
     case = _mock_case({'scenario': 'conflict_only', 'difficulty': difficulty,
                        'conflict_type': 'personal', 'student_side': 'protect', 'language': language})
     instruction = (DIFFICULTY_ROLEPLAY_EN if language == 'en' else DIFFICULTY_ROLEPLAY_RU)[difficulty]
-    prompts = spoken_roleplay_messages(case, [], language)
+    prompts = live_spoken_roleplay_messages(case, [], language)
     assert instruction in prompts[0]['content']
     assert case['opponent']['hard_limits']
     assert prompts[0]['role'] == 'system'
@@ -70,10 +70,10 @@ def test_roleplayer_receives_distinct_causal_difficulty_instructions(language, d
 
 @pytest.mark.parametrize('language', ['ru', 'en'])
 def test_case_generator_requests_observable_goals_and_real_constraints(language):
-    from app.prompts import generator_prompt
+    from app.live_difficulty import live_generator_messages
     options = {'scenario': 'conflict_only', 'difficulty': 'extra_hard',
                'conflict_type': 'personal', 'student_side': 'protect', 'language': language}
-    messages = generator_prompt(options)
+    messages = live_generator_messages(options)
     guidance = messages[-1]['content']
     assert ('проверяемое изменение' if language == 'ru' else 'observable as a feasible change') in guidance
     assert 'concede_if' in guidance
