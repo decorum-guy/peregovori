@@ -1,0 +1,9 @@
+# Python 3.11, Linux CUDA; proposed stack, CUDA integration remains UNTESTED.
+# Install torch separately from the cu128 index before this file.
+-r requirements-cpu.txt
+torch==2.8.0
+peft==0.17.1
+accelerate==1.10.1
+bitsandbytes==0.47.0
+datasets==4.1.1
+intelion-cloud==0.6.0

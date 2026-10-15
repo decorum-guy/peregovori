@@ -1,5 +1,16 @@
 > **15.10.2026 — Независимый аудит ChatGPT new62: СОЗДАНО 62/186/744, но `CONTENT_REVISE / TRAIN_HOLD`, НЕ ACCEPTED.** Приватный ZIP checked 17/17 files SHA+bytes PASS, 744/744 history+next-target mapping PASS, уникальные ID/квоты OK. Однако **744 student turns лишь 304 уникальны**, 288/744 character turns начинаются с часто повторяющихся шаблонных фраз, только две строки initial_emotion у 62 разных персонажей; >=19 случаев с грамматическим родом, 21 автоматически не склонённая цель MODEL_DEFENDER, 5 ссылок на несуществующее письмо, ряд необоснованных актов публичного извинения. Сохранить как черновики для переработки; без точечного исправления всей истории и независимой смысловой приемки их **не смешивать с принятыми 118 кейсами**. Для презентации при нехватке времени рассмотреть обучение только на ранее проверенных **118/1416**, после реального runtime/tokenizer/loss-mask preflight. [Полный sanitized статус в Issue #5](https://github.com/decorum-guy/peregovori/issues/5#issuecomment-6187295774).
-> **Обучение: новая заявленная пользователем граница — не более 3 итераций/эпох вместо 4** (точный смысл термина уточнить при запуске). Immutable E1/E2/E3, выбирать лучший checkpoint по независимому DEV, не считать E3 обязательной. GPU/аренда/Intelion/OpenRouter/QLoRA пока не запущены и не авторизованы этим аудитом. Старый trainer на 895 примеров переделать перед запуском.
+
+
+> **Обновление 15.10.2026: TRAIN v2 trainer A/B/C/D подготовлен на main.**
+> [Новый pipeline/команды](../training/runtime_v2/README.md),
+> [реальный CPU-аудит](../training/runtime_v2/CPU_REPORT_2026-10-15.md).
+> Приняты только pilot v7.2 8 + B1.style.v2 86 + B2.accepted024 24 =118 кейсов,
+> 1416 next-response examples; непринятые62 автоматически исключены.
+> Все4 config проверены реальными токенизаторами8B/14B; CUDA и provider stop
+> UNTESTED, платные VM/обучение/оценка НЕ запускались. Веб-ветка не объединялась.
+> Это обновляет TRAIN/QLoRA пункты ниже; исторические cloud-study статусы требуют
+> собственных evidence из соответствующих чатов и здесь не переобъявляются.
+> **TRAIN v2 epochs — уточнение 15.10.2026:** только четыре отдельных A/B/C/D запуска, E1 или E2 согласно config. Историческое предложение E3 отменено текущим заданием. GPU/аренда/обучение требуют отдельного разрешения.
 
 > **15.10.2026 — СМЕНА ИСПОЛНИТЕЛЯ: CODEX B2 HOLD, остаток 62 генерирует обычный чат ChatGPT в проекте «Ведение переговоров».** Владелец приостанавливает Codex из-за лимитов/сроков. Приватный B2 checkpoint от Codex B2_ACCEPTED024_ACCOUNT_HOLD_V1.zip проверен: 159/159 manifest bytes/SHA PASS, **24 принятых B2 кейса/72 ветви/288 targets**, pilot8 + B1.style.v2 86 неизменны; **118/180 уже готовы, осталось 62** (20 negotiation,21 conflict,21 hybrid →186 ветвей/744 новых targets). Подготовлен приватный ChatGPT handoff ZIP TRAIN_V2_CHATGPT_HANDOFF_62.zip с точными ID/квотами, B2+B1+pilot, syllabus и самодостаточным prompt. **Не возобновлять Codex автоматически; новый ChatGPT не должен выдавать self-review за независимую Luna.** После генерации проверка независимым другим чатом. Никакого GPU/OpenRouter/QLoRA; lecture materials читать внутри проекта. [Issue #5](https://github.com/decorum-guy/peregovori/issues/5). Исторические указания ниже про автономное продолжение Codex B2 устарели.
 
@@ -107,12 +118,35 @@
 - Учебные цели (не копировать сами DEV): role inversion, переход публичного→личного, честная неопределённость, hard limits, пересчёт условий при изменении предложения, причины уступки, стадийность и живой диалог.
 - Никакие DEV/TEST/oracle/существующие private кейсы/ответы НЕ используются для генерации/обучения. Отчёт blind DEV станет benchmark с оговоркой repeated tuning, sealed TEST только после freeze.
 
-### P1-2. QLoRA & сравнение
+### P1-2. QLoRA & сравнение — обновлено 15.10.2026
 
-- Сначала \`14B rank16 1/2-epoch snapshots\` и \`8B rank16 1/2-epoch snapshots\` на **одинаковом** новом TRAIN v2 и runtime prompt. Старые адаптеры остаются доступными.
-- Реальный backward+VRAM preflight для нового более длинного TRAIN; 14B rank16 помещался ранее в RTX3090 с коротким max2224 (peak ~20.97GiB), но **не гарантирует** длинный новый контекст. rank32 — **опционально после доказанной пользы и preflight**, не одновременно с другими изменениями.
-- На отдельных одинаковых DEV входах и live sampled мультиходовых играх сопоставить старую/новую 8B и 14B, OpenRouter Claude. Следить за качеством/latency/price, а не train loss. Не запускать дорогой широкий grid без согласования.
-- Для демо показывать только **настоящий успешно загруженный Qwen адаптер**, health/fingerprint verified; если GPU недоступна — честная недоступность, без API Qwen fallback.
+- [x] Изолированный `training/runtime_v2/` trainer/config/import/tokenization,
+  pinned runtime A из web SHA900686b, без merge веток и изменения сайта.
+- [x] A=8B/r16/alpha32/E1; B=8B/r16/alpha32/E2; C=8B/r32/alpha64/E2;
+  D=14B/r16/alpha32/E2. Все запускаются с базы, LR1e-4/seed3407,
+  отдельных14B E1 и E3/E4 нет. Старые эксперименты сохранены.
+- [x] Реальный локальный импорт118/354/1416 по accepted registry и SHA,
+  точная пересборка histories/targets, полный реальный tokenizer/mask/EOS аудит
+  всех4 config. Текущий longest2341, trimming0; CPU-тесты в отдельном CI job.
+- [x] Подготовлены longest backward+optimizer CUDA preflight, full checkpoint
+  resume с RNG/optimizer/scheduler, проверка completed epochs, SHA artifacts,
+  adapter verifier, deadline+backup+provider-stop guard и единый six-candidate DEV harness.
+- [ ] **НЕ ЗАПУСКАЛИСЬ:** CUDA/backward/OOM на реальной GPU, actual checkpoint
+  roundtrip GPU-stack, реальный adapter reload/generation, Intelion account stop
+  и billing closure, offsite backup, реальная приватная DEV/live site evaluation.
+- [ ] Владелец отдельно разрешает GPU/тариф/время/RUB cap; до аренды проверить
+  конкретный provider stop и независимый внешний watchdog. Local timer не hard cap.
+- [ ] При желании расширить до180/2160: сначала независимая содержательная
+  приёмка оставшихся62, новая immutable registry/корпус и повтор всех CPU gates.
+- [ ] После обучения: base8B+A+B+C и base14B+D на одном frozen DEV в раздельных
+  deterministic600 / sampled web600 протоколах; blind semantic review роли/фактов/
+  границ/сопротивления/инициативы/многоходовости; затем реальный site replay.
+  Старые greedy192 результаты не смешивать. TEST остаётся запечатанным.
+
+Готово: проверяемая CPU-подготовка и четыре конфигурации; evidence в
+`training/runtime_v2/CPU_REPORT_2026-10-15.md`. Сейчас платные задачи не выполняются.
+Следующий шаг владельца: выбрать GPU/бюджет и разрешить отдельный CUDA preflight
+либо продолжить содержательную приёмку оставшихся62 кейсов.
 
 ## BEFORE DEMO — обязательный feature freeze
 

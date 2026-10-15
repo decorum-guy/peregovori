@@ -34,3 +34,19 @@ jobs:
           test -s training/results/QWEN8B_DEV_2026-10-14.md
           test -s training/EXPERIMENT_14B_5H.md
           test -s evaluation/compare_14b_epochs.py
+
+  runtime-v2-cpu:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU stack (no weights or CUDA)
+        run: python -m pip install -r training/runtime_v2/requirements-cpu.txt
+      - name: Fetch only immutable real Qwen tokenizers
+        run: python -m training.runtime_v2.fetch_tokenizers
+      - name: Synthetic, real-tokenizer, checkpoint and budget tests
+        run: python -m pytest training/runtime_v2/tests -q

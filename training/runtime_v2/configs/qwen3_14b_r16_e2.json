@@ -1,0 +1,23 @@
+{
+  "name": "qwen3_14b_r16_e2",
+  "model": "Qwen/Qwen3-14B",
+  "revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+  "rank": 16,
+  "alpha": 32,
+  "epochs": 2,
+  "seed": 3407,
+  "learning_rate": 0.0001,
+  "lora_dropout": 0.0,
+  "max_prompt_tokens": 4096,
+  "max_answer_tokens": 600,
+  "max_sequence_tokens": 4704,
+  "gradient_accumulation_steps": 8,
+  "batch_size": 1,
+  "weight_decay": 0.01,
+  "max_grad_norm": 0.3,
+  "warmup_ratio": 0.03,
+  "scheduler": "cosine",
+  "optimizer": "paged_adamw_8bit",
+  "save_steps": 15,
+  "output_dir": "training/outputs/runtime_v2/qwen3_14b_r16_e2"
+}

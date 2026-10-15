@@ -1,0 +1,36 @@
+{
+  "source_ref": "900686b6de9861fd6b1bc7a7f5fe5999f93aef52",
+  "source_branch": "codex/design-audit-2026-10-13",
+  "exports": {
+    "models.py": {
+      "source": "web/backend/app/models.py",
+      "source_sha256": "c2fcf9b8b36bbfcb81f76c3fc3dbac2d5ca22a3710edc22635465a50b4a349ef",
+      "export_sha256": "dc89e5ac4b53c27086883d5e7b735056fbae7a942851768db28409b7d1d6c085",
+      "mode": "verbatim symbols; unused web endpoints omitted"
+    },
+    "prompts.py": {
+      "source": "web/backend/app/prompts.py",
+      "source_sha256": "e3db14b53e9c4980c6113b0f5e6e7036b26209f77e4745bea70059044d5a4981",
+      "export_sha256": "9952777e1e20a1fa7695cc69f53eeef5340ed6d78b92f0b26d38a70d3bd184ce",
+      "mode": "verbatim symbols; unused web endpoints omitted"
+    },
+    "spoken_dialogue.py": {
+      "source": "web/backend/app/spoken_dialogue.py",
+      "source_sha256": "eadff6557a8ac2d090c75d792048e71ead808f1bac500d5b4b95eb63cc18cdb3",
+      "export_sha256": "eadff6557a8ac2d090c75d792048e71ead808f1bac500d5b4b95eb63cc18cdb3",
+      "mode": "exact"
+    },
+    "roleplay_contract.py": {
+      "source": "web/backend/app/roleplay_contract.py",
+      "source_sha256": "b8c9ee69ad64076860a471ff8a82dd1129e357afa950ae57115c81687fa69351",
+      "export_sha256": "b8c9ee69ad64076860a471ff8a82dd1129e357afa950ae57115c81687fa69351",
+      "mode": "exact"
+    }
+  },
+  "reference_files": {
+    "training/prepare_runtime_sft_v2.py": "dfcc4ead984d85c2cff9b813fb1e0173bb16b20ee45d5f454a69f85f0f88d2de",
+    "evaluation/runtime_replay_v2.py": "26fc95151098a6aa95e3a50b4c5310f89662ff73508689fb88e5e999194b75c5",
+    "inference/runtime.py": "89b4a047f3873193de3953ca78376b1d8c82d41c6607feb3c1087c5bcf98e961",
+    "inference/config.py": "a9903b8cd21ac18feade2e0778e2842a5c23e15d3131167e906e589f11d5e3ad"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "server_id": 0,
+  "billing_start_epoch": 0,
+  "train_stop_epoch": 0,
+  "billing_stop_epoch": 0,
+  "max_hourly_rub": 0,
+  "max_total_rub": 0,
+  "provider_stop_verified": false,
+  "provider_evidence": "PENDING: actual stop -> PAUSED(-1), IDLE(0), closed usage act, dashboard billing confirmation",
+  "external_watchdog_armed": false,
+  "controller_evidence": "PENDING: independent always-on controller, process and log verified",
+  "authorized_by_owner": "PENDING separate GPU approval; this file is not executable approval"
+}

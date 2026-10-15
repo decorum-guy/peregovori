@@ -1,0 +1,15 @@
+{
+  "package": "intelion-cloud",
+  "version": "0.6.0",
+  "wheel_sha256": "697942a200b01b5a3f3fd5b0edceba7d96d244c4f2ad2dc9a209a2ca7389c2d3",
+  "source_inspection": "PASS",
+  "account_requests": 0,
+  "lifecycle_methods": [
+    "get",
+    "stop",
+    "get_status"
+  ],
+  "paused": -1,
+  "pausing": 0,
+  "actual_stop_and_billing": "UNTESTED"
+}

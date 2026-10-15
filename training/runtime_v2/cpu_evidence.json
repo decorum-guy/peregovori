@@ -1,0 +1,251 @@
+{
+  "date": "2026-10-15",
+  "base_main_sha": "96363b838ee4c2046588241f620ed3b38900c48f",
+  "web_sha": "900686b6de9861fd6b1bc7a7f5fe5999f93aef52",
+  "environment": {
+    "python": "3.11.17",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "pydantic": "2.12.3",
+    "transformers": "4.57.1",
+    "tokenizers": "0.22.2",
+    "jinja2": "3.1.6",
+    "safetensors": "0.8.0",
+    "numpy": "2.4.6",
+    "pytest": "8.4.2"
+  },
+  "private_import": {
+    "status": "ACCEPTED_IMPORT",
+    "split": "TRAIN",
+    "cases": 118,
+    "examples": 1416,
+    "branches": 354,
+    "acceptance_sha256": "feef5e6c23309a8267687c7ac61bc0a31d5867ce5ecbf1eac4f748a2fdeba35a",
+    "corpus_sha256": "032a0bbe1658b548fb38622688035c9ea423dbb0dd2c6e956a199e9bb70f4683",
+    "runtime_contract_sha256": "1f255187903a67a7342a5c8a9ab89946c3de7d2d632cb5fe8448825225c0db59",
+    "lineage_sha256": "08d6a7c9e63311457eed1f9dd22f65bdbd4f46fc5ffff558893780c891dcd852"
+  },
+  "immutable_reimport_equal": true,
+  "tests": {
+    "tests": 68,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "existing_methodology_unittests_passed": 8,
+  "compileall_training_evaluation": "PASS",
+  "existing_shell_syntax": "PASS",
+  "runtime_source_AST_parity": {
+    "models.py": {
+      "exported_symbols": 15,
+      "original_AST_match": true,
+      "source_sha256_matches": true
+    },
+    "prompts.py": {
+      "exported_symbols": 3,
+      "original_AST_match": true,
+      "source_sha256_matches": true
+    },
+    "spoken_dialogue.py": {
+      "exported_symbols": 6,
+      "original_AST_match": true,
+      "source_sha256_matches": true
+    },
+    "roleplay_contract.py": {
+      "exported_symbols": 10,
+      "original_AST_match": true,
+      "source_sha256_matches": true
+    }
+  },
+  "real_tokenizer_audits": {
+    "qwen3_8b_r16_e1": {
+      "status": "REAL_TOKENIZER_PASS",
+      "model": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "config_sha256": "f4d4eb9ddb67f18835fa75178ab0913a13ac1c85da8304eed1f410e841187829",
+      "corpus_sha256": "032a0bbe1658b548fb38622688035c9ea423dbb0dd2c6e956a199e9bb70f4683",
+      "runtime_contract_sha256": "1f255187903a67a7342a5c8a9ab89946c3de7d2d632cb5fe8448825225c0db59",
+      "examples": 1416,
+      "max_tokens": 2341,
+      "longest_index": 95,
+      "trimmed_pairs": 0,
+      "supervised_tokens": 38104,
+      "template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+      "all_tokens_sha256": "4c1a5563d1affdac33bb4dc0d147790a2d7b085774fb8b1e9550af55cf137995",
+      "boundary_examples": {
+        "0": {
+          "prompt_tokens": 1343,
+          "answer_tokens": 50,
+          "tokens": 1393,
+          "trimmed_pairs": 0,
+          "token_sha256": "1d558b85945723f4e0a0c544b5394a1dc2bed1388ab9729c3374f1259fd6e3f1",
+          "labels_sha256": "41fdc185b7d2f460a999ca478f8866e0b70af65f82e023d374f5ca0e4f82c900"
+        },
+        "95": {
+          "prompt_tokens": 2296,
+          "answer_tokens": 45,
+          "tokens": 2341,
+          "trimmed_pairs": 0,
+          "token_sha256": "f2f793d7e44c7cf3888614d72f7607ee70acc5786414fbf3f726a7c94a9a928e",
+          "labels_sha256": "6938e452b2b4f0e7e45f27097f7e2b10a42b49fd35e7f06d3574c2c53df8e6b6"
+        },
+        "1415": {
+          "prompt_tokens": 1628,
+          "answer_tokens": 33,
+          "tokens": 1661,
+          "trimmed_pairs": 0,
+          "token_sha256": "58ecb82a03f84dff282138b04b02e9dadd5b34dd6cd196804c2ef050c9e1ae2f",
+          "labels_sha256": "428fc0ee14ab1c7230fca385d9c267fa4b9e5a664cfa5bc96ed5c76d5b1c68f5"
+        }
+      }
+    },
+    "qwen3_8b_r16_e2": {
+      "status": "REAL_TOKENIZER_PASS",
+      "model": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "config_sha256": "21f1741494877a88e1fdf370d0fd11590f4a711366c58da6cf99a7d90a52b67f",
+      "corpus_sha256": "032a0bbe1658b548fb38622688035c9ea423dbb0dd2c6e956a199e9bb70f4683",
+      "runtime_contract_sha256": "1f255187903a67a7342a5c8a9ab89946c3de7d2d632cb5fe8448825225c0db59",
+      "examples": 1416,
+      "max_tokens": 2341,
+      "longest_index": 95,
+      "trimmed_pairs": 0,
+      "supervised_tokens": 38104,
+      "template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+      "all_tokens_sha256": "4c1a5563d1affdac33bb4dc0d147790a2d7b085774fb8b1e9550af55cf137995",
+      "boundary_examples": {
+        "0": {
+          "prompt_tokens": 1343,
+          "answer_tokens": 50,
+          "tokens": 1393,
+          "trimmed_pairs": 0,
+          "token_sha256": "1d558b85945723f4e0a0c544b5394a1dc2bed1388ab9729c3374f1259fd6e3f1",
+          "labels_sha256": "41fdc185b7d2f460a999ca478f8866e0b70af65f82e023d374f5ca0e4f82c900"
+        },
+        "95": {
+          "prompt_tokens": 2296,
+          "answer_tokens": 45,
+          "tokens": 2341,
+          "trimmed_pairs": 0,
+          "token_sha256": "f2f793d7e44c7cf3888614d72f7607ee70acc5786414fbf3f726a7c94a9a928e",
+          "labels_sha256": "6938e452b2b4f0e7e45f27097f7e2b10a42b49fd35e7f06d3574c2c53df8e6b6"
+        },
+        "1415": {
+          "prompt_tokens": 1628,
+          "answer_tokens": 33,
+          "tokens": 1661,
+          "trimmed_pairs": 0,
+          "token_sha256": "58ecb82a03f84dff282138b04b02e9dadd5b34dd6cd196804c2ef050c9e1ae2f",
+          "labels_sha256": "428fc0ee14ab1c7230fca385d9c267fa4b9e5a664cfa5bc96ed5c76d5b1c68f5"
+        }
+      }
+    },
+    "qwen3_8b_r32_e2": {
+      "status": "REAL_TOKENIZER_PASS",
+      "model": "Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "config_sha256": "2587cce5344b22ac6699448ec01caf0493d98cc0e5753a3592bb9dc72d3eb1c4",
+      "corpus_sha256": "032a0bbe1658b548fb38622688035c9ea423dbb0dd2c6e956a199e9bb70f4683",
+      "runtime_contract_sha256": "1f255187903a67a7342a5c8a9ab89946c3de7d2d632cb5fe8448825225c0db59",
+      "examples": 1416,
+      "max_tokens": 2341,
+      "longest_index": 95,
+      "trimmed_pairs": 0,
+      "supervised_tokens": 38104,
+      "template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+      "all_tokens_sha256": "4c1a5563d1affdac33bb4dc0d147790a2d7b085774fb8b1e9550af55cf137995",
+      "boundary_examples": {
+        "0": {
+          "prompt_tokens": 1343,
+          "answer_tokens": 50,
+          "tokens": 1393,
+          "trimmed_pairs": 0,
+          "token_sha256": "1d558b85945723f4e0a0c544b5394a1dc2bed1388ab9729c3374f1259fd6e3f1",
+          "labels_sha256": "41fdc185b7d2f460a999ca478f8866e0b70af65f82e023d374f5ca0e4f82c900"
+        },
+        "95": {
+          "prompt_tokens": 2296,
+          "answer_tokens": 45,
+          "tokens": 2341,
+          "trimmed_pairs": 0,
+          "token_sha256": "f2f793d7e44c7cf3888614d72f7607ee70acc5786414fbf3f726a7c94a9a928e",
+          "labels_sha256": "6938e452b2b4f0e7e45f27097f7e2b10a42b49fd35e7f06d3574c2c53df8e6b6"
+        },
+        "1415": {
+          "prompt_tokens": 1628,
+          "answer_tokens": 33,
+          "tokens": 1661,
+          "trimmed_pairs": 0,
+          "token_sha256": "58ecb82a03f84dff282138b04b02e9dadd5b34dd6cd196804c2ef050c9e1ae2f",
+          "labels_sha256": "428fc0ee14ab1c7230fca385d9c267fa4b9e5a664cfa5bc96ed5c76d5b1c68f5"
+        }
+      }
+    },
+    "qwen3_14b_r16_e2": {
+      "status": "REAL_TOKENIZER_PASS",
+      "model": "Qwen/Qwen3-14B",
+      "revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+      "config_sha256": "985146facf45e57a2fa05dda8316be6296d5a67584e1650642ae9d663f26dd41",
+      "corpus_sha256": "032a0bbe1658b548fb38622688035c9ea423dbb0dd2c6e956a199e9bb70f4683",
+      "runtime_contract_sha256": "1f255187903a67a7342a5c8a9ab89946c3de7d2d632cb5fe8448825225c0db59",
+      "examples": 1416,
+      "max_tokens": 2341,
+      "longest_index": 95,
+      "trimmed_pairs": 0,
+      "supervised_tokens": 38104,
+      "template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+      "all_tokens_sha256": "4c1a5563d1affdac33bb4dc0d147790a2d7b085774fb8b1e9550af55cf137995",
+      "boundary_examples": {
+        "0": {
+          "prompt_tokens": 1343,
+          "answer_tokens": 50,
+          "tokens": 1393,
+          "trimmed_pairs": 0,
+          "token_sha256": "1d558b85945723f4e0a0c544b5394a1dc2bed1388ab9729c3374f1259fd6e3f1",
+          "labels_sha256": "41fdc185b7d2f460a999ca478f8866e0b70af65f82e023d374f5ca0e4f82c900"
+        },
+        "95": {
+          "prompt_tokens": 2296,
+          "answer_tokens": 45,
+          "tokens": 2341,
+          "trimmed_pairs": 0,
+          "token_sha256": "f2f793d7e44c7cf3888614d72f7607ee70acc5786414fbf3f726a7c94a9a928e",
+          "labels_sha256": "6938e452b2b4f0e7e45f27097f7e2b10a42b49fd35e7f06d3574c2c53df8e6b6"
+        },
+        "1415": {
+          "prompt_tokens": 1628,
+          "answer_tokens": 33,
+          "tokens": 1661,
+          "trimmed_pairs": 0,
+          "token_sha256": "58ecb82a03f84dff282138b04b02e9dadd5b34dd6cd196804c2ef050c9e1ae2f",
+          "labels_sha256": "428fc0ee14ab1c7230fca385d9c267fa4b9e5a664cfa5bc96ed5c76d5b1c68f5"
+        }
+      }
+    }
+  },
+  "provider_static_inspection": {
+    "package": "intelion-cloud",
+    "version": "0.6.0",
+    "wheel_sha256": "697942a200b01b5a3f3fd5b0edceba7d96d244c4f2ad2dc9a209a2ca7389c2d3",
+    "source_inspection": "PASS",
+    "account_requests": 0,
+    "lifecycle_methods": [
+      "get",
+      "stop",
+      "get_status"
+    ],
+    "paused": -1,
+    "pausing": 0,
+    "actual_stop_and_billing": "UNTESTED"
+  },
+  "not_executed": [
+    "CUDA model load",
+    "longest backward/optimizer/VRAM",
+    "GPU full checkpoint save/resume",
+    "post-training adapter reload/generation",
+    "private DEV generation/semantic review",
+    "live site replay",
+    "provider account API/stop/billing closure",
+    "off-VM backup"
+  ],
+  "new_GPU_or_paid_LLM_calls": 0
+}
