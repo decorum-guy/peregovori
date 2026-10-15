@@ -1,0 +1,26 @@
+{
+  "status": "PENDING_INDEPENDENT_QA",
+  "checkpoint": "01",
+  "case_count_rewritten": 7,
+  "branch_count": 21,
+  "sft_target_count": 84,
+  "source_untouched": 118,
+  "ids_rewritten": [
+    "NV2_P097",
+    "NV2_P098",
+    "NV2_P099",
+    "NV2_P101",
+    "NV2_P102",
+    "NV2_P103",
+    "NV2_P104"
+  ],
+  "private_files_published": false,
+  "private_zip_sha256": null,
+  "local_qa": {
+    "source_sft_parity": "744/744",
+    "schema_pass": 7,
+    "grammar_heuristic_errors": 0
+  },
+  "production_runtime_import": "NOT_VERIFIED",
+  "next": "continue semantic rewrite; independent review"
+}
