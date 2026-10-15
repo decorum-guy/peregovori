@@ -17,7 +17,8 @@ def test_game_diagnostic_does_not_touch_pending_messages_in_live_database(tmp_pa
     root = Path(__file__).resolve().parents[3]
     env = dict(os.environ, DATABASE_PATH=app.state.session_store.database_path,
                OPENROUTER_API_KEY='dummy-diagnostic-test-key', LLM_MODE='openrouter', LORA_BASE_URL='',
-               PREMIUM_MODEL='anthropic/claude-opus-5.5', CASE_MODEL='anthropic/claude-opus-5.5', JUDGE_MODEL='anthropic/claude-opus-5.5')
+               PREMIUM_MODEL='anthropic/claude-opus-5.5', CASE_MODEL='anthropic/claude-opus-5.5', JUDGE_MODEL='anthropic/claude-opus-5.5',
+               DEMO_ACCESS_CODE='', COMPLETION_ENABLED='false')
     # A separate interpreter exercises the import-time app, with a deterministic
     # network double. The same paid/game CLI path runs without any external call.
     code = '''
