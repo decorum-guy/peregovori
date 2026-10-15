@@ -51,7 +51,7 @@ class Settings:
     # Empty model inherits the explicitly configured roleplayer, never the opt-in Judge.
     completion_enabled: bool = True
     completion_model: str = ""
-    completion_min_turns: int = 3
+    completion_min_turns: int = 1
     completion_cooldown_turns: int = 3
     completion_max_checks: int = 4
     completion_max_input_chars: int = 24000
@@ -86,7 +86,7 @@ class Settings:
             cloud_judge_reasoning_effort=_env("CLOUD_JUDGE_REASONING_EFFORT", "default").lower(),
             completion_enabled=_env("COMPLETION_ENABLED", "true").lower() == "true",
             completion_model=_env("COMPLETION_MODEL", ""),
-            completion_min_turns=_integer_env("COMPLETION_MIN_TURNS", "3"),
+            completion_min_turns=_integer_env("COMPLETION_MIN_TURNS", "1"),
             completion_cooldown_turns=_integer_env("COMPLETION_COOLDOWN_TURNS", "3"),
             completion_max_checks=_integer_env("COMPLETION_MAX_CHECKS", "4"),
             completion_max_input_chars=_integer_env("COMPLETION_MAX_INPUT_CHARS", "24000"),
@@ -145,7 +145,7 @@ class Settings:
         if self.completion_enabled and (self.completion_model or self.premium_model).lower().startswith("openai/gpt-6-luna"):
             raise ValueError("The opt-in Luna model cannot be used for automatic completion checks.")
         for name, value, low, high in (
-            ("COMPLETION_MIN_TURNS", self.completion_min_turns, 3, 20),
+            ("COMPLETION_MIN_TURNS", self.completion_min_turns, 1, 20),
             ("COMPLETION_COOLDOWN_TURNS", self.completion_cooldown_turns, 2, 20),
             ("COMPLETION_MAX_CHECKS", self.completion_max_checks, 1, 10),
             ("COMPLETION_MAX_INPUT_CHARS", self.completion_max_input_chars, 1000, 60000),
