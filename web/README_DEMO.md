@@ -30,7 +30,7 @@ bash scripts/start_demo_mac.sh
 
 Откройте **http://127.0.0.1:8000**. Скрипт создаёт Python-окружение при необходимости, устанавливает недостающие backend-зависимости, собирает frontend при изменениях и запускает FastAPI. Vite отдельно запускать не надо. `Ctrl+C` останавливает сайт; сессии остаются в `web/data/sessions.sqlite3`. Если `.env` ещё нет, скрипт создаст его и сообщит об отсутствующем ключе.
 
-Каталог в оформлении [страницы игр Soft Skills Lab](https://exercises.skillslab.center/games): **http://127.0.0.1:8000/games**. В нём одна карточка «Линия решения» по центру, которая открывает **/games/line-decision**. Логотип в настройках и «К играм» в чате возвращают в каталог. Исходный HTML скачан; видимая разметка, стили и сведения об источнике сохранены в `docs/design_refs/skillslab_games`. Все ресурсы копии локальные, отдельный сервер или интернет для открытия каталога не нужен.
+Открытие корня домена `/` перенаправляет на `/games`; экран настройки игры находится только на `/games/line-decision`.\n\nКаталог в оформлении [страницы игр Soft Skills Lab](https://exercises.skillslab.center/games): **http://127.0.0.1:8000/games**. В нём одна карточка «Линия решения» по центру, которая открывает **/games/line-decision**. Логотип в настройках и «К играм» в чате возвращают в каталог. Исходный HTML скачан; видимая разметка, стили и сведения об источнике сохранены в `docs/design_refs/skillslab_games`. Все ресурсы копии локальные, отдельный сервер или интернет для открытия каталога не нужен.
 
 **RU/EN** в каталоге или настройках выбирает язык всего интерфейса и новой игры. На английском доступна только серверная модель через OpenRouter; Qwen отключена с пояснением. Generator, персонаж и добровольный Judge получают английские инструкции; исходные материалы курса остаются справочными источниками на русском. Язык закрепляется за сессией, русская и английская игры восстанавливаются отдельно. Открыть сразу на английском: **http://127.0.0.1:8000/games?lang=en**.
 
@@ -204,6 +204,21 @@ cd web/frontend && npm run build
 Настройки, генерация runtime-кейса, резервный принятый TRAIN-кейс с явной меткой, сохранение сообщений, восстановление браузерной сессии и утверждённый стиль сохранены. Приватные `world`, `opponent` и `teaching` не выдаются браузеру. TRAIN, тренировочные скрипты и checkpoint не меняются. `.env`, SQLite, логи и сборки исключены из Git. Результаты реальных проверок: [DEMO_VERIFICATION.md](../docs/DEMO_VERIFICATION.md).
 
 ## Completion hints and PDF (Issue #12)
+
+A QA-driven update (15.10.2026) changes the default `COMPLETION_MIN_TURNS` from 3 to 1:
+the separate semantic detector can suggest completion after the **first confirmed reply**.
+After that, a cheap agreement *candidate* can bypass the periodic cooldown to request a
+bounded semantic assessment; the cue itself **never concludes success**. The default
+`COMPLETION_MAX_CHECKS` is now 6 checks per session, at most; each check may use paid
+OpenRouter tokens. Existing ignored `web/.env` is NOT overwritten: if it explicitly
+sets `COMPLETION_MIN_TURNS=3` or `COMPLETION_MAX_CHECKS=4`, update them manually and
+restart FastAPI. Rejection remains possible for partial results, impossible cases and
+detector errors; the manual Finish button is always available.
+
+Generated **new** cases now require observable public goals and causally stronger
+competing interests for medium/hard/very-hard difficulty; runtime roleplayer guidance
+also follows that ladder. This is a prompt-quality change, **not a proven live-model
+difficulty score**. Previously generated/stored cases keep their original facts.
 
 The independent completion check inherits `PREMIUM_MODEL` unless `COMPLETION_MODEL` is set;
 it never invokes the opt-in Judge or Luna. Configure limits with the `COMPLETION_*` settings
