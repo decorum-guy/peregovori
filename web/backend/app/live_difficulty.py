@@ -38,7 +38,7 @@ GENERATOR_GUIDANCE_RU = (
     "случайной враждебности: после реального решения персонаж может согласиться."
 )
 GENERATOR_GUIDANCE_EN = (
-    "Write observable public goals: a feasible change of behavior or a concrete "
+    "Make the public player goal observable as a feasible change of behavior or a concrete "
     "agreement, NOT forced admission of a right, remorse, love or private belief. "
     "Difficulty must follow consistent character stakes: easy is a clear feasible "
     "request, medium has a genuine competing concern, hard has independently "
