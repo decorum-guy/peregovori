@@ -18,6 +18,7 @@ from .models import DebriefReport, Language, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
 from .spoken_dialogue import spoken_roleplay_messages
+from .live_difficulty import live_generator_messages, live_spoken_roleplay_messages
 from .qwen import qwen_label, ready_identity
 from .storage import SessionStore
 from .usage import usage_scope
@@ -306,7 +307,7 @@ class DemoService:
             try:
                 raw = await self.provider.complete(
                     self.settings.case_model,
-                    generator_prompt(options_dict, errors if attempt else ""),
+                    live_generator_messages(options_dict, errors if attempt else ""),
                     purpose="case",
                     json_mode=True,
                     # Shared budget includes reasoning; compact visible JSON must fit too.
@@ -508,7 +509,7 @@ class DemoService:
                 with usage_scope(session_id, "roleplayer/" + request_id, session["settings"]["scenario"]):
                     raw = await self.provider.complete(
                         session["engine_model"],
-                        (spoken_roleplay_messages if self.settings.cloud_roleplayer_style == "spoken" else roleplay_messages)(
+                        (live_spoken_roleplay_messages if self.settings.cloud_roleplayer_style == "spoken" else roleplay_messages)(
                             session["runtime_case"], session["messages"], session["settings"].get("language", "ru")),
                         purpose="roleplayer",
                         max_tokens=self.settings.cloud_roleplayer_max_tokens,
