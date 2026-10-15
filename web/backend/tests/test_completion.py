@@ -165,7 +165,7 @@ def test_goal_achieved_on_second_reply_bypasses_periodic_cooldown(tmp_path):
 @pytest.mark.parametrize('reply,expected', [
     ('Больше не буду обращаться так; договорились.', True),
     ("I agree. I will not use that name again.", True),
-    ('Давай сначала поговорим об этом.', True),
+    ('Давай так: сначала обсудим.', True),
     ('Я тебя услышала, но ничего не обещаю.', False),
 ])
 def test_cheap_candidate_only_prioritizes_a_semantic_check(reply, expected):
