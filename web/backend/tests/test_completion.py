@@ -140,6 +140,40 @@ def test_public_completion_policy_no_longer_requires_three_turns():
 
 
 
+
+def test_goal_achieved_on_second_reply_bypasses_periodic_cooldown(tmp_path):
+    provider = CompletionProvider()
+    provider.classification = 'partial'
+    provider.completion_reply = 'Я пока хочу оставить прозвище, хотя понимаю, что тебе неприятно.'
+    app, _ = make_test_app(tmp_path, provider)
+    with TestClient(app) as client:
+        session = client.post('/api/sessions', json=options()).json()
+        url = f"/api/sessions/{session['id']}/message"
+        first = client.post(url, json={'request_id': 'disagreement-1', 'text': 'Прошу использовать моё имя.'})
+        assert first.status_code == 200
+        assert first.json()['completion_hint'] is None
+        assert len(checks(provider)) == 1
+        provider.classification = 'achieved'
+        provider.completion_reply = 'Хорошо, больше не буду использовать прозвище, буду обращаться по имени.'
+        second = client.post(url, json={'request_id': 'agreement-2', 'text': 'Это важно для меня.'})
+        assert second.status_code == 200
+        assert second.json()['completion_hint']['status'] == 'offered'
+        assert len(checks(provider)) == 2
+        assert not any(c['purpose'] == 'judge' for c in provider.calls)
+
+
+@pytest.mark.parametrize('reply,expected', [
+    ('Больше не буду обращаться так; договорились.', True),
+    ("I agree. I will not use that name again.", True),
+    ('Давай сначала поговорим об этом.', True),
+    ('Я тебя услышала, но ничего не обещаю.', False),
+])
+def test_cheap_candidate_only_prioritizes_a_semantic_check(reply, expected):
+    from app.completion import potential_concession
+    assert potential_concession(reply) is expected
+
+
+
 def test_decline_restore_draft_independence_and_no_repeat(tmp_path):
     provider = CompletionProvider()
     app, _ = make_test_app(tmp_path, provider, completion_min_turns=3)
