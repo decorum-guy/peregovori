@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import List, Literal
 
 from pydantic import Field, StrictBool, StrictFloat, StrictStr
@@ -20,6 +21,23 @@ class CompletionResult(StrictModel):
     all_goals_met: StrictBool
     unresolved: List[StrictStr] = Field(max_length=8)
     evidence: List[CompletionEvidence] = Field(max_length=4)
+
+
+# Cheap candidate filter controls paid checks, never decides achievement.
+# A missed phrase still gets a periodic check through the configured cooldown.
+_AGREEMENT_CUE = re.compile(
+    r"\\b(?:соглас(?:ен|на|ны|ились)|договорились|перестану|перестанем|"
+    r"не\\s+буду|не\\s+стану|больше\\s+не|обещаю|откажусь|"
+    r"давай\\s+так|хорошо|принимаю|"
+    r"agree|agreed|deal|promise|won't|will\\s+not|"
+    r"i\\s+will|i'll\\s+stop|we\\s+can\\s+do\\s+that)\\b",
+    flags=re.IGNORECASE,
+)
+
+
+def potential_concession(text: str) -> bool:
+    """Only advance the timing of semantic analysis; never assert success."""
+    return bool(_AGREEMENT_CUE.search(text))
 
 
 def completion_messages(snapshot):
