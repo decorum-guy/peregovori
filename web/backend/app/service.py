@@ -13,7 +13,7 @@ import httpx
 from pydantic import ValidationError
 
 from .config import REPO_DIR, Settings
-from .completion import CompletionResult, completion_messages, confirmed_achievement
+from .completion import CompletionResult, completion_messages, confirmed_achievement, potential_concession
 from .models import DebriefReport, Language, RuntimeCase, SessionOptions
 from .prompts import generator_prompt, judge_prompt, roleplay_messages
 from .providers import OpenRouterProvider, ProviderError
@@ -455,7 +455,8 @@ class DemoService:
             return
         if not self.store.reserve_completion(session_id, reply_id, min_turns=self.settings.completion_min_turns,
                                              cooldown=self.settings.completion_cooldown_turns,
-                                             max_checks=self.settings.completion_max_checks):
+                                             max_checks=self.settings.completion_max_checks,
+                                             priority=potential_concession(snapshot["messages"][-1]["text"])):
             return
         achieved = False
         try:
