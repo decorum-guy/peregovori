@@ -53,7 +53,7 @@ class Settings:
     completion_model: str = ""
     completion_min_turns: int = 1
     completion_cooldown_turns: int = 3
-    completion_max_checks: int = 4
+    completion_max_checks: int = 6
     completion_max_input_chars: int = 24000
     completion_max_tokens: int = 800
     completion_timeout_seconds: float = 8.0
@@ -88,7 +88,7 @@ class Settings:
             completion_model=_env("COMPLETION_MODEL", ""),
             completion_min_turns=_integer_env("COMPLETION_MIN_TURNS", "1"),
             completion_cooldown_turns=_integer_env("COMPLETION_COOLDOWN_TURNS", "3"),
-            completion_max_checks=_integer_env("COMPLETION_MAX_CHECKS", "4"),
+            completion_max_checks=_integer_env("COMPLETION_MAX_CHECKS", "6"),
             completion_max_input_chars=_integer_env("COMPLETION_MAX_INPUT_CHARS", "24000"),
             completion_max_tokens=_integer_env("COMPLETION_MAX_TOKENS", "800"),
             completion_timeout_seconds=float(_env("COMPLETION_TIMEOUT_SECONDS", "8")),
