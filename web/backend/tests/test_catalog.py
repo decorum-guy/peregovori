@@ -51,6 +51,10 @@ def test_catalog_game_link_serves_existing_app_and_keeps_api_on_the_same_origin(
     with TestClient(demo_app(tmp_path), base_url='https://demo.example.test') as client:
         game = client.get('/games/line-decision')
         assert game.status_code == 200
-        assert game.text == client.get('/').text
+        home = client.get('/', follow_redirects=False)
+        assert home.status_code == 302
+        assert home.headers['location'] == '/games'
+        assert client.get('/').text == client.get('/games').text
+        assert game.text != client.get('/').text
         assert client.get('/games/line-decision/').text == game.text
         assert client.get('/api/health').json()['status'] == 'ok'
